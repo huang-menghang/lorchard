@@ -3,9 +3,9 @@
 
 # 技术栈
 ## 后台技术
->> spring 4.0
+>> spring 4.3
 >
->> mybatis
+>> mybatis 3.2
 >
 >> druib
 >
