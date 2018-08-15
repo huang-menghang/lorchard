@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+	<!-- 加载数据库redis配置文件 -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+		lazy-init="true">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:/lochard-common.properties</value>
+			</list>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+	</bean>
+	<!-- <bean lazy-init="false" name="springContextUtils" class="com.ysdevelop.common.utils.SpringContextUtils"></bean> -->
+	<bean id="redisConfig" class="com.ysdevelop.lochard.common.redis.RedisConfig">
+		<property name="host">
+			<value>${redis.host}</value>
+		</property>
+		<property name="port">
+			<value>${redis.port}</value>
+		</property>
+		<property name="timeout">
+			<value>${redis.timeout}</value>
+		</property>
+		<property name="poolMaxTotal">
+			<value>${redis.poolMaxTotal}</value>
+		</property>
+		<property name="poolMaxIdle">
+			<value>${redis.poolMaxIdle}</value>
+		</property>
+		<property name="poolMaxWait">
+			<value>${redis.poolMaxWait}</value>
+		</property>
+		<property name="timeBetweenEvictionRunsMillis">
+			<value>${redis.timeBetweenEvictionRunsMillis}</value>
+		</property>
+		<property name="numTestsPerEvictionRun">
+			<value>${redis.numTestsPerEvictionRun}</value>
+		</property>
+		<property name="minEvictableIdleTimeMillis">
+			<value>${redis.minEvictableIdleTimeMillis}</value>
+		</property>
+
+	</bean>
+
+	<bean id="redisPoolFactory" class="com.ysdevelop.lochard.common.redis.RedisPoolFactory">
+		<property name="redisConfig" ref="redisConfig"></property>
+	</bean>
+
+	<bean id="jedisPool" name="jedisPool" factory-bean="redisPoolFactory"
+		factory-method="JedisPoolFactory"></bean>
+
+	<bean id="redisService" class="com.ysdevelop.lochard.common.redis.RedisService">
+		<property name="jedisPool" ref="jedisPool">
+		</property>
+	</bean>
+
+	<bean id="jedisManager" class="com.ysdevelop.lochard.common.redis.JedisManager">
+		<property name="jedisPool" ref="jedisPool">
+		</property>
+	</bean>
+
+
+</beans>
