@@ -45,7 +45,7 @@
 				class="iconfont sidebar-nav-link-logo icon-home" style=""></i> 首页
 		</a></li>
 		<li class="sidebar-nav-link"><a
-			href="<%=basePath%>/main/goods?title=goodsIndex" class=""> <i
+			href="<%=basePath%>/goods?title=goodsIndex" class=""> <i
 				class="iconfont sidebar-nav-link-logo icon-goods" style=""></i> 商品管理
 		</a></li>
 		<li class="sidebar-nav-link"><a
@@ -80,8 +80,8 @@
 		<li class="sidebar-second-title">商品管理</li>
 		<li class="sidebar-second-item">
 			<!-- 二级菜单--> 
-			<a name="goodsIndex" href="<%=basePath%>/main/goods?title=goodsIndex" class=""> 商品列表 </a> 		
-			<a name="goodsCategory" href="<%=basePath%>/main/goods?title=goodsCategory" class=""> 商品分类 </a> 		
+			<a name="goodsIndex" href="<%=basePath%>/goods?title=goodsIndex" class=""> 商品列表 </a> 		
+			<a name="goodsCategory" href="<%=basePath%>/goodsCategory?title=goodsCategory" class=""> 商品分类 </a> 		
 		</li>
 	</ul>
 	

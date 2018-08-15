@@ -24,42 +24,42 @@ td .layui-table-cell{
  <div class="tpl-content-wrapper">
 	<div style="margin-top: 20px" class="layui-tab layui-tab-brief main-tab-container">
 		<ul class="layui-tab-title main-tab-title">
-			<li class="layui-this"><a href="<%=basePath%>/user">会员列表</a></li>
+			<li class="layui-this"><a href="<%=basePath%>/member?title=member">会员列表</a></li>
 			<div class="main-tab-item layui-bg-blue">会员管理</div>
 		</ul>
 		<div class="layui-tab-content">
 			<div class="layui-form xbs" align="center">
 				<div class="layui-form-pane">
 					<div class="layui-form-item" style="display: inline-block;">
-						<label class="layui-form-label xbs768">时间范围</label>
-						<div class="layui-input-inline xbs768">
+						<label class="layui-form-label ">时间范围</label>
+						<div class="layui-input-inline ">
 							<input type="text" readonly="readonly" class="layui-input"
 								value="" placeholder="开始日"
 								name="startTime">
 						</div>
-						<div class="layui-input-inline xbs768">
+						<div class="layui-input-inline ">
 							<input type="text" readonly="readonly" class="layui-input"
 								value="" placeholder="截止日" name="endTime">
 						</div>
-						<div class="layui-input-inline xbs768">
+						<div class="layui-input-inline ">
 								<input type="text" name="nicknameStr"
 									value="" placeholder="会员昵称" autocomplete="off" class="layui-input">
 						</div>
-						<div class="layui-input-inline xbs768">
+						<div class="layui-input-inline ">
 								<input type="text" name="mobile"
 									value="" placeholder="手机号码" autocomplete="off" class="layui-input">
 						</div>
-						<div class="layui-input-inline xbs768" style="width: 80px">
+						<div class="layui-input-inline " style="width: 8%">
 							<button class="layui-btn btn-serach" lay-submit=""
 								lay-filter="sreach">
-								<i class="layui-icon">&#xe615;</i>
+								<i class="layui-icon">&#xe615;</i>搜索
 							</button>
 						</div>
-						<xblock>
+						<div class="layui-input-inline " style="width: 7%">
 						<button class="layui-btn layui-btn-warm btn-reset" style="width: 80px">
 							<i class="layui-icon">&#x1002;</i>重置
 						</button>
-						</xblock>
+						</div>
 					</div>
 				</div>
 			</div>

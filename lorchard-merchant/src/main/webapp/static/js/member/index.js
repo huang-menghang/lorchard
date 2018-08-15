@@ -69,6 +69,7 @@ var member_index_ops ={
 						$(".layui-form select option[value='']").attr("selected", true);
 				   });
 				  
+				  
 				  table.on('tool(table-data)', function(obj) {
 						var data = obj.data;
 						var id = data.id;
@@ -76,6 +77,7 @@ var member_index_ops ={
 							//查看用户详情
 							window.location.href = WEB_ROOT + '/member/info?id='+id+'&title=member';
 						}
+
 					})
 				 
 				 // 日期组件

@@ -30,3 +30,18 @@ CREATE TABLE `t_smurfs_mall_member` (
   `updateTime` timestamp NULL DEFAULT NULL COMMENT '修改日期',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `t_lorchard_mall_goods_category`;
+CREATE TABLE `t_lorchard_mall_goods_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户id',
+  `merchantId`int(11) NOT NULL DEFAULT '0' COMMENT '商家Id',
+  `name` varchar(16) NOT NULL COMMENT '分类名称',
+  `description` varchar(256) NOT NULL COMMENT '描述',
+  `imagePath` varchar(256) NOT NULL COMMENT '分类地址',
+  `index` int(8) NOT NULL DEFAULT '1' COMMENT '分类索引',
+  `level` int(2) NOT NULL DEFAULT '1' COMMENT '等级',
+  `parentId` int(8) NOT NULL DEFAULT '0' COMMENT '上级Id',
+  `createTime` timestamp NULL DEFAULT NULL COMMENT '创健日期',
+  `updateTime` timestamp NULL DEFAULT NULL COMMENT '修改日期',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;

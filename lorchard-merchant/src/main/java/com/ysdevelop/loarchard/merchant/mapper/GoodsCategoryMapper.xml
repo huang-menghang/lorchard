@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysdevelop.loarchard.merchant.mapper.GoodsCategoryDao">
+
+	<select id="list"
+		resultType="com.ysdevelop.loarchard.merchant.entity.GoodsCategory">
+		select
+		`c`.id as `id`,`c`.name as `name`,`c`.description as `description`,`c`.createTime as
+		`createTime`,
+		`c`.level as `level`, `c`.index as `index`
+		from `t_lorchard_mall_goods_category` as c
+		<where>
+			1 = 1
+			<if test="queryMap.name !=null and queryMap.name != ''">
+				and `c`.name like CONCAT('%',#{queryMap.name},'%')
+			</if>
+			<if test="queryMap.description !=null and queryMap.description != ''">
+				and `c`.description like CONCAT('%',#{queryMap.description},'%')
+			</if>
+			<if test="queryMap.startTime != null and queryMap.startTime != ''">
+                <![CDATA[ and `c`.createTime > #{queryMap.startTime} ]]>
+			</if>
+			<if test="queryMap.endTime != null and queryMap.endTime != ''">
+               <![CDATA[ and `c`.createTime < #{queryMap.endTime} ]]>
+		 	</if>
+		</where>
+	</select>
+
+</mapper>
