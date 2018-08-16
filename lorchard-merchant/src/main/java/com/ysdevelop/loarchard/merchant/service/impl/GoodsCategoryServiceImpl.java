@@ -1,11 +1,11 @@
 package com.ysdevelop.loarchard.merchant.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -22,6 +22,7 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 	@Autowired
 	private GoodsCategoryDao categoryDao;
 
+	@Transactional
 	@Override
 	public PageInfo<GoodsCategory> list(Map<String, String> queryMap) {
 		if (queryMap == null) {
@@ -35,11 +36,36 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 		}
 		Integer integerPageSize = Integer.parseInt(pageSize);
 		Integer integerPageNum = Integer.parseInt(pageNum);
+		// 调用存储过程实现树形分类
+		categoryDao.callTreeProcedure(Constant.DEFALULT_ZERO);
 		PageHelper.startPage(integerPageNum, integerPageSize, Boolean.TRUE);
 		List<GoodsCategory> goodsCategories = categoryDao.list(queryMap);
 		PageInfo<GoodsCategory> pageInfo = new PageInfo<>(goodsCategories);
 		return pageInfo;
 	}
 
+	@Override
+	public List<GoodsCategory> listParent() {
+
+		return categoryDao.listParent();
+	}
+
+	@Override
+	@Transactional
+	public void add(GoodsCategory category) {
+		if (category == null) {
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
+		if (category.getParentId() == Constant.DEFALULT_ZERO.longValue()) {
+			category.setLevel(Constant.DEFALULT_ONE);
+		} else {
+			category.setLevel(Constant.DEFALULT_TWO);
+		}
+
+		Integer changeCount = categoryDao.add(category);
+		if (changeCount == Constant.DEFALULT_ZERO) {
+			throw new WebServiceException(CodeMsg.CATEGORY_ADD_FAILED);
+		}
+	}
 
 }

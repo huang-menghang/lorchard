@@ -1,0 +1,103 @@
+var category_set_ops = {
+	init : function() {
+		this.inintComponent();
+	},
+	// 校验表单
+	validateForm : function() {
+		return $(".formarea").validate();
+	},
+	inintComponent : function() {
+		var that = this;
+		var ops = common_ops.g_getQueryString("ops");
+		console.log("ops--->" + ops);
+
+		// layui组件
+		layui.use('upload', function() {
+			var upload = layui.upload;
+			upload.render({
+				elem : '#uploadImage',
+				url : WEB_ROOT + '/image/upload',
+				done : function(res) {
+					 $("input[name='imagePath']").val(res.data);
+					 $('img').show();
+					 $('img').attr('src', res.data);
+					console.log(res);
+					console.log('上传完毕'); // 上传成功返回值，必须为json格式
+				}
+			});
+		});
+
+		if (ops == "add") {
+			// 如果是添加则需要拿到所有的一级分类
+			$(".layui-input-block button[lay-filter='category_add']").html("立即添加");
+			$.ajax({
+				url : WEB_ROOT + "/goodsCategory/parent",
+				type : 'GET',
+				dataType : 'json',
+				success : function(res) {
+					console.log(res);
+					$.each(res.data, function(i, v) {
+						$("select[name='parentId']").append(
+								"<option value=" + v.id + ">" + v.name
+										+ "</option>");
+					});
+
+				}
+			});
+
+		}
+		if (ops == "edit") {
+
+		}
+
+		$(".layui-input-block .layui-btn").click(function() {
+			console.log("分类添加");
+			$that = $(this);
+			// 在点击事件之间需要讲按钮置灰
+			$that.addClass('layui-btn-disabled');
+			if (that.validateForm().form()) {
+               var name = $('.layui-form input[name="name"]').val();
+               var index = $('.layui-form select[name="index"]').val();
+               var parntId = $('.layui-form select[name="parentId"]').val();
+			   var imagePath = $('.layui-form input[name="imagePath"]').val();
+			   var description = $('.layui-form textarea[name="description"]').val();
+			   
+			   $.ajax({
+				   url:WEB_ROOT+'/goodsCategory',
+				   method:'POST',
+				   data:{
+					   name:name,
+					   parentId:parntId,
+					   index:index,
+					   imagePath:imagePath,
+					   description:description
+				   },
+				   dataType:'json',
+				   success:function(res){
+					   // code == 0 表示操作成功,回调到分类列表界面
+					   var callback = null;
+					   var msg = res.msg;
+					   if(res.code == 0){
+						   callback = function(){
+						      window.location.href = WEB_ROOT+'/goodsCategory?title=goodsCategory';
+						   };
+					   }else{
+						   callback=function(){
+							   $that.removeClass('layui-btn-disabled');
+						   };
+					   }
+					  common_ops.alert(msg, callback);
+				   }
+			   });
+			   
+			}else{
+				$that.removeClass('layui-btn-disabled');
+			}
+		})
+
+	}
+
+};
+$(function() {
+	category_set_ops.init();
+})

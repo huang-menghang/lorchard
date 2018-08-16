@@ -10,10 +10,11 @@
 
 
 	<!-- spring 扫描包 扫描该包下的所有被注解过的类 -->
-	<context:component-scan base-package="com.ysdevelop.**.controller,com.ysdevelop.**.aop" />
-    <!-- 扫描异常包中的 注解-->
-    <context:component-scan base-package="com.ysdevelop.**.exception"/>
-    
+	<context:component-scan
+		base-package="com.ysdevelop.**.controller,com.ysdevelop.**.aop" />
+	<!-- 扫描异常包中的 注解 -->
+	<context:component-scan base-package="com.ysdevelop.**.exception" />
+
 
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
@@ -48,6 +49,12 @@
 		<property name="suffix" value=".jsp" />
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.JstlView" />
+	</bean>
+
+    <!-- 配置文件上传 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="1073741824" />
 	</bean>
 
 

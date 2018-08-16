@@ -5,14 +5,15 @@
 	<select id="list"
 		resultType="com.ysdevelop.loarchard.merchant.entity.GoodsCategory">
 		select
-		`c`.id as `id`,`c`.name as `name`,`c`.description as `description`,`c`.createTime as
+		`c`.id as `id`,concat(SPACE(t.nLevel*2),'+--',c.`name`) AS `name`,`c`.description as `description`,`c`.createTime as
 		`createTime`,
 		`c`.level as `level`, `c`.index as `index`
 		from `t_lorchard_mall_goods_category` as c
+		left join tmpLst as t on c.id = t.id
 		<where>
 			1 = 1
 			<if test="queryMap.name !=null and queryMap.name != ''">
-				and `c`.name like CONCAT('%',#{queryMap.name},'%')
+				and concat(SPACE(t.nLevel*2),'+--',c.`name`) like CONCAT('%',#{queryMap.name},'%')
 			</if>
 			<if test="queryMap.description !=null and queryMap.description != ''">
 				and `c`.description like CONCAT('%',#{queryMap.description},'%')
@@ -24,6 +25,23 @@
                <![CDATA[ and `c`.createTime < #{queryMap.endTime} ]]>
 		 	</if>
 		</where>
+		ORDER BY t.sCort
 	</select>
+	
+	<select id="callTreeProcedure" statementType="CALLABLE" >
+	   call showCategoryTreeNodes(#{rootId});
+	</select>
+	
+	<select id="listParent" resultType="com.ysdevelop.loarchard.merchant.entity.GoodsCategory">
+	   select
+	   `c`.id as `id`,`c`.name as name
+	   from `t_lorchard_mall_goods_category` as c
+	   where c.parentId = 0
+	</select>
+	
+	<insert id="add" parameterType="com.ysdevelop.loarchard.merchant.entity.GoodsCategory">
+	   insert into `t_lorchard_mall_goods_category`(`name`,`imagePath`,`index`,`level`,`parentId`,`description`,`createTime`)
+	   values(#{name},#{imagePath},#{index},#{level},#{parentId},#{description},now())
+	</insert>
 
 </mapper>

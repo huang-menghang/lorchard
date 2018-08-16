@@ -61,7 +61,7 @@ var category_index_ops = {
 			 });
 			
 			 $(".btn-add").click(function(){
-				 window.location.href = WEB_ROOT+'/goodsCategory/info?title=goodsCategory&ops=add';
+				 window.location.href = WEB_ROOT+'/goodsCategory/set?title=goodsCategory&ops=add';
 			  });
 			
 			// 重置表单按钮.使用时class为layui-btn layui-btn-warm btn-reset到的重置按钮

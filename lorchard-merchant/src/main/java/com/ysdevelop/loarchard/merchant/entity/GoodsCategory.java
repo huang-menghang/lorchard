@@ -2,21 +2,30 @@ package com.ysdevelop.loarchard.merchant.entity;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class GoodsCategory {
 
 	private Long id;
 
 	private Long merchantId;
-
+    
+	@NotBlank(message = "分类不能为空")
 	private String name;
 
+	@NotBlank(message = "描述不能为空")
 	private String description;
 
 	// 上级分类
+	@NotNull(message="上级分类不能为空")
 	private Long parentId;
 
+	@NotBlank(message = "分类图片不能为空")
 	private String imagePath;
 	// 分类排序,越往上,越大
+	@NotNull(message="排列索引不能为空")
 	private Integer index;
 
 	private Integer level;

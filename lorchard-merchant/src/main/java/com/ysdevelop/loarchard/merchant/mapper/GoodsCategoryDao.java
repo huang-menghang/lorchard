@@ -11,4 +11,10 @@ public interface GoodsCategoryDao {
 
 	List<GoodsCategory> list(@Param(value="queryMap")Map<String,String> queryMap);
 	
+	void callTreeProcedure(Integer rootId);
+	
+	List<GoodsCategory> listParent();
+
+	Integer add(GoodsCategory category);
+	
 }

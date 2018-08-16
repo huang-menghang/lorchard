@@ -22,6 +22,10 @@ public class CodeMsg {
 	// 通用的错误码
 	public static CodeMsg SUCCESS = new CodeMsg(0, "success");
 	public static CodeMsg SERVER_ERROR = new CodeMsg(500100, "服务端异常");
+	public static CodeMsg UPLOAD_FAILED = new CodeMsg(500101, "上传失败");
+
+	// 分类 11 开始
+	public static CodeMsg CATEGORY_ADD_FAILED = new CodeMsg(500110, "分类创建失败");
 
 	// 用户
 	public static CodeMsg MOBILE_EMPTY = new CodeMsg(500001,"手机号码为空");
