@@ -6,11 +6,18 @@ var category_set_ops = {
 	validateForm : function() {
 		return $(".formarea").validate();
 	},
+	renderFrom:function(){
+		 layui.use('form', function(){
+			   var form = layui.form;//高版本建议把括号去掉，有的低版本，需要加()
+			   form.render();
+		 });
+	},
+	
 	inintComponent : function() {
 		var that = this;
 		var ops = common_ops.g_getQueryString("ops");
 		console.log("ops--->" + ops);
-
+        
 		// layui组件
 		layui.use('upload', function() {
 			var upload = layui.upload;
@@ -26,10 +33,11 @@ var category_set_ops = {
 				}
 			});
 		});
-
+		
 		if (ops == "add") {
 			// 如果是添加则需要拿到所有的一级分类
 			$(".layui-input-block button[lay-filter='category_add']").html("立即添加");
+			$(".layui-tab-title .ops-title").html("商品添加");
 			$.ajax({
 				url : WEB_ROOT + "/goodsCategory/parent",
 				type : 'GET',
@@ -41,13 +49,52 @@ var category_set_ops = {
 								"<option value=" + v.id + ">" + v.name
 										+ "</option>");
 					});
-
+					that.renderFrom();
 				}
 			});
 
 		}
 		if (ops == "edit") {
-
+			$(".layui-input-block button[lay-filter='category_add']").html("立即修改");
+			$(".layui-tab-title .ops-title").html("商品修改");
+	  		var id = common_ops.g_getQueryString("id");
+	  		var parentId = null;
+	  		$.ajax({
+	  			url:WEB_ROOT+'/goodsCategory/'+id,
+	  			type:'GET',
+	  			dataType:'json'
+	  		}).done(function(res){
+	  			if(res.code == 0){
+	  				var category = res.data;
+	  				$(".layui-tab-content input[name='name']").val(category.name);
+	  				if(category.imagePath != null){
+	  				$(".layui-tab-content img[name='image']").attr('src',category.imagePath).show();
+	  				}
+	  				$(".layui-tab-content input[name='imagePath']").val(category.imagePath);
+	  				$(".layui-tab-content select[name='index']").val(category.index);
+	  				$(".layui-tab-content textarea[name='description']").val(category.description);
+	  				parentId = category.parentId;
+	  			}else{
+	  				common_ops.alert(res.msg);
+	  			}
+	  			
+	  			
+	  			$.ajax({
+	  				url:WEB_ROOT+'/goodsCategory/parent',
+		  			type:'GET',
+		  			dataType:'json'
+	  			}).done(function(res){
+	  				$.each(res.data, function(i, v) {
+	  					console.log(i,v);
+						$("select[name='parentId']").append(
+								"<option value=" + v.id + ">" + v.name
+										+ "</option>");
+					});
+	  				$("select[name='parentId']").val(parentId);
+	  				that.renderFrom();
+	  			});
+	  		});
+						
 		}
 
 		$(".layui-input-block .layui-btn").click(function() {
@@ -56,6 +103,8 @@ var category_set_ops = {
 			// 在点击事件之间需要讲按钮置灰
 			$that.addClass('layui-btn-disabled');
 			if (that.validateForm().form()) {
+			   var id =  common_ops.g_getQueryString("id");
+			   var type = (ops == "add" ? "POST":"PUT");
                var name = $('.layui-form input[name="name"]').val();
                var index = $('.layui-form select[name="index"]').val();
                var parntId = $('.layui-form select[name="parentId"]').val();
@@ -64,8 +113,9 @@ var category_set_ops = {
 			   
 			   $.ajax({
 				   url:WEB_ROOT+'/goodsCategory',
-				   method:'POST',
+				   type:type,
 				   data:{
+					   id:id,
 					   name:name,
 					   parentId:parntId,
 					   index:index,
@@ -93,7 +143,7 @@ var category_set_ops = {
 			}else{
 				$that.removeClass('layui-btn-disabled');
 			}
-		})
+		});
 
 	}
 

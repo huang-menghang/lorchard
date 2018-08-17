@@ -24,6 +24,7 @@
 			<if test="queryMap.endTime != null and queryMap.endTime != ''">
                <![CDATA[ and `c`.createTime < #{queryMap.endTime} ]]>
 		 	</if>
+		 	   and status = 0
 		</where>
 		ORDER BY t.sCort
 	</select>
@@ -43,5 +44,67 @@
 	   insert into `t_lorchard_mall_goods_category`(`name`,`imagePath`,`index`,`level`,`parentId`,`description`,`createTime`)
 	   values(#{name},#{imagePath},#{index},#{level},#{parentId},#{description},now())
 	</insert>
+	
+	<select id="getById" resultType="com.ysdevelop.loarchard.merchant.entity.GoodsCategory">
+	    select
+	   `c`.id as `id`,
+	   `c`.name as `name`,
+	   `c`.imagePath as `imagePath`,
+	   `c`.index as `index`,
+	   `c`.level as `level`,
+	   `c`.parentId as `parentId`,
+	   `c`.description as `description`
+	   	from `t_lorchard_mall_goods_category` as c
+	    where c.id = #{id}
+	</select>
+	
+	<update id="update" parameterType="com.ysdevelop.loarchard.merchant.entity.GoodsCategory">
+	    update `t_lorchard_mall_goods_category`
+	    <trim prefix="set" suffixOverrides="," suffix="where id = #{id}">
+			<if test="name != null and name != '' ">
+				`name` = #{name},
+			</if>
+			<if test="imagePath != null and imagePath != '' ">
+				`imagePath` = #{imagePath},
+			</if>
+			<if test="index != null ">
+				`index` = #{index},
+			</if>
+			<if test="level != null  ">
+				`level` = #{level},
+			</if>
+			<if test="parentId != null">
+				`parentId` = #{parentId},
+			</if>
+			<if test="description != null and description != '' ">
+				`description` = #{description},
+			</if>
+			<if test="id != null">
+			    `updateTime` = now(),
+			</if>
+			
+		</trim>
+	</update>
+	
+	<update id="deleteById" >
+	  UPDATE t_lorchard_mall_goods_category AS `c1`
+      SET c1.`status` = 1
+      WHERE
+	  id = #{id}
+      AND (
+	     (SELECT
+		    tmp.cid
+       	 FROM
+		 (
+			SELECT
+				count(c2.`id`) AS cid
+			FROM
+				t_lorchard_mall_goods_category AS `c2`
+			WHERE
+				`c2`.parentId = #{id}
+		 ) AS tmp
+         ) = 0 
+      )   
+	</update>
 
 </mapper>

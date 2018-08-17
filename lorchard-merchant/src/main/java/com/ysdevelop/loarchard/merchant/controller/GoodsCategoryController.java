@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -63,16 +64,36 @@ public class GoodsCategoryController {
 		return Result.successData(categoryService.listParent());
 
 	}
-	
-	@RequestMapping(value = "", method=RequestMethod.POST,produces = "application/json;charset=utf-8")
+
+	@RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Result<String> add(@Valid GoodsCategory category) {
 		categoryService.add(category);
 		return Result.success("添加成功");
 
 	}
-	
-	
-	
 
+	// 查询商品
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Result<GoodsCategory> info(@PathVariable(value = "id") Integer id) {
+		GoodsCategory category = categoryService.getById(id);
+		return Result.successData(category);
+	}
+
+	// 修改商品
+	@RequestMapping(value = "", method = RequestMethod.PUT, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Result<String> update(@Valid GoodsCategory category) {
+		categoryService.update(category);
+		return Result.success("产品分类修改成功");
+	}
+
+	// 修改商品
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Result<String> delete(@PathVariable Integer id) {
+		categoryService.deleteById(id);
+		return Result.success("产品删除成功");
+	}
 }

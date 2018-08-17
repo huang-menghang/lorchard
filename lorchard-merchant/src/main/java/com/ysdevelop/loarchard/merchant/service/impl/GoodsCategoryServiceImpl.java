@@ -68,4 +68,45 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 		}
 	}
 
+	@Override
+	public GoodsCategory getById(Integer id) {
+		if (id == null) {
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
+		return categoryDao.getById(id);
+	}
+
+	@Transactional
+	@Override
+	public void update(GoodsCategory category) {
+		if (category == null) {
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
+		if (category.getParentId() == Constant.DEFALULT_ZERO.longValue()) {
+			category.setLevel(Constant.DEFALULT_ONE);
+		} else {
+			category.setLevel(Constant.DEFALULT_TWO);
+		}
+
+		Integer changeCount = categoryDao.update(category);
+
+		if (changeCount == Constant.DEFALULT_ZERO) {
+			throw new WebServiceException(CodeMsg.CATEGORY_UPDATE_ERROR);
+		}
+
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		if (id == null) {
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
+
+		Integer changeCount = categoryDao.deleteById(id);
+		if(changeCount == Constant.DEFALULT_ZERO){
+			throw new WebServiceException(CodeMsg.DELETE_ERROR);
+		}
+
+	}
+
 }

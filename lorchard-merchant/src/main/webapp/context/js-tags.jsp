@@ -20,7 +20,7 @@
 %>
 <input type="hidden" name="basePath" value="<%=basePath%>" />
 <script type="text/javascript"
-	src="<%=basePath%>/static/plugin/jquery/1.12.1/jquery-1.12.1.min.js"></script>
+	src="<%=basePath%>/static/plugin/jquery/3.2.1/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
 	src="<%=basePath%>/static/js/common/common.js"></script>
 <script type="text/javascript"

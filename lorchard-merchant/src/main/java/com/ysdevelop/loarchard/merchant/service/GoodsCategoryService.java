@@ -12,4 +12,10 @@ public interface GoodsCategoryService {
 	List<GoodsCategory> listParent();
 
 	void add(GoodsCategory category);
+
+	GoodsCategory getById(Integer id);
+
+	void update(GoodsCategory category);
+
+	void deleteById(Integer id);
 }

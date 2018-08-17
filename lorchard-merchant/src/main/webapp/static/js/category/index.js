@@ -37,6 +37,62 @@ var category_index_ops = {
 			 
 			 });
 			
+			table.on('tool(table-data)', function(obj) {
+				var data = obj.data;
+				var id = data.id;
+				var event = obj.event;
+				switch (event) {
+				case 'edit':
+					//一级分类编辑事件
+					window.location.href = WEB_ROOT+'/goodsCategory/set?id='+id+'&ops=edit&title=goodsCategory';
+					break;
+                case 'info':
+                	common_ops.alert("分类详情");
+				break;	
+                case 'delete':
+                	var callback = {
+                	   ok:function(){
+                			
+       					$.ajax({
+       						type:'POST',
+       						url:WEB_ROOT+'/goodsCategory/'+id,
+       						data:{
+       							_method:'delete'
+       						}
+       					}).done(function(res){
+       						var msg = res.msg;
+       						var callback = null;
+       						if(res.code == 0){
+       							callback = window.location.href = WEB_ROOT+'/goodsCategory';
+       						}
+       						common_ops.alert(msg,callback);
+       						
+       					});
+                	   },
+                	   cancel:function(){
+                		  
+                	   }
+                    
+                
+                    };
+                	
+                	common_ops.confirm("是否确认删除", callback)
+                
+                	
+                	
+    			break;
+
+				default:
+					break;
+				}
+				
+				
+				
+				
+			});
+			
+			
+			
 			// 搜索按钮
 			$(".btn-serach").click(function(){
 				 

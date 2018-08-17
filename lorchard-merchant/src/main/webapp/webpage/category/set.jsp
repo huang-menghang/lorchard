@@ -25,7 +25,7 @@
 		<div class="layui-tab-content">
 			<div class="layui-tab layui-tab-card">
 				<ul class="layui-tab-title">
-					<li class="layui-this">添加商品分类</li>
+					<li class="layui-this ops-title"></li>
 				</ul>
 				<div class="layui-form" style="margin-top: 10px;">
 					<div class="layui-form-item">

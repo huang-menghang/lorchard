@@ -86,8 +86,12 @@ td .layui-table-cell {
 	<jsp:include page="/context/js-tags.jsp" />
 	<script id="barOption" type="text/html">
     {{#
-    var barOption = "<a class='layui-btn layui-btn-small layui-btn-warm look_btn' title='查看' lay-event='detail'><i class='layui-icon'>&#xe615;</i></a>";
+    var barOption = "<a class='layui-btn layui-btn-small layui-btn-warm look_btn' title='查看' lay-event='info'><i class='layui-icon'>&#xe615;</i></a>";
+    barOption += "<a class='layui-btn layui-btn-small' title='编辑' lay-event='edit'><i class='layui-icon'>&#xe60a;</i></a>";
+    barOption += "<a class='layui-btn layui-btn-danger layui-btn-small' title='删除' lay-event='delete'><i class='layui-icon'>&#xe640;</i></a>";
+
     return barOption;
+
     }} 
     </script>
     <script type="text/html" id="date_formate">

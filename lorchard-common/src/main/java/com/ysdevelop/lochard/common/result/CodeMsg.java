@@ -13,6 +13,7 @@ package com.ysdevelop.lochard.common.result;
  * 
  */
 public class CodeMsg {
+	
 	private int code;
 	private String msg;
 
@@ -26,7 +27,8 @@ public class CodeMsg {
 
 	// 分类 11 开始
 	public static CodeMsg CATEGORY_ADD_FAILED = new CodeMsg(500110, "分类创建失败");
-
+	public static CodeMsg CATEGORY_UPDATE_ERROR =  new CodeMsg(500111, "分类更新失败");
+	public static CodeMsg DELETE_ERROR = new CodeMsg(500112, "分类存在子类,删除失败"); 
 	// 用户
 	public static CodeMsg MOBILE_EMPTY = new CodeMsg(500001,"手机号码为空");
 	public static CodeMsg PASSWORD_EMPTY = new CodeMsg(500002,"密码为空");
@@ -121,6 +123,7 @@ public class CodeMsg {
 	public static CodeMsg FILE_IS_EMPTY = new CodeMsg(500905, "上传的文件为空!");
 	//获取配置文件失败
 	public static CodeMsg CONFIGURATION_FAILURE = new CodeMsg(500906, "获取配置文件失败!");
+	
 	
 	private CodeMsg(int code, String msg) {
 		this.code = code;
