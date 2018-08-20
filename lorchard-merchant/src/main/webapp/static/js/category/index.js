@@ -47,7 +47,8 @@ var category_index_ops = {
 					window.location.href = WEB_ROOT+'/goodsCategory/set?id='+id+'&ops=edit&title=goodsCategory';
 					break;
                 case 'info':
-                	common_ops.alert("分类详情");
+                	window.location.href = WEB_ROOT+'/goodsCategory/info?id='+id+'&ops=info&title=goodsCategory';
+					break;
 				break;	
                 case 'delete':
                 	var callback = {

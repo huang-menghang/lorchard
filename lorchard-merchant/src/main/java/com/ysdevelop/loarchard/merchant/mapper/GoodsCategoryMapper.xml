@@ -49,12 +49,14 @@
 	    select
 	   `c`.id as `id`,
 	   `c`.name as `name`,
+	    IFNULL(`p`.name,'顶级分类') as `parentCategoryName`,
 	   `c`.imagePath as `imagePath`,
-	   `c`.index as `index`,
+	   `c`.`index` as `index`,
 	   `c`.level as `level`,
 	   `c`.parentId as `parentId`,
 	   `c`.description as `description`
 	   	from `t_lorchard_mall_goods_category` as c
+	   	left join `t_lorchard_mall_goods_category` as `p` on `p`.id = `c`.parentId
 	    where c.id = #{id}
 	</select>
 	

@@ -78,7 +78,7 @@ var member_index_ops ={
 							window.location.href = WEB_ROOT + '/member/info?id='+id+'&title=member';
 						}
 
-					})
+					});
 				 
 				 // 日期组件
 				 var start = {

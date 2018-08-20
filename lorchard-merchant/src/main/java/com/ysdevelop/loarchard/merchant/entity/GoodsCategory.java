@@ -21,6 +21,8 @@ public class GoodsCategory {
 	// 上级分类
 	@NotNull(message="上级分类不能为空")
 	private Long parentId;
+	// 上级分类名称
+	private String parentCategoryName;
 
 	@NotBlank(message = "分类图片不能为空")
 	private String imagePath;
@@ -72,6 +74,15 @@ public class GoodsCategory {
 
 	public void setParentId(Long parentId) {
 		this.parentId = parentId;
+	}
+	
+	
+	public String getParentCategoryName() {
+		return parentCategoryName;
+	}
+
+	public void setParentCategoryName(String parentCategoryName) {
+		this.parentCategoryName = parentCategoryName;
 	}
 
 	public Integer getIndex() {
