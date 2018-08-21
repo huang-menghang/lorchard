@@ -1,0 +1,105 @@
+.container{
+	width: 70%;
+	margin: 0 auto;
+	margin-top: 50px;
+}
+.header{
+	border-bottom: 1px solid #e5e5e5;
+	    padding-bottom: 21px;
+	    font-size: 16px;
+	    padding-top: 1px;
+}
+.header img{
+	width: 40px;
+	height: 40px;
+	    float: left;
+}
+.header a{
+	float: left;
+	line-height: 38px;
+	font-size: 24px;
+	    text-decoration: none;
+    color: #000;
+}
+.header div{
+	line-height: 20px;
+    height: 20px;
+    margin-left: 125px;
+    padding-left: 13px;
+	border-left: 1px solid #dcdcdc;
+	margin-top: 13px;
+}
+.center{
+	width: 420px;
+	margin: 0 auto;
+}
+.classification{
+	    margin-top: 35px;
+	    
+}
+.classification:nth-of-type(1){
+	margin-top: 55px;
+}
+.label{
+	    width: 100px;
+    text-align: left;
+    color: #333;
+    font-size: 14px;
+    float: left;
+    height: 40px;
+    line-height: 40px;
+}
+.content{
+    width: 320px;
+    float: left;
+}
+input{
+	 width: 100%;
+    height: 40px;
+    padding-left: 10px;
+    color: #666;
+    font-size: 14px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+}
+input:focus{
+	box-shadow: 0px 0px 8px 0px #81ceff;
+	border: 1px solid #81ceff;
+}
+button{
+	    border: none;
+    background: none;
+    font-size: 14px;
+    color: #3388FF;
+    float: right;
+    padding-right: 0;
+    line-height: 40px;
+    cursor: pointer;
+}
+.clear{
+	clear: both;
+}
+.buttom{
+	width: 100%;
+	height: 45px;
+    background-color: #1e8aca;
+    border-color: #1e8aca;
+    border-radius: 6px;
+    font-size: 16px;
+    margin-top: 30px;
+    line-height: 43px;
+    text-align: center;
+    color: #fff;
+}
+.login{
+	width: 100%;
+	height: 20px;
+	text-align: right;
+	font-size: 14px;
+    margin-top: 20px;
+    color: #1e8aca;
+}
+.footer{
+	border-top: 1px solid #e5e5e5;
+	margin-top: 40px;
+}
