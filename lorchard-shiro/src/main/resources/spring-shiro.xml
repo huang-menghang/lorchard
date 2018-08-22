@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+	<description>shiro components</description>
+	<!-- 会话ID生成器 -->
+	<bean id="sessionIdGenerator"
+		class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator" />
+
+	<!-- 凭证匹配器 -->
+	<bean id="credentialsMatcher"
+		class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+		<property name="hashAlgorithmName" value="md5" />
+		<property name="hashIterations" value="2" />
+		<property name="storedCredentialsHexEncoded" value="true" />
+	</bean>
+
+	<bean id="passwordHelper" class="com.ysdevelop.lorchard.shiro.core.helper.PasswordHelper"></bean>
+
+	<!-- 会话Cookie模板 -->
+	<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg name="name" value="sid" />
+		<property name="httpOnly" value="true" />
+		<property name="maxAge" value="7200" /><!-- 有效期10天 -->
+	</bean>
+
+	<!-- 会话验证调度器 -->
+	<bean id="sessionValidationScheduler"
+		class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
+		<property name="sessionValidationInterval" value="1200000" />
+		<property name="sessionManager" ref="sessionManager" />
+	</bean>
+
+
+	<bean id="customShiroCacheManager"
+		class="com.ysdevelop.lorchard.shiro.core.cache.impl.CustomShiroCacheManager">
+		<property name="shiroCacheManager" ref="jedisShiroCacheManager"></property>
+	</bean>
+
+	<bean id="jedisShiroCacheManager"
+		class="com.ysdevelop.lorchard.shiro.core.cache.impl.JedisShiroCacheManager">
+	</bean>
+
+	<!-- 将session创建到redis中 -->
+	<bean id="redisSessionDAO" class="com.ysdevelop.lorchard.shiro.core.RedisSessionDao">
+		<property name="sessionIdGenerator" ref="sessionIdGenerator"></property>
+	</bean>
+
+	<!-- 手动操作Session，管理Session -->
+	<bean id="customSessionManager" class="com.ysdevelop.lorchard.shiro.core.session.CustomSessionManager">
+		 <property name="redisSessionDao" ref="redisSessionDAO"/>
+	</bean>
+
+	<!-- 会话管理者 -->
+	<bean id="sessionManager" class="com.ysdevelop.lorchard.shiro.core.SessionManager">
+		<property name="sessionValidationScheduler" ref="sessionValidationScheduler"></property>
+		<property name="sessionValidationSchedulerEnabled" value="true"/>
+		<property name="globalSessionTimeout" value="1800000"></property>
+		<property name="sessionDAO" ref="redisSessionDAO"></property>
+		<property name="sessionIdCookieEnabled" value="true" />
+		<property name="deleteInvalidSessions" value="true" />
+		<property name="sessionIdCookie" ref="sessionIdCookie" />
+	</bean>
+
+	
+
+	<!--realm -->
+	<bean id="userRealm" class="com.ysdevelop.lorchard.shiro.realm.UserRealm">
+		<property name="credentialsMatcher" ref="credentialsMatcher"></property>
+		<!--启用缓存，默认关闭 -->
+		<property name="cachingEnabled" value="true" />
+		<!--启用身份验证缓存，即缓存AuthenticationInfo，默认false -->
+		<property name="authenticationCachingEnabled" value="true" />
+		<!--启用授权缓存，即缓存AuthorizationInfo的信息，默认为false -->
+		<property name="authorizationCachingEnabled" value="false" />
+	</bean>
+
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="userRealm"></property>
+		<!-- 用户授权缓存在redis中 -->
+		<property name="cacheManager" ref="customShiroCacheManager"></property>
+		<property name="sessionManager" ref="sessionManager"></property>
+	</bean>
+
+	<bean id="shiroFilter"
+		class="com.ysdevelop.lorchard.shiro.core.ApplicationShiroFilterFactoryBeanWrapper">
+		<property name="securityManager" ref="securityManager"></property>
+		<property name="loginUrl" value="/user/login"></property>
+		<property name="unauthorizedUrl" value="/webpage/common/500.jsp"/>
+		<property name="filterChainDefinitions">
+			<value>
+				/static/** = anon
+				/upload/** = anon
+				/user/login = anon
+				/api/** = anon
+				/randCodeImage = anon
+				/** = authc
+			</value>
+		</property>
+	</bean>
+	<!-- <bean name="shiroFilterChainDefinitions" class="java.lang.String"> 
+		<constructor-arg> <value> /static/** = anno /** = authc </value> </constructor-arg> 
+		</bean> -->
+
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+	<!-- Enable Shiro Annotations for Spring-configured beans. Only run after -->
+	<!-- the lifecycleBeanProcessor has run: -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true" />
+	</bean>
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+
+</beans>

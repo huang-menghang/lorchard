@@ -1,5 +1,6 @@
 package com.ysdevelop.lorchard.shiro.entity;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,9 @@ import org.hibernate.validator.constraints.NotBlank;
 public class BaseAuth {
 
 	private Long id;
+	
+	@NotBlank(message = "登录名不能为空")
+	private String loginName;
 
 	@NotBlank(message = "用户名不能为空")
 	@Length(min = 6, max = 16, message = "密码长度必须在6-16之间")
@@ -23,6 +27,10 @@ public class BaseAuth {
 	private Set<String> roleSet;
 	/** 用户权限集合 **/
 	private Set<String> permissionSet;
+	
+	private Date createTime;
+	
+	private Date updateTime;
 
 	public Long getId() {
 		return id;
@@ -30,6 +38,15 @@ public class BaseAuth {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	
+	public String getLoginName() {
+		return loginName;
+	}
+
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
 	}
 
 	public String getPswd() {
@@ -71,5 +88,23 @@ public class BaseAuth {
 	public void setPermissionSet(Set<String> permissionSet) {
 		this.permissionSet = permissionSet;
 	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+	
+	
 
 }
