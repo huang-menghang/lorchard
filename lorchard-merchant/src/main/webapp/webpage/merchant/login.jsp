@@ -32,7 +32,7 @@
 			<div class="classification">
 				<div class="label">验证码</div>
 				<input type="text" class="content" name="mobile"
-					style="width: 230px;" placeholder="请输入验证码"> <img>
+					style="width: 250px;" placeholder="请输入验证码"> <img>
 				<div class="clear"></div>
 			</div>
 

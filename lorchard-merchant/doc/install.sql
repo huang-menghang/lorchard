@@ -12,7 +12,7 @@ CREATE TABLE `t_smurfs_mall_member` (
 
 
 DROP TABLE IF EXISTS `t_lorchard_mall_member`;
-CREATE TABLE `t_smurfs_mall_member` (
+CREATE TABLE `t_lorchard_mall_member` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户id',
   `merchantId`int(11) NOT NULL DEFAULT '0' COMMENT '商家Id',
   `gender` tinyint(1) NOT NULL DEFAULT '0' COMMENT '会员性别',

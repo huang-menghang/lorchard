@@ -50,7 +50,7 @@
     line-height: 40px;
 }
 .content{
-    width: 320px;
+    width: 330px;
     float: left;
 }
 input{
@@ -80,7 +80,7 @@ button{
 	clear: both;
 }
 .buttom{
-	width: 100%;
+	width: 82%;
 	height: 45px;
     background-color: #1e8aca;
     border-color: #1e8aca;
@@ -92,7 +92,7 @@ button{
     color: #fff;
 }
 .login{
-	width: 100%;
+	width: 82%;
 	height: 20px;
 	text-align: right;
 	font-size: 14px;

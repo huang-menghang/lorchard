@@ -6,6 +6,7 @@
 <head>
 <link rel="stylesheet" href="<%=basePath%>/static/css/merchant/merchant-information.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>商铺申请</title>
 <style type="text/css">
 * { -ms-word-wrap: break-word; word-wrap: break-word; }
 html { -webkit-text-size-adjust: none; text-size-adjust: none; }

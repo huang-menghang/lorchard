@@ -86,7 +86,7 @@
 	  <li class="sidebar-second-item">
 			<!-- 二级菜单--> 
 			<a name="shopIndex" href="<%=basePath%>/goods?title=shopIndex" class="">店铺 </a> 		
-			<a name="goodsCategory" href="<%=basePath%>/goodsCategory?title=goodsCategory" class=""> 店铺装修</a> 		
+			<a name="shopDecoration" href="<%=basePath%>/goodsCategory?title=shopDecoration" class=""> 店铺装修</a> 		
 	  </li>
 	</ul>
 	

@@ -65,7 +65,7 @@
 }
 textarea{
 	width: 400px;
-	height: 130px;
+	height: 115px;
 	padding: 10px;
 	border-color: #CED9DC;
 	text-shadow: 0 0 0 #aaa;
@@ -82,7 +82,7 @@ textarea:focus{
     border-color: #1e8aca;
     border-radius: 6px;
     font-size: 16px;
-    margin-top: 30px;
+    margin-top: 50px;
     line-height: 43px;
     text-align: center;
     color: #fff;
