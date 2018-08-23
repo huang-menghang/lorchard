@@ -57,7 +57,9 @@ INSERT INTO `lorchard-mall`.`t_lorchard_mall_goods_category` (`id`, `merchantId`
 INSERT INTO `lorchard-mall`.`t_lorchard_mall_goods_category` (`id`, `merchantId`, `name`, `description`, `imagePath`, `index`, `level`, `parentId`, `createTime`, `updateTime`) VALUES ('9', '0', '有机蔬菜', '非常好吃', 'http://pdjllrqfe.bkt.clouddn.com/FgIjFGutsBvt3VkaIGc_9Tox_mS0', '0', '1', '0', '2018-08-16 18:23:40', NULL);
 
 -- 分类树处理
-CREATE DEFINER=`root`@`%` PROCEDURE `showCategoryTreeNodes`(IN rootid INT)
+delimiter //
+drop PROCEDURE IF EXISTS showCategoryTreeNodes//
+CREATE PROCEDURE showCategoryTreeNodes (IN rootid INT)
 BEGIN
  DECLARE Level int ;
  drop TABLE IF EXISTS tmpLst;
@@ -74,4 +76,6 @@ BEGIN
   SELECT A.ID,Level,concat(B.sCort,A.ID) FROM t_lorchard_mall_goods_category A,tmpLst B
   WHERE A.parentId=B.ID AND B.nLevel=Level-1 ;
  END WHILE;
-END
+END;
+//
+delimiter ;

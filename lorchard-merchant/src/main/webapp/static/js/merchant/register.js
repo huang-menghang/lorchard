@@ -14,18 +14,40 @@ var merchant_register_ops = {
 		});
 		
 		$(".center .register").click(function(){
-			common_ops.alert("ll");
 			$(this).addClass("disable");
 			if (that.validateForm().form()) {
 				var mobile = $(".formarea input[name='mobile']").val();
 				var verifyMoblieMessage = $(".formarea input[name='verifyMoblieMessage']").val();
 				var password = $(".formarea input[name='password']").val();
 				var surePassword = $(".formarea input[name='surePassword']").val();
+				var data={
+					mobile:mobile,
+					verifyMoblieMessage:verifyMoblieMessage,
+					password:password,
+					surePassword:surePassword
+				};
+                $.ajax({
+                	url:WEB_ROOT+'/merchant/register',
+                	type:'post',
+                	data:data,
+                    dataType:'json'           	
+                }).done(function(res){
+                	var callback = null;
+                	if(res.code == 0){
+                		callback=window.location.href = WEB_ROOT+'/merchant/applyMerchant';              	    
+                	}else{
+                		callback = null;
+                	};
+                	common_ops.alert(res.msg,callback);
+                }).fail(function(res){
+                	
+                })
 				
-				console.log("mobile="+mobile);
-				console.log("verifyMoblieMessage="+verifyMoblieMessage);
-				console.log("password="+password);
-				console.log("surePassword="+surePassword);
+				
+				
+				
+				
+				
 				
 			}else{
 				$(this).removeClass("disable");

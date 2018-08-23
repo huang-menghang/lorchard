@@ -11,4 +11,6 @@ public interface MemberService {
 
 	Member getById(Integer id);
 	
+	
+	
 }
