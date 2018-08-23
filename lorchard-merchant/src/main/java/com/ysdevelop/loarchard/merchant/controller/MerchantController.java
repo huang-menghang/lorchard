@@ -40,8 +40,9 @@ public class MerchantController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
-	public String doLogin(@Valid LoginVo loginVo) {
-		return null;
+	public Result<String> doLogin(@Valid LoginVo loginVo) {
+	    TokenManager.login(loginVo);
+		return Result.success("登录成功!");
 	}
 
 	// 生成图像验证码
@@ -49,7 +50,6 @@ public class MerchantController {
 	public void captcha(HttpServletResponse response) throws ServletException, IOException {
 		response.setHeader("Cache-Control", "no-store, no-cache");
 		response.setContentType("image/jpeg");
-
 		// 生成文字验证码
 		String text = producer.createText();
 		// 生成图片验证码

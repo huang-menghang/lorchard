@@ -17,6 +17,7 @@ var merchant_login_ops ={
 			var verifyCode = $('.formarea input[name="verifyCode"]').val();
 			var data={
 				mobile:mobile,
+				name:name,
 				password:password,
 			    verifyCode:verifyCode
 			};
@@ -27,7 +28,7 @@ var merchant_login_ops ={
 				   data:data,
 				   dataType:'json'
 			   }).done(function(res){
-				   
+				   console.log(res);
 			   }).fail(function(res){
 				   
 			   });

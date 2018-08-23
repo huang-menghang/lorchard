@@ -34,7 +34,7 @@
 
 			<div class="classification">
 				<div class="label">登录密码</div>
-				<input type="text" required="true" minlength="8" maxlength="20" class="content" name="password" placeholder="请输入密码">
+				<input type="password" required="true" minlength="8" maxlength="20" class="content" name="password" placeholder="请输入密码">
 				<div class="clear"></div>
 			</div>
 

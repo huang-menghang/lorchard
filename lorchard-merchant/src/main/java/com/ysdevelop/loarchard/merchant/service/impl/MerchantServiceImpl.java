@@ -26,6 +26,8 @@ public class MerchantServiceImpl implements UserService {
 
 	@Override
 	public BaseAuth getUserByName(String name) {
+		
+		
 		return null;
 	}
 
