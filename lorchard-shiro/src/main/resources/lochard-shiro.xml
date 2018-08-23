@@ -87,7 +87,7 @@
 	<bean id="shiroFilter"
 		class="com.ysdevelop.lorchard.shiro.core.ApplicationShiroFilterFactoryBeanWrapper">
 		<property name="securityManager" ref="securityManager"></property>
-		<property name="loginUrl" value="/user/login"></property>
+		<property name="loginUrl" value="/merchant/login"></property>
 		<property name="unauthorizedUrl" value="/webpage/common/500.jsp"/>
 		<property name="filterChainDefinitions">
 			<value>
@@ -95,8 +95,7 @@
 				/upload/** = anon
 				/user/login = anon
 				/api/** = anon
-				/randCodeImage = anon
-				/** = authc
+				/** = anon
 			</value>
 		</property>
 	</bean>

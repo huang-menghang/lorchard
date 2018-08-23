@@ -64,7 +64,7 @@ public class UserRealm extends AuthorizingRealm {
 		user.setRoleSet(roles);
 		Set<String> permissions = permissionService.listByUserName(user.getLoginName());
 		user.setPermissionSet(permissions);
-		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user, user.getPswd(),
+		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user, user.getPassword(),
 				new RedisSimpleByteSource(user.getSalt()), getName());
 		return authenticationInfo;
 	}

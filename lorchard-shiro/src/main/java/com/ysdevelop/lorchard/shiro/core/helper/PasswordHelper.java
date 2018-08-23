@@ -31,17 +31,17 @@ public class PasswordHelper {
 
         user.setSalt(randomNumberGenerator.nextBytes().toHex());
 
-        String newPassword = new SimpleHash(algorithmName, user.getPswd(), ByteSource.Util.bytes(user
+        String newPassword = new SimpleHash(algorithmName, user.getPassword(), ByteSource.Util.bytes(user
                 .getSalt()), hashIterations).toHex();
 
-        user.setPswd(newPassword);
-        System.out.println(user.getSalt()+"    "+user.getPswd());
+        user.setPassword(newPassword);
+        System.out.println(user.getSalt()+"    "+user.getPassword());
     }
     
     public boolean checkPassword(BaseAuth user,String password) {
         String newPassword = new SimpleHash(algorithmName, password, ByteSource.Util.bytes(user
                 .getSalt()), hashIterations).toHex();
-        return newPassword.equals(user.getPswd());
+        return newPassword.equals(user.getPassword());
     }
 
     

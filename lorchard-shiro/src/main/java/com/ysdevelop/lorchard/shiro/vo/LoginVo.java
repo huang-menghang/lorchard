@@ -1,7 +1,5 @@
 package com.ysdevelop.lorchard.shiro.vo;
 
-import javax.validation.constraints.Size;
-
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.ysdevelop.lochard.common.validator.IsMobile;
@@ -11,12 +9,11 @@ public class LoginVo {
 	private String name;
 	// 手机号码
 	@NotEmpty(message = "手机号码不能为空")
+	@IsMobile
 	private String mobile;
 	// 验证码
 	private String verifyCode;
 	// 手机验证号码
-	@NotEmpty(message = "手机验证码不能为空")
-	@Size(min=6,max=6,message="手机验证码长度为6位")
 	private String verifyMoblieMessage;
      
 	@NotEmpty(message="密码不能为空")

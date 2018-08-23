@@ -38,7 +38,7 @@
 				<div class="label">短信验证码</div>
 				<input type="text" class="content" name="verifyMoblieMessage"
 					style="width: 230px;" placeholder="填写6位短信验证码" required="true" minlength="6" maxlength="6">
-				<button type="button">获取验证码</button>
+				<button type="button" class="smsCode" >获取验证码</button>
 				<div class="clear"></div>
 			</div>
 			<div class="classification">

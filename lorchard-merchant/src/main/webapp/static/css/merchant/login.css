@@ -1,105 +1,127 @@
-.container{
+.container {
 	width: 70%;
 	margin: 0 auto;
 	margin-top: 50px;
 }
-.header{
+
+.header {
 	border-bottom: 1px solid #e5e5e5;
-	    padding-bottom: 21px;
-	    font-size: 16px;
-	    padding-top: 1px;
+	padding-bottom: 21px;
+	font-size: 16px;
+	padding-top: 1px;
 }
-.header img{
+
+.header img {
 	width: 40px;
 	height: 40px;
-	    float: left;
+	float: left;
 }
-.header a{
+
+.header a {
 	float: left;
 	line-height: 38px;
 	font-size: 24px;
-	    text-decoration: none;
-    color: #000;
+	text-decoration: none;
+	color: #000;
 }
-.header div{
+
+.header div {
 	line-height: 20px;
-    height: 20px;
-    margin-left: 125px;
-    padding-left: 13px;
+	height: 20px;
+	margin-left: 125px;
+	padding-left: 13px;
 	border-left: 1px solid #dcdcdc;
 	margin-top: 13px;
 }
-.center{
+
+.center {
 	width: 420px;
 	margin: 0 auto;
 }
-.classification{
-	    margin-top: 35px;
-	    
+
+.classification {
+	margin-top: 35px;
+	width: 600px;
 }
-.classification:nth-of-type(1){
+
+.classification:nth-of-type(1) {
 	margin-top: 65px;
 }
-.label{
-	    width: 100px;
-    text-align: left;
-    color: #333;
-    font-size: 14px;
-    float: left;
-    height: 40px;
-    line-height: 40px;
+
+.label {
+	width: 100px;
+	text-align: left;
+	color: #333;
+	font-size: 14px;
+	float: left;
+	height: 40px;
+	line-height: 40px;
 }
-.content{
-    width: 350px;
-    float: left;
+
+.content {
+	width: 250px;
+	float: left;
 }
-input{
-	 width: 100%;
-    height: 40px;
-    padding-left: 10px;
-    color: #666;
-    font-size: 14px;
-    border: 1px solid #dcdcdc;
-    border-radius: 4px;
+
+input {
+	width: 100%;
+	height: 40px;
+	padding-left: 10px;
+	color: #666;
+	font-size: 14px;
+	border: 1px solid #dcdcdc;
+	border-radius: 4px;
 }
-input:focus{
+
+input:focus {
 	box-shadow: 0px 0px 8px 0px #81ceff;
 	border: 1px solid #81ceff;
 }
-button{
-	    border: none;
-    background: none;
-    font-size: 14px;
-    color: #3388FF;
-    float: right;
-    padding-right: 0;
-    line-height: 40px;
-    cursor: pointer;
+
+button {
+	border: none;
+	background: none;
+	font-size: 14px;
+	color: #3388FF;
+	float: right;
+	padding-right: 0;
+	line-height: 40px;
+	cursor: pointer;
 }
-.clear{
+
+.clear {
 	clear: both;
 }
-.buttom{
+
+.login {
 	width: 87%;
 	height: 45px;
-    background-color: #1e8aca;
-    border-color: #1e8aca;
-    border-radius: 6px;
-    font-size: 16px;
-    margin-top: 30px;
-    line-height: 43px;
-    text-align: center;
-    color: #fff;
+	background-color: #1e8aca;
+	border-color: #1e8aca;
+	border-radius: 6px;
+	font-size: 16px;
+	margin-top: 30px;
+	line-height: 43px;
+	text-align: center;
+	color: #fff;
 }
-.login{
+
+.register {
 	width: 87%;
 	height: 20px;
 	text-align: right;
 	font-size: 14px;
-    margin-top: 20px;
-    color: #1e8aca;
+	margin-top: 20px;
+	color: #1e8aca;
 }
-.footer{
+
+.footer {
 	border-top: 1px solid #e5e5e5;
 	margin-top: 160px;
+}
+
+#verifyCode-error {
+	float: right;
+	margin-right: -11px;
+    width: 129px;
 }

@@ -17,7 +17,7 @@ public class BaseAuth {
 
 	@NotBlank(message = "用户名不能为空")
 	@Length(min = 6, max = 16, message = "密码长度必须在6-16之间")
-	private transient String pswd;
+	private transient String password;
 	/** 盐值 **/
 	private String salt;
 	/** 角色id */
@@ -49,12 +49,12 @@ public class BaseAuth {
 		this.loginName = loginName;
 	}
 
-	public String getPswd() {
-		return pswd;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPswd(String pswd) {
-		this.pswd = pswd;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getSalt() {
