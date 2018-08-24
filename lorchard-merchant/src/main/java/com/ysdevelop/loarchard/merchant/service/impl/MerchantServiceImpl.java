@@ -26,9 +26,11 @@ public class MerchantServiceImpl implements UserService {
 
 	@Override
 	public BaseAuth getUserByName(String name) {
+		if (name == null) {
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
 		
-		
-		return null;
+		return merchantDao.getUserByName(name);
 	}
 
 	@Override

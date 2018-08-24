@@ -28,9 +28,19 @@ var merchant_login_ops ={
 				   data:data,
 				   dataType:'json'
 			   }).done(function(res){
-				   console.log(res);
+				  var callback = null;
+				  if(res.code == 0){
+					 callback = function(){
+						 winodw.location.href = WEB_ROOT+"/index";
+					 };
+				  }else{
+					 callback = function() {
+					     $thta.removeClass('disable');
+					}
+				  }
+				  common_ops.alert(res.msg,callback);
 			   }).fail(function(res){
-				   
+				  common_ops.alert("服务器异常");
 			   });
 			}else{
 				$that.removeClass('disable');
