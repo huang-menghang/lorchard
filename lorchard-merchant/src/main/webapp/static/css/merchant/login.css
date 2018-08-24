@@ -106,7 +106,15 @@ button {
 	color: #fff;
 }
 
-.register {
+.register{
+	width: 87%;
+	height: 20px;
+	text-align: right;
+	font-size: 14px;
+	margin-top: 20px;
+	color: #1e8aca;
+}
+.password-forget{
 	width: 87%;
 	height: 20px;
 	text-align: right;

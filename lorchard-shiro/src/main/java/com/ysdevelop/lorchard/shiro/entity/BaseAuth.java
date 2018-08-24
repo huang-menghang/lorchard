@@ -27,6 +27,8 @@ public class BaseAuth {
 	private Set<String> roleSet;
 	/** 用户权限集合 **/
 	private Set<String> permissionSet;
+	/** 用户状态 0未激活,1激活  **/
+	private Integer status;
 	
 	private Date createTime;
 	
@@ -87,6 +89,14 @@ public class BaseAuth {
 
 	public void setPermissionSet(Set<String> permissionSet) {
 		this.permissionSet = permissionSet;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public Date getCreateTime() {

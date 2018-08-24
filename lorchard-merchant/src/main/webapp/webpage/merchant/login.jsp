@@ -49,6 +49,7 @@
 
 			<div class="login">立即登录</div>
 			<div class="register">免费注册,轻松开店</div>
+			<div class="password-forget">忘记密码?</div>
 		</div>
 		</form>
 	</div>

@@ -66,7 +66,8 @@ public class WebExceptionHandler {
 			} else if (ex instanceof WebServiceException) {
 				logger.info("webServiceException ----->");
 				WebServiceException e = (WebServiceException) ex;
-				model.put("code", -1);
+				Integer code = e.getCm().getCode();
+				model.put("code", code);
 				model.put("msg", e.getMessage());
 				view.setAttributesMap(model);
 				mv.setView(view);

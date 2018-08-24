@@ -218,6 +218,11 @@ public class RegexUtil {
 		return Pattern.matches(regex, postcode);
 	}
 
+	public static boolean checkQQ(String qq) {
+		String regex = "[1-9][0-9]{4,9}";
+		return Pattern.matches(regex, qq);
+	}
+
 	/**
 	 * 判断是否为数字/^\d+$/
 	 */

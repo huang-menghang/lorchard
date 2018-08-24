@@ -82,7 +82,7 @@ var merchant_register_ops = {
                 	var callback = null;
                 	if(res.code == 0){
                 		callback= function(){
-                			window.location.href = WEB_ROOT+'/merchant/applyMerchant';              	    
+                			window.location.href = WEB_ROOT+'/shop/apply';              	    
                 		};
                 	}else{
                 		callback = function(){

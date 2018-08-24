@@ -8,4 +8,5 @@ public interface MerchantDao {
 	Integer add(Merchant merchant);
 
 	BaseAuth getUserByName(String name);
+
 }

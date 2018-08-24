@@ -14,7 +14,7 @@ public class SmsCodeController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/send")
 	public Result<Integer> send(String mobile, HttpSession session) {
-		return Result.successData(123);
+		return Result.successData(123456);
 	}
 
 }

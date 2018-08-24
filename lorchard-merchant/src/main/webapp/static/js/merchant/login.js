@@ -17,7 +17,7 @@ var merchant_login_ops ={
 			var verifyCode = $('.formarea input[name="verifyCode"]').val();
 			var data={
 				mobile:mobile,
-				name:name,
+				name:mobile,
 				password:password,
 			    verifyCode:verifyCode
 			};
@@ -29,14 +29,19 @@ var merchant_login_ops ={
 				   dataType:'json'
 			   }).done(function(res){
 				  var callback = null;
+				  console.log(res.code);
 				  if(res.code == 0){
 					 callback = function(){
-						 winodw.location.href = WEB_ROOT+"/index";
+						 window.location.href = WEB_ROOT+'/index';
+					 };
+				  }else if(res.code == 500123){
+					 callback = function() {
+						 window.location.href = WEB_ROOT+'/shop/apply';
 					 };
 				  }else{
-					 callback = function() {
-					     $thta.removeClass('disable');
-					}
+					 callback = function(){
+						 $that.removeClass('disable');
+					 }
 				  }
 				  common_ops.alert(res.msg,callback);
 			   }).fail(function(res){

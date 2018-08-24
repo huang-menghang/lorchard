@@ -131,6 +131,7 @@ public class RedisSessionDao extends AbstractSessionDAO {
 
 			byte[] value = SerializeUtil.serialize(session);
 			// 将session缓存在redis中,失效时间与session失效时间同步
+			System.out.println();
 			jedisManager.saveValueByKey(key, value, (int) (session.getTimeout() / 1000));
 
 		} catch (Exception e) {

@@ -9,4 +9,6 @@ public interface UserService {
 	 BaseAuth getUserByName(String name);
 	 
 	 void register(LoginVo loginVo,HttpSession session);
+	 // 登录功能
+	 void login(LoginVo loginVo);
 }

@@ -11,9 +11,11 @@
 
 	<select id="getUserByName" resultType="com.ysdevelop.lorchard.shiro.entity.BaseAuth">
 		select
-		id,mobile,`password`,salt,createTime
+		id,mobile,`password`,salt,status,createTime
 		from t_lorchard_mall_merchant
 		where mobile = #{name}
 	</select>
+	
+	
 
 </mapper>

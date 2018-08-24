@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.code.kaptcha.Producer;
+import com.ysdevelop.loarchard.merchant.entity.Shop;
 import com.ysdevelop.lochard.common.result.Result;
 import com.ysdevelop.lochard.common.utils.Constant;
 import com.ysdevelop.lorchard.shiro.service.UserService;
@@ -40,8 +41,9 @@ public class MerchantController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
-	public Result<String> doLogin(@Valid LoginVo loginVo) {
-	    TokenManager.login(loginVo);
+	public Result<String> doLogin(@Valid LoginVo loginVo, HttpSession session) {
+		// 验证码不一致则失败
+		userService.login(loginVo);
 		return Result.success("登录成功!");
 	}
 
@@ -52,18 +54,17 @@ public class MerchantController {
 		response.setContentType("image/jpeg");
 		// 生成文字验证码
 		String text = producer.createText();
+		System.out.println("veifyCodeP--->" + text);
 		// 生成图片验证码
 		BufferedImage image = producer.createImage(text);
 		// 保存到shiro session
+		System.out.println("sessionId-->" + TokenManager.getSession().getId());
 		TokenManager.getSession().setAttribute(Constant.KAPTCHA_SESSION_KEY, text);
 		ServletOutputStream out = response.getOutputStream();
 		ImageIO.write(image, "jpg", out);
 	}
 
-	@RequestMapping(value = "/applyMerchant", method = RequestMethod.GET)
-	public String applyMerchant() {
-		return "merchant/merchant-information";
-	}
+	
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register() {
