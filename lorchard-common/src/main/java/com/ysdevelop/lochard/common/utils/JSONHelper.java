@@ -34,6 +34,8 @@ import org.slf4j.LoggerFactory;
 public final class JSONHelper {
 	private static final Logger logger = LoggerFactory.getLogger(JSONHelper.class);
 
+	private static final ArrayList<Object> objects = null; 
+	
 	// 将数组转换成JSON
 	public static String array2json(Object object) {
 		JSONArray jsonArray = JSONArray.fromObject(object);

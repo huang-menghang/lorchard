@@ -36,7 +36,7 @@ public class MerchantServiceImpl implements UserService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackFor=Exception.class)
 	public void register(LoginVo loginVo, HttpSession session) {
 		if (loginVo == null) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
@@ -70,10 +70,16 @@ public class MerchantServiceImpl implements UserService {
 		}
 		TokenManager.login(loginVo);
 		BaseAuth baseAuth = TokenManager.getToken();
+		System.out.println("authId--->"+baseAuth.getId());
 		if (baseAuth.getStatus() == Constant.DEFALULT_ZERO) {
 			throw new WebServiceException(CodeMsg.MERCHANT_UNOPEN);
 		}
 
+	}
+
+	@Override
+	public Integer updateStatusById() {
+		return null;
 	}
 
 }

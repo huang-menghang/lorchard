@@ -34,6 +34,11 @@ var merchant_login_ops ={
 					 callback = function(){
 						 window.location.href = WEB_ROOT+'/index';
 					 };
+				  }else if(res.code == 500122){
+					 callback = function(){
+						 $(".formarea #captchaImg").attr('src',WEB_ROOT+'/merchant/captcha.jpg');
+						 $that.removeClass('disable'); 
+					 };
 				  }else if(res.code == 500123){
 					 callback = function() {
 						 window.location.href = WEB_ROOT+'/shop/apply';
@@ -53,7 +58,7 @@ var merchant_login_ops ={
 		});
 		// 点击刷新验证码
 		$(".formarea #captchaImg").click(function(e){
-			$(this).attr('src',WEB_ROOT+'/merchant/captcha.jpg')
+			$(this).attr('src',WEB_ROOT+'/merchant/captcha.jpg');
 		});
 		
 		// 点击到注册

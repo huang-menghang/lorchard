@@ -168,7 +168,7 @@ public class QiniuUtil {
 		// 最大文件大小
 		long maxSize = 5242880;
 		// 定义允许上传的文件扩展名
-		HashMap<String, String> extMap = new HashMap<String, String>();
+		HashMap<String, String> extMap = new HashMap<String, String>(16);
 		extMap.put("image", "gif,jpg,jpeg,png,bmp");
 
 		if (!ServletFileUpload.isMultipartContent(request)) {

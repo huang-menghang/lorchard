@@ -92,7 +92,7 @@
 					<span>*</span>微信号
 				</div>
 				<input type="text" required="true" autocomplete="off"
-					name="wechatName" placeholder="请填写您的微信号">
+					name="wechatNo" placeholder="请填写您的微信号">
 				<div class="clear"></div>
 			</div>
 			<div class="separate">

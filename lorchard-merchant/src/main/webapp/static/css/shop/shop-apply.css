@@ -93,3 +93,9 @@ span{
     color: red;
     margin-right: 8px;
 }
+.disable{
+	background-color: #FBFBFB !important;
+    color: #C9C9C9 !important;
+    opacity: 1;
+    pointer-events:none;
+}

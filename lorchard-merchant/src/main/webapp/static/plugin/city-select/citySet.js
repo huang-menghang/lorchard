@@ -18,6 +18,10 @@ function SelCity(obj, e) {
     }
     $("#_citys0").append(tb_province.join(""));
     $("#_citys0 a").click(function() {
+    	// 删除之前选择的省份以及城市
+    	$("input[name='harea']").remove();
+    	$("input[name='hproper']").remove();
+    	$("input[name='hcity']").remove();
         var g = getCity($(this));
         $("#_citys1 a").remove();
         $("#_citys1").append(g);

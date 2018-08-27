@@ -1,5 +1,6 @@
 package com.ysdevelop.lorchard.shiro.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -7,8 +8,26 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+/**
+ * 
+ * @author oldHuang
+ *
+ * @Package com.ysdevelop.lorchard.shiro.entity
+ * 
+ * @Description 用户基类
+ *
+ * @Date 2018年8月27日
+ *
+ * @Version
+ *
+ */
 
-public class BaseAuth {
+public class BaseAuth implements Serializable {
+
+	/**
+	 *  序列化接口实现
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private Long id;
 	

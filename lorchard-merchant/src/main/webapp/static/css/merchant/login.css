@@ -133,3 +133,9 @@ button {
 	margin-right: -11px;
     width: 129px;
 }
+.disable{
+	background-color: #FBFBFB !important;
+    color: #C9C9C9 !important;
+    opacity: 1;
+    pointer-events:none;
+}

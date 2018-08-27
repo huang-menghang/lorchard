@@ -1,22 +1,22 @@
-Array.prototype.unique = function () {//È¥Êý×éÖØ¸´
+Array.prototype.unique = function () {//È¥ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½
     return this.sort().join(",,").replace(/(,|^)([^,]+)(,,\2)+(,|$)/g, "$1$2$4").replace(/,,+/g, ",").replace(/,$/, "").split(",");
 }
 var Iput = {
     confg: {
-        hand: "0", //0¶ÔÏñÎ»ÖÃ1Êó±êÎ»ÖÃdivID¹ö¶¯Î»ÖÃ
-        idIframe: "PoPx", //Ä¬ÈÏ¿É²»ÓÃ¸Ä
-        idBox: "PoPy", //Ä¬ÈÏ¿É²»ÓÃ¸Ä
-        content: "", //´«¹ýÀ´µÄÄÚÈÝ
-        ok: null, //µ¯³ö¿òÖ®ºóÖ´ÐÐµÄº¯Êý
-        id: null, //²»ÄÜÎª¿ÕÒ»°ã´«this¶ÔÏñ¶ø²»ÊÇ¶ÔÏñID
-        event: window.event, //Õâ¸ö±ØÐ´Ò»°ãÎªe¾Í¿ÉÒÔÁË
-        top: 0, //¶¥²¿Æ«ÒÆÎ»ÖÃ
-        left: 0, //×ó²¿Æ«ÒÆÎ»ÖÃ
-        bodyHeight: 0, //ÔÚ±»position:absoluteÔªËØÏÂµÃµ½HTMLÕæÊµ¸ß¶È
+        hand: "0", 
+        idIframe: "PoPx", 
+        idBox: "PoPy",
+        content: "",
+        ok: null,
+        id: null, 
+        event: window.event, 
+        top: 0, 
+        left: 0,
+        bodyHeight: 0, 
         bodyWidth: 0,
         width: 0,
         soll: null,
-        pop: null //Ö¸¶¨IDµã»÷Ê±²»¹Ø±Õ
+        pop: null 
     },
     get: function (obj) { return document.getElementById(obj); },
     lft: function (e) {
@@ -149,10 +149,10 @@ var Iput = {
         }
     },
     $colse: function () { Iput.colse(); },
-    hide: function (e) {//µã»÷ÈÎºÎ´¦¹Ø±Õ²ã
+    hide: function (e) {//ï¿½ï¿½ï¿½ï¿½ÎºÎ´ï¿½ï¿½Ø±Õ²ï¿½
         e = window.event || e;
         var srcElement = e.srcElement || e.target;
-        if (Iput.confg.event == undefined) {//ÊäÈëÊ±ÓÃ,°ãÔÚÃ»´«ÈëIput.confg.eventÇë¿öÏÂÊ¹ÓÃ
+        if (Iput.confg.event == undefined) {//ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Iput.confg.eventï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
             Iput.colse();
         }
         else {
@@ -177,7 +177,7 @@ var Iput = {
     },
     cookie: {
         Set: function (name, val) {
-            var Days = 30;                          //´Ë cookie ½«±»±£´æ 30 Ìì
+            var Days = 30;                          //ï¿½ï¿½ cookie ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 30 ï¿½ï¿½
             var exp = new Date();                  //new Date("December 31, 9998");
             exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
             document.cookie = name + "=" + escape(val) + ";expires=" + exp.toGMTString() + "; path=/";
@@ -211,9 +211,9 @@ var Iput = {
         var startChar = end.substring(0, 1);
         var strLen = end.length;
         for (var j = 0; j < star.length - strLen + 1; j++) {
-            if (star.charAt(j) == startChar)//Èç¹ûÆ¥ÅäÆðÊ¼×Ö·û,¿ªÊ¼²éÕÒ
+            if (star.charAt(j) == startChar)//ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½Ö·ï¿½,ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
             {
-                if (star.substring(j, j + strLen) == end)//Èç¹û´Ój¿ªÊ¼µÄ×Ö·ûÓëstrÆ¥Åä£¬ÄÇok
+                if (star.substring(j, j + strLen) == end)//ï¿½ï¿½ï¿½ï¿½jï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½strÆ¥ï¿½ä£¬ï¿½ï¿½ok
                 {
                     return true;
                 }

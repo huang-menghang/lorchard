@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.code.kaptcha.Producer;
-import com.ysdevelop.loarchard.merchant.entity.Shop;
 import com.ysdevelop.lochard.common.result.Result;
 import com.ysdevelop.lochard.common.utils.Constant;
 import com.ysdevelop.lorchard.shiro.service.UserService;
