@@ -16,7 +16,9 @@
 		</property>
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
 	</bean>
-	<!-- <bean lazy-init="false" name="springContextUtils" class="com.ysdevelop.common.utils.SpringContextUtils"></bean> -->
+	<bean lazy-init="false" name="springContextUtils"
+		class="com.ysdevelop.lochard.common.utils.SpringContextUtils">
+	</bean>
 	<bean id="redisConfig" class="com.ysdevelop.lochard.common.redis.RedisConfig">
 		<property name="host">
 			<value>${redis.host}</value>

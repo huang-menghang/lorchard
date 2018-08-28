@@ -50,6 +50,7 @@ public class SerializeUtil {
 			bos.close();
 			rv = bos.toByteArray();
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.info("serialize error " + JSONHelper.bean2json(value));
 		} finally {
 			close(bos);

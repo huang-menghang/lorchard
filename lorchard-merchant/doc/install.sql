@@ -12,7 +12,7 @@ CREATE TABLE `t_smurfs_mall_member` (
 
 
 DROP TABLE IF EXISTS `t_lorchard_mall_member`;
-CREATE TABLE `t_smurfs_mall_member` (
+CREATE TABLE `t_lorchard_mall_member` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户id',
   `merchantId`int(11) NOT NULL DEFAULT '0' COMMENT '商家Id',
   `gender` tinyint(1) NOT NULL DEFAULT '0' COMMENT '会员性别',
@@ -57,7 +57,9 @@ INSERT INTO `lorchard-mall`.`t_lorchard_mall_goods_category` (`id`, `merchantId`
 INSERT INTO `lorchard-mall`.`t_lorchard_mall_goods_category` (`id`, `merchantId`, `name`, `description`, `imagePath`, `index`, `level`, `parentId`, `createTime`, `updateTime`) VALUES ('9', '0', '有机蔬菜', '非常好吃', 'http://pdjllrqfe.bkt.clouddn.com/FgIjFGutsBvt3VkaIGc_9Tox_mS0', '0', '1', '0', '2018-08-16 18:23:40', NULL);
 
 -- 分类树处理
-CREATE DEFINER=`root`@`%` PROCEDURE `showCategoryTreeNodes`(IN rootid INT)
+delimiter //
+drop PROCEDURE IF EXISTS showCategoryTreeNodes//
+CREATE PROCEDURE showCategoryTreeNodes (IN rootid INT)
 BEGIN
  DECLARE Level int ;
  drop TABLE IF EXISTS tmpLst;
@@ -74,4 +76,26 @@ BEGIN
   SELECT A.ID,Level,concat(B.sCort,A.ID) FROM t_lorchard_mall_goods_category A,tmpLst B
   WHERE A.parentId=B.ID AND B.nLevel=Level-1 ;
  END WHILE;
-END
+END;
+//
+delimiter ;
+
+
+CREATE TABLE `t_lorchard_mall_shop` (
+  `id` int(8) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL COMMENT '店铺名称',
+  `province` varchar(64) NOT NULL COMMENT '省',
+  `city` varchar(64) NOT NULL COMMENT '市',
+  `town` varchar(64) DEFAULT NULL COMMENT '区县',
+  `deatilAddress` varchar(255) NOT NULL COMMENT '详细地址',
+  `description` varchar(255) NOT NULL COMMENT '描述',
+  `operatorName` varchar(32) NOT NULL COMMENT '运营人的信息',
+  `mobile` varchar(11) NOT NULL,
+  `qq` varchar(12) NOT NULL,
+  `wechatNo` varchar(32) NOT NULL,
+  `email` varchar(64) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `createTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updateTime` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -45,6 +45,10 @@
 				class="iconfont sidebar-nav-link-logo icon-home" style=""></i> 首页
 		</a></li>
 		<li class="sidebar-nav-link"><a
+			href="<%=basePath%>/goods?title=shopIndex" class=""> <i
+				class="iconfont sidebar-nav-link-logo icon-shop" style=""></i> 店铺管理
+		</a></li>
+		<li class="sidebar-nav-link"><a
 			href="<%=basePath%>/goods?title=goodsIndex" class=""> <i
 				class="iconfont sidebar-nav-link-logo icon-goods" style=""></i> 商品管理
 		</a></li>
@@ -76,6 +80,17 @@
 	
 	<!-- 子级菜单-->
 	<ul class="left-sidebar-second"></ul>
+	
+	<ul class="left-sidebar-second">
+	  <li class="sidebar-second-title">店铺管理</li>
+	  <li class="sidebar-second-item">
+			<!-- 二级菜单--> 
+			<a name="shopIndex" href="<%=basePath%>/goods?title=shopIndex" class="">店铺 </a> 		
+			<a name="shopDecoration" href="<%=basePath%>/goodsCategory?title=shopDecoration" class=""> 店铺装修</a> 		
+	  </li>
+	</ul>
+	
+	
 	<ul class="left-sidebar-second">
 		<li class="sidebar-second-title">商品管理</li>
 		<li class="sidebar-second-item">

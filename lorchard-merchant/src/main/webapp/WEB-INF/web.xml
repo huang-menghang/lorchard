@@ -8,10 +8,8 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-		classpath:lochard-common.xml
-		<!--  
-		classpath:yuansheng-shiro.xml
-		-->
+		classpath:lochard-common.xml 
+		classpath:lochard-shiro.xml
 		classpath:spring-mvc.xml
 		classpath:spring-mybatis.xml
 		</param-value>
@@ -61,8 +59,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-    <!-- apache shiro 启动 -->
-    <!--  
+	<!-- apache shiro 启动 -->
 	<filter>
 		<filter-name>shiroFilter</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -75,8 +72,7 @@
 		<filter-name>shiroFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	-->
-	
+
 
 	<!-- spring-mvc 启动配置 -->
 	<servlet>
@@ -94,19 +90,19 @@
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- 用来获取put表单请求 -->
-	<filter>  
-        <filter-name>httpPutFormFilter</filter-name>  
-        <filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>  
-    </filter>
-	
-    <filter-mapping>  
-        <filter-name>httpPutFormFilter</filter-name>  
-        <servlet-name>dispatcher</servlet-name>  
-    </filter-mapping>
-    
-    <!-- http请求满足满足delete,put请求 -->
+	<filter>
+		<filter-name>httpPutFormFilter</filter-name>
+		<filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>httpPutFormFilter</filter-name>
+		<servlet-name>dispatcher</servlet-name>
+	</filter-mapping>
+
+	<!-- http请求满足满足delete,put请求 -->
 	<filter>
 		<filter-name>HiddenHttpMethodFilter</filter-name>
 		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
@@ -116,11 +112,11 @@
 		<!-- 备注，这边的名称必须和配置'springmvc'的servlet名称一样 -->
 		<servlet-name>dispatcher</servlet-name>
 	</filter-mapping>
-	
-	<welcome-file-list>   
-	    <welcome-file>/webpage/user/login.jsp</welcome-file>   
-	</welcome-file-list>  
-	
+
+	<welcome-file-list>
+		<welcome-file>/webpage/merchant/login.jsp</welcome-file>
+	</welcome-file-list>
+
 	<error-page>
 		<error-code>404</error-code>
 		<location>/webpage/common/404.jsp</location>

@@ -49,7 +49,12 @@ public class Constant {
 	 * REDIS_SHIRO_ALL
 	 */
 	public static final String REDIS_SHIRO_ALL = "*ysdevelop-shiro-session:*";
-
+    
+	/**
+     * KAPTCHA_SESSION_KEY 
+     */
+	public static String KAPTCHA_SESSION_KEY = "kaptcha-session-key";
+	
 	/**
 	 * 是否类型
 	 */
@@ -218,5 +223,6 @@ public class Constant {
 		}
 
 	}
+
 
 }

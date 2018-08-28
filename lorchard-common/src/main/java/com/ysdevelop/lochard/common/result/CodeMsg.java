@@ -29,6 +29,11 @@ public class CodeMsg {
 	public static CodeMsg CATEGORY_ADD_FAILED = new CodeMsg(500110, "分类创建失败");
 	public static CodeMsg CATEGORY_UPDATE_ERROR =  new CodeMsg(500111, "分类更新失败");
 	public static CodeMsg DELETE_ERROR = new CodeMsg(500112, "分类存在子类,删除失败"); 
+	// 商家 12开始
+	public static CodeMsg MERCHANT_SUREPASSWORD_WRONG = new CodeMsg(500120, "两次密码不一致");	
+	public static CodeMsg MERCHANT_EXISTS =new CodeMsg(500121,"商家已经被注册");
+	public static CodeMsg MERCHANT_VERIFYCODE_WRONG =new CodeMsg(500122,"验证码错误");
+	public static CodeMsg MERCHANT_UNOPEN = new CodeMsg(500123,"商家未注册消息信息");
 	// 用户
 	public static CodeMsg MOBILE_EMPTY = new CodeMsg(500001,"手机号码为空");
 	public static CodeMsg PASSWORD_EMPTY = new CodeMsg(500002,"密码为空");

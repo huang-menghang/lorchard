@@ -51,11 +51,29 @@
 			value="org.springframework.web.servlet.view.JstlView" />
 	</bean>
 
-    <!-- 配置文件上传 -->
+	<!-- 配置文件上传 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="1073741824" />
 	</bean>
+
+	<!-- kaptcha图像验证器 -->
+	<bean name="kaptchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha" scope="singleton">
+        <property name="config">
+            <bean class="com.google.code.kaptcha.util.Config">
+                <constructor-arg>
+                    <props>
+                        <prop key="kaptcha.border">no</prop>
+                        <prop key="kaptcha.textproducer.font.color">black</prop>
+                        <prop key="kaptcha.textproducer.char.space">4</prop>
+                        <prop key="kaptcha.textproducer.char.length">4</prop>
+                        <prop key="kaptcha.textproducer.char.string">123456789</prop>
+                    </props>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+
 
 
 

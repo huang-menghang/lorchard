@@ -22,7 +22,6 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 	@Autowired
 	private GoodsCategoryDao categoryDao;
 
-	@Transactional
 	@Override
 	public PageInfo<GoodsCategory> list(Map<String, String> queryMap) {
 		if (queryMap == null) {
@@ -51,7 +50,7 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackFor=Exception.class)
 	public void add(GoodsCategory category) {
 		if (category == null) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
@@ -76,7 +75,7 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 		return categoryDao.getById(id);
 	}
 
-	@Transactional
+	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public void update(GoodsCategory category) {
 		if (category == null) {
