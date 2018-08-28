@@ -10,7 +10,7 @@
 
 
 	<!-- spring 扫描包 扫描该包下的所有被注解过的类 -->
-	<context:component-scan base-package="com.ysdevelop.controller,com.ysdevelop.aop" />
+	<context:component-scan base-package="com.ysdevelop.**.controller,com.ysdevelop.**.aop,com.ysdevelop.**.exception" />
 
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
@@ -38,7 +38,9 @@
 			</list>
 		</property>
 	</bean>
-
+	
+	
+    <!-- 配置视图解析 -->
 	<bean id="internalResourceViewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/webpage/" />
@@ -47,6 +49,8 @@
 			value="org.springframework.web.servlet.view.JstlView" />
 	</bean>
 
+
+    
 
 
 

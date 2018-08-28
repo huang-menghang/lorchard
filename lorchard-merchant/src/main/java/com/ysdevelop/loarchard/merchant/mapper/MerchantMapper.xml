@@ -16,6 +16,12 @@
 		where mobile = #{name}
 	</select>
 	
+	<update id="updateStatusById" >
+	    updata 
+	    t_lorchard_mall_merchant
+	    set status = 0
+	    where id = #{userId}
+	</update>
 	
 
 </mapper>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+		http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.4.xsd">
+
+	<!-- 加载数据库redis配置文件 -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+		lazy-init="true">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:/yuansheng-rabbitmq.properties</value>
+			</list>  
+		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+	</bean>
+	
+	<!-- 连接配置 -->
+	<rabbit:connection-factory id="connectionFactory"
+		host="${mq.host}" username="${mq.username}" password="${mq.password}"
+		port="${mq.port}" />
+
+	<!--rabbit mq 连接工厂 -->
+	<rabbit:admin connection-factory="connectionFactory" />
+
+	<!-- 消息队列客户端 -->
+	<rabbit:template id="amqpTemplate" exchange="${mq.exchang}_exchange"
+		connection-factory="connectionFactory" />
+	<!-- weixin消息队列 -->
+	<rabbit:queue name="${mq.weixin.queue}_messageQueue"
+		durable="true" auto-delete="false" exclusive="false" />
+	<!-- websocket消息队列 -->
+	<rabbit:queue name="${mq.websocket.queue}_messageQueue"
+		durable="true" auto-delete="false" exclusive="false" />	
+	<!-- rabbitmq 交换机配置 -->
+	<rabbit:direct-exchange name="${mq.exchang}_exchange"
+		durable="true" auto-delete="false">
+		<rabbit:bindings>
+			<rabbit:binding queue="${mq.weixin.queue}_messageQueue" key="${mq.weixin.queue}"></rabbit:binding>
+		    <rabbit:binding queue="${mq.websocket.queue}_messageQueue" key="${mq.websocket.queue}"></rabbit:binding>
+		</rabbit:bindings>
+	</rabbit:direct-exchange>
+	<!--  
+     <bean id="messageProducer" class="com.ysdevelop.mq.server.MessageProducer"></bean>
+   
+	 <bean id="rabbitmqWeixinConsume" class="com.ysdevelop.mq.server.WexinMessageConsume"></bean>
+ 
+     <bean id="rabbitmqWebsocketConsume" class="com.ysdevelop.mq.server.WebsocketMessageConsume"></bean>
+     -->
+     
+     <!-- 配置监听 -->
+     <rabbit:listener-container connection-factory="connectionFactory" acknowledge="auto" requeue-rejected="false">
+           <rabbit:listener ref="rabbitmqWeixinConsume" queues="${mq.weixin.queue}_messageQueue" />
+     </rabbit:listener-container>
+     
+     <rabbit:listener-container connection-factory="connectionFactory" acknowledge="auto" requeue-rejected="false">
+           <rabbit:listener ref="rabbitmqWebsocketConsume" queues="${mq.websocket.queue}_messageQueue" />
+     </rabbit:listener-container>
+
+      
+</beans>
+

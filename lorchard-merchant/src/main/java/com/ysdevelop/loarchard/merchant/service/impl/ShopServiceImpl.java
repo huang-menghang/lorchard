@@ -34,7 +34,13 @@ public class ShopServiceImpl implements ShopService {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
 		BaseAuth baseAuth = TokenManager.getToken();
-		//System.out.println("userId-->" + baseAuth.getId());
+		if (baseAuth != null) {
+			userService.updateStatusById(baseAuth.getId());
+		} else {
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
+		// 发送队列消息到平台服务器预处理商家的基本信息
+		
 
 	}
 

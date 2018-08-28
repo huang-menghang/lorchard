@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ysdevelop.loarchard.merchant.entity.Merchant;
@@ -70,16 +71,22 @@ public class MerchantServiceImpl implements UserService {
 		}
 		TokenManager.login(loginVo);
 		BaseAuth baseAuth = TokenManager.getToken();
-		System.out.println("authId--->"+baseAuth.getId());
-		if (baseAuth.getStatus() == Constant.DEFALULT_ZERO) {
+		if (baseAuth.getStatus() == Constant.DEFALULT_ONE) {
 			throw new WebServiceException(CodeMsg.MERCHANT_UNOPEN);
 		}
 
 	}
 
 	@Override
-	public Integer updateStatusById() {
-		return null;
+    @Transactional(rollbackFor=Exception.class)
+	public void updateStatusById(Long userId) {
+		if(userId == null){
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
+		Integer changeCount = merchantDao.updateStatusById(userId);
+		if(changeCount != Constant.DEFALULT_ONE){
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
 	}
 
 }

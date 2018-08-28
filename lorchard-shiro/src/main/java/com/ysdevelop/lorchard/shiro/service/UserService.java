@@ -13,5 +13,5 @@ public interface UserService {
 	 /** 登录功能*/
 	 void login(LoginVo loginVo);
 	 /** 修改用户状态*/
-	 Integer updateStatusById();
+	 void updateStatusById(Long userId);
 }

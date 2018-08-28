@@ -12,6 +12,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ysdevelop.lochard.common.redis.JedisManager;
 import com.ysdevelop.lochard.common.utils.SerializeUtil;
+/**
+ * 
+ * @author oldHuang
+ *
+ * @Package com.ysdevelop.lorchard.shiro.core.cache
+ * 
+ * @Description TODO
+ *
+ * @Date 2018年8月28日
+ *
+ * @Version
+ *
+ */
+
 
 @SuppressWarnings("unchecked")
 public class JedisShiroCache<K, V> implements Cache<K, V> {
