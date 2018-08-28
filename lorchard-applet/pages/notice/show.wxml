@@ -1,0 +1,10 @@
+<!--引入wxParse.wxml-->
+<import src="../../templates/wxParse/wxParse.wxml" />
+
+<view class="notice">
+  <view class="title">{{notice.detailTitle}}</view>
+  <view class="text">
+      <!--使用wxParse模板-->
+      <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+    </view>
+</view>

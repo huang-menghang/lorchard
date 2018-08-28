@@ -1,0 +1,84 @@
+<!--引入recommend-goods-item.wxml-->
+<import src="../../templates/recommend-goods-item/recommend-goods-item.wxml" />
+
+<!--轮播图与标题的间隔-->
+<view wx:if="{{noticeList}}" style="height: 100rpx;"></view>
+
+<!--主体-->
+<view class="container" style="height:{{height}}rpx;" scroll-y="true" scroll-with-animation="true" bindscrolltolower="getRGshow">
+<!--如果取到noticeList-->
+  <view wx:if="{{noticeList}}" class="notice">
+    <!--使用自定义组件,在.json文件中配置-->
+    <!--小喇叭图标-->
+    <wxc-icon size='40' type="{{'notice'}}" style='margin-right:10rpx;'> </wxc-icon>
+    <!--小果源快报-->
+    <wxc-elip style='width: 150rpx;text-align: center;'>商家快报→</wxc-elip>
+    <!--竖线图标-->
+    <wxc-icon size='40' type="{{'minus'}}" style='transform:rotate(90deg); margin-right:10rpx;'> </wxc-icon>
+    <!--如果取到noticeList-->
+    <swiper wx:if="{{noticeList}}" class="notice_swiper" vertical="true" autoplay="true" circular="true" interval="3000">
+      <!--使用官方navigator组件 页面链接 循环标题信息 open-type对应wx.navigateTo函数跳转url链接-->
+      <navigator wx:for-items="{{noticeList}}" wx:key="id" url="/pages/notice/show?id={{item.noticeId}}" open-type="navigate">
+        <swiper-item>
+          <!--显示标题信息-->
+          <wxc-elip class="notice_item">{{item.notice}}</wxc-elip>
+        </swiper-item>
+      </navigator>
+    </swiper>
+    <!--右箭头图标图标-->
+    <wxc-icon size="40" type="{{'arrow-right'}}"></wxc-icon>
+  </view>
+
+  <!--视图滚动组件-->
+  <scroll-view scroll-y="true" style="width:100%;min-height:100%;">
+    <!--自定义组件 请求出错时使用-->
+    <wxc-popup class="banners_warn_Popup" animation-mode="top" align="top">
+      <view class="popup__content">请求轮播图数据出错，请联系管理员</view>
+    </wxc-popup>
+    <!--如果showNoBanners为false代表有轮播图-->
+    <view wx:if="{{!showNoBanners}}" class="swiper-container">
+      <!--使用官方swiper组件 滑块视图容器 autoplay是否自动切换 interval自动切换间隔 duration滑动动画时长 current当前所在滑块的index current改变触发bindchange事件-->
+      <swiper class="swiper_box" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" current="{{swiperCurrent}}" bindchange="swiperchange">
+        <!--<block wx:for="{{banners}}" wx:key="id">-->
+        <!--遍历轮播图-->
+        <swiper-item wx:for="{{banners}}" wx:key="id" style="overflow: visible;border-radius: 50%;">
+          <!--轮播图动画-->
+          <image bindtap="tapBanner" data-id="{{item.goodId}}" src="{{item.imagePath}}" class="slide-image" style="-webkit-transform: scale({{ swiperCurrent == index ? 0.9 : 0.65 }}) translate({{ (swiperCurrent == index - 1 || swiperCurrent == index + 1) ? (swiperCurrent - index) * 30 : 0 }}%, 0); -webkit-transition: 0.6s;"
+            mode="aspectFill" />
+        </swiper-item>
+        <!--</block>-->
+      </swiper>
+      <!--轮播图的按钮-->
+      <view class="dots">
+        <!--遍历轮播图的按钮-->
+        <block wx:for="{{banners}}" wx:key="unique">
+          <!--轮播图按钮的样式-->
+          <view class="dot{{index === swiperCurrent ? ' active' : ''}}"></view>
+        </block>
+      </view>
+    </view>
+    <!--介绍 目前无内容-->
+    <view class="introduced">
+      <image class="introudced-img" src="{{recommendTitlePicStr}}"></image>
+    </view>
+    <!--精选物品展示-->
+    <view class="type-goods">
+      <!--展示的商品-->
+      <view class="goods-container">
+        <!--分割线-->
+        <view style='margin-left:20rpx;width:730rpx;height:4rpx;background-color:#f4f4f4;'></view>
+        <!--用途暂时未知-->
+        <view style='height:21rpx;background-color:#fff;'></view>
+        <!--遍历展示的商品-->
+        <view class="goods-box" wx:for="{{recommendGoodsShow}}" wx:key="id" wx:for-item="item" data-id="{{item.id}}" bindtap="toDetailsTap">
+          <!--使用recommend-goods-item模板-->
+          <template is="recommend-goods-item" data="{{item}}"> </template>
+        </view>
+      </view>
+      <!--加载更多商品-->
+      <wxc-loadmore wx:if="{{loadingMore}}" text="正在努力加载中..." icon="https://s10.mogucdn.com/mlcdn/c45406/171018_8gj08gbl9fj6igb380dec9k1ifhe2_32x32.png"></wxc-loadmore>
+    </view>
+    <!--商品加载完成-->
+    <wxc-loadmore wx:if="{{isEnd}}" is-end="{{isEnd}}" text="到底啦" icon="https://s10.mogucdn.com/mlcdn/c45406/171016_47j96cl3hdhhdf7ajg8hg2kd13gdc_400x400.png"></wxc-loadmore>
+  </scroll-view>
+</view>

@@ -1,0 +1,84 @@
+<!--pages/classification/index.wxml-->
+<view class="container">
+  <view class="header">
+    <view class='shop-Info'>
+      <image class="logo" src="{{shopLogo}}" />
+      <view class='shop-words'>
+        <view class="welcome-ellipsis">欢迎来到{{mallName}}！</view>
+        <view class="delivery-ellipsis">
+          <wxc-elip line='2'> {{shopDelivery}} </wxc-elip>
+        </view>
+      </view>
+      <view class='clock'>
+        <canvas canvas-id="myCanvas" class="canvas"></canvas>
+      </view>
+    </view>
+    <view class="line"></view>
+    <view class='marquee'>
+      <view style='width:90%'>
+        <view class="desc">
+          <text>{{shopPrompt}}</text>
+          <text style="display: inline-block; width: 8em;"></text>
+          <text>{{shopPrompt}}</text>
+          <text style="display: inline-block; width: 8em;"></text>
+          <text>{{shopPrompt}}</text>
+          <text style="display: inline-block; width: 8em;"></text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <wxc-dialog class="onLoad-err" title="提示" content="加载商品数据失败！" confirm-text="重试" cancel-text="返回" bindconfirm="onConfirm" bindcancel="onCancel"></wxc-dialog>
+
+  <view class="content-container">
+
+    <wxc-loading is-show="{{loadingStatus}}" type="mgj"></wxc-loading>
+    <wxc-toast is-show="{{loadingFinish}}" icon="yes" icon-color="#FF0077" text="所有商品加载完成"> </wxc-toast>
+
+    <scroll-view class="classify-container" scroll-y="true" scroll-with-animation="true">
+      <view class="classify {{classifyViewed==classify.id?'active':''}}" wx:for="{{categories}}" wx:for-item="classify" wx:key="id" data-id="{{classify.id}}" bindtap="tapClassify">
+        <view class="name {{classifyViewed==classify.id?'active':''}}">{{classify.name}}</view>
+      </view>
+    </scroll-view>
+
+    <scroll-view class="goods-container" scroll-y="true" scroll-top="{{scrolltop}}" wx:if='{{onLoadStatus}}'>
+      <view data="{{goodsListCurrent}}">
+        <view class="title">
+          {{goodsListCurrent.name}}
+        </view>
+        <view style='text-align:center; font-size:28rpx; font-weight:bold;'>
+          <wxc-elip wx:if='{{goodsListCurrent.goods.length != 0}}'>{{goodsListCurrent.type}}</wxc-elip>
+        </view>
+        <view>
+          <view class="goods" wx:for="{{goodsListCurrent.goods}}" wx:key="id" wx:for-item="item" data-id='{{item.id}}' bindtap="toDetailsTap">
+            <image class="pic" src="{{item.imagePath[0]}}">
+              <image class='fresh-tag' src="/images/goodsDescription/fresh.png"></image>
+            </image>
+            <view class="name ellipsis">{{item.name}}</view>
+            <view class='soldInfo'>
+              <view class='good-price-box'>
+                <wxc-price class='price' value='{{item.minPrice}}'></wxc-price>
+              </view>
+            </view>
+            <view class='soldInfo'>
+              <wxc-label class="sold" wx:if="{{item.sales == 0}}" type='fill'>新品上市</wxc-label>
+              <wxc-label class="sold" wx:if="{{item.sales != 0}}">已售{{item.sales}}份</wxc-label>
+              <wxc-label class='star' style='position:absolute;left:380rpx;' type='fill' type-color='none' text-color='#666666'>
+                <block wx:for="{{item.starpic}}" wx:key="{{item.id}}" wx:for-item="star">
+                  <image class="img" src="{{star}}" style="width:20rpx;height:20rpx;"></image>
+                </block>
+                <text style='padding-left:10rpx;' wx:if="{{item.starscore}}" data-pingfen="{{item.starscore}}">{{item.starscore}}分</text>
+                <text style='padding-left:10rpx;' wx:else data-pingfen="{{item.starscore}}">0分</text>
+              </wxc-label>
+            </view>
+          </view>
+
+          <wxc-abnor type="SHOP" wx:if='{{goodsListCurrent.goods.length === 0}}' title='还没有添加' tip='稍后再来试试吧~' bind:abnortap="reLoad"></wxc-abnor>
+          <wxc-loadmore is-end="{{true}}" icon="{{true}}" style="position: relative; bottom: 0rpx;"></wxc-loadmore>
+
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+</view>
