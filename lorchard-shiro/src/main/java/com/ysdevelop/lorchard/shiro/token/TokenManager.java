@@ -13,13 +13,26 @@ import com.ysdevelop.lorchard.shiro.entity.BaseAuth;
 import com.ysdevelop.lorchard.shiro.realm.UserRealm;
 import com.ysdevelop.lorchard.shiro.vo.LoginVo;
 
+/**
+ * 
+ * @author oldHuang
+ * 
+ * @Package com.ysdevelop.lorchard.shiro.token
+ * 
+ * @Description Token 管理器
+ * 
+ * @Date 2018年8月29日
+ * 
+ * @Version
+ * 
+ */
 public class TokenManager {
 
 	// 用户登录管理
-	public static final UserRealm userRealm = SpringContextUtils.getBean("userRealm", UserRealm.class);
+	public static final UserRealm USER_REALM = SpringContextUtils.getBean("userRealm", UserRealm.class);
 
 	// 用户session管理
-	public static final CustomSessionManager customSessionManager = SpringContextUtils.getBean("customSessionManager",
+	public static final CustomSessionManager CUSTOMER_SESSION_MANAGER = SpringContextUtils.getBean("customSessionManager",
 			CustomSessionManager.class);
 
 	/**
@@ -99,12 +112,12 @@ public class TokenManager {
 	 *            用户ID
 	 */
 	public static void clearUserAuthByUserId(Long... userIds) {
-		if(userIds == null || userIds.length == 0){
-			return ;
+		if (userIds == null || userIds.length == 0) {
+			return;
 		}
-		List<SimplePrincipalCollection> result = customSessionManager.getSimplePrincipalCollectionByUserId(userIds);
+		List<SimplePrincipalCollection> result = CUSTOMER_SESSION_MANAGER.getSimplePrincipalCollectionByUserId(userIds);
 		for (SimplePrincipalCollection simplePrincipalCollection : result) {
-			userRealm.clearCachedAuthorizationInfo(simplePrincipalCollection);
+			USER_REALM.clearCachedAuthorizationInfo(simplePrincipalCollection);
 		}
 	}
 
