@@ -19,5 +19,10 @@
 			<artifactId>lorchard-shiro</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-	</dependencies>
+		<dependency>
+			<groupId>com.ysdevelop</groupId>
+			<artifactId>lorchard-mq</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>	
+  </dependencies>
 </project>

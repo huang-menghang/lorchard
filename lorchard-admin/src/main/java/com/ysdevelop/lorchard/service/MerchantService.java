@@ -17,6 +17,6 @@ public interface MerchantService {
 	/**
 	 *  生成商家端小程序二维码
 	 */
-	void generateQrCode();
+	void generateQrCode(Long merchantId);
 	
 }

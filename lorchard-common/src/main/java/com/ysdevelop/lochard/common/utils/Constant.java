@@ -55,6 +55,8 @@ public class Constant {
      */
 	public static String KAPTCHA_SESSION_KEY = "kaptcha-session-key";
 	
+	
+	
 	/**
 	 * 是否类型
 	 */

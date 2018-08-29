@@ -18,23 +18,32 @@ public class ShopController {
 
 	@Autowired
 	private ShopService shopService;
-	
-	@RequestMapping(value = "/apply",method=RequestMethod.GET)
+
+	@RequestMapping(value = "/apply", method = RequestMethod.GET)
 	public String apply() {
 
 		return "shop/apply";
 	}
-   /**
-    * 
-    * @param shop 店铺实体申请店铺
-    *
-    * @return
-    */
-	@RequestMapping(value = "apply",method=RequestMethod.POST)
+
+	/**
+	 * 
+	 * @param shop
+	 *            店铺实体申请店铺
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "apply", method = RequestMethod.POST)
 	@ResponseBody
 	public Result<String> apply(@Valid Shop shop) {
-	    shopService.applyShop(shop); 
+		shopService.applyShop(shop);
 		return Result.success("申请成功");
+	}
+
+	@RequestMapping(value = "/testMq", method = RequestMethod.GET)
+	@ResponseBody
+	public Result<String> testMq() {
+		shopService.testMq();
+		return Result.success("测试目mq成功");
 	}
 
 }

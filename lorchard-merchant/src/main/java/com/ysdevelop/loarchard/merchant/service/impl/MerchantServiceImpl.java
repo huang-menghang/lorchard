@@ -4,7 +4,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ysdevelop.loarchard.merchant.entity.Merchant;
@@ -26,7 +25,8 @@ public class MerchantServiceImpl implements UserService {
 
 	@Autowired
 	private MerchantDao merchantDao;
-
+	
+	
 	@Override
 	public BaseAuth getUserByName(String name) {
 		if (name == null) {

@@ -8,8 +8,10 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-		classpath:lochard-common.xml 
-		classpath:lochard-shiro.xml
+		classpath:lorchard-common.xml 
+		classpath:lorchard-shiro.xml
+	    classpath:lorchard-mq.xml
+		classpath:spring-mq.xml
 		classpath:spring-mvc.xml
 		classpath:spring-mybatis.xml
 		</param-value>

@@ -8,10 +8,12 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-		classpath:lochard-common.xml
+		classpath:lorchard-common.xml
 		<!--  
 		classpath:yuansheng-shiro.xml
-		-->
+		--> 
+		classpath:lorchard-mq.xml
+		classpath:spring-mq.xml
 		classpath:spring-mvc.xml
 		classpath:spring-mybatis.xml
 		</param-value>
@@ -19,7 +21,7 @@
 
 	<context-param>
 		<param-name>webAppRootKey</param-name>
-		<param-value>app.root</param-value>
+		<param-value>appadmin.root</param-value>
 	</context-param>
 
 

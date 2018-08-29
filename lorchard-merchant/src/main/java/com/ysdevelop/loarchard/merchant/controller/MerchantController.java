@@ -76,4 +76,7 @@ public class MerchantController {
 		userService.register(loginVo, session);
 		return Result.success("注册成功");
 	}
+	
+
+	
 }

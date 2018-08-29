@@ -17,5 +17,8 @@ import com.ysdevelop.loarchard.merchant.entity.Shop;
 public interface ShopService {
      /** 申请店铺 */
 	void applyShop(Shop shop);
+	
+	/** 测试mq*/
+	void testMq();
 
 }

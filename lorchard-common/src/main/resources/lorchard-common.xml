@@ -11,7 +11,7 @@
 		<property name="ignoreResourceNotFound" value="true" />
 		<property name="locations">
 			<list>
-				<value>classpath:/lochard-common.properties</value>
+				<value>classpath:/lorchard-common.properties</value>
 			</list>
 		</property>
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
