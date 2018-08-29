@@ -267,6 +267,7 @@ public class HttpUtils {
 		System.out.println(jsonRequest);
 		try {
 			TrustManager[] tm = { new WeiXinX509TrustManager() };
+			// 设置安全请求壳
 			SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
 			sslContext.init(null, tm, new java.security.SecureRandom());
 			SSLSocketFactory ssf = sslContext.getSocketFactory();
@@ -275,6 +276,7 @@ public class HttpUtils {
 
 			HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
 			conn.setSSLSocketFactory(ssf);
+			// s设置请求头
 			conn.setRequestProperty("Content-Type", " application/json");
 			conn.setRequestProperty("Accept-Charset", "utf-8");
 			conn.setRequestProperty("Connection", "keep-alive");
