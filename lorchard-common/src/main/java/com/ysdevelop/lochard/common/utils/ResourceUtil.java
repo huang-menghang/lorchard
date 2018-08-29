@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 public class ResourceUtil {
 	   
 	   private static ResourceUtil RESOURCE_UTIL = null;
-       
+       /* 默认配置文件路径*/
 	   private static final String DEFAULT_PATH = "lorchard-common";
 	   
 	   private static ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle(DEFAULT_PATH);
