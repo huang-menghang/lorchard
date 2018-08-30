@@ -96,6 +96,7 @@ public class HttpClientRequestUtil {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		} finally {
 			try {
 				if (out != null) {
@@ -114,7 +115,7 @@ public class HttpClientRequestUtil {
 
 	
 	/**
-	 * 通过请求获取输出流获取二维码
+	 * 通过请求获取输出流获取二维码图片文件
 	 * 
 	 * @param requestUrl
 	 * 

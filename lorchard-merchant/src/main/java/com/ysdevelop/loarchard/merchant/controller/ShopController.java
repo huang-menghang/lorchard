@@ -38,6 +38,15 @@ public class ShopController {
 		shopService.applyShop(shop);
 		return Result.success("申请成功");
 	}
+    /**
+     * 
+     * @return
+     *
+     */
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public String index() {
+		return "shop/index";
+	}
 
 	@RequestMapping(value = "/testMq", method = RequestMethod.GET)
 	@ResponseBody

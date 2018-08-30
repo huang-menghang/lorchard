@@ -15,8 +15,6 @@
 	<!-- 消息消费者 -->
 	<bean id="merchantMessageConsumer"
 		class="com.ysdevelop.lorchard.mq.service.MerchantMessageConsumer"></bean>
-	<!-- 导入公共的配置文件 -->
-	<import resource="classpath*:/lorchard-mq/lorchard-mq.xml" />
 	<!-- 绑定队列监听器 -->
 	<rabbit:listener-container
 		connection-factory="connectionFactory" acknowledge="auto"

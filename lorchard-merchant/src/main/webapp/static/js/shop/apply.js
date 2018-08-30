@@ -7,6 +7,7 @@ var shop_apply_ops ={
    },
    eventBind:function(){
 	   var that = this;
+	   // 点击申请
 	   $(".apply").click(function(){		   
 		 $that = $(this);
 		 $that.addClass("disable");
