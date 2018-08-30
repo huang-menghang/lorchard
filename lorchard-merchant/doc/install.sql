@@ -87,7 +87,7 @@ CREATE TABLE `t_lorchard_mall_shop` (
   `province` varchar(64) NOT NULL COMMENT '省',
   `city` varchar(64) NOT NULL COMMENT '市',
   `town` varchar(64) DEFAULT NULL COMMENT '区县',
-  `deatilAddress` varchar(255) NOT NULL COMMENT '详细地址',
+  `detailAddress` varchar(255) NOT NULL COMMENT '详细地址',
   `description` varchar(255) NOT NULL COMMENT '描述',
   `operatorName` varchar(32) NOT NULL COMMENT '运营人的信息',
   `mobile` varchar(11) NOT NULL,
