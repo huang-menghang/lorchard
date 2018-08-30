@@ -25,6 +25,10 @@ public class MerchantServiceImpl implements MerchantService, Observer, Initializ
 	public void generateQrCode(Long merchantId) {
         System.out.println("merchantId-->"+merchantId);
 		logger.info("merchantId--->"+merchantId);
+		// 根据商家ID生成商家二维码,上传到七牛云,修改商家的
+		
+		
+		
 		
 	}
 
