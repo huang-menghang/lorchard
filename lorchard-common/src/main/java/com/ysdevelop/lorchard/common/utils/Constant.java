@@ -54,8 +54,6 @@ public class Constant {
 	 */
 	public static String KAPTCHA_SESSION_KEY = "kaptcha-session-key";
 
-	
-
 	/**
 	 * 是否类型
 	 */
@@ -77,6 +75,34 @@ public class Constant {
 		public Integer getValue() {
 			return value;
 		}
+	}
+
+	public enum SystemLogType {
+		SHOP(0, "商家浏览"), GOODS(1, "商品浏览");
+		private int index;
+		private String value;
+
+		private SystemLogType(Integer index, String value) {
+			this.index = index;
+			this.value = value;
+		}
+
+		public int getIndex() {
+			return index;
+		}
+
+		public void setIndex(int index) {
+			this.index = index;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		public void setValue(String value) {
+			this.value = value;
+		}
+
 	}
 
 	public enum MemberStatus {
