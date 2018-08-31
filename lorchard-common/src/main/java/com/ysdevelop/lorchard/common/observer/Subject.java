@@ -5,7 +5,7 @@ package com.ysdevelop.lorchard.common.observer;
  *
  * @Package com.ysdevelop.lochard.common.observer
  * 
- * @Description 观察者主题
+ * @Description 观察者模式,观察者主题
  *
  * @Date 2018年8月29日
  *

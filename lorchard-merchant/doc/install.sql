@@ -104,6 +104,18 @@ CREATE TABLE `t_lorchard_mall_shop` (
   `updateTime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+--会员日志
+DROP TABLE IF EXISTS `t_lorchard_mall_shop_system_log`;
+CREATE TABLE `t_lorchard_mall_shop_system_log` (
+   `id` int(8) NOT NULL AUTO_INCREMENT,
+   `merchantId` int(8) NOT NULL COMMENT '商家id',
+   `memberId` int(8) NOT NULL COMMENT '会员id',
+   `goodsId` int(8) NOT NULL COMMENT '产品id',
+   `type` tinyint(1) NOT NULL DEFAULT '0',
+   `description` varchar(256) NOT NULL COMMENT '日志描述',
+   `createTime` timestamp,
+    PRIMARY KEY (`id`)
+)ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --店铺每日流量统计
 DROP TABLE IF EXISTS `t_lorchard_mall_shop_flow_stat_daily_site`;
