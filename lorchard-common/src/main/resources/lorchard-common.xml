@@ -17,9 +17,9 @@
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
 	</bean>
 	<bean lazy-init="false" name="springContextUtils"
-		class="com.ysdevelop.lochard.common.utils.SpringContextUtils">
+		class="com.ysdevelop.lorchard.common.utils.SpringContextUtils">
 	</bean>
-	<bean id="redisConfig" class="com.ysdevelop.lochard.common.redis.RedisConfig">
+	<bean id="redisConfig" class="com.ysdevelop.lorchard.common.redis.RedisConfig">
 		<property name="host">
 			<value>${redis.host}</value>
 		</property>
@@ -50,19 +50,19 @@
 
 	</bean>
 
-	<bean id="redisPoolFactory" class="com.ysdevelop.lochard.common.redis.RedisPoolFactory">
+	<bean id="redisPoolFactory" class="com.ysdevelop.lorchard.common.redis.RedisPoolFactory">
 		<property name="redisConfig" ref="redisConfig"></property>
 	</bean>
 
 	<bean id="jedisPool" name="jedisPool" factory-bean="redisPoolFactory"
 		factory-method="JedisPoolFactory"></bean>
 
-	<bean id="redisService" class="com.ysdevelop.lochard.common.redis.RedisService">
+	<bean id="redisService" class="com.ysdevelop.lorchard.common.redis.RedisService">
 		<property name="jedisPool" ref="jedisPool">
 		</property>
 	</bean>
 
-	<bean id="jedisManager" class="com.ysdevelop.lochard.common.redis.JedisManager">
+	<bean id="jedisManager" class="com.ysdevelop.lorchard.common.redis.JedisManager">
 		<property name="jedisPool" ref="jedisPool">
 		</property>
 	</bean>

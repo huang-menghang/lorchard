@@ -2,7 +2,7 @@ package com.ysdevelop.lorchard.shiro.vo;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.ysdevelop.lochard.common.validator.IsMobile;
+import com.ysdevelop.lorchard.common.validator.IsMobile;
 
 public class LoginVo {
 	// 姓名

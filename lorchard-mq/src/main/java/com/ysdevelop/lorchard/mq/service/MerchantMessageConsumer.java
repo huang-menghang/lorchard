@@ -7,9 +7,9 @@ import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
 import org.springframework.beans.factory.InitializingBean;
 
-import com.ysdevelop.lochard.common.observer.Observer;
-import com.ysdevelop.lochard.common.observer.Subject;
-import com.ysdevelop.lochard.common.utils.Constant;
+import com.ysdevelop.lorchard.common.observer.Observer;
+import com.ysdevelop.lorchard.common.observer.Subject;
+import com.ysdevelop.lorchard.common.utils.Constant;
 
 /**
  * 

@@ -18,6 +18,8 @@
 		
 	</div>
 	<jsp:include page="/context/js-tags.jsp" />
+	<script type="text/javascript" src="<%=basePath%>/static/plugin/echarts/echarts.min.js"></script>
+	<script type="text/javascript" src="<%=basePath%>/static/plugin/echarts/chart.js"></script>
 	<script type="text/javascript" src="<%=basePath%>/static/js/shop/index.js"></script>
 </body>
 </html>

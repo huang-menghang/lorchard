@@ -10,13 +10,8 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
-
-
-
-
-import com.ysdevelop.lochard.common.redis.JedisManager;
-import com.ysdevelop.lochard.common.utils.StringUtils;
+import com.ysdevelop.lorchard.common.redis.JedisManager;
+import com.ysdevelop.lorchard.common.utils.StringUtils;
 import com.ysdevelop.lorchard.shiro.core.RedisSessionDao;
 import com.ysdevelop.lorchard.shiro.entity.BaseAuth;
 

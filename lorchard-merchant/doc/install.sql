@@ -105,3 +105,15 @@ CREATE TABLE `t_lorchard_mall_shop` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
+--店铺每日流量统计
+DROP TABLE IF EXISTS `t_lorchard_mall_shop_flow_stat_daily_site`;
+CREATE TABLE `t_lorchard_mall_shop_flow_stat_daily_site` (
+   `id` int(8) NOT NULL AUTO_INCREMENT,
+   `pageView` int(8) NOT NULL  COMMENT '浏览量',
+   `visitorNumber` int(8) NOT NULL COMMENT '访客数',
+   `goodsView` int(8) NOT NULL  COMMENT '商品浏览量',
+   `goodsAceessNumber` int(8) NOT NULL  COMMENT '商品访问数',
+   `date` date NOT NULL COMMENT '日期',
+   `createTime` timestamp,
+    PRIMARY KEY (`id`)
+)ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
