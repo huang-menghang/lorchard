@@ -32,6 +32,7 @@ var merchant_login_ops ={
 				  console.log(res.code);
 				  if(res.code == 0){
 					 callback = function(){
+						 $that.removeClass('disable');
 						 window.location.href = WEB_ROOT+'/index';
 					 };
 				  }else if(res.code == 500122){
@@ -41,6 +42,7 @@ var merchant_login_ops ={
 					 };
 				  }else if(res.code == 500123){
 					 callback = function() {
+						 $that.removeClass('disable');
 						 window.location.href = WEB_ROOT+'/shop/apply';
 					 };
 				  }else{

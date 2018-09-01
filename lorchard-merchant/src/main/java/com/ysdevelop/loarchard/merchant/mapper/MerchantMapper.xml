@@ -17,7 +17,7 @@
 	</select>
 	
 	<update id="updateStatusById" >
-	    updata 
+	    update 
 	    t_lorchard_mall_merchant
 	    set status = 0
 	    where id = #{userId}

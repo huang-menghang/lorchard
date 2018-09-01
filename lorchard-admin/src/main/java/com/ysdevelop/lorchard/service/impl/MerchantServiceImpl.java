@@ -22,10 +22,15 @@ public class MerchantServiceImpl implements MerchantService, Observer, Initializ
 	Logger logger = Logger.getLogger(this.getClass());
 
 	@Override
-	public void generateQrCode(Long merchantId) {
-        System.out.println("merchantId-->"+merchantId);
+	public void prepareShop(Long merchantId) {
 		logger.info("merchantId--->"+merchantId);
-		// 根据商家ID生成商家二维码,上传到七牛云,修改商家的
+		// 生成店铺二维码
+		this.generateMerchantQr(merchantId);
+		
+	}
+	
+	
+	private void generateMerchantQr(Long merchantId){
 		
 		
 		
@@ -43,7 +48,8 @@ public class MerchantServiceImpl implements MerchantService, Observer, Initializ
 				switch (type) {
 				// 申请店铺
 				case APPLY_SHOP:
-					this.generateQrCode(message.getMerchantId());
+					// 准备店铺的一些数据
+					this.prepareShop(message.getMerchantId());
 					break;
 				default:
 					break;

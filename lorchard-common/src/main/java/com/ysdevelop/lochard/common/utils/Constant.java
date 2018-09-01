@@ -1,6 +1,5 @@
 package com.ysdevelop.lochard.common.utils;
 
-
 /**
  * 常量
  * 
@@ -23,7 +22,7 @@ public class Constant {
 	 * 判断是否为0
 	 */
 	public static final Integer DEFALULT_ONE = 1;
-	
+
 	/**
 	 * 判断是否为2
 	 */
@@ -49,14 +48,14 @@ public class Constant {
 	 * REDIS_SHIRO_ALL
 	 */
 	public static final String REDIS_SHIRO_ALL = "*ysdevelop-shiro-session:*";
-    
+
 	/**
-     * KAPTCHA_SESSION_KEY 
-     */
+	 * KAPTCHA_SESSION_KEY
+	 */
 	public static String KAPTCHA_SESSION_KEY = "kaptcha-session-key";
+
 	
-	
-	
+
 	/**
 	 * 是否类型
 	 */
@@ -166,8 +165,6 @@ public class Constant {
 
 	}
 
-	
-
 	// 预约订单类型
 	public enum OrderDepositType {
 		UNPAYMENYT(0, "待付款"), UNDELIVERY(1, "待派送"), UNWAITINGORDER(2, "待接单"), WAITINGORDER(3, "已接单"), FINISHED(4, "已完成"), CLOSED(5, "关闭");
@@ -225,6 +222,5 @@ public class Constant {
 		}
 
 	}
-
 
 }

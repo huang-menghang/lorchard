@@ -15,8 +15,8 @@ package com.ysdevelop.lorchard.service;
 public interface MerchantService {
 
 	/**
-	 *  生成商家端小程序二维码
+	 *  生成商家端小程序二维码,以及样板数据
 	 */
-	void generateQrCode(Long merchantId);
+	void prepareShop(Long merchantId);
 	
 }

@@ -3,8 +3,8 @@
 <mapper namespace="com.ysdevelop.loarchard.merchant.mapper.ShopDao">
 
 	<insert id="addShop" parameterType="com.ysdevelop.loarchard.merchant.entity.Shop">
-	   insert into `t_lorchard_mall_shop`(`name`,`province`,`city`,`town`,`detailAddress`,`description`,`operatorName`,`mobile`,`qq`,`wechatNo`,`email`,`createTime`)
-	   values(#{name},#{province},#{city},#{town},#{detailAddress},#{description},#{operatorName},#{mobile},#{qq},#{wechatNo},#{email},now())
+	   insert into `t_lorchard_mall_shop`(`name`,`merchantId`,`province`,`city`,`town`,`detailAddress`,`description`,`operatorName`,`merchantQr`,`mobile`,`qq`,`wechatNo`,`email`,`createTime`)
+	   values(#{name},#{merchantId},#{province},#{city},#{town},#{detailAddress},#{description},#{operatorName},#{merchantQr},#{mobile},#{qq},#{wechatNo},#{email},now())
 	</insert>
 
 </mapper>
