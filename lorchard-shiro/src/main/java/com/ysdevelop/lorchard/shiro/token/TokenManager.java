@@ -7,7 +7,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 
-import com.ysdevelop.lochard.common.utils.SpringContextUtils;
+import com.ysdevelop.lorchard.common.utils.SpringContextUtils;
 import com.ysdevelop.lorchard.shiro.core.session.CustomSessionManager;
 import com.ysdevelop.lorchard.shiro.entity.BaseAuth;
 import com.ysdevelop.lorchard.shiro.realm.UserRealm;

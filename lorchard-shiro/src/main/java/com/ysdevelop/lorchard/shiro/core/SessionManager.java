@@ -21,7 +21,7 @@ import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.apache.shiro.web.session.mgt.WebSessionKey;
 import org.apache.shiro.web.util.WebUtils;
 
-import com.ysdevelop.lochard.common.utils.RegexUtil;
+import com.ysdevelop.lorchard.common.utils.RegexUtil;
 
 
 

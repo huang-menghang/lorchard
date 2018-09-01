@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
-import com.ysdevelop.lochard.common.observer.Observer;
-import com.ysdevelop.lochard.common.observer.Subject;
+import com.ysdevelop.lorchard.common.observer.Observer;
+import com.ysdevelop.lorchard.common.observer.Subject;
 import com.ysdevelop.lorchard.mq.bo.MerchantMessage;
 import com.ysdevelop.lorchard.mq.define.MessageType;
 import com.ysdevelop.lorchard.mq.service.MerchantMessageConsumer;

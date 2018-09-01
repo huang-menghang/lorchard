@@ -9,13 +9,8 @@ import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.eis.AbstractSessionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
-
-
-
-
-import com.ysdevelop.lochard.common.redis.JedisManager;
-import com.ysdevelop.lochard.common.utils.SerializeUtil;
+import com.ysdevelop.lorchard.common.redis.JedisManager;
+import com.ysdevelop.lorchard.common.utils.SerializeUtil;
 import com.ysdevelop.lorchard.shiro.core.session.CustomSessionManager;
 import com.ysdevelop.lorchard.shiro.core.session.SessionStatus;
 

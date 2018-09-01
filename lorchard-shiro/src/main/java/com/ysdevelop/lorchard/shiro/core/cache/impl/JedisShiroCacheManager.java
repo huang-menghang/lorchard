@@ -1,12 +1,9 @@
 package com.ysdevelop.lorchard.shiro.core.cache.impl;
 
 import org.apache.shiro.cache.Cache;
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ysdevelop.lochard.common.redis.JedisManager;
+import com.ysdevelop.lorchard.common.redis.JedisManager;
 import com.ysdevelop.lorchard.shiro.core.cache.JedisShiroCache;
 import com.ysdevelop.lorchard.shiro.core.cache.ShiroCacheManager;
 

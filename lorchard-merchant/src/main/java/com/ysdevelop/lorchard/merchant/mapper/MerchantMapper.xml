@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysdevelop.lorchard.merchant.mapper.MerchantDao">
+
+
+	<insert id="add" parameterType="com.ysdevelop.lorchard.merchant.entity.Merchant">
+		insert into t_lorchard_mall_merchant(mobile,password,salt,createTime)
+		values(#{mobile},#{password},#{salt},now())
+	</insert>
+
+
+	<select id="getUserByName" resultType="com.ysdevelop.lorchard.shiro.entity.BaseAuth">
+		select
+		id,mobile,`password`,salt,status,createTime
+		from t_lorchard_mall_merchant
+		where mobile = #{name}
+	</select>
+	
+	<update id="updateStatusById" >
+	    update 
+	    t_lorchard_mall_merchant
+	    set status = 0
+	    where id = #{userId}
+	</update>
+	
+
+</mapper>
