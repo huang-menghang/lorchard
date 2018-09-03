@@ -1,0 +1,101 @@
+.tpl-content-wrapper{
+padding-left: 10px;
+}
+.shop-content{
+	width:100%;
+	background-color:#fff;
+	padding-bottom: 35px;
+	padding-left: 20px;
+    padding-top: 10px;
+}
+.header-logo{
+	    width: 72px;
+    height: 72px;
+    margin-right: 20px;
+    float: left;
+    border: 2px solid #f2f2f2;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.header-logo img{
+	width: 70%;
+    height: 70%;
+    margin-left: 15%;
+    margin-top: 15%;
+}
+.header-info{
+	width:400px;
+	float:left;
+	
+}
+.header-info .header-name{
+	height: 42px;
+    font-size: 20px;
+    line-height: 33px;
+    display: inline-block;
+}
+.header-info .header-danbao div{
+	float:left;
+	width:90px;
+}
+.header-action{
+	width:330px;
+	float:right;
+	    margin-top: 30px;
+}
+.header-action .primary{
+	float:left;
+	background-color:#38f;
+	color:#fff;
+	border: 2px solid #38f;
+	margin-right: 12px;
+	height: 33px;
+    text-align: center;
+    padding: 0 13px;
+    line-height: 30px;
+        border-radius: 4px;
+}
+.clear{
+	clear:both;
+}
+.board{
+	width:98%;
+	height:100px;
+	background-color:#f8f8f8;
+    margin-top: 22px;
+        padding-top: 15px;
+}
+.board .board-box{
+	width:16.6%;
+	height:70px;
+	padding-top: 12px;
+	border-right: 1px solid #ccc;
+	float:left;
+}
+.board .board-box:nth-of-type(6){
+	border-right:none;
+}
+.board-box .border-value{
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: center;
+}
+.board-box .border-title{
+	font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    margin-top: 10px;
+    text-align: center;
+}
+.board-diagram{
+	width:98%;
+	height:50px;
+	background-color:#f8f8f8;
+	    line-height: 50px;
+    padding-left: 25px;
+    margin-top: 15px;
+}
+.header-danbao .active{
+	color:#3dd843;
+}

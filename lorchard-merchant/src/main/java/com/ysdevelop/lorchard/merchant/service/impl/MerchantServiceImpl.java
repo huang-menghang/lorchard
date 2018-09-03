@@ -66,11 +66,14 @@ public class MerchantServiceImpl implements UserService {
 
 	@Override
 	public void login(LoginVo loginVo) {
+		// 校验二维码
 		if (!loginVo.getVerifyCode().equals(TokenManager.getSession().getAttribute(Constant.KAPTCHA_SESSION_KEY))) {
 			throw new WebServiceException(CodeMsg.MERCHANT_VERIFYCODE_WRONG);
 		}
 		TokenManager.login(loginVo);
 		BaseAuth baseAuth = TokenManager.getToken();
+		System.out.println();
+		System.out.println("loginName--->"+baseAuth.getLoginName());
 		if (baseAuth.getStatus() == Constant.DEFALULT_ONE) {
 			throw new WebServiceException(CodeMsg.MERCHANT_UNOPEN);
 		}

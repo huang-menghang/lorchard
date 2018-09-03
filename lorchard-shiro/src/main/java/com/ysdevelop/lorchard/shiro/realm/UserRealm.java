@@ -30,7 +30,7 @@ import com.ysdevelop.lorchard.shiro.service.UserService;
  * 
  * @Package com.ysdevelop.shiro.realm
  * 
- * @Description TODO
+ * @Description
  * 
  * @Date 2018年4月23日
  * 
@@ -49,13 +49,12 @@ public class UserRealm extends AuthorizingRealm {
 	private PermissionService permissionService;
 
 	@Autowired
-	private  JedisShiroCacheManager cacheManager;
-
+	private JedisShiroCacheManager cacheManager;
 
 	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken)
-			throws AuthenticationException {
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
 		String name = (String) authenticationToken.getPrincipal();
+		System.out.println("name-->"+name);
 		BaseAuth user = userService.getUserByName(name);
 		if (user == null) {
 			throw new UnknownAccountException();
@@ -64,8 +63,8 @@ public class UserRealm extends AuthorizingRealm {
 		user.setRoleSet(roles);
 		Set<String> permissions = permissionService.listByUserName(user.getLoginName());
 		user.setPermissionSet(permissions);
-		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user, user.getPassword(),
-				new RedisSimpleByteSource(user.getSalt()), getName());
+		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user, user.getPassword(), new RedisSimpleByteSource(
+				user.getSalt()), getName());
 		return authenticationInfo;
 	}
 
@@ -91,6 +90,7 @@ public class UserRealm extends AuthorizingRealm {
 	 * 
 	 */
 	public void clearCachedAuthorizationInfo(PrincipalCollection principalCollection) {
+		System.out.println("name--->"+getName());
 		SimplePrincipalCollection principals = new SimplePrincipalCollection(principalCollection, getName());
 		super.clearCachedAuthorizationInfo(principals);
 	}
@@ -102,9 +102,10 @@ public class UserRealm extends AuthorizingRealm {
 	 */
 	public void clearAuthorizationInfo(String username) {
 		Cache<Object, Object> cache = cacheManager.getCache("com.ysdevelop.lorchard.shiro.realm.UserRealm.authenticationCache");
+		System.out.println(cache);
 		cache.remove(username);
 	}
-	
+
 	public static UserRealm getUserRealm() {
 		RealmSecurityManager realmSecurityManager = (RealmSecurityManager) SecurityUtils.getSecurityManager();
 		UserRealm userRealm = (UserRealm) realmSecurityManager.getRealms().iterator().next();

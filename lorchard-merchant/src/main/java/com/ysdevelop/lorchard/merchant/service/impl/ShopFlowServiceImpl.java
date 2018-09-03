@@ -23,8 +23,8 @@ public class ShopFlowServiceImpl implements ShopFlowService {
 	}
 
 	@Override
-	public List<ShopFlow> listWeek() {
-		return null;
+	public List<ShopFlow> recentSevenDayStat() {
+		return flowDao.recentSevenDayStat();
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.ysdevelop.lorchard.merchant.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ysdevelop.lorchard.common.result.Result;
 import com.ysdevelop.lorchard.merchant.entity.Shop;
+import com.ysdevelop.lorchard.merchant.entity.ShopFlow;
+import com.ysdevelop.lorchard.merchant.service.ShopFlowService;
 import com.ysdevelop.lorchard.merchant.service.ShopService;
 
 @Controller
@@ -18,6 +22,9 @@ public class ShopController {
 
 	@Autowired
 	private ShopService shopService;
+
+	@Autowired
+	private ShopFlowService shopFlowService;
 
 	@RequestMapping(value = "/apply", method = RequestMethod.GET)
 	public String apply() {
@@ -38,14 +45,30 @@ public class ShopController {
 		shopService.applyShop(shop);
 		return Result.success("申请成功");
 	}
-    /**
-     * 
-     * @return
-     *
-     */
+
+	/**
+	 * 商店概述
+	 * 
+	 * 
+	 * @return
+	 * 
+	 */
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String index() {
 		return "shop/index";
+	}
+
+	/**
+	 * 商店概述,每日前七天流量统计
+	 * 
+	 * @return
+	 * 
+	 */
+	@RequestMapping(value = "/dailyShopFlow", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Result<List<ShopFlow>> dailyFlowStat() {
+
+		return Result.successData(shopFlowService.recentSevenDayStat());
 	}
 
 	@RequestMapping(value = "/testMq", method = RequestMethod.GET)

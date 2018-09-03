@@ -58,7 +58,7 @@ td .layui-table-cell{
 						</div>
 						<div class="layui-input-inline " style="width: 7%">
 						<button class="layui-btn layui-btn-warm btn-reset" style="width: 80px">
-							<i class="layui-icon">&#x1002;</i>重置
+							<i class="layui-icon">&#xe666;</i>重置
 						</button>
 						</div>
 					</div>

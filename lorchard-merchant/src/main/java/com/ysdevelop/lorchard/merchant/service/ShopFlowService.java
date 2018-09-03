@@ -28,6 +28,6 @@ public interface ShopFlowService {
 	 * 
 	 * @return
 	 */
-	List<ShopFlow> listWeek();
+	List<ShopFlow> recentSevenDayStat();
 
 }

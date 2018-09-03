@@ -31,6 +31,49 @@
 	NOW()
 	)
 	</insert>
+	
+	<select id="recentSevenDayStat" resultType="com.ysdevelop.lorchard.merchant.entity.ShopFlow">
+	SELECT
+	a.click_date AS `date`,
+	ifnull(b.pageView, 0) AS pageView,
+	IFNULL(b.`visitorNumber`, 0) AS `visitorNumber`,
+	IFNULL(b.`goodsView`, 0) AS `goodsView`,
+	IFNULL(b.`goodsAceessNumber`, 0) AS `goodsAceessNumber`
+    FROM
+	(
+		SELECT
+			date_sub(curdate(), INTERVAL 1 DAY) AS click_date
+		UNION ALL
+		    SELECT
+			date_sub(curdate(), INTERVAL 2 DAY) AS click_date
+		UNION ALL
+			SELECT
+		    date_sub(curdate(), INTERVAL 3 DAY) AS click_date
+		UNION ALL
+			SELECT
+			date_sub(curdate(), INTERVAL 4 DAY) AS click_date
+		UNION ALL
+			SELECT
+			date_sub(curdate(), INTERVAL 5 DAY) AS click_date
+			UNION ALL
+		SELECT
+			date_sub(curdate(), INTERVAL 6 DAY) AS click_date
+			UNION ALL
+			SELECT
+			date_sub(curdate(), INTERVAL 7 DAY) AS click_date
+	    ) a
+      LEFT JOIN (
+	   SELECT
+		  `pageView`,
+		  `visitorNumber`,
+		  `goodsView`,
+		  `goodsAceessNumber`,
+		  `date`,
+		  `createTime`
+   	  FROM
+		`t_lorchard_mall_shop_flow_stat_daily_site`
+      ) b ON a.`click_date` = b.`date`
+	</select>
 
 
 </mapper>
