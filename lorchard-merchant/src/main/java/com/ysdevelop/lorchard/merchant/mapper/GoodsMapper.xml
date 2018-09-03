@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ysdevelop.lorchard.merchant.mapper.GoodsDao">
+	
+	<!-- 商品首页查询所有商品信息 -->
+	<select id="list"  resultType="com.ysdevelop.lorchard.merchant.entity.Goods">
+		select
+		`g`.id as`id`,
+		`g`.name AS `name`,
+		`g`.description as `description`,
+		`g`.createTime as`createTime`,
+	    `g`.sales as `sales`,
+	    `a`.id as parentId,
+		`g`.recommend as `recommend`,
+		`s`.minPrice as `minPrice`,
+		`s`.originalPrice as `originalPrice`,
+		`s`.type as `type`,
+		`g`.categoryId as `categoryId`,
+		`a`.name as `parentCategoryName`
+		from
+		`t_lorchard_mall_goods` as `g`
+		LEFT JOIN `t_lorchard_mall_goods_category` as `c` on `c`.id =`g`.categoryId
+		LEFT JOIN `t_lorchard_mall_goods_category` as `a` on  `a`.id=`c`.parentId
+		LEFT JOIN `t_lorchard_mall_goods_specifications` as `s` on `s`.goodsId=`g`.id
+		<where>
+			1 = 1
+			<if test="queryMap.name !=null and queryMap.name != ''">
+				and g.`name` like CONCAT('%',#{queryMap.name},'%')
+			</if>
+			<if test="queryMap.description !=null and queryMap.description != ''">
+				and `g`.description like CONCAT('%',#{queryMap.description},'%')
+			</if>
+			<if test="queryMap.startTime != null and queryMap.startTime != ''">
+                <![CDATA[ and `g`.createTime > #{queryMap.startTime} ]]>
+			</if>
+			<if test="queryMap.endTime != null and queryMap.endTime != ''">
+               <![CDATA[ and `g`.createTime < #{queryMap.endTime} ]]>
+		 	</if>
+		 	<if test="queryMap.minPriceMin != null and queryMap.minPriceMin != ''">
+              <![CDATA[ and `s`.minPrice >= #{queryMap.minPriceMin} ]]>
+            </if>
+		 	<if test="queryMap.minPriceMax != null and queryMap.minPriceMax!= ''">
+              <![CDATA[ and `s`.minPrice <= #{queryMap.minPriceMax} ]]>
+		 	</if>
+		 	<if test="queryMap.salesMin != null and queryMap.salesMin!= ''">
+              <![CDATA[ and `g`.sales >= #{queryMap.salesMin} ]]>
+		 	</if>
+		 	<if test="queryMap.salesMax != null and queryMap.salesMax!= ''">
+              <![CDATA[ and `g`.sales <= #{queryMap.salesMax} ]]>
+		 	</if>
+		 	   and `g`.status = 0
+		 	   and `g`.merchantId=#{queryMap.merchantId}
+		</where> 
+		order BY `g`.id
+	</select>
+	
+	<!-- 查询所有轮播图 -->
+	<select id="listPreviewImage" resultType="com.ysdevelop.lorchard.merchant.entity.PreviewImages">
+		select `p`.id as `id`,
+		`p`.previewImagePath as `previewImagePath`,
+		`p`.previewImageIndex as `previewImageIndex`,
+		`p`.goodsId as `goodsId`,
+		`p`.createTime as `createTime`
+		from `t_lorchard_mall_goods_previewImage` as `p`
+		where `p`.status=0
+	</select>
+	
+	
+	
+	<!-- 查询单个商品的所有轮播图 -->
+	<select id="getPreviewImageById" resultType="com.ysdevelop.lorchard.merchant.entity.PreviewImages">
+		select `p`.id as`id`,`p`.previewImagePath as `previewImagePath`,
+		`p`.previewImageIndex as `previewImageIndex`,
+		`p`.goodsId as `goodsId`,
+		`p`.createTime as `createTime`
+		from `t_lorchard_mall_goods_previewImage` as `p`
+		where  `p`.goodsId=#{id} and `p`.status=0
+	</select>
+	
+	<!-- 查询单个商品 -->
+	<select id="getById" resultType="com.ysdevelop.lorchard.merchant.entity.Goods">
+	     select
+	   `g`.name as `name`,
+	   `g`.description as `description`,
+	   `g`.categoryId as `categoryId`,
+	   `s`.type as `type`,
+	   `s`.originalPrice as `originalPrice`,
+	   `s`.minPrice as `minPrice`,
+	   `s`.specificationsDescription as `specificationsDescription`,
+	   `g`.recommend as `recommend`,
+	   `g`.stock as `stock`,
+	   `g`.sales as `sales`,
+	   `a`.name as `parentCategoryName`,
+	   `a`.id as `parentId`
+	   	from `t_lorchard_mall_goods` as `g`
+	   	left join `t_lorchard_mall_goods_category` as `c` on `c`.id = `g`.categoryId
+	   	left join `t_lorchard_mall_goods_category` as `a` on  `a`.id=`c`.parentId
+	   	left join `t_lorchard_mall_goods_specifications` as `s` on `s`.goodsId=`g`.id
+	    where `g`.id = #{id}
+	</select>
+	
+	<!-- 查询所有类别的顶级分类 -->
+	<select id="listCategory" resultType="com.ysdevelop.lorchard.merchant.entity.Goods">
+	   select
+	   `c`.id as `id`,`c`.name as `parentCategoryName`
+	   from `t_lorchard_mall_goods_category` as `c`
+	   where `c`.parentId=0
+	</select>
+	
+	<!-- 修改商品和商品尺寸 -->
+	<update id="update" parameterType="com.ysdevelop.lorchard.merchant.entity.Goods" useGeneratedKeys="true" keyProperty="id">
+	    update `t_lorchard_mall_goods` as `g`,`t_lorchard_mall_goods_specifications` as `s`
+	    <trim prefix="set" suffixOverrides="," suffix="where `g`.id = #{id} and `s`.goodsId=`g`.id">
+			<if test="name != null and name != '' ">
+				g.`name` = #{name},
+			</if>
+			<if test="type != null ">
+				s.`type` = #{type},
+			</if>
+			<if test="description != null and description != '' ">
+				g.`description` = #{description},
+			</if>
+			<if test="specificationsDescription != null and specificationsDescription != '' ">
+				s.`specificationsDescription` = #{specificationsDescription},
+			</if>
+			<if test="originalPrice != null ">
+				s.`originalPrice` = #{originalPrice},
+			</if>
+			<if test="minPrice != null  ">
+				s.`minPrice` = #{minPrice},
+			</if>
+			<if test="stock != null  ">
+				g.`stock` = #{stock},
+			</if>
+			<if test="categoryId != null  ">
+				g.`categoryId` = #{categoryId},
+			</if>
+			<if test="recommend != null  ">
+				g.`recommend` = #{recommend},
+			</if>	
+			<if test="id != null">
+			    g.`updateTime` = now(),
+			</if>
+		</trim>
+	</update>
+	
+	<!-- 删除同一个商品下的图片 -->
+	<update id="deletePreviewImagesByGoodsId" >
+		update `t_lorchard_mall_goods_previewimage`
+		set `status`=1
+		where `goodsId`=#{goodsId}
+	</update>
+	
+	<!-- 在同一商品下添加图片 -->
+	<insert id="addPreviewImagesByGoodsId" parameterType="com.ysdevelop.lorchard.merchant.entity.PreviewImages">
+		insert into `t_lorchard_mall_goods_previewimage`(`previewImagePath`,`previewImageIndex`,`goodsId`,`createTime`,`status`)
+		values
+		<foreach collection="previewImages" index="index" item="previewImages" separator=",">
+			(#{previewImages.previewImagePath},
+			#{previewImages.previewImageIndex},
+			#{previewImages.goodsId},
+			now(),0)
+		</foreach>
+	</insert>
+	
+	<!-- 下架商品 -->
+	<update id="deleteById">
+		update `t_lorchard_mall_goods`
+		set `status`=1
+		where
+		`id`=#{id}
+	</update>
+	
+	<!-- 添加商品 -->
+	<insert id="add" parameterType="com.ysdevelop.lorchard.merchant.entity.Goods" useGeneratedKeys="true" keyProperty="id">
+	   insert into `t_lorchard_mall_goods`(`merchantId`,`name`,`description`,`categoryId`,`status`,`recommend`,`stock`,`createTime`)
+	   values(#{merchantId},#{name},#{description},#{categoryId},0,#{recommend},#{stock},now())
+	</insert>
+	
+	<!-- 添加商品尺寸 -->
+	<insert id="addSpecifications" parameterType="com.ysdevelop.lorchard.merchant.entity.Goods" >
+	   insert into `t_lorchard_mall_goods_specifications`(`type`,`originalPrice`,`minPrice`,`specificationsDescription`,`goodsId`)
+	   values(#{type},#{originalPrice},#{minPrice},#{specificationsDescription},#{id})
+	</insert>
+</mapper>

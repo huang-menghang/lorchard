@@ -129,3 +129,45 @@ CREATE TABLE `t_lorchard_mall_shop_flow_stat_daily_site` (
    `createTime` timestamp,
     PRIMARY KEY (`id`)
 )ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--商品表
+DROP TABLE IF EXISTS `t_lorchard_mall_goods`;
+CREATE TABLE `t_lorchard_mall_goods` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品ID',
+  `merchantId` int(11) NOT NULL COMMENT '商家ID',
+  `name` varchar(16) NOT NULL COMMENT '商品名称',
+  `description` varchar(256) NOT NULL COMMENT '商品描述',
+  `categoryId` int(11) NOT NULL COMMENT '商品类别',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0为上架,1为下架状态',
+  `recommend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0为非推荐,1为推荐商品',
+  `stock` int(8) DEFAULT '0' COMMENT '商品库存',
+  `sales` int(8) NOT NULL DEFAULT '0' COMMENT '商品销量',
+  `createTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `updateTime` timestamp NULL DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+
+--商品轮播图表
+DROP TABLE IF EXISTS `t_lorchard_mall_goods_previewimage`;
+CREATE TABLE `t_lorchard_mall_goods_previewimage` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `previewImagePath` text NOT NULL COMMENT '轮播图路径',
+  `previewImageIndex` tinyint(9) DEFAULT NULL COMMENT '轮播图索引',
+  `goodsId` int(11) NOT NULL COMMENT '商品id',
+  `createTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0为未删除,1为删除状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=241 DEFAULT CHARSET=utf8;
+
+
+--商品规格表
+DROP TABLE IF EXISTS `t_lorchard_mall_goods_specifications`;
+CREATE TABLE `t_lorchard_mall_goods_specifications` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '规格id',
+  `type` tinyint(1) NOT NULL COMMENT '0表示500g,1表示1份',
+  `originalPrice` decimal(16,2) NOT NULL COMMENT '正常价',
+  `minPrice` decimal(16,2) NOT NULL COMMENT '最低价',
+  `specificationsDescription` varchar(255) NOT NULL COMMENT '规格描述',
+  `goodsId` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
