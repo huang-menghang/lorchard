@@ -3,25 +3,33 @@
 <mapper namespace="com.ysdevelop.lorchard.merchant.mapper.ShopFlowDao">
 
 	<insert id="addDailyShopFlow">
-        insert into `t_lorchard_mall_shop_flow_stat_daily_site`
-        (`pageView`,`visitorNumber`,`goodsView`,`goodsAceessNumber`,`date`,`createTime`)
-        values(
-        select count(id) from `t_lorchard_mall_shop_system_log`
-        where `createTime` BETWEEN date_sub(CURDATE(),interval 2 day) AND CURDATE()
-        ,
-        select count(distinct(memberId)) from `t_lorchard_mall_shop_system_log`
-        `createTime` BETWEEN date_sub(CURDATE(),interval 2 day)  AND  CURDATE()
-        ,
-        select count(id) 
-        from `t_lorchard_mall_shop_system_log`
-        where type = 1 and `createTime` BETWEEN date_sub(CURDATE(),interval 2 day)  AND CURDATE()
-        ,
-        select count(distinct(`goodsId`)) from `t_lorchard_mall_shop_system_log`
-        where type = 1 and `createTime` BETWEEN date_sub(CURDATE(),interval 2 day)  AND CURDATE()
-        ,
-        CURDATE(),
-        NOW()
-        )
+	INSERT INTO `t_lorchard_mall_shop_flow_stat_daily_site`(
+	`pageView` ,`visitorNumber` ,`goodsView` ,`goodsAceessNumber` ,`date` ,
+	`createTime`)
+	VALUES
+	(IFNULL(( SELECT count(id) FROM
+	`t_lorchard_mall_shop_system_log` WHERE
+	DATEDIFF(`createTime` , NOW()) =-
+	1) ,0),
+	IFNULL(( SELECT
+	count(DISTINCT(memberId)) FROM
+	`t_lorchard_mall_shop_system_log`
+	WHERE
+	DATEDIFF(`createTime` , NOW()) =-1) ,0),
+	IFNULL((SELECT count(id)
+	FROM `t_lorchard_mall_shop_system_log`
+	WHERE
+	type = 1 AND(
+	DATEDIFF(`createTime` , NOW()) =- 1)) ,0) ,
+	IFNULL((SELECT count(DISTINCT(`goodsId`)) FROM
+	`t_lorchard_mall_shop_system_log`
+	WHERE
+	type = 1 AND(
+	DATEDIFF(`createTime` , NOW()) =- 1)
+	) ,0) ,
+	date_sub(curdate(),interval 1 day),
+	NOW()
+	)
 	</insert>
 
 
