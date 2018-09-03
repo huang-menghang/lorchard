@@ -4,6 +4,8 @@ var app = getApp();
 var starscore = require("../../templates/starscore/starscore.js");
 var getGoods = require("../../templates/getGoods/getGoods.js");
 var canvasClock = require("../../templates/canvasClock/canvasClock.js");
+var util = require('../../utils/util.js');
+var api = require('../../config/api.js');
 Page({
   data:{
     onLoadStatus: true,

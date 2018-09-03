@@ -13,9 +13,9 @@
       </view>
       <view class="bd">
         <image class="smalltitle" src="/images/more/confirm-word1.png"></image>
-        <view class="confirm-btn" bindtap='goToIndex'>
-          <text>进入店铺</text>
-        </view>
+        <button type="primary" class="confirm-btn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" bindtap='canILogin'>
+          进入店铺
+        </button>
         <text class="copyright">© 2018 阡陌守候 倾情巨献</text>
       </view>
     </view>

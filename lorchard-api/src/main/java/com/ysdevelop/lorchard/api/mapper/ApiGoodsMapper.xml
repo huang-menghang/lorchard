@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysdevelop.lorchard.api.mapper.ApiGoodsDao">
+	<select id="list" resultType="com.ysdevelop.lorchard.api.entity.GoodsVo">
+		select
+		`g`.id as`id`,g.`name` AS `name`,
+		`g`.description as `description`,`g`.createTime as`createTime`,
+	    `g`.sales as `sales`,`t`.parentId as parentId,
+		`g`.recommend as `recommend`,`g`.stock as `stock`,
+		`s`.minPrice as `minPrice`,`s`.originalPrice as `originalPrice`,
+		`s`.type as `type`,`g`.categoryId as `categoryId`,
+		`s`.specificationsDescription as `specificationsDescription`
+		from
+		`t_lorchard_mall_goods` as `g`
+		left join `tmpLst` as t on `g`.categoryId = `t`.id
+		LEFT JOIN `t_lorchard_mall_goods_category` as `c` on `c`.id =`g`.categoryId
+		left join `t_lorchard_mall_goods_category` as `a` on  `a`.id=`c`.parentId
+		left join `t_lorchard_mall_goods_specifications` as `s` on `s`.goodsId=`g`.id
+		<where>
+			1 = 1
+			<if test="queryMap.name !=null and queryMap.name != ''">
+				and g.`name` like CONCAT('%',#{queryMap.name},'%')
+			</if>
+			<if test="queryMap.description !=null and queryMap.description != ''">
+				and `g`.description like CONCAT('%',#{queryMap.description},'%')
+			</if>
+			<if test="queryMap.startTime != null and queryMap.startTime != ''">
+                <![CDATA[ and `g`.createTime > #{queryMap.startTime} ]]>
+			</if>
+			<if test="queryMap.endTime != null and queryMap.endTime != ''">
+               <![CDATA[ and `g`.createTime < #{queryMap.endTime} ]]>
+		 	</if>
+		 	   and `g`.status = 0
+		 	   and `g`.merchantId=#{queryMap.merchantId}
+		</where> 
+		ORDER BY `g`.id
+	</select>
+	
+	<select id="getById" resultType="com.ysdevelop.lorchard.api.entity.GoodsVo">
+		select
+		`g`.id as`id`,g.`name` AS `name`,
+		`g`.description as `description`,`g`.createTime as`createTime`,
+	    `g`.sales as `sales`,`t`.parentId as parentId,
+		`g`.recommend as `recommend`,`g`.stock as `stock`,
+		`s`.minPrice as `minPrice`,`s`.originalPrice as `originalPrice`,
+		`s`.type as `type`,`g`.categoryId as `categoryId`,
+		`s`.specificationsDescription as `specificationsDescription`
+		from
+		`t_lorchard_mall_goods` as `g`
+		left join `tmpLst` as t on `g`.categoryId = `t`.id
+		LEFT JOIN `t_lorchard_mall_goods_category` as `c` on `c`.id =`g`.categoryId
+		left join `t_lorchard_mall_goods_category` as `a` on  `a`.id=`c`.parentId
+		left join `t_lorchard_mall_goods_specifications` as `s` on `s`.goodsId=`g`.id
+		where
+		    g.status = 0
+		 	and g.id=#{id}
+	</select>
+	
+	<select id="callTreeProcedure" statementType="CALLABLE" >
+	   call showCategoryTreeNodes(#{rootId});
+	</select>
+	
+	<!-- 查询所有轮播图 -->
+	<select id="listPreviewImage" resultType="com.ysdevelop.lorchard.api.entity.PreviewImagesVo">
+		select `p`.id as `id`,
+		`p`.previewImagePath as `previewImagePath`,
+		`p`.previewImageIndex as `previewImageIndex`,
+		`p`.goodsId as `goodsId`,
+		`p`.createTime as `createTime`
+		from `t_lorchard_mall_goods_previewImage` as `p`
+	</select>
+	
+	<!-- 查询单个商品的所有轮播图 -->
+	<select id="getPreviewImageById" resultType="com.ysdevelop.lorchard.api.entity.PreviewImagesVo">
+		select `p`.id as`id`,`p`.previewImagePath as `previewImagePath`,
+		`p`.previewImageIndex as `previewImageIndex`,
+		`p`.goodsId as `goodsId`,
+		`p`.createTime as `createTime`
+		from `t_lorchard_mall_goods_previewImage` as `p`
+		where  `p`.goodsId=#{id}
+	</select>
+	
+</mapper>

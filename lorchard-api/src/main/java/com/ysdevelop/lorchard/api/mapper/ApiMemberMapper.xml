@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysdevelop.lorchard.api.mapper.ApiMemberDao">
+
+	<select id="list" resultType="com.ysdevelop.lorchard.api.entity.MemberVo">
+		select
+        `m`.id as id,`m`.gender as gender,`m`.nickname as nickname,`m`.mobile as mobile,`m`.avatar as avatar,
+        `m`.province as province,`m`.city as city,
+        `m`.createTime as createTime
+		from `t_lorchard_mall_member` as `m`
+		<where>
+			1 = 1
+			<if test="queryMap.nicknameStr !=null and queryMap.nicknameStr != ''">
+				and `m`.nickname like CONCAT('%',#{nickname},'%')
+			</if>
+			<if test="queryMap.mobile !=null and queryMap.mobile != ''">
+				and `m`.mobile like CONCAT('%',#{queryMap.mobile},'%')
+			</if>
+			<if test="queryMap.startTime != null and queryMap.startTime != ''">
+                 <![CDATA[ and `m`.createTime > #{queryMap.startTime} ]]>
+			</if>
+			<if test="queryMap.endTime != null and queryMap.endTime != ''">
+                 <![CDATA[ and `m`.createTime < #{queryMap.endTime} ]]>
+			</if>
+
+		</where>
+
+	</select>
+
+     <select id="getById" resultType="com.ysdevelop.lorchard.api.entity.MemberVo">
+        select
+        `m`.id as id,`m`.gender as gender,`m`.nickname as nickname,`m`.mobile as mobile,`m`.avatar as avatar,
+        `m`.province as province,`m`.city as city,
+        `m`.createTime as createTime,
+        `m`.status as status
+		from `t_lorchard_mall_member` as `m`
+		where id = #{id}
+     </select>
+     
+     <select id="getByOpenid" resultType="com.ysdevelop.lorchard.api.entity.MemberVo">
+        select
+        `m`.id as id,`m`.gender as gender,`m`.nickname as nickname,`m`.mobile as mobile,`m`.avatar as avatar,
+        `m`.province as province,`m`.city as city,
+        `m`.createTime as createTime,
+        `m`.status as status
+		from `t_lorchard_mall_member` as `m`
+		where openid = #{openid}
+     </select>
+	
+	<insert id="addMemeber" parameterType="com.ysdevelop.lorchard.api.entity.MemberVo"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into
+		`t_lorchard_mall_member`(`avatar`,`openid`,`nickname`,`gender`,`language`,`country`,`province`,`city`,`registerIp`,`createTime`)
+		values
+		(#{avatar},#{openid},#{nickname},#{gender},#{language},#{country},#{province},#{city},#{registerIp},now())
+	</insert>
+	
+</mapper>

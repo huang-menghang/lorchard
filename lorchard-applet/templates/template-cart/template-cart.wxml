@@ -25,7 +25,7 @@
         <view class="goods-info">
           <!--购物车物品头像-->
           <view class="img-box">
-            <image src="{{item.imagePath[0]}}" class="img" />
+            <image src="{{item.previewImages[0].previewImagePath}}" class="img" />
           </view>
           <view class="text-box">
             <!--购物车物品名称-->
