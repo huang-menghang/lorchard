@@ -18,7 +18,10 @@ import java.util.Date;
 public class ShopFlow {
 
 	private Long id;
-
+    
+	/** 商家id **/
+	private Long merchantId;
+	
 	/** 浏览量 **/
 	private Integer pageView;
 	/** 访客数 **/
@@ -38,6 +41,14 @@ public class ShopFlow {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getMerchantId() {
+		return merchantId;
+	}
+
+	public void setMerchantId(Long merchantId) {
+		this.merchantId = merchantId;
 	}
 
 	public Integer getPageView() {

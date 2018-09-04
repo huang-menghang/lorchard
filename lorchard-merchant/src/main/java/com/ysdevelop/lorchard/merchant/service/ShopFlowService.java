@@ -1,6 +1,7 @@
 package com.ysdevelop.lorchard.merchant.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ysdevelop.lorchard.merchant.entity.ShopFlow;
 
@@ -28,6 +29,13 @@ public interface ShopFlowService {
 	 * 
 	 * @return
 	 */
-	List<ShopFlow> recentSevenDayStat();
+	List<ShopFlow> recentSevenDayStat(Long merchantId);
+    
+	/**
+     * 昨天流量统计
+     * @param userId
+     * @return
+     */
+	Map<String, Integer> yesterdayStat(Long userId);
 
 }

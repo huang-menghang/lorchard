@@ -1,6 +1,7 @@
 package com.ysdevelop.lorchard.merchant.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -10,11 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ysdevelop.lorchard.common.exception.WebServiceException;
+import com.ysdevelop.lorchard.common.result.CodeMsg;
 import com.ysdevelop.lorchard.common.result.Result;
 import com.ysdevelop.lorchard.merchant.entity.Shop;
 import com.ysdevelop.lorchard.merchant.entity.ShopFlow;
 import com.ysdevelop.lorchard.merchant.service.ShopFlowService;
 import com.ysdevelop.lorchard.merchant.service.ShopService;
+import com.ysdevelop.lorchard.shiro.token.TokenManager;
 
 @Controller
 @RequestMapping(value = "/shop")
@@ -67,10 +71,24 @@ public class ShopController {
 	@RequestMapping(value = "/dailyShopFlow", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Result<List<ShopFlow>> dailyFlowStat() {
-
-		return Result.successData(shopFlowService.recentSevenDayStat());
+		if(TokenManager.getToken() == null){
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
+		return Result.successData(shopFlowService.recentSevenDayStat(TokenManager.getUserId()));
 	}
 
+	@RequestMapping(value="/dashboard" ,method=RequestMethod.GET, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Result<Map<String,Integer>> dashboard(){
+		if(TokenManager.getToken() == null){
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
+		return Result.successData(shopFlowService.yesterdayStat(TokenManager.getUserId()));
+	}
+	
+	
+	
+	
 	@RequestMapping(value = "/testMq", method = RequestMethod.GET)
 	@ResponseBody
 	public Result<String> testMq() {

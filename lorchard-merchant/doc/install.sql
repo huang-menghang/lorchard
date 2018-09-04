@@ -121,6 +121,7 @@ CREATE TABLE `t_lorchard_mall_shop_system_log` (
 DROP TABLE IF EXISTS `t_lorchard_mall_shop_flow_stat_daily_site`;
 CREATE TABLE `t_lorchard_mall_shop_flow_stat_daily_site` (
    `id` int(8) NOT NULL AUTO_INCREMENT,
+   `merchantId` int(8) NOT NULL COMMENT '商家id',
    `pageView` int(8) NOT NULL  COMMENT '浏览量',
    `visitorNumber` int(8) NOT NULL COMMENT '访客数',
    `goodsView` int(8) NOT NULL  COMMENT '商品浏览量',
@@ -171,3 +172,103 @@ CREATE TABLE `t_lorchard_mall_goods_specifications` (
   `goodsId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+
+-- 商店每日流量
+delimiter //
+drop PROCEDURE IF EXISTS shopFlowStatDaily//
+CREATE PROCEDURE shopFlowStatDaily ()
+BEGIN
+    -- 定义一个变量
+    DECLARE  mid INT(8); 
+    -- 遍历数据结束标志
+    DECLARE done INT DEFAULT FALSE;
+    -- 定义一个游标变量
+    DECLARE cur_merchant CURSOR FOR 
+		SELECT  id FROM `t_lorchard_mall_merchant`;
+    -- 将结束标志绑定到游标
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    -- 打开游标
+    OPEN  cur_merchant;     
+    -- 遍历
+    read_loop: LOOP
+            -- 取值 取多个字段
+            FETCH  NEXT from cur_merchant INTO mid;
+            IF done THEN
+                LEAVE read_loop;
+            END IF;
+ 
+        -- 你自己想做的操作
+    INSERT INTO `t_lorchard_mall_shop_flow_stat_daily_site` (
+           `merchantId`,
+	         `pageView`,
+	         `visitorNumber`,
+	         `goodsView`,
+	         `goodsAceessNumber`,
+	         `date`,
+	        `createTime`
+       )
+     VALUES
+	  (
+	    	mid,IFNULL(
+			    (
+			  	SELECT
+					count(id)
+				 FROM
+					 `t_lorchard_mall_shop_system_log`
+				 WHERE
+					 DATEDIFF(`createTime`, NOW()) =- 1
+         AND `merchantId` = mid
+			   ),
+			 0
+		  ),
+		  IFNULL(
+			 (
+				 SELECT
+					count(DISTINCT(memberId))
+				 FROM
+					`t_lorchard_mall_shop_system_log`
+				 WHERE
+					DATEDIFF(`createTime`, NOW()) =- 1
+         AND `merchantId` = mid
+			 ),
+			 0
+		  ),
+		 IFNULL(
+			 (
+				  SELECT
+					  count(id)
+				  FROM
+					  `t_lorchard_mall_shop_system_log`
+			  	WHERE
+					  type = 1
+				  AND (
+					  DATEDIFF(`createTime`, NOW()) =- 1
+				  )
+          AND `merchantId` = mid
+			  ),
+			 0
+	  	),
+		 IFNULL(
+			 (
+				 SELECT
+					 count(DISTINCT(`goodsId`))
+				 FROM
+					 `t_lorchard_mall_shop_system_log`
+				 WHERE
+					  type = 1
+				 AND (
+					  DATEDIFF(`createTime`, NOW()) =- 1
+				 )
+         AND `merchantId` = mid
+			 ),
+			 0
+		 ),
+		   date_sub(curdate(), INTERVAL 1 DAY),
+		 NOW()
+	 );
+    END LOOP;
+    END
+//
+delimiter ;
+

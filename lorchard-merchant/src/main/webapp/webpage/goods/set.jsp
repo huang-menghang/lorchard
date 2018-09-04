@@ -166,7 +166,7 @@ margin-right: 2%;
 								<label class="layui-form-label"><span class="x-red">*</span>商品价格：</label>
 								<div class="layui-input-inline input-custom-width">
 									<input type="text" name="originalPrice" required="true"
-										 value="" autocomplete="off"
+										 value="" autocomplete="off" 
 										placeholder="请输入商品价格" class="layui-input" lay-verType="alert">
 								</div>
 							</div>

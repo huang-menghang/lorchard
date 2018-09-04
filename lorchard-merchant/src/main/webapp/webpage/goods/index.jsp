@@ -73,7 +73,7 @@ td .layui-table-cell {
 								style="width: 5%; margin-left: 3%">
 								<button class="layui-btn layui-btn-warm btn-reset"
 									style="width: 150%; padding: 2%;">
-									<i class="layui-icon">&#x1002;</i>重置
+									<i class="layui-icon">&#xe666;</i>重置
 								</button>
 							</div>
 			

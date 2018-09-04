@@ -19,7 +19,7 @@ import com.ysdevelop.lorchard.shiro.vo.LoginVo;
  * 
  * @Package com.ysdevelop.lorchard.shiro.token
  * 
- * @Description Token 管理器
+ * @Description Token 管理器,用户管理当前登录用户
  * 
  * @Date 2018年8月29日
  * 

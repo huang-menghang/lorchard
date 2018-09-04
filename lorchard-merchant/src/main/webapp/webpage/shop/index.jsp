@@ -16,7 +16,7 @@
 			<div class="">
 				<div class="header-logo"><img src="<%=basePath %>/static/icon/icon.png"></div>
 				<div class="header-info">
-					<div class="header-name">碎碎宝宝0818</div>
+					<div class="header-name"></div>
 					<div class="header-danbao">
 						<div><i class="layui-icon active">&#xe672;</i>个人认证</div>
 						<div><i class="layui-icon active">&#xe672;</i>担保交易</div>
@@ -24,31 +24,31 @@
 					</div>
 				</div>
 				<div class="header-action">
-					<div class="primary">发布商品</div>
-					<div class="primary">新建微商城</div>
-					<div class="primary">访问店铺</div>
+					<div class="primary realse-goods">发布商品</div>
+					<div class="primary ">新建微商城</div>
+					<div class="primary access-shop">访问店铺</div>
 				</div>
 			</div>
 			<div class="clear"></div>
 			<div class="board">
 				<div class="board-box">
-					<div class="border-value">30</div>
+					<div class="border-value yesterday-pageView"></div>
 					<div class="border-title">昨日游览量</div>
 				</div>
 				<div class="board-box">
-					<div class="border-value">30</div>
+					<div class="border-value yesterday-visitorNumber"></div>
 					<div class="border-title">昨日访客数</div>
 				</div>
 				<div class="board-box">
-					<div class="border-value">30</div>
+					<div class="border-value yesterday-goodsView"></div>
 					<div class="border-title">昨日商品游览量</div>
 				</div>
 				<div class="board-box">
-					<div class="border-value">30</div>
+					<div class="border-value yesterday-goodsAceessNumber"></div>
 					<div class="border-title">昨日商品访客数</div>
 				</div>
 				<div class="board-box">
-					<div class="border-value">30</div>
+					<div class="border-value goodsCount"></div>
 					<div class="border-title">商品</div>
 				</div>
 			</div>
@@ -58,6 +58,7 @@
 	</div>
 	<jsp:include page="/context/js-tags.jsp" />
 	<script type="text/javascript" src="<%=basePath%>/static/plugin/echarts/echarts.min.js"></script>
+	<script type="text/javascript" src="<%=basePath%>/static/plugin/echarts/chart.js"></script>
 	<script type="text/javascript" src="<%=basePath%>/static/js/shop/index.js"></script>
 </body>
 </html>

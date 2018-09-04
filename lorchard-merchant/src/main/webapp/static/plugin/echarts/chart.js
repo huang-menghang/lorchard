@@ -59,16 +59,29 @@ var echarts_ops = {
 	 * 
 	 * legend_data:每一个统计模块的名字
 	 * 
-	 * xAxis:x轴的数据
-	 * 
+	 * data:统计数源
 	 * 
 	 * chart_element：统计的挂载点
 	 * 
 	 * 
 	 * 
 	 */
-	four_line : function(heading, legend_data, xAxis, ySeries,chart_element){
-
+	four_line : function(heading,y_series_title,legend_data,data,chart_element){
+           var xAxis = new Array();
+           var y_series_one = new Array();
+           var y_series_two = new Array();
+           var y_series_three = new Array();
+           var y_series_four = new Array();
+		   $.each(data,function(i,v){
+			   xAxis.push(new Date(v['date']).format('yyyy-MM-dd'));
+			   y_series_one.push(v[y_series_title[0]]);
+			   y_series_two.push(v[y_series_title[1]]);
+			   y_series_three.push(v[y_series_title[2]]);
+			   y_series_four.push(v[y_series_title[2]]);
+           });
+		 
+		
+		
 		   var  option = {
 		        	title: {
 		        		text: heading
@@ -102,32 +115,33 @@ var echarts_ops = {
 		        	},
 		        	series: [
 		        	{
-		        		name:'浏览量',
+		        		name:legend_data[0],
 		        		type:'line',
 		        		stack: '总量',
-		        		data:[120, 132, 101, 134, 90, 230, 210]
+		        		data:y_series_one
 		        	},
 		        	{
-		        		name:'访客数',
+		        		name:legend_data[1],
 		        		type:'line',
 		        		stack: '总量',
-		        		data:[220, 182, 191, 234, 290, 330, 310]
+		        		data:y_series_two
 		        	},
 		        	{
-		        		name:'商品浏览量',
+		        		name:legend_data[2],
 		        		type:'line',
 		        		stack: '总量',
-		        		data:[150, 232, 201, 154, 190, 330, 410]
+		        		data:y_series_three
 		        	},
 		        	{
-		        		name:'商品访问数',
+		        		name:legend_data[3],
 		        		type:'line',
 		        		stack: '总量',
-		        		data:[320, 332, 301, 334, 390, 330, 320]
+		        		data:y_series_four
 		        	},
 		   
 		        	]
 		        };
+		   console.log(option); 
 		   var charts = echarts.init(document.getElementById(chart_element));
 	       charts.setOption(option);
 		   

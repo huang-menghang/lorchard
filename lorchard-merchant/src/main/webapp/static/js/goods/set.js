@@ -89,7 +89,7 @@ var category_set_ops = {
 				success : function(res) {
 					console.log(res);
 					$.each(res.data, function(i, v) {
-						$("select[name='categoryId']").append(
+						$("select[name='parentId']").append(
 								"<option value=" + v.id + ">" + v.parentCategoryName
 										+ "</option>");
 					});

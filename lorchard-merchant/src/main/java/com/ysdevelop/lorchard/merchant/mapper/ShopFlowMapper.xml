@@ -1,40 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ysdevelop.lorchard.merchant.mapper.ShopFlowDao">
+  
+    <!-- 店铺每日流量回调 -->
+    <select id="callShopFlowDailyProcedure" statementType="CALLABLE" >
+	   call shopFlowStatDaily();
+	</select>
 
-	<insert id="addDailyShopFlow">
-	INSERT INTO `t_lorchard_mall_shop_flow_stat_daily_site`(
-	`pageView` ,`visitorNumber` ,`goodsView` ,`goodsAceessNumber` ,`date` ,
-	`createTime`)
-	VALUES
-	(IFNULL(( SELECT count(id) FROM
-	`t_lorchard_mall_shop_system_log` WHERE
-	DATEDIFF(`createTime` , NOW()) =-
-	1) ,0),
-	IFNULL(( SELECT
-	count(DISTINCT(memberId)) FROM
-	`t_lorchard_mall_shop_system_log`
-	WHERE
-	DATEDIFF(`createTime` , NOW()) =-1) ,0),
-	IFNULL((SELECT count(id)
-	FROM `t_lorchard_mall_shop_system_log`
-	WHERE
-	type = 1 AND(
-	DATEDIFF(`createTime` , NOW()) =- 1)) ,0) ,
-	IFNULL((SELECT count(DISTINCT(`goodsId`)) FROM
-	`t_lorchard_mall_shop_system_log`
-	WHERE
-	type = 1 AND(
-	DATEDIFF(`createTime` , NOW()) =- 1)
-	) ,0) ,
-	date_sub(curdate(),interval 1 day),
-	NOW()
-	)
-	</insert>
-	
 	<select id="recentSevenDayStat" resultType="com.ysdevelop.lorchard.merchant.entity.ShopFlow">
 	SELECT
 	a.click_date AS `date`,
+	b.merchantId AS `merchantId`,
 	ifnull(b.pageView, 0) AS pageView,
 	IFNULL(b.`visitorNumber`, 0) AS `visitorNumber`,
 	IFNULL(b.`goodsView`, 0) AS `goodsView`,
@@ -65,6 +41,7 @@
       LEFT JOIN (
 	   SELECT
 		  `pageView`,
+		  `merchantId`,
 		  `visitorNumber`,
 		  `goodsView`,
 		  `goodsAceessNumber`,
@@ -72,8 +49,30 @@
 		  `createTime`
    	  FROM
 		`t_lorchard_mall_shop_flow_stat_daily_site`
+		where `merchantId` = #{merchantId}
       ) b ON a.`click_date` = b.`date`
 	</select>
+
+   <select id="yesterdayStat" resultType="java.util.HashMap">
+      SELECT
+          (select `name` from `t_lorchard_mall_shop` where `merchantId` = #{merchantId} ) as merchantName,
+		  `pageView`,
+		  `merchantId`,
+		  `visitorNumber`,
+		  `goodsView`,
+		  `goodsAceessNumber`,
+		  `date`,
+		   IFNULL((
+		   SELECT
+			  count(`id`) FROM `t_lorchard_mall_goods`
+		   WHERE
+			 `merchantId` = #{merchantId}
+	       ),0) AS goodsCount,
+		  `createTime`
+   	     from
+		`t_lorchard_mall_shop_flow_stat_daily_site`
+	  where `merchantId` = #{merchantId} and  DATEDIFF(`date`, NOW()) =- 1 
+   </select>
 
 
 </mapper>
