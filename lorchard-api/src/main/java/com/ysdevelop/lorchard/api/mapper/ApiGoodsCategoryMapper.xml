@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysdevelop.lorchard.api.mapper.ApiGoodsCategoryDao">
+	<select id="list"
+		resultType="com.ysdevelop.lorchard.api.entity.GoodsCategoryVo">
+		select
+		`c`.id as `id`,concat(SPACE(t.nLevel*2),'+--',c.`name`) AS `name`,`c`.description as `description`,`c`.createTime as
+		`createTime`,
+		`c`.level as `level`, `c`.index as `index`
+		from `t_lorchard_mall_goods_category` as c
+		left join tmpLst as t on c.id = t.id
+		<where>
+			1 = 1
+			<if test="queryMap.name !=null and queryMap.name != ''">
+				and concat(SPACE(t.nLevel*2),'+--',c.`name`) like CONCAT('%',#{queryMap.name},'%')
+			</if>
+			<if test="queryMap.description !=null and queryMap.description != ''">
+				and `c`.description like CONCAT('%',#{queryMap.description},'%')
+			</if>
+			<if test="queryMap.startTime != null and queryMap.startTime != ''">
+                <![CDATA[ and `c`.createTime > #{queryMap.startTime} ]]>
+			</if>
+			<if test="queryMap.endTime != null and queryMap.endTime != ''">
+               <![CDATA[ and `c`.createTime < #{queryMap.endTime} ]]>
+		 	</if>
+		 	   and status = 0
+		</where>
+		ORDER BY t.sCort
+	</select>
+	
+	<select id="listByParentId"
+		resultType="com.ysdevelop.lorchard.api.entity.GoodsCategoryVo">
+		select
+		`c`.id as `id`,c.`name` as `name`,`c`.description as `description`,`c`.createTime as
+		`createTime`,
+		`c`.level as `level`, `c`.index as `index`
+		from `t_lorchard_mall_goods_category` as `c`
+		where `c`.parentId = #{parentId}
+	</select>
+	
+	<select id="callTreeProcedure" statementType="CALLABLE" >
+	   call showCategoryTreeNodes(#{rootId});
+	</select>
+	
+	<select id="listParent" resultType="com.ysdevelop.lorchard.api.entity.GoodsCategoryVo">
+	   select
+	   `c`.id as `id`,`c`.name as name
+	   from `t_lorchard_mall_goods_category` as c
+	   where c.parentId = 0
+	</select>
+	
+	<insert id="add" parameterType="com.ysdevelop.lorchard.api.entity.GoodsCategoryVo">
+	   insert into `t_lorchard_mall_goods_category`(`name`,`imagePath`,`index`,`level`,`parentId`,`description`,`createTime`)
+	   values(#{name},#{imagePath},#{index},#{level},#{parentId},#{description},now())
+	</insert>
+	
+	<select id="getById" resultType="com.ysdevelop.lorchard.api.entity.GoodsCategoryVo">
+	    select
+	   `c`.id as `id`,
+	   `c`.name as `name`,
+	    IFNULL(`p`.name,'顶级分类') as `parentCategoryName`,
+	   `c`.imagePath as `imagePath`,
+	   `c`.`index` as `index`,
+	   `c`.level as `level`,
+	   `c`.parentId as `parentId`,
+	   `c`.description as `description`
+	   	from `t_lorchard_mall_goods_category` as c
+	   	left join `t_lorchard_mall_goods_category` as `p` on `p`.id = `c`.parentId
+	    where c.id = #{id}
+	</select>
+	
+	<update id="update" parameterType="com.ysdevelop.lorchard.api.entity.GoodsCategoryVo">
+	    update `t_lorchard_mall_goods_category`
+	    <trim prefix="set" suffixOverrides="," suffix="where id = #{id}">
+			<if test="name != null and name != '' ">
+				`name` = #{name},
+			</if>
+			<if test="imagePath != null and imagePath != '' ">
+				`imagePath` = #{imagePath},
+			</if>
+			<if test="index != null ">
+				`index` = #{index},
+			</if>
+			<if test="level != null  ">
+				`level` = #{level},
+			</if>
+			<if test="parentId != null">
+				`parentId` = #{parentId},
+			</if>
+			<if test="description != null and description != '' ">
+				`description` = #{description},
+			</if>
+			<if test="id != null">
+			    `updateTime` = now(),
+			</if>
+			
+		</trim>
+	</update>
+	
+	<update id="deleteById" >
+	  UPDATE t_lorchard_mall_goods_category AS `c1`
+      SET c1.`status` = 1
+      WHERE
+	  id = #{id}
+      AND (
+	     (SELECT
+		    tmp.cid
+       	 FROM
+		 (
+			SELECT
+				count(c2.`id`) AS cid
+			FROM
+				t_lorchard_mall_goods_category AS `c2`
+			WHERE
+				`c2`.parentId = #{id}
+		 ) AS tmp
+         ) = 0 
+      )   
+	</update>
+
+</mapper>

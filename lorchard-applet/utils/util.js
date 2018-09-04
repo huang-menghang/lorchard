@@ -1,85 +1,105 @@
-//var api = require('../config/api.js');
-var app = getApp();
-
-function formatTime(date) {
-  var year = date.getFullYear()
-  var month = date.getMonth() + 1
-  var day = date.getDate()
-
-  var hour = date.getHours()
-  var minute = date.getMinutes()
-  var second = date.getSeconds()
-
+var api = require('../config/api.js');
+//日期格式化
+const formatTime = date => {
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  const hour = date.getHours()
+  const minute = date.getMinutes()
+  const second = date.getSeconds()
 
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
-
-function formatNumber(n) {
+//数字格式化
+const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
 
+// get 请求
+function requestByGet(req) {
+  wx.request({
+    url: req.url,
+    data: req.data,
+    method: 'GET',
+    success: function (res) {
+      req.success(res.data)
+    },
+    fail: function (res) {
+      console.log(res);
+    }
+  })
 
+}
 
+// post 请求
+function requestByPost(req) {
+  wx.request({
+    url: req.url,
+    data: req.data,
+    header: {
+      "content-type": "application/x-www-form-urlencoded"
+    },
+    method: 'POST',
+    success: function (res) {
+      req.success(res.data)
+    },
+    fail: function (res) {
+      console.log(res);
+    }
+  })
+}
 
+//json格式的post请求
+function requestJsonByPost(req) {
+  wx.request({
+    url: req.url,
+    data: req.data,
+    header: {
+      "content-type": "application/json;charset=utf-8"
+    },
+    method: 'POST',
+    dataType: 'json',
+    success: function (res) {
+      req.success(res.data)
+    },
+    fail: function (res) {
+      console.log(res);
+    }
+  })
+}
 
-/**
- * 甜果果微信的的request
- */
-function request(url, data = {}, method = "GET") {
-  return new Promise(function (resolve, reject) {
-    wx.request({
-      url: url,
-      data: data,
-      method: method,
-      header: {
-        'Content-Type': 'application/json',
-        'X-Nideshop-Token': wx.getStorageSync('token')
-      },
-      success: function (res) {
-        console.log("success");
+//delete请求
+function requestByDelete(req) {
+  wx.request({
+    url: req.url,
+    data: req.data,
+    method: 'DELETE',
+    success: function (res) {
+      req.success(res.data)
+    },
+    fail: function (res) {
+      console.log(res);
+    }
+  })
+}
 
-        if (res.statusCode == 200) {
-
-          if (res.data.errno == 401) {
-            //需要登录后才可以操作
-
-            let code = null;
-            return login().then((res) => {
-              code = res.code;
-              return getUserInfo();
-            }).then((userInfo) => {
-              //登录远程服务器
-              request(api.AuthLoginByWeixin, { code: code, userInfo: userInfo }, 'POST').then(res => {
-                if (res.errno === 0) {
-                  //存储用户信息
-                  wx.setStorageSync('userInfo', res.data.userInfo);
-                  wx.setStorageSync('token', res.data.token);
-                  
-                  resolve(res);
-                } else {
-                  reject(res);
-                }
-              }).catch((err) => {
-                reject(err);
-              });
-            }).catch((err) => {
-              reject(err);
-            })
-          } else {
-            resolve(res.data);
-          }
-        } else {
-          reject(res.errMsg);
-        }
-
-      },
-      fail: function (err) {
-        reject(err)
-        console.log("failed")
-      }
-    })
-  });
+//put请求
+function requestByPut(req) {
+  wx.request({
+    url: req.url,
+    data: req.data,
+    header: {
+      "content-type": "application/x-www-form-urlencoded"
+    },
+    method: 'PUT',
+    success: function (res) {
+      req.success(res.data)
+    },
+    fail: function (res) {
+      console.log(res);
+    }
+  })
 }
 
 /**
@@ -157,7 +177,11 @@ function showErrorToast(msg) {
 
 module.exports = {
   formatTime: formatTime,
-  request,
+  requestGet: requestByGet,
+  requestPost: requestByPost,
+  requestDelete: requestByDelete,
+  requestPut: requestByPut,
+  requestJson: requestJsonByPost,
   redirect,
   showErrorToast,
   checkSession,

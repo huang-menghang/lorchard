@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ysdevelop.lorchard.api.mapper.ApiSystemAccessLogDao">
+	<insert id="addSystemAccessLog" parameterType="com.ysdevelop.lorchard.api.entity.SystemAccessLogVo">
+		 insert into `t_lorchard_mall_member_access_log`
+	    	(`memberId`,`merchantId`,`goodsId`,
+	    	`description`,`type`,`createTime`) 
+	    values 
+	    	(#{memberId},#{merchantId},#{goodsId},
+	    	#{description},#{logType.index},now())
+	</insert>
+</mapper>

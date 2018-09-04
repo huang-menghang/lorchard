@@ -147,13 +147,7 @@ img {
 										class="layui-input">
 								</div>
 							</div>
-							<div class="layui-form-item">
-								<label class="layui-form-label">好评数量:</label>
-								<div class="layui-input-inline input-custom-width">
-									<input type="text" name="numberGoodReputation"
-										readonly="readonly" class="layui-input">
-								</div>
-							</div>
+							
 							<div class="layui-form-item">
 								<div class="layui-input-block" style="margin-left: 8%">
 									<INPUT onclick="history.go(-1)" type="button" value="返回"

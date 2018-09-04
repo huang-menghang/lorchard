@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -23,12 +22,10 @@ public class Goods {
 	
 	/**商品名称*/
 	@NotBlank(message = "商品名不能为空")
-	@Pattern(regexp ="^[\\u4E00-\\u9FA5A-Za-z0-9_]+$", message = "商品名不能有特殊字符")
 	private String name;
 	
 	/**商品描述*/
 	@NotBlank(message = "商品描述不能为空")
-	@Pattern(regexp ="^[\\u4E00-\\u9FA5A-Za-z0-9_]+$", message = "商品描述不能有特殊字符")
 	private String description;
 	
 	/**状态*/
@@ -239,3 +236,4 @@ public class Goods {
 	}
 	
 }
+

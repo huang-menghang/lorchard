@@ -3,7 +3,8 @@
 var app = getApp();
 //引入wxParse.js
 var WxParse = require('../../templates/wxParse/wxParse.js');
-
+var util = require('../../utils/util.js');
+var api = require('../../config/api.js');
 Page({
   data: {
     autoplay: true,
@@ -30,7 +31,6 @@ Page({
 
   //轮播图切换触发函数
   swiperchange: function(e) {
-    //console.log(e.detail.current)
     this.setData({
       swiperCurrent: e.detail.current
     })
@@ -39,9 +39,13 @@ Page({
   //监控页面加载函数
   onLoad: function(e) {
     var that = this;
+    wx.showShareMenu({
+      // 要求小程序返回分享目标信息
+      withShareTicket: true
+    }); 
     //获取购物车数据
     wx.getStorage({
-      key: 'shopCarInfo',
+      key: 'shopCarInfo' + app.globalData.merchantId,
       success: function(res) {
         that.setData({
           shopCarInfo: res.data,
@@ -49,39 +53,33 @@ Page({
         });
       }
     })
-
-    //获取商品的细节
-    wx.request({
-      url: 'https://www.shuguomall.club/lorchard-api/goods/details',
-      data: {
-        id: e.id
-      },
-      success: function(res) {
-
-        console.log("res", res)
+    util.requestGet({
+      url: api.GoodsDetailsUrl,
+      data: { goodsId: e.id, merchantId: app.globalData.merchantId, memberId: app.globalData.memberId},
+      success: function (res) {
         var selectSizeTemp = "规格";
         //是否拥有可选属性(尺寸,型号,颜色等)
         that.setData({
           hasMoreSelect: true,
           selectSize: that.data.selectSize + selectSizeTemp,
-          selectSizePrice: res.data.data.minPrice,
+          selectSizePrice: res.data.minPrice,
         });
         //设置商品详细信息
-        that.data.goodsDetail = res.data.data;
+        that.data.goodsDetail = res.data;
         //是否含有视频
-        if (res.data.data.videoId) {
+        if (res.data.videoId) {
           that.getVideoSrc(res.data.data.videoId);
         }
         //设置属性
         that.setData({
-          goodsDetail: res.data.data,
-          selectSizePrice: res.data.data.minPrice,
-          buyNumMax: res.data.data.stock,
-          buyNumber: (res.data.data.stock > 0) ? 1 : 0,
-          propertyName: "一份"
+          goodsDetail: res.data,
+          selectSizePrice: res.data.minPrice,
+          buyNumMax: res.data.stock,
+          buyNumber: (res.data.stock > 0) ? 1 : 0,
+          propertyName: res.data.specificationsDescription
         });
         //设置详细描述
-        WxParse.wxParse('article', 'html', res.data.data.description, that, 5);
+        WxParse.wxParse('article', 'html', res.data.description, that, 5);
       }
     })
     //调用获取评价函数
@@ -198,7 +196,7 @@ Page({
 
     // 写入本地存储
     wx.setStorage({
-      key: "shopCarInfo",
+      key: "shopCarInfo"+app.globalData.merchantId,
       data: shopCarInfo
     })
     this.closePopupTap();
@@ -245,7 +243,7 @@ Page({
       var buyNowInfo = this.buliduBuyNowInfo();
       // 写入本地存储
       wx.setStorage({
-        key: "buyNowInfo"+app.globalData.merchatId,
+        key: "buyNowInfo" + app.globalData.merchantId,
         data: buyNowInfo
       })
       this.closePopupTap();
@@ -312,26 +310,30 @@ Page({
   getShopCarMap: function() {
     var shopCarMap = {};
     shopCarMap.goodsId = this.data.goodsDetail.id;
-    shopCarMap.imagePath = this.data.goodsDetail.imagePath;
+    shopCarMap.previewImages = this.data.goodsDetail.previewImages;
     shopCarMap.name = this.data.goodsDetail.name;
     shopCarMap.price = this.data.selectSizePrice;
     shopCarMap.left = "";
     shopCarMap.active = true;
-    shopCarMap.label = "一份";
+    shopCarMap.label = this.data.goodsDetail.specificationsDescription;
     shopCarMap.number = this.data.buyNumber;
+    shopCarMap.test = "111";
+    shopCarMap.test1 = undefined;
     return shopCarMap;
   },
 
   //分享转发
   onShareAppMessage: function() {
     return {
-      title: this.data.goodsDetail.basicInfo.name,
-      path: '/pages/goods-details/index?id=' + this.data.goodsDetail.basicInfo.id + '&inviter_id=' + wx.getStorageSync('uid'),
-      success: function(res) {
+      title: this.data.goodsDetail.name,
+      path: '/pages/goods-details/index?id=' + this.data.goodsDetail.id,
+      success:function(res) {
         // 转发成功
+        console.log("转发成功",res)
       },
-      fail: function(res) {
+      fail: function (res) {
         // 转发失败
+        console.log("转发失败", res)
       }
     }
   },
@@ -379,21 +381,5 @@ Page({
     that.setData({
       shopDeliveryPrice: 50
     })
-    //  获取关于我们Title
-    // wx.request({
-    //   url: 'https://api.it120.cc/' + app.globalData.subDomain + '/config/get-value',
-    //   data: {
-    //     key: 'shopDeliveryPrice'
-    //   },
-    //   success: function(res) {
-    //     if (res.data.code == 0) {
-    //       var shopDeliveryPrice = parseFloat(parseFloat(res.data.data.value).toFixed(2))
-    //       that.setData({
-    //         shopDeliveryPrice: 50
-    //       })
-    //       //console.log('配送起步价：', shopDeliveryPrice, res.data.data.value)
-    //     }
-    //   }
-    // })
   }
 })

@@ -2,19 +2,7 @@ var category_set_ops = {
 	init : function() {
 		this.inintComponent();
 	},
-	validateIsNumber:function(...res){
-		var validateStr = /^[0-9]+.?[0-9]*$/;
-		for(var i=0;i<res.length;i++){
-			var isNumber = validateStr.test(res[i]);
-			if(!isNumber){
-				common_ops.alert("输入的不是数字");
-				$(".layui-input-block .layui-btn").removeClass('layui-btn-disabled');
-				$(".layui-input-block .layui-btn").removeAttr("disabled");
-				return false;
-			}
-		}
-		return true;
-	},
+	
 	// 校验表单
 	validateForm : function() {
 		return $(".formarea").validate();
@@ -89,7 +77,7 @@ var category_set_ops = {
 				success : function(res) {
 					console.log(res);
 					$.each(res.data, function(i, v) {
-						$("select[name='parentId']").append(
+						$("select[name='categoryId']").append(
 								"<option value=" + v.id + ">" + v.parentCategoryName
 										+ "</option>");
 					});
@@ -175,9 +163,6 @@ var category_set_ops = {
 			   var categoryId = $('.layui-form select[name="categoryId"]').val();
 			   var recommend=$('.layui-form select[name="recommend"]').val();
 			   var isNumber = category_set_ops.validateIsNumber(originalPrice,minPrice,stock);
-			   if(!isNumber){
-				   return;
-			   }
 			   
 			   
 			   //向controller的update传商品数据

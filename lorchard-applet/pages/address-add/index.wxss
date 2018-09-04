@@ -1,0 +1,116 @@
+/* pages/address/detail.wxss */
+
+page {
+  height: 100%;
+}
+
+.container {
+  background-color: #f5f5f9;
+  justify-content: initial;
+}
+
+form {
+  width: 100%;
+}
+
+.form-box {
+  width: 100%;
+  background-color: #fff;
+  margin-top: 20rpx;
+}
+
+.arrow-right {
+  width: 15rpx;
+  height: 24rpx;
+}
+
+.save-btn {
+  background-color: #29aceb;
+  color: #fff;
+  margin-top: 30rpx;
+}
+.save-btn:hover {
+  background-color: #29aceb;
+}
+
+button[type="default"] {
+  background-color: #fff;
+  color: #000;
+}
+
+button[type=warn] {
+  background-color: #29aceb;
+}
+
+.addr-details {
+  height: auto;
+  padding: 30rpx 0;
+  margin-left: 30rpx;
+  border-bottom: 1rpx solid #eee;
+  display: flex;
+  font-size: 28rpx;
+}
+
+.addr-details .label {
+  margin: auto 0 auto 0;
+  width: 160rpx;
+  color: #000;
+}
+
+.addr-details textarea {
+  box-sizing: border-box;
+  width: 480rpx;
+  overflow: scroll;
+}
+
+picker {
+  min-width: 20rpx;
+  height: 100%;
+  margin-right: 20rpx;
+}
+
+.hui {
+  color: #777;
+}
+
+.row-wrap {
+  width: 690rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  margin-left: 30rpx;
+  border-bottom: 1rpx solid #eee;
+  display: flex;
+  font-size: 28rpx;
+}
+
+.row-wrap .label {
+  width: 160rpx;
+  color: #000;
+}
+
+.row-wrap .label-right {
+  flex: 1;
+  height: 88rpx;
+  line-height: 88rpx;
+}
+
+.row-wrap .label-right input {
+  height: 100%;
+  font-size: 28rpx;
+  padding-right: 30rpx;
+}
+
+.default {
+  background: url(https://www.smurfsmall.com/static/images/wxapplet/gou.png) no-repeat 30rpx center;
+  background-size: 40rpx auto;
+  padding-left: 92rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  font-size: 31rpx;
+  color: #757575;
+}
+
+.active {
+  background: url(https://www.smurfsmall.com/static/images/wxapplet/gou-bule.png) no-repeat 15px center;
+  background-size: 40rpx auto;
+}
