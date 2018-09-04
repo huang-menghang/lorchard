@@ -6,11 +6,14 @@
     "pages/finder/index",
     "pages/shop-cart/index",
     "pages/ucenter/index/index",
+    "pages/ucenter/order-list/index",
     "pages/notice/show",
     "pages/goods-details/index",
     "pages/search/index",
     "pages/authorize/index",
-    "pages/to-pay-order/index"
+    "pages/to-pay-order/index",
+    "pages/address-add/index"
+
   ],
   "window": {
     "backgroundTextStyle": "light",

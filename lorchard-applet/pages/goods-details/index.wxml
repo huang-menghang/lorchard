@@ -7,15 +7,15 @@
     <!--使用swiper组件-->
     <swiper class="swiper_box" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
       <!--遍历显示轮播图-->
-      <block wx:for="{{goodsDetail.imagePath}}" wx:key="id">
+      <block wx:for="{{goodsDetail.previewImages}}" wx:key="id">
         <swiper-item>
-          <image src="{{item}}" class="slide-image" width="355" height="150" mode="aspectFit" lazy-load="true" />
+          <image src="{{item.previewImagePath}}" class="slide-image" width="355" height="150" mode="aspectFit" lazy-load="true" />
         </swiper-item>
       </block>
     </swiper>
     <!--遍历显示轮播图按钮-->
     <view class="dots">
-      <block wx:for="{{goodsDetail.imagePath}}" wx:key="unique">
+      <block wx:for="{{goodsDetail.previewImages}}" wx:key="unique">
         <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>
       </block>
     </view>
@@ -113,7 +113,7 @@
       <view class="pop-goods-info">
         <!--商品图片-->
         <view class="pop-img-box">
-          <image src="{{goodsDetail.imagePath[0]}}" class="goods-thumbnail" />
+          <image src="{{goodsDetail.previewImages[0].previewImagePath}}" class="goods-thumbnail" />
         </view>
         <!--商品名字和价格-->
         <view class="pop-goods-des">

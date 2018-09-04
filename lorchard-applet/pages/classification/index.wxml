@@ -51,7 +51,7 @@
         </view>
         <view>
           <view class="goods" wx:for="{{goodsListCurrent.goods}}" wx:key="id" wx:for-item="item" data-id='{{item.id}}' bindtap="toDetailsTap">
-            <image class="pic" src="{{item.imagePath[0]}}">
+            <image class="pic" src="{{item.previewImages[0].previewImagePath}}">
               <image class='fresh-tag' src="/images/goodsDescription/fresh.png"></image>
             </image>
             <view class="name ellipsis">{{item.name}}</view>

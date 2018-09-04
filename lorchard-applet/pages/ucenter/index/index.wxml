@@ -111,10 +111,9 @@
   </view>
   <view style="height:20rpx;width:100%;"></view>
   <view class="my-item" style='border:none;padding:0rpx;margin:0rpx;background:none;border:none;height:auto;line-height:auto;'>
-    <button type="warn" bindtap="relogin" style='font-size:24rpx;background-color:#FF5777;'>重新授权登录</button>
   </view>
 
-  <view class="version" style='margin-top:10rpx;font-size:18rpx;'>Copyright © 2017-2018 qindiandadudu(GitHub ID)</view>
+  <view class="version" style='margin-top:10rpx;font-size:18rpx;'>Copyright © 2017-2018 小果源</view>
   <view class='version' style='height:20rpx;line-height:20rpx;font-size:16rpx;font-style: oblique;'>Powered by EastWorld v {{version}}</view>
   <view style="height:12rpx;width:100%;"></view>
 </view>

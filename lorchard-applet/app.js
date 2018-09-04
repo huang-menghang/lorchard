@@ -8,6 +8,10 @@ App({
   globalData: {
     //商家id
     merchantId: 0,
+    //openid
+    openid:null,
+    //用户id
+    memberId:0,
     //商家
     merchant: null,
     //初始加载商品时的页面号
@@ -39,7 +43,7 @@ App({
   },
 
   //监听小程序初始化 初始化完成后调用
-  onLaunch: function () {
+  onLaunch: function (options) {
     
   },
   

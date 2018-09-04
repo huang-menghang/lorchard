@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ysdevelop.lorchard.api.mapper.ApiMerchantNoticeDao">
+	<select id="list"
+		resultType="com.ysdevelop.lorchard.api.entity.MerchantNoticeVo">
+		select 
+			`noticeId`,`merchantId`,`notice`,`detailTitle`,`detailNotice`
+		from 
+			t_lorchard_mall_merchant_notice
+		where
+			`merchantId`=#{merchantId}
+	</select>
+</mapper>

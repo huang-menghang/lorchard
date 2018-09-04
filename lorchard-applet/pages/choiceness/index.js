@@ -1,6 +1,8 @@
 //index.js
 //引入starscore.js
 var starscore = require("../../templates/starscore/starscore.js");
+var util = require('../../utils/util.js');
+var api = require('../../config/api.js');
 //获取应用实例
 var app = getApp();
 //注册当前页面
@@ -12,27 +14,27 @@ Page({
     interval: 3500,
     duration: 1500,
     // loading中
-    loadingMore: false, 
+    loadingMore: false,
     //到底啦
-    isEnd: false, 
+    isEnd: false,
     userInfo: {},
     swiperCurrent: 0,
     recommendTitlePicStr: '../../images/index/recommend.png',
     categories: [],
     activeCategoryId: 0,
     //按类别的商品
-    goodsList: [], 
+    goodsList: [],
     //推荐商品
     recommendGoods: [],
     //显示的推荐商品，为了缓解网络加载压力设置每次加载15个推荐商品
-    recommendGoodsShow: [], 
+    recommendGoodsShow: [],
     banners: [],
     showNoBanners: false,
     loadingMoreHidden: true,
     //加载商品时的页数默认为1开始,在app页面加载
     page: [],
     //每页商品数设置为5000确保能全部加载商品，在app页面加载
-    pageSize: [],  
+    pageSize: [],
     stv: {
       windowWidth: 0,
       windowHeight: 0,
@@ -41,7 +43,23 @@ Page({
   },
 
   //页面加载函数
-  onLoad: function () {
+  onLoad: function() {
+    //获取page
+    var that = this
+    util.requestGet({
+      url: api.FirstVisitUrl,
+      data: {
+        merchantId: app.globalData.merchantId,
+        memberId: app.globalData.memberId
+      },
+      success: function (res) {
+        
+      }
+    })
+    that.refershInfo();
+  },
+
+  refershInfo: function() {
     //获取page
     var that = this
     //设置data数据
@@ -97,12 +115,12 @@ Page({
   },
 
   //页面显示函数
-  onShow: function () {
+  onShow: function() {
     var that = this
   },
 
   //下拉刷新函数
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     //获取page对象
     var that = this
     //设置属性
@@ -113,34 +131,34 @@ Page({
     //显示导航条加载动画
     wx.showNavigationBarLoading()
     //调用页面加载函数
-    that.onLoad()
+    that.refershInfo()
     wx.hideNavigationBarLoading() //完成停止加载
     wx.stopPullDownRefresh() //停止下拉刷新
   },
 
   //转发按钮触发
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     //返回一个对象
     return {
       //转发标题
       title: wx.getStorageSync('mallName') + '——' + app.globalData.shareProfile,
       //转发路径
       path: '/pages/finder/index',
-      success: function (res) {
+      success: function(res) {
         // 转发成功
       },
-      fail: function (res) {
+      fail: function(res) {
         // 转发失败
       }
     }
   },
 
   //用户上拉触底
-  onReachBottom: function(){
+  onReachBottom: function() {
     //获取page对象
     var that = this
     that.setData({
-      autoplay:false
+      autoplay: false
     })
     //调用商品显示函数
     that.getRGshow()
@@ -148,7 +166,7 @@ Page({
 
   //事件处理函数
   //轮播图函数
-  swiperchange: function (e) {
+  swiperchange: function(e) {
     //console.log(e.detail.current)
     //设置数据index
     this.setData({
@@ -157,7 +175,7 @@ Page({
   },
 
   //点击商品进入详情页
-  toDetailsTap: function (e) {
+  toDetailsTap: function(e) {
     //保留原页面并跳转
     wx.navigateTo({
       url: "/pages/goods-details/index?id=" + e.currentTarget.dataset.id
@@ -165,7 +183,7 @@ Page({
   },
 
   //点击轮播图进入详情页
-  tapBanner: function (e) {
+  tapBanner: function(e) {
     //跳转的id不为0
     if (e.currentTarget.dataset.id != 0) {
       //保留原页面并跳转
@@ -176,7 +194,7 @@ Page({
   },
 
   // 从app页面的goodsList中获取推荐商品
-  getAppRecommendGoodsList: function () {
+  getAppRecommendGoodsList: function() {
     //获取page对象
     var that = this
     //获取app中定义的商品数组
@@ -198,55 +216,40 @@ Page({
   },
 
   //获取公告信息
-  getNotice: function () {
-    //获取page对象
+  getNotice: function() {
     var that = this;
-    //获取公告信息
-    console.log("app.globalData.merchantId", app.globalData.merchantId),
-    wx.request({
-      url: 'https://www.shuguomall.club/lorchard-api/merchantNotice/'+app.globalData.merchantId,
-      //成功回调
-      success: function (res) {
-        console.log(res.data.data)
-          //设置公告列表
-          that.setData({
-            noticeList: res.data.data
-          });
-        app.globalData.notices = res.data.data
+    util.requestGet({
+      url: api.MerchantNoticeUrl,
+      data: {
+        merchantId: app.globalData.merchantId
+      },
+      success: function(res) {
+        that.setData({
+          noticeList: res.data
+        });
+        app.globalData.notices = res.data
       }
     })
   },
 
   //获取轮播图
-  getBanners: function () {
-    //获取page对象
+  getBanners: function() {
     var that = this
     //获取轮播图
-    wx.request({
-      url: 'https://www.shuguomall.club/lorchard-api/merchantBanner/'+app.globalData.merchantId,
-      //成功回调
-      success: function (res) {
-        console.log("请求banners返回代码", res.data.code)
-        console.log(res.data.data)
-        //code==0 成功
-        if (res.data.code === 0) {
-          //设置轮播图列表
+    util.requestGet({
+      url: api.MerchantBannerUrl,
+      data: {
+        merchantId: app.globalData.merchantId
+      },
+      success: function(res) {
+        if (res.code === 0) {
           that.setData({
-            banners: res.data.data
+            banners: res.data
           });
-          //404,700,701
-        } else if ((res.data.code === 404) || (res.data.code === 700) || (res.data.code === 701)) {
-          //设置无轮播图
-          that.setData({
-            showNoBanners: true
-          })
-          //其他错误
         } else {
-          //设置无轮播图
           that.setData({
             showNoBanners: true
           })
-          //调用组件
           that.showPopup('.banners_warn_Popup')
         }
       }
@@ -254,7 +257,7 @@ Page({
   },
 
   //显示推荐商品
-  getRGshow: function () {
+  getRGshow: function() {
     //获取page对象
     var that = this;
     //isEnd则返回
@@ -292,7 +295,7 @@ Page({
         that.setData({
           loadingMore: true,
         })
-      //否则设置结束
+        //否则设置结束
       } else {
         that.setData({
           loadingMore: false,
