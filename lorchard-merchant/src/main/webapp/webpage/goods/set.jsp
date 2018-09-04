@@ -91,7 +91,7 @@ margin-right: 2%;
 								<label class="layui-form-label"><span
 									class="x-red">*</span>商品名称：</label>
 								<div class="layui-input-inline input-custom-width">
-									<input type="text" name="name" required="true" value=""
+									<input type="text" name="name" required="true" value="" diyRule="^[\\u4E00-\\u9FA5A-Za-z0-9_]+$" diyCheck="不能有特殊字符"
 										autocomplete="off" placeholder="请输入商品名称" class="layui-input"
 										lay-verType="alert">
 								</div>
@@ -166,7 +166,7 @@ margin-right: 2%;
 								<label class="layui-form-label"><span class="x-red">*</span>商品价格：</label>
 								<div class="layui-input-inline input-custom-width">
 									<input type="text" name="originalPrice" required="true"
-										 value="" autocomplete="off"
+										 value="" autocomplete="off" diyRule="^[0-9]+.?[0-9]*$" diyCheck="输入的不是数字"
 										placeholder="请输入商品价格" class="layui-input" lay-verType="alert">
 								</div>
 							</div>
@@ -174,7 +174,7 @@ margin-right: 2%;
 								<label class="layui-form-label">
 								<span class="x-red">*</span>折后价：</label>
 								<div class="layui-input-inline input-custom-width">
-									<input type="text" name="minPrice" 
+									<input type="text" name="minPrice" diyRule="^[0-9]+.?[0-9]*$" diyCheck="输入的不是数字"
 										required="true" value="" autocomplete="off"
 										placeholder="请输入商品折后价" class="layui-input" lay-verType="alert">
 								</div>
@@ -196,7 +196,7 @@ margin-right: 2%;
 								<span class="x-red">*</span>库存：</label>
 								<div class="layui-input-inline input-custom-width">
 									<input type="text" name="stock" required="true"
-										 value="" autocomplete="off"
+										 value="" autocomplete="off" diyRule="^[0-9]+.?[0-9]*$" diyCheck="输入的不是数字"
 										placeholder="请输入剩余库存" class="layui-input">
 								</div>
 							</div>
