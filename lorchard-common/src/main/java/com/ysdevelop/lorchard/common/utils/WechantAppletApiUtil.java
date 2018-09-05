@@ -87,8 +87,9 @@ public class WechantAppletApiUtil {
 	 * 
 	 * @return 获取场景二维码Url
 	 */
+	@SuppressWarnings("static-access")
 	public static String getQR(String access_token) {
-		return String.format(ResourceUtil.getConfigByName("wx.wxacode"), access_token);
+		return String.format(ResourceUtil.getInstance().getConfigByName("wx.wxacode"), access_token);
 	}
 
 	
