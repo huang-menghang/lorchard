@@ -20,6 +20,7 @@
 		<module>lorchard-api</module>
 		<!-- 消息队列模块 -->
 		<module>lorchard-mq</module>
+		<module>lorchard-websocket</module>
 	</modules>
 
 	<properties>

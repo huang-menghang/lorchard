@@ -18,25 +18,25 @@
     FROM
 	(
 		SELECT
-			date_sub(curdate(), INTERVAL 1 DAY) AS click_date
+			date_sub(curdate(), INTERVAL 7 DAY) AS click_date
 		UNION ALL
 		    SELECT
-			date_sub(curdate(), INTERVAL 2 DAY) AS click_date
+			date_sub(curdate(), INTERVAL 6 DAY) AS click_date
 		UNION ALL
 			SELECT
-		    date_sub(curdate(), INTERVAL 3 DAY) AS click_date
+		    date_sub(curdate(), INTERVAL 5 DAY) AS click_date
 		UNION ALL
 			SELECT
 			date_sub(curdate(), INTERVAL 4 DAY) AS click_date
 		UNION ALL
 			SELECT
-			date_sub(curdate(), INTERVAL 5 DAY) AS click_date
+			date_sub(curdate(), INTERVAL 3 DAY) AS click_date
 			UNION ALL
 		SELECT
-			date_sub(curdate(), INTERVAL 6 DAY) AS click_date
+			date_sub(curdate(), INTERVAL 2 DAY) AS click_date
 			UNION ALL
 			SELECT
-			date_sub(curdate(), INTERVAL 7 DAY) AS click_date
+			date_sub(curdate(), INTERVAL 1 DAY) AS click_date
 	    ) a
       LEFT JOIN (
 	   SELECT
