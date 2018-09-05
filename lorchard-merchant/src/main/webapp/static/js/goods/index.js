@@ -3,6 +3,15 @@ var category_index_ops = {
 		this.inintComponent();
 	},
 	inintComponent:function(){
+		var merchantId;
+		$.ajax({
+  			url:WEB_ROOT+'/goods/merchantId',
+  			type:'GET',
+  			dataType:'json'
+  		}).done(function(res){
+  			console.log("res.data"+res.data)
+  			merchantId=res.data;
+  		});
 		layui.use([ 'table', 'layer', 'laydate', 'laypage' ],function() {
 			laydate = layui.laydate;// 日期插件
 			laypage = layui.laypage;// 分页
@@ -23,7 +32,7 @@ var category_index_ops = {
 					   ]],
 				  url: WEB_ROOT + "/goods/pagination",
 				  method: 'get',
-				  where:{merchantId:1},
+				  where:{merchantId:merchantId},
 				  page: true,
 				  limit: 10,
 				  limits :[10],

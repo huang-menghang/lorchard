@@ -14,6 +14,7 @@ import com.ysdevelop.lorchard.merchant.entity.Goods;
 import com.ysdevelop.lorchard.merchant.entity.PreviewImages;
 import com.ysdevelop.lorchard.merchant.mapper.GoodsDao;
 import com.ysdevelop.lorchard.merchant.service.GoodsService;
+import com.ysdevelop.lorchard.shiro.token.TokenManager;
 import com.ysdevelop.lorchard.common.exception.WebServiceException;
 import com.ysdevelop.lorchard.common.result.CodeMsg;
 import com.ysdevelop.lorchard.common.utils.Constant;
@@ -148,7 +149,7 @@ public class GoodsServiceImpl implements GoodsService {
 			throw new WebServiceException(CodeMsg.ORIGINALPRIVE_LESS_THAN_MINPRICE);
 		}
 
-		goods.setMerchantId(1L);
+		goods.setMerchantId(TokenManager.getUserId());
 		Integer changeCount = goodsDao.add(goods);
 		Integer changeCount2 = goodsDao.addSpecifications(goods);
 		if (changeCount == Constant.DEFALULT_ZERO || changeCount2 == Constant.DEFALULT_ZERO) {

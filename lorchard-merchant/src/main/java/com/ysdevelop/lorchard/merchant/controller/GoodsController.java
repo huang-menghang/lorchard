@@ -21,6 +21,7 @@ import com.github.pagehelper.PageInfo;
 import com.ysdevelop.lorchard.merchant.entity.Goods;
 import com.ysdevelop.lorchard.merchant.entity.PreviewImages;
 import com.ysdevelop.lorchard.merchant.service.GoodsService;
+import com.ysdevelop.lorchard.shiro.token.TokenManager;
 import com.ysdevelop.lorchard.common.result.Result;
 import com.ysdevelop.lorchard.common.utils.HttpUtils;
 
@@ -42,6 +43,13 @@ public class GoodsController {
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
 	public String index() {
 		return "goods/index";
+	}
+	
+	@RequestMapping(value = "/merchantId", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Result<Long> merchantId() {
+		Long merchantId = TokenManager.getUserId();
+		return Result.successData(merchantId);
 	}
 	/**
 	 * 获取index的商品列表
