@@ -81,8 +81,9 @@ var merchant_register_ops = {
                 }).done(function(res){
                 	var callback = null;
                 	if(res.code == 0){
+                		// 如果注册成功重新登录
                 		callback= function(){
-                			window.location.href = WEB_ROOT+'/shop/apply';              	    
+                			window.location.href = WEB_ROOT;              	    
                 		};
                 	}else{
                 		callback = function(){
@@ -93,13 +94,6 @@ var merchant_register_ops = {
                 }).fail(function(res){
                 	$that.removeClass("disable");
                 });
-				
-				
-				
-				
-				
-				
-				
 			}else{
 				$(this).removeClass("disable");
 			}
