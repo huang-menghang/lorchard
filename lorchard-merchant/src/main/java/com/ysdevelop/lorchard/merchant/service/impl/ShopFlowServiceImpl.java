@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.ysdevelop.lorchard.common.exception.WebServiceException;
+import com.ysdevelop.lorchard.common.redis.BasePrefix;
 import com.ysdevelop.lorchard.common.redis.RedisService;
 import com.ysdevelop.lorchard.common.result.CodeMsg;
 import com.ysdevelop.lorchard.common.utils.Constant;
@@ -50,26 +51,10 @@ public class ShopFlowServiceImpl implements ShopFlowService {
 		// 如果为空
 		else {
 			List<ShopFlow> shopFlows = flowDao.recentSevenDayStat(merchantId);
-			// 如果不为空缓存数据
+			// 如果不为空,缓存结果值数据
 			if (shopFlows != null) {
 				System.out.println("shopFlows--->" + shopFlows);
-				Long currentTimeNow = System.currentTimeMillis();
-				Calendar calendar = Calendar.getInstance();
-				calendar.add(Calendar.DATE, Constant.DEFALULT_ONE);
-				calendar.set(Calendar.HOUR_OF_DAY, 0);
-				calendar.set(Calendar.SECOND, 0);
-				calendar.set(Calendar.MINUTE, 0);
-				calendar.set(Calendar.MILLISECOND, 0);
-				Long curentTimeAfter = calendar.getTimeInMillis();
-				int experiseTime = (int) ((curentTimeAfter - currentTimeNow) / 1000);
-				System.out.println("experiseTime--->" + experiseTime);
-				if (experiseTime > 0) {
-					ShopFlowDailyKey.flowDailyKey.setExpireSeconds(experiseTime);
-					String shopFlowJson = JSONArray.toJSONString(shopFlows);
-					System.out.println("shopFlowJson--->" + shopFlowJson);
-					redisService.set(ShopFlowDailyKey.flowDailyKey, "" + merchantId, shopFlowJson);
-
-				}
+				storeJsonResultRedisDaily(merchantId, ShopFlowDailyKey.flowDailyKey, JSONArray.toJSONString(shopFlows));
 			}
 
 			return shopFlows;
@@ -91,25 +76,41 @@ public class ShopFlowServiceImpl implements ShopFlowService {
 			Map<String, Integer> mapResult = flowDao.yesterdayStat(merchantId);
 			// 将map缓存到redis中
 			if (mapResult != null) {
-				Long currentTimeNow = System.currentTimeMillis();
-				Calendar calendar = Calendar.getInstance();
-				calendar.add(Calendar.DATE, Constant.DEFALULT_ONE);
-				calendar.set(Calendar.HOUR_OF_DAY, 0);
-				calendar.set(Calendar.SECOND, 0);
-				calendar.set(Calendar.MINUTE, 0);
-				calendar.set(Calendar.MILLISECOND, 0);
-				Long curentTimeAfter = calendar.getTimeInMillis();
-				int experiseTime = (int) ((curentTimeAfter - currentTimeNow) / 1000);
-				if (experiseTime > 0) {
-					ShopDashBoardStataKey.dashBoardKey.setExpireSeconds(experiseTime);
-					String resultJson = JSON.toJSONString(mapResult);
-					System.out.println("resultJson--->"+resultJson);
-					redisService.set(ShopDashBoardStataKey.dashBoardKey, "" + merchantId, resultJson);
-				}
+				storeJsonResultRedisDaily(merchantId, ShopDashBoardStataKey.dashBoardKey, JSON.toJSONString(mapResult));
 			}
 			return mapResult;
 		}
 
+	}
+
+	/**
+	 * 将每日的数据按照当日的时间存储
+	 * 
+	 * @param merchantId
+	 *            商家id
+	 * 
+	 * @param storeKey
+	 *            存储的key
+	 * 
+	 * @param jsonResult
+	 *            被存储的jsonResult
+	 */
+	private void storeJsonResultRedisDaily(Long merchantId, BasePrefix storeKey, String jsonResult) {
+		if (jsonResult != null) {
+			Long currentTimeNow = System.currentTimeMillis();
+			Calendar calendar = Calendar.getInstance();
+			calendar.add(Calendar.DATE, Constant.DEFALULT_ONE);
+			calendar.set(Calendar.HOUR_OF_DAY, 0);
+			calendar.set(Calendar.SECOND, 0);
+			calendar.set(Calendar.MINUTE, 0);
+			calendar.set(Calendar.MILLISECOND, 0);
+			Long curentTimeAfter = calendar.getTimeInMillis();
+			int experiseTime = (int) ((curentTimeAfter - currentTimeNow) / 1000);
+			if (experiseTime > 0) {
+				storeKey.setExpireSeconds(experiseTime);
+				redisService.set(storeKey, "" + merchantId, jsonResult);
+			}
+		}
 	}
 
 }
