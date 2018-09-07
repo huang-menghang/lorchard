@@ -22,9 +22,9 @@ public interface WebSocketService {
     /**
      * 处理WebSocket Message
      * 
-     * @param message 
+     * @param message webscoketMessage
      * 
-     * @param context 
+     * @param context 客户端
      */
 	void receiveWebsocketMessage(WebSocketMessage message, ChannelHandlerContext context);
 

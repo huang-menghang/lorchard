@@ -3,9 +3,12 @@ package com.ysdevelop.lorchard.websocket.manager;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.ysdevelop.lorchard.common.utils.Constant;
 
@@ -23,17 +26,24 @@ import com.ysdevelop.lorchard.common.utils.Constant;
  * 
  */
 public class ChannelHandlerContextManager {
-
+    /**
+     * 客户端缓存类
+     */
 	private static final Map<Long, ChannelHandlerContext> CONEXT_STORE = new ConcurrentHashMap<>();
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(ChannelHandlerContextManager.class);
+
 	public static void addChannelHandlerContext(Long userId, ChannelHandlerContext context) {
+		LOGGER.info("商家id为" + userId + ",  缓存成功!");
 		CONEXT_STORE.put(userId, context);
 	}
-    /**
-     * 
-     * @param userId,根据用户id删除
-     *
-     */
+
+	/**
+	 * 
+	 * @param userId
+	 *            ,根据用户id删除
+	 * 
+	 */
 	public static void removeChannelHandlerContext(Long userId) {
 		ChannelHandlerContext context = CONEXT_STORE.get(userId);
 		// 关闭连接
@@ -43,14 +53,17 @@ public class ChannelHandlerContextManager {
 
 	/**
 	 * 
-	 * @param context,根据ChannelHandlerContext 删除map
-	 *
+	 * @param context
+	 *            ,根据ChannelHandlerContext 删除map
+	 * 
 	 */
 	public static void removeChannelHandlerContext(ChannelHandlerContext context) {
-		List<ChannelHandlerContext> contexts = (List<ChannelHandlerContext>) CONEXT_STORE.values();
-		if (context != null && contexts.size() > Constant.DEFALULT_ONE) {
+
+		Collection<ChannelHandlerContext> contexts = CONEXT_STORE.values();
+		if (context != null && contexts.size() > Constant.DEFALULT_ZERO) {
 			context.close();
-			contexts.remove(context);
+			boolean removeFlag = contexts.remove(context);
+			LOGGER.info("移除" + removeFlag);
 		}
 
 	}

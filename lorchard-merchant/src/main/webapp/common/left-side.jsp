@@ -58,7 +58,7 @@
 		</a></li>
 		<li class="sidebar-nav-link"><a
 			href="<%=basePath %>/member?title=member" class=""> <i
-				class="iconfont sidebar-nav-link-logo icon-user" style=""></i> 会员管理
+				class="iconfont sidebar-nav-link-logo icon-account" style=""></i> 会员管理
 		</a></li>
 		<li class="sidebar-nav-link"><a
 			href="<%=basePath%>/main/goods?title=goodsIndex" class=""> <i
@@ -71,6 +71,11 @@
                                 <use xlink:href="#icon-application"></use>
                             </svg> 应用中心
 		</a></li>
+		<li class="sidebar-nav-link"><a
+			href="<%=basePath%>/main/goods?title=goodsIndex" class=""> <i
+				class="iconfont sidebar-nav-link-logo icon-yunliankeji-" style=""></i> 财务管理
+		</a>
+		</li>
 		<li class="sidebar-nav-link"><a
 			href="<%=basePath%>/main/goods?title=goodsIndex" class=""> <i
 				class="iconfont sidebar-nav-link-logo icon-setting" style=""></i> 设置

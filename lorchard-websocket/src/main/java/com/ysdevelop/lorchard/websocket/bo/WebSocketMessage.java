@@ -42,7 +42,7 @@ public class WebSocketMessage {
 	public static WebSocketMessage create(String messageJson) {
 		WebSocketMessage messages = null;
 
-		if (messageJson != null) {
+		if (messageJson == null) {
 			messages = null;
 		} else {
 			try {
@@ -94,6 +94,15 @@ public class WebSocketMessage {
 
 	public void setMessageType(WebSocketMessageType messageType) {
 		this.messageType = messageType;
+	}
+
+	public static void main(String[] args) {
+		WebSocketMessage message = new WebSocketMessage();
+		message.setFromMerchantId(1L);
+		message.setMessageConent("商家客户端id" + 1 + ",上线");
+		message.setMessageType(WebSocketMessageType.ON_LINE);
+		System.out.println("jsonString--->" + JSON.toJSONString(message));
+
 	}
 
 }

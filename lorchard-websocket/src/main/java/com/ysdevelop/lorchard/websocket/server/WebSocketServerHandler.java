@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.ysdevelop.lorchard.common.utils.Constant;
 import com.ysdevelop.lorchard.websocket.bo.WebSocketMessage;
+import com.ysdevelop.lorchard.websocket.manager.ChannelHandlerContextManager;
 import com.ysdevelop.lorchard.websocket.service.WebSocketService;
 
 import io.netty.buffer.ByteBuf;
@@ -37,7 +38,7 @@ import io.netty.util.CharsetUtil;
  * 
  * @Package com.ysdevelop.websocket.server
  * 
- * @Description TODO
+ * @Description websocketHandler 具体实现类,实现握手
  * 
  * @Date 2018年9月5日
  * 
@@ -108,6 +109,8 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 		// 判断是否关闭链路的指令
 		if (frame instanceof CloseWebSocketFrame) {
 			logger.info("关闭握手.....");
+			// 移除map缓存中的数据
+		    ChannelHandlerContextManager.removeChannelHandlerContext(ctx);
 			handshaker.close(ctx.channel(), (CloseWebSocketFrame) frame.retain());
 		}
 		// 判断是否Ping消息
@@ -127,11 +130,12 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 			logger.info("get client msg" + webSocketFrame.text());
 			WebSocketMessage websocketMessage = WebSocketMessage.create(webSocketFrame.text());
 			// 如果websocketMessage解析不成功,我们需要发送错误信息给客户端
+			System.out.println("websocketMessage-->"+websocketMessage);
 			if (websocketMessage == null) {
 				sendWebSocket("decode websocket error");
 			}
-			sendWebSocket("hello client ! old huang websocketServer handle");
-			// websocketService.receiveWebsocketMessage(websocketMessage, ctx);
+		  //sendWebSocket("hello client ! old huang websocketServer handle");
+			 websocketService.receiveWebsocketMessage(websocketMessage, ctx);
 		} catch (Exception e) {
 			logger.error("send websocket msg error !!!");
 			e.printStackTrace();
