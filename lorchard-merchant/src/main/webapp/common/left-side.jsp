@@ -37,7 +37,7 @@
 <!--左侧菜单切换-->
 
 <div class="left-sidebar">
-	<!-- 一级菜单 -->
+	<!-- 一级菜单 -->    
 	<ul class="sidebar-nav">
 		<li class="sidebar-nav-heading">小果源</li>
 		<li class="sidebar-nav-link"><a
@@ -53,7 +53,7 @@
 				class="iconfont sidebar-nav-link-logo icon-goods" style=""></i> 商品管理
 		</a></li>
 		<li class="sidebar-nav-link"><a
-			href="<%=basePath%>/main/order?title=orderAll" class=""> <i
+			href="<%=basePath%>/order?title=orderAll" class=""> <i
 				class="iconfont sidebar-nav-link-logo icon-order" style=""></i> 订单管理
 		</a></li>
 		<li class="sidebar-nav-link"><a
@@ -104,13 +104,12 @@
 		<li class="sidebar-second-title">订单管理</li>
 		<li class="sidebar-second-item">
 			<!-- 二级菜单--> 
-			<a name="orderAll" href="<%=basePath%>/main/order?title=orderAll" class=""> 待发货 </a>
-			<a name="orderUnpaymenyt" href="<%=basePath%>/main/order?title='orderUnpaymenyt'" class=""> 待发货 </a> 		
-			<a name="orderUndelivery" href="<%=basePath%>/main/order?title='orderUndelivery'" class=""> 待收货 </a> 
-			<a name="orderUnwaitingorder" href="<%=basePath%>/main/order?title='orderUnwaitingorder'" class=""> 待付款 </a> 		
-			<a name="orderWaitingorder" href="<%=basePath%>/main/order?title='orderWaitingorder'" class=""> 已完成  </a> 
-			<a name="orderFinished" href="<%=basePath%>/main/order?title='orderFinished'" class=""> 已取消 </a> 		
-			<a name="orderClosed" href="<%=basePath%>/main/order?title='orderClosed'" class=""> 全部订单 </a> 		
+			<a name="orderAll" href="<%=basePath%>/order?title=orderAll" class=""> 全部订单</a>
+			<a name="orderUnpaid" href="<%=basePath%>/order?title=orderUnpaid" class="">待付款订单</a> 		
+			<a name="orderUnDelivered" href="<%=basePath%>/order?title=orderUnDelivered" class="">待发货订单</a>
+			<a name="orderUnReceived" href="<%=basePath%>/order?title=orderUnReceived" class="">待收货订单</a>  
+			<a name="orderRefund" href="<%=basePath%>/order?title=orderRefund" class="">退款中订单</a> 		
+			<a name="orderCompleted" href="<%=basePath%>/order?title=orderCompleted" class="">已完成订单</a> 		
 		</li>
 	</ul>
 	
