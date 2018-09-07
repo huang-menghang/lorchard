@@ -14,7 +14,7 @@
           <input name="mobile" class="input" maxlength="11" type="number" placeholder="11位手机号码" value="{{addressData.mobile}}" />
         </view>
       </view>
-      <view class="row-wrap" bindtap="selectCity">
+      <view class="row-wrap">
         <view class="label">选择地区</view>
         <picker bindchange="bindPickerProvinceChange" range="{{provinces}}">
           <view class="picker {{selProvince=='请选择'?'hui':''}}">

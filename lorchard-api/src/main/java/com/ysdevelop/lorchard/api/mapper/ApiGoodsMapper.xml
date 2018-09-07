@@ -9,7 +9,8 @@
 		`g`.recommend as `recommend`,`g`.stock as `stock`,
 		`s`.minPrice as `minPrice`,`s`.originalPrice as `originalPrice`,
 		`s`.type as `type`,`g`.categoryId as `categoryId`,
-		`s`.specificationsDescription as `specificationsDescription`
+		`s`.specificationsDescription as `specificationsDescription`,
+		`a`.name as`parentCategoryName`
 		from
 		`t_lorchard_mall_goods` as `g`
 		left join `tmpLst` as t on `g`.categoryId = `t`.id
@@ -44,7 +45,8 @@
 		`g`.recommend as `recommend`,`g`.stock as `stock`,
 		`s`.minPrice as `minPrice`,`s`.originalPrice as `originalPrice`,
 		`s`.type as `type`,`g`.categoryId as `categoryId`,
-		`s`.specificationsDescription as `specificationsDescription`
+		`s`.specificationsDescription as `specificationsDescription`,
+		`a`.name as`parentCategoryName`
 		from
 		`t_lorchard_mall_goods` as `g`
 		left join `tmpLst` as t on `g`.categoryId = `t`.id

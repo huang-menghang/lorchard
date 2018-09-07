@@ -108,7 +108,7 @@ Page({
                 })
               } else {
                 wx.navigateBack({
-                  url: 'list?memberId=' + that.data.memberId,
+                  
                 })
               }
               util.showWarn('添加成功', callback);
@@ -139,7 +139,7 @@ Page({
                 confirmColor: '#29aceb',
                 success: function () {
                   wx.navigateBack({
-                    url: 'list?memberId=' + that.data.memberId,
+                   
                   })
                 }
               })
