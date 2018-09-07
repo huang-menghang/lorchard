@@ -29,16 +29,16 @@
           </view>
           <view class="text-box">
             <!--购物车物品名称-->
-            <view class="goods-title">{{item.name}}</view>
+            <view class="goods-title">{{item.goodsName}}</view>
             <!--购物车物品规格-->
             <view class="goods-label">{{item.label}}</view>
             <!--购物车物品价格-->
-            <wxc-price class="goods-price" value="{{item.price}}" icon='sub' decimal='small'></wxc-price>
+            <wxc-price class="goods-price" value="{{item.goodsPrice}}" icon='sub' decimal='small'></wxc-price>
             <!--购物车物品数量-->
             <view class="buy-num">
-              <view class="jian-btn {{item.number==1? 'disabled' : ''}}" catchtap="jianBtnTap" data-index="{{index}}">-</view>
-              <input type="number" value="{{item.number}}" disabled/>
-              <view class="jia-btn {{item.number==10? 'disabled' : ''}}" catchtap="jiaBtnTap" data-index="{{index}}">+</view>
+              <view class="jian-btn {{item.itemNum==1? 'disabled' : ''}}" catchtap="jianBtnTap" data-index="{{index}}">-</view>
+              <input type="number" value="{{item.itemNum}}" disabled/>
+              <view class="jia-btn {{item.itemNum==10? 'disabled' : ''}}" catchtap="jiaBtnTap" data-index="{{index}}">+</view>
             </view>
           </view>
         </view>

@@ -1,8 +1,10 @@
 var wxpay = require('../../../utils/pay.js')
+var util = require('../../../utils/util.js');
+var api = require('../../../config/api.js');
 var app = getApp()
 Page({
   data: {
-    tabs: ["待付款", "待发货", "待收货", "待评价", "已完成"],
+    tabs: ["待付款", "待发货", "待收货", "待评价","已取消", "已完成"],
     tabClass: ["", "", "", "", ""],
     stv: {
       windowWidth: 0,
@@ -14,152 +16,94 @@ Page({
     loadingStatus: false,
   },
 
-  onLoad: function (options) {
+  onLoad: function(options) {
     try {
-      let {tabs} = this.data;
-      console.log("tabsCount", tabs)
+      let {
+        tabs
+      } = this.data;
       var res = wx.getSystemInfoSync()
       this.windowWidth = res.windowWidth;
       this.data.stv.lineWidth = this.windowWidth / this.data.tabs.length;
       this.data.stv.windowWidth = res.windowWidth;
-      this.setData({ stv: this.data.stv })
+      this.setData({
+        stv: this.data.stv
+      })
       this.tabsCount = tabs.length;
-    } catch (e) {
-    }
+    } catch (e) {}
   },
-  
-  onShow: function () {
+
+  onShow: function() {
     // 获取订单列表
     this.setData({
       loadingStatus: true
     })
-    this.getOrderStatistics();
     this.getOrderList()
   },
 
-  getOrderStatistics: function () {
+  getOrderList: function() {
     var that = this;
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/statistics',
-      data: { 
-        token: wx.getStorageSync('token' + app.globalData.merchantId)
+    var orderList = [];
+    util.requestGet({
+      url: api.OrderList,
+      data: {
+        merchantId: app.globalData.merchantId,
+        memberId: app.globalData.memberId,
+        limit: app.globalData.pageSize,
+        page: app.globalData.page
       },
-      success: (res) => {
-        wx.hideLoading();
-        if (res.data.code == 0) {
-          var tabClass = that.data.tabClass;
-          if (res.data.data.count_id_no_pay > 0) {
-            tabClass[0] = "red-dot"
-          } else {
-            tabClass[0] = ""
-          }
-          if (res.data.data.count_id_no_transfer > 0) {
-            tabClass[1] = "red-dot"
-          } else {
-            tabClass[1] = ""
-          }
-          if (res.data.data.count_id_no_confirm > 0) {
-            tabClass[2] = "red-dot"
-          } else {
-            tabClass[2] = ""
-          }
-          if (res.data.data.count_id_no_reputation > 0) {
-            tabClass[3] = "red-dot"
-          } else {
-            tabClass[3] = ""
-          }
-          if (res.data.data.count_id_success > 0) {
-            //tabClass[4] = "red-dot"
-          } else {
-            //tabClass[4] = ""
-          }
-
-          console.log(tabClass)
-          that.setData({
-            tabClass: tabClass,
-          });
-        }
-      }
-    })
-  },
-  
-  getOrderList: function () {
-    var that = this;
-    var postData = {
-      token: wx.getStorageSync('token'),
-      pageSize: app.globalData.pageSize,
-      page: app.globalData.page
-    };
-    console.log('getting orderList')
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/list',
-      data: postData,
-      success: (res) => {
-        if (res.data.code === 0) {
-          console.log('orderList',res.data.data.orderList)
-          that.setData({
-            totalOrderList: res.data.data.orderList,
-            logisticsMap: res.data.data.logisticsMap,
-            goodsMap: res.data.data.goodsMap
-          });
-          //订单分类
-          var orderList = [];
-          for (let i = 0; i < that.data.tabs.length; i++) {
-            var tempList = [];
-            for (let j = 0; j < res.data.data.orderList.length; j++) {
-              if (res.data.data.orderList[j].status == i) {
-                tempList.push(res.data.data.orderList[j])
-                //orderList[i].push(res.data.data.orderList[j])
+      success: function(res) {
+        console.log("订单列表:", res.data)
+        if (res.code == 0) {
+          for (var i = 0; i < 5; i++) {
+            var orderListByStatus = [];
+            var isnull = true;
+            for (var j = 0; j < res.data.length; j++) {
+              var order = res.data[j];
+              if (order.orderStatus == i) {
+                orderListByStatus.push(order)
+                isnull = false
               }
             }
-            console.log(tempList)
-            orderList.push({ 'status': i, 'isnull': tempList.length === 0, 'orderList': tempList })
+            orderList.push({
+              status: i,
+              isnull: isnull,
+              orderList: orderListByStatus
+            })
           }
-          console.log(orderList)
-          this.setData({
-            orderList: orderList
-          });
-        } else {
-          console.log('orderList not exist')
           that.setData({
-            orderList: 'null',
-            logisticsMap: {},
-            goodsMap: {}
-          });
+            loadingStatus: false,
+            orderList: orderList
+          })
         }
-        this.setData({
-          loadingStatus: false
-        })
-      },
-      fail: (res) =>{
-        console.log('获取orderList错误',res.data)
       }
     })
   },
-  orderDetail: function (e) {
-    var orderId = e.currentTarget.dataset.id;
+
+  orderDetail: function(e) {
+    var orderNo = e.currentTarget.dataset.orderno;
     wx.navigateTo({
-      url: "/pages/order-details/index?id=" + orderId
+      url: "/pages/order-details/index?orderNo=" + orderNo
     })
   },
-  cancelOrderTap: function (e) {
+
+  cancelOrderTap: function(e) {
     var that = this;
-    var orderId = e.currentTarget.dataset.id;
+    console.log(e.currentTarget.dataset)
+    var orderNo = e.currentTarget.dataset.orderno;
     wx.showModal({
       title: '确定要取消该订单吗？',
       content: '',
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           wx.showLoading();
-          wx.request({
-            url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/close',
+          util.requestGet({
+            url: api.OrderClose,
             data: {
-              token: wx.getStorageSync('token'),
-              orderId: orderId
+              orderNo: orderNo
             },
             success: (res) => {
               wx.hideLoading();
-              if (res.data.code == 0) {
+              if (res.code == 0) {
                 that.onShow();
               }
             }
@@ -168,64 +112,36 @@ Page({
       }
     })
   },
-  toPayTap: function (e) {
-    var that = this;
-    var orderId = e.currentTarget.dataset.id;
-    var money = e.currentTarget.dataset.money;
-    //wxpay.wxpay(app, money, orderId, "/pages/order-list/index");
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/amount',
-      data: {
-        token: wx.getStorageSync('token')
-      },
-      success: function (res) {
-        if (res.data.code == 0) {
-          // res.data.data.balance
-          money = money - res.data.data.balance;
-          if (money <= 0) {
-            // 直接使用余额支付
-            wx.request({
-              url: 'https://api.it120.cc/' + app.globalData.subDomain + '/order/pay',
-              method: 'POST',
-              header: {
-                'content-type': 'application/x-www-form-urlencoded'
-              },
-              data: {
-                token: wx.getStorageSync('token'),
-                orderId: orderId
-              },
-              success: function (res2) {
-                that.onShow();
-              }
-            })
-          } else {
-            wxpay.wxpay(app, money, orderId, "/pages/ucenter/order-list/index");
-          }
-        } else {
-          wx.showModal({
-            title: '错误',
-            content: '无法获取用户资金信息',
-            showCancel: false
-          })
-        }
-      }
-    })
+
+  toPayTap: function(e) {
+    var orderNo = e.currentTarget.dataset.orderno;
+    wxpay.wxpay(orderNo, "/pages/ucenter/order-list/index");
   },
-  ////////
+
   handlerStart(e) {
     console.log('handlerStart')
-    let { clientX, clientY } = e.touches[0];
+    let {
+      clientX,
+      clientY
+    } = e.touches[0];
     this.startX = clientX;
     this.tapStartX = clientX;
     this.tapStartY = clientY;
     this.data.stv.tStart = true;
     this.tapStartTime = e.timeStamp;
-    this.setData({ stv: this.data.stv })
+    this.setData({
+      stv: this.data.stv
+    })
   },
   handlerMove(e) {
     console.log('handlerMove')
-    let { clientX, clientY } = e.touches[0];
-    let { stv } = this.data;
+    let {
+      clientX,
+      clientY
+    } = e.touches[0];
+    let {
+      stv
+    } = this.data;
     let offsetX = this.startX - clientX;
     this.startX = clientX;
     stv.offset += offsetX;
@@ -234,17 +150,29 @@ Page({
     } else if (stv.offset >= stv.windowWidth * (this.tabsCount - 1)) {
       stv.offset = stv.windowWidth * (this.tabsCount - 1);
     }
-    this.setData({ stv: stv });
+    this.setData({
+      stv: stv
+    });
   },
   handlerCancel(e) {
 
   },
   handlerEnd(e) {
     console.log('handlerEnd')
-    let { clientX, clientY } = e.changedTouches[0];
+    let {
+      clientX,
+      clientY
+    } = e.changedTouches[0];
     let endTime = e.timeStamp;
-    let { tabs, stv, activeTab } = this.data;
-    let { offset, windowWidth } = stv;
+    let {
+      tabs,
+      stv,
+      activeTab
+    } = this.data;
+    let {
+      offset,
+      windowWidth
+    } = stv;
     //快速滑动
     if (endTime - this.tapStartTime <= 300) {
       console.log('快速滑动')
@@ -256,13 +184,17 @@ Page({
           //向左滑动超过5个单位，activeTab增加
           console.log('向左滑动')
           if (activeTab < this.tabsCount - 1) {
-            this.setData({ activeTab: ++activeTab })
+            this.setData({
+              activeTab: ++activeTab
+            })
           }
         } else if (clientX - this.tapStartX > 5) {
           //向右滑动超过5个单位，activeTab减少
           console.log('向右滑动')
           if (activeTab > 0) {
-            this.setData({ activeTab: --activeTab })
+            this.setData({
+              activeTab: --activeTab
+            })
           }
         }
         stv.offset = stv.windowWidth * activeTab;
@@ -271,43 +203,65 @@ Page({
         console.log('竖直滑动距离大于50')
         let page = Math.round(offset / windowWidth);
         if (activeTab != page) {
-          this.setData({ activeTab: page })
+          this.setData({
+            activeTab: page
+          })
         }
         stv.offset = stv.windowWidth * page;
       }
     } else {
       let page = Math.round(offset / windowWidth);
       if (activeTab != page) {
-        this.setData({ activeTab: page })
+        this.setData({
+          activeTab: page
+        })
       }
       stv.offset = stv.windowWidth * page;
     }
     stv.tStart = false;
-    this.setData({ stv: this.data.stv })
+    this.setData({
+      stv: this.data.stv
+    })
   },
   ////////
   _updateSelectedPage(page) {
     console.log('_updateSelectedPage')
-    let { tabs, stv, activeTab } = this.data;
+    let {
+      tabs,
+      stv,
+      activeTab
+    } = this.data;
     activeTab = page;
-    this.setData({ activeTab: activeTab })
+    this.setData({
+      activeTab: activeTab
+    })
     stv.offset = stv.windowWidth * activeTab;
-    this.setData({ stv: this.data.stv })
+    this.setData({
+      stv: this.data.stv
+    })
   },
   handlerTabTap(e) {
     console.log('handlerTapTap', e.currentTarget.dataset.index)
     this._updateSelectedPage(e.currentTarget.dataset.index);
   },
   //事件处理函数
-  swiperchange: function (e) {
+  swiperchange: function(e) {
     //console.log('swiperCurrent',e.detail.current)
-    let { tabs, stv, activeTab } = this.data;
+    let {
+      tabs,
+      stv,
+      activeTab
+    } = this.data;
     activeTab = e.detail.current;
-    this.setData({ activeTab: activeTab })
+    this.setData({
+      activeTab: activeTab
+    })
     stv.offset = stv.windowWidth * activeTab;
-    this.setData({ stv: this.data.stv })
+    this.setData({
+      stv: this.data.stv
+    })
   },
-  toIndexPage: function () {
+  toIndexPage: function() {
     wx.switchTab({
       url: "/pages/classification/index"
     });

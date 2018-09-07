@@ -1,5 +1,6 @@
 package com.ysdevelop.lorchard.api.entity;
 
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -198,4 +199,14 @@ public class MemberVo {
 		this.updateTime = updateTime;
 	}
 
+	@Override
+	public String toString() {
+		return "MemberVo [id=" + id + ", merchantId=" + merchantId + ", gender=" + gender + ", mobile=" + mobile
+				+ ", nickname=" + Arrays.toString(nickname) + ", nicknameStr=" + nicknameStr + ", openid=" + openid
+				+ ", registerIp=" + registerIp + ", avatar=" + avatar + ", language=" + language + ", country="
+				+ country + ", city=" + city + ", token=" + token + ", province=" + province + ", status=" + status
+				+ ", createTime=" + createTime + ", updateTime=" + updateTime + "]";
+	}
+
+	
 }

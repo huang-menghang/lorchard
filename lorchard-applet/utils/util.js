@@ -102,6 +102,38 @@ function requestByPut(req) {
   })
 }
 
+function multiply(n, m) {
+  n = typeof n == "string" ? n : numToString(n);
+  m = typeof m == "string" ? m : numToString(m);
+  var F = n.indexOf(".") != -1 ? handleNum(n) : [n, 0, 0],
+    S = m.indexOf(".") != -1 ? handleNum(m) : [m, 0, 0],
+    l1 = F[2],
+    l2 = S[2],
+    L = l1 > l2 ? l1 : l2,
+    T = Math.pow(10, L);
+  return ((F[0] * T + F[1] * T / Math.pow(10, l1)) * (S[0] * T + S[1] * T / Math.pow(10, l2))) / T / T
+}
+
+function numToString(tempArray) {
+  if (Object.prototype.toString.call(tempArray) == "[object Array]") {
+    var temp = tempArray.slice();
+    for (var i, l = temp.length; i < l; i++) {
+      temp[i] = typeof temp[i] == "number" ? temp[i].toString() : temp[i];
+    }
+    return temp;
+  }
+  if (typeof tempArray == "number") {
+    return tempArray.toString();
+  }
+  return []
+}
+
+function handleNum(n) {
+  n = typeof n !== "string" ? n + "" : n;
+  var temp = n.split(".");
+  temp.push(temp[1].length);
+  return temp
+}
 /**
  * 检查微信会话是否过期
  */
@@ -175,6 +207,21 @@ function showErrorToast(msg) {
   })
 }
 
+function showWarn(context, callback) {
+  wx.showModal({
+    title: '提示',
+    content: context,
+    confirmColor: "#29aceb",
+    showCancel: false,
+    success: function () {
+      if (typeof callback == 'function') {
+        callback();
+      }
+    }
+
+  });
+}
+
 module.exports = {
   formatTime: formatTime,
   requestGet: requestByGet,
@@ -182,6 +229,8 @@ module.exports = {
   requestDelete: requestByDelete,
   requestPut: requestByPut,
   requestJson: requestJsonByPost,
+  showWarn: showWarn,
+  multiply: multiply,
   redirect,
   showErrorToast,
   checkSession,

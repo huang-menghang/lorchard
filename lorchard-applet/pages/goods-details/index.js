@@ -258,6 +258,7 @@ Page({
   bulidShopCarInfo: function() {
     // 加入购物车
     var shopCarMap = this.getShopCarMap();
+    console.log("shopCarMap:", shopCarMap)
     //购物车信息
     var shopCarInfo = this.data.shopCarInfo;
     //判断购物车物品数量
@@ -309,16 +310,19 @@ Page({
 
   getShopCarMap: function() {
     var shopCarMap = {};
+    shopCarMap.merchantId = app.globalData.merchantId;
+    shopCarMap.memberId = app.globalData.memberId;
     shopCarMap.goodsId = this.data.goodsDetail.id;
+    shopCarMap.goodsName = this.data.goodsDetail.name;
+    shopCarMap.goodsPrice = this.data.selectSizePrice;
     shopCarMap.previewImages = this.data.goodsDetail.previewImages;
-    shopCarMap.name = this.data.goodsDetail.name;
-    shopCarMap.price = this.data.selectSizePrice;
+    shopCarMap.parentId = this.data.goodsDetail.parentId;
+    shopCarMap.parentCategoryName = this.data.goodsDetail.parentCategoryName;
+    shopCarMap.itemNum = this.data.buyNumber;
     shopCarMap.left = "";
     shopCarMap.active = true;
     shopCarMap.label = this.data.goodsDetail.specificationsDescription;
-    shopCarMap.number = this.data.buyNumber;
-    shopCarMap.test = "111";
-    shopCarMap.test1 = undefined;
+    shopCarMap.goodsType = shopCarMap.label;
     return shopCarMap;
   },
 
@@ -379,7 +383,7 @@ Page({
   getDeliveryPrice: function() {
     var that = this
     that.setData({
-      shopDeliveryPrice: 50
+      shopDeliveryPrice: 0
     })
   }
 })

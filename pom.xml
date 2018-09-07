@@ -377,6 +377,12 @@
 			<artifactId>jedis</artifactId>
 			<version>${jedis.version}</version>
 		</dependency>
+		<!-- netty 依赖 -->
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>${netty.version}</version>
+		</dependency>
 		<!-- RabbitMQ -->
 		<dependency>
 			<groupId>com.rabbitmq</groupId>

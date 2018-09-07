@@ -24,35 +24,6 @@
     </view>
   </view>
 
-  <view class='h-contents'>
-    <view class='a-item'>
-      <wxc-icon type='purse' size='{{iconSize-10}}' color='#69C3AA' style='margin:15rpx 0 10rpx 0;'></wxc-icon>
-      <view class='my'>
-        积分:
-        <view style='padding:0 10rpx;color: #69C3AA;font-weight: bold;'> {{score}} </view>
-      </view>
-    </view>
-    <view class='a-item'>
-      <wxc-icon type='yen' size='{{iconSize-10}}' color='#666666' style='margin:15rpx 0 10rpx 0;'></wxc-icon>
-      <view class='my'>
-        余额:
-        <view style='padding: 0 10rpx;color: #666666;font-weight: bold;'> {{balance}} </view>
-      </view>
-    </view>
-    <view class='a-item'>
-      <wxc-icon type='after-sales' size='{{iconSize-10}}' color='#FF5777' style='margin:15rpx 0 10rpx 0;'></wxc-icon>
-      <view class='my'>
-        提现中:
-        <view style='padding: 0 10rpx;color: #FF5777;font-weight: bold;'> {{freeze}} </view>
-      </view>
-    </view>
-    <view class='a-item-no-right-border'>
-      <button type='primary' size='mini' bindtap="recharge" style='font-size: 22rpx;background-color:#69C3AA;'>充值</button>
-      <view style='height:8rpx;'> </view>
-      <button type='warn' size='mini' bindtap="withdraw" style='font-size: 22rpx;background-color:#FF5777;'>提现</button>
-    </view>
-  </view>
-
   <view class="user-menu">
     <view class="item">
       <navigator url="/pages/ucenter/order-list/index" hover-class="none" class="a">

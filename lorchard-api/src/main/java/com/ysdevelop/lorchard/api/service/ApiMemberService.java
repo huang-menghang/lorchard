@@ -1,10 +1,7 @@
 package com.ysdevelop.lorchard.api.service;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
-import com.github.pagehelper.PageInfo;
 import com.ysdevelop.lorchard.api.entity.MemberVo;
 
 /**
@@ -13,20 +10,6 @@ import com.ysdevelop.lorchard.api.entity.MemberVo;
  *
  */
 public interface ApiMemberService {
-	
-	/**
-	 * 获取会员集合
-	 * @param queryMap
-	 * @return
-	 */
-	PageInfo<MemberVo> list(Map<String, String> queryMap);
-	
-	/**
-	 * 获取指定会员
-	 * @param id
-	 * @return
-	 */
-	MemberVo getById(Integer id);
 	
 	/**
 	 * 通过code获取指定会员
@@ -42,5 +25,7 @@ public interface ApiMemberService {
 	 * @return
 	 */
 	MemberVo addMember(MemberVo member, HttpServletRequest request);
+
+	MemberVo getMemberById(Long orderMemberId);
 	
 }

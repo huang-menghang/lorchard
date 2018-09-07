@@ -19,6 +19,7 @@ public interface ApiGoodsDao {
 	 * 获取所有商品
 	 * @param queryMap
 	 * @param merchantId
+	 * 
 	 * @return
 	 */
 	List<GoodsVo> list(@Param(value = "queryMap") Map<String, String> queryMap,Integer merchantId);

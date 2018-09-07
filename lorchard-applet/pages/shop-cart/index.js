@@ -131,7 +131,7 @@ Page({
     for (var i = 0; i < list.length; i++) {
       var curItem = list[i];
       if (curItem.active) {
-        total += parseFloat(curItem.price) * curItem.number;
+        total += parseFloat(curItem.goodsPrice) * curItem.itemNum;
       }
     }
     total = parseFloat(total.toFixed(2)); //js浮点计算bug，取两位小数精度
@@ -183,7 +183,7 @@ Page({
     var tempNumber = 0;
     shopCarInfo.shopList = list;
     for (var i = 0; i < list.length; i++) {
-      tempNumber = tempNumber + list[i].number
+      tempNumber = tempNumber + list[i].itemNum
     }
     shopCarInfo.shopNum = tempNumber;
     wx.setStorage({
@@ -213,8 +213,8 @@ Page({
     var index = e.currentTarget.dataset.index;
     var list = this.data.goodsList.list;
     if (index !== "" && index != null) {
-      if (list[parseInt(index)].number < 10) {
-        list[parseInt(index)].number++;
+      if (list[parseInt(index)].itemNum < 10) {
+        list[parseInt(index)].itemNum++;
         this.setGoodsList(this.getSaveHide(), this.totalPrice(), this.allSelect(), this.noSelect(), list);
       }
     }
@@ -224,8 +224,8 @@ Page({
     var index = e.currentTarget.dataset.index;
     var list = this.data.goodsList.list;
     if (index !== "" && index != null) {
-      if (list[parseInt(index)].number > 1) {
-        list[parseInt(index)].number--;
+      if (list[parseInt(index)].itemNum > 1) {
+        list[parseInt(index)].itemNum--;
         this.setGoodsList(this.getSaveHide(), this.totalPrice(), this.allSelect(), this.noSelect(), list);
       }
     }
@@ -311,13 +311,13 @@ Page({
                 return;
               }
             }
-            if (res.data.stock < carShopBean.number) {
+            if (res.data.stock < carShopBean.itemNum) {
               that.goodsValidate(res.data.name + ' 库存不足，请重新购买');
               isFail = true;
               return;
             }
-            if (res.data.minPrice != carShopBean.price) {
-              that.goodsValidate(res.data.data.basicInfo.name + ' 价格有调整，请重新购买');
+            if (res.data.minPrice != carShopBean.goodsPrice) {
+              that.goodsValidate(res.data.name + ' 价格有调整，请重新购买');
               isFail = true;
               return;
             }
@@ -350,7 +350,7 @@ Page({
   getDeliveryPrice: function() {
     var that = this
     that.setData({
-      shopDeliveryPrice: 50
+      shopDeliveryPrice: 0
     })
   }
 })
