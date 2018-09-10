@@ -6,31 +6,32 @@ import com.ysdevelop.lorchard.common.utils.Constant;
 
 /**
  * 
- * 
- * @author 徐一鸣 
+ * @author 徐一鸣
  *
- * @Date 2018年9月10日 上午10:16:52 
+ * @Date 2018年9月10日 下午3:10:09
  *
  * @Package com.ysdevelop.lorchard.api.entity
  *
- * @Description: TODO
+ * @Description: 订单日志
  *
  * @version V1.0
  *
  */
-public class SystemAccessLogVo {
+public class OrderLogVo {
 	private Long id;
-    /** 商家id **/
+	/** 商家id **/
 	private Long merchantId;
-    /** 会员id **/
+	/** 会员id **/
 	private Long memberId;
-    /** 产品id **/
-	private Long goodsId;
-	/** 日志类型  **/
-	private Constant.SystemLogType logType;
-    /** 描述 **/
+	/** 订单号 **/
+	private String orderNo;
+	/** 订单日志类型 **/
+	private Constant.OrderType orderType;
+	/** 订单状态描述 **/
 	private String description;
-    /** 创建时间  **/
+	/** 订单总价 **/
+	private Double orderTotalPrice;
+	/** 创建时间 **/
 	private Date createTime;
 
 	public Long getId() {
@@ -57,20 +58,20 @@ public class SystemAccessLogVo {
 		this.memberId = memberId;
 	}
 
-	public Long getGoodsId() {
-		return goodsId;
+	public String getOrderNo() {
+		return orderNo;
 	}
 
-	public void setGoodsId(Long goodsId) {
-		this.goodsId = goodsId;
-	}
-	
-	public Constant.SystemLogType getLogType() {
-		return logType;
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
 	}
 
-	public void setLogType(Constant.SystemLogType logType) {
-		this.logType = logType;
+	public Constant.OrderType getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(Constant.OrderType orderType) {
+		this.orderType = orderType;
 	}
 
 	public String getDescription() {
@@ -81,6 +82,14 @@ public class SystemAccessLogVo {
 		this.description = description;
 	}
 
+	public Double getOrderTotalPrice() {
+		return orderTotalPrice;
+	}
+
+	public void setOrderTotalPrice(Double orderTotalPrice) {
+		this.orderTotalPrice = orderTotalPrice;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -88,5 +97,5 @@ public class SystemAccessLogVo {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	
+
 }

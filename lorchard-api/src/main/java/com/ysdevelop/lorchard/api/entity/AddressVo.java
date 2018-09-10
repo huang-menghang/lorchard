@@ -4,6 +4,20 @@ import java.util.Date;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+/**
+ * 
+ * 
+ * @author 徐一鸣 
+ *
+ * @Date 2018年9月10日 上午10:15:49 
+ *
+ * @Package com.ysdevelop.lorchard.api.entity
+ *
+ * @Description: TODO
+ *
+ * @version V1.0
+ *
+ */
 public class AddressVo{
 	
 	private Long id;

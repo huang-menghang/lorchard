@@ -6,6 +6,20 @@ import org.apache.ibatis.annotations.Param;
 
 import com.ysdevelop.lorchard.api.entity.AddressVo;
 
+/**
+ * 
+ * 
+ * @author 徐一鸣 
+ *
+ * @Date 2018年9月10日 上午10:17:25 
+ *
+ * @Package com.ysdevelop.lorchard.api.mapper
+ *
+ * @Description: TODO
+ *
+ * @version V1.0
+ *
+ */
 public interface ApiAddressDao {
 
 	void addAddress(AddressVo address);
