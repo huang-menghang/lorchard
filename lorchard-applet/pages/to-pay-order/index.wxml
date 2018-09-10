@@ -72,7 +72,7 @@
     <view class="goods-info" wx:if="{{(isNeedLogistics > 0 && freightPrice > 0) || (!hasNoCoupons)}}">
       <view class="row-box" wx:if="{{isNeedLogistics > 0 && freightPrice > 0}}">
         <view class="row-label">商品金额</view>
-        <view class="right-text">¥ {{allGoodsPrice}}</view>
+        <view class="right-text">¥ {{orderTotalPrice}}</view>
       </view>
       <view class="row-box" wx:if="{{isNeedLogistics > 0 && freightPrice > 0}}">
         <view class="row-label">运费</view>
@@ -87,7 +87,7 @@
     </view>
     <view class="jiesuan-box">
       <view class="left-price">
-        <view class="total">合计：¥ {{orderTotalPrice - couponPrice}}</view>
+        <view class="total">合计：¥ {{orderPendingBalance - couponPrice}}</view>
       </view>
       <button class="to-pay-btn" formType="submit">提交订单</button>
     </view>

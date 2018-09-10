@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysdevelop.lorchard.api.mapper.ApiAddressDao">
+
+	<insert id="addAddress" parameterType="com.ysdevelop.lorchard.api.entity.AddressVo" useGeneratedKeys="true" keyProperty="id">
+		insert into `t_lorchard_mall_address`
+		(`consignee`,`mobile`,`state`,`province`,
+		`city`,`diatrict`,`address`,`memberId`,`createTime`)
+		values
+		(#{consignee},#{mobile},#{state},#{province},
+		#{city},#{diatrict},#{address},#{memberId},now())
+	</insert>
+	
+	<update id="editState" parameterType="com.ysdevelop.lorchard.api.entity.AddressVo">
+		update `t_lorchard_mall_address`
+		<set>
+			`state` = 1,
+			`updateTime` = now()
+		</set>
+		WHERE id != #{id} AND state = 0 AND memberId = #{memberId}
+	</update>
+	
+	<update id="updateState" parameterType="com.ysdevelop.lorchard.api.entity.AddressVo">
+		update `t_lorchard_mall_address`
+		<set>
+			`state` = 0,
+			`updateTime` = now()
+		</set>
+		WHERE id = #{id} AND memberId = #{memberId}
+	</update>
+	
+	<select id="listByMemberId" resultType="com.ysdevelop.lorchard.api.entity.AddressVo"
+		parameterType="Long">
+		select
+		`id`,`consignee`,`mobile`,`state`,`province`,
+		`city`,`diatrict`,`address`
+		from `t_lorchard_mall_address`
+		where `memberId` = #{memberId}
+	</select>
+	
+	<select id="getAddressByMemberId" resultType="com.ysdevelop.lorchard.api.entity.AddressVo">
+		select
+		`id`,`consignee`,`mobile`,`state`,`province`,
+		`city`,`diatrict`,`address`
+		from `t_lorchard_mall_address`
+		where `memberId` = #{memberId}
+        <if test="id == null ">
+        and `state` = 0
+        </if>
+        <if test="id != null ">
+        and `id` = #{id}
+        </if>
+	</select>
+	
+	<select id="getAddressById" resultType="com.ysdevelop.lorchard.api.entity.AddressVo"
+		parameterType="Long">
+		select
+		`id`,`consignee`,`mobile`,`state`,`province`,
+		`city`,`diatrict`,`address`
+		from `t_lorchard_mall_address`
+		where `id` = #{id}
+	</select>
+	
+	<update id="editAddress" parameterType="com.ysdevelop.lorchard.api.entity.AddressVo" useGeneratedKeys="true" keyProperty="id">
+		update `t_lorchard_mall_address`
+		<set>
+			`consignee` = #{consignee},
+			`mobile` = #{mobile},
+			`state` = #{state},
+			`province` = #{province},
+			`city` = #{city},
+			`diatrict` = #{diatrict},
+			`address` = #{address},
+			`updateTime` = now()
+		</set>
+		where `id` = #{id}
+	</update>
+	
+</mapper>

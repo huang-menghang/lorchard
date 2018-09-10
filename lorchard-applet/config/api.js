@@ -1,5 +1,5 @@
 // 后台数据接口统一放在api.js中
-var NewApiRootUrl = 'https://1759e371.ngrok.io/lorchard-api/';
+var NewApiRootUrl = 'https://43f4d13a.ngrok.io/lorchard-api/';
 
 module.exports = {
   //检查用户token是否失效
@@ -39,7 +39,7 @@ module.exports = {
   //创建订单物品
   OrderItems: NewApiRootUrl + 'order/addOrderItem',
   //更新订单
-  UpdateOeder: NewApiRootUrl +'order/updateOrderByNo',
+  UpdateOrder: NewApiRootUrl +'order/updateOrderByNo',
   //获取订单列表
   OrderList: NewApiRootUrl + 'order/list',
   //取消订单
@@ -47,5 +47,7 @@ module.exports = {
   //获取单个订单
   OrderByNo: NewApiRootUrl + 'order/getOrder',
   //订单支付
-  OrderPrePay: NewApiRootUrl + 'order/prePay'
+  OrderPrePay: NewApiRootUrl + 'order/prePay',
+  //确定收货
+  ConfirmOrder: NewApiRootUrl + 'order/confirmOrder'
 }

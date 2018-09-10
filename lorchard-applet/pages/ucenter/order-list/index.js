@@ -4,7 +4,7 @@ var api = require('../../../config/api.js');
 var app = getApp()
 Page({
   data: {
-    tabs: ["待付款", "待发货", "待收货", "待评价","已取消", "已完成"],
+    tabs: ["待付款", "待发货", "待收货", "退款中","已取消", "已完成"],
     tabClass: ["", "", "", "", ""],
     stv: {
       windowWidth: 0,
@@ -54,7 +54,7 @@ Page({
       success: function(res) {
         console.log("订单列表:", res.data)
         if (res.code == 0) {
-          for (var i = 0; i < 5; i++) {
+          for (var i = 0; i < 6; i++) {
             var orderListByStatus = [];
             var isnull = true;
             for (var j = 0; j < res.data.length; j++) {
@@ -115,7 +115,7 @@ Page({
 
   toPayTap: function(e) {
     var orderNo = e.currentTarget.dataset.orderno;
-    wxpay.wxpay(orderNo, "/pages/ucenter/order-list/index");
+    wxpay.wxpay(orderNo, "/pages/ucenter/index/index");
   },
 
   handlerStart(e) {
