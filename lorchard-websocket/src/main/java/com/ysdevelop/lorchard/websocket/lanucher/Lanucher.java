@@ -27,8 +27,8 @@ public class Lanucher {
 	public static void main(String[] args) {
 
 		// 启动spring 容器
-		ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "lorchard-common.xml", "lorchard-mq.xml",
-				"lorchard-websocket.xml" });
+		ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "lorchard-common.xml", 
+				"spring-mq.xml","lorchard-websocket.xml" });
 
 	}
 

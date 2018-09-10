@@ -16,9 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.google.code.kaptcha.Producer;
 import com.ysdevelop.lorchard.common.result.Result;
 import com.ysdevelop.lorchard.common.utils.Constant;
+import com.ysdevelop.lorchard.mq.bo.MerchantMessage;
+import com.ysdevelop.lorchard.mq.constant.MessageKey;
+import com.ysdevelop.lorchard.mq.define.MessageType;
+import com.ysdevelop.lorchard.mq.service.MessageProducer;
 import com.ysdevelop.lorchard.shiro.service.UserService;
 import com.ysdevelop.lorchard.shiro.token.TokenManager;
 import com.ysdevelop.lorchard.shiro.vo.LoginVo;
@@ -32,6 +37,9 @@ public class MerchantController {
 
 	@Autowired
 	private Producer producer;
+
+	@Autowired
+	private MessageProducer messageProducer;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
@@ -63,8 +71,6 @@ public class MerchantController {
 		ImageIO.write(image, "jpg", out);
 	}
 
-	
-
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register() {
 		return "merchant/register";
@@ -76,7 +82,29 @@ public class MerchantController {
 		userService.register(loginVo, session);
 		return Result.success("注册成功");
 	}
-	
 
-	
+	/**
+	 * 用户退出
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	@ResponseBody
+	public Result<String> logout() {
+		TokenManager.logout();
+		return Result.success("退出成功");
+
+	}
+
+	@RequestMapping(value = "/sendMqMessage", method = RequestMethod.GET)
+	@ResponseBody
+	public Result<String> sendMqMessage() {
+		MerchantMessage message = new MerchantMessage();
+		message.setConent("测试消息");
+		message.setMerchantId(1l);
+		message.setMessageType(MessageType.APPLY_SHOP);
+		messageProducer.sendMessage(MessageKey.MERCHANT_KEY, JSON.toJSONString(message));
+		return Result.success("消息发送成功");
+	}
+
 }

@@ -25,7 +25,7 @@
                 </li>
                 <!-- 退出 -->
                 <li class="am-text-sm">
-                    <a href="<?= url('passport/logout') ?>">
+                    <a href="#"class="logout">
                         <i class="iconfont">&#xe60b;</i> 退出
                     </a>
                 </li>

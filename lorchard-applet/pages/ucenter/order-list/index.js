@@ -266,5 +266,4 @@ Page({
       url: "/pages/classification/index"
     });
   },
->>>>>>> 3c9efab559ef34a2ec451515ff0f9b458b258e89
 })

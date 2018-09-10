@@ -6,8 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ysdevelop.lorchard.mq.service.MerchantMessageConsumer;
 import com.ysdevelop.lorchard.websocket.bo.WebSocketMessage;
 import com.ysdevelop.lorchard.websocket.define.WebSocketMessageType;
 import com.ysdevelop.lorchard.websocket.manager.ChannelHandlerContextManager;
@@ -26,10 +28,11 @@ import com.ysdevelop.lorchard.websocket.service.WebSocketService;
  * @Version
  * 
  */
-@Service
+
 public class WebSocketServiceImpl implements WebSocketService, MessageListener {
 
 	private Logger logger = LoggerFactory.getLogger(WebSocketServiceImpl.class);
+
 
 	@Override
 	public void receiveWebsocketMessage(WebSocketMessage message, ChannelHandlerContext context) {
@@ -64,8 +67,8 @@ public class WebSocketServiceImpl implements WebSocketService, MessageListener {
 
 	@Override
 	public void onMessage(Message message) {
-		// 处理来消息队列的消息
-
+		String messageStr = new String(message.getBody());
+		System.out.println("message-->" + messageStr);
 	}
 
 }

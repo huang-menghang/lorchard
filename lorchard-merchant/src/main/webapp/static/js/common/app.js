@@ -41,6 +41,20 @@ $(function () {
         $(this).toggleClass('active');
     });
 
+    /**
+     * 用户退出
+     */
+    $('.logout').click(function(){
+    	$.ajax({
+    		url:WEB_ROOT+'/merchant/logout',
+    		type:'POST',
+    		dataType:'json'
+    	}).done(function(res){
+    		if(res.code == 0){
+    			window.location.href = WEB_ROOT;
+    		}
+    	});
+    });
 
 	
 	
