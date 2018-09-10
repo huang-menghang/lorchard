@@ -4,7 +4,16 @@ import com.ysdevelop.lorchard.common.redis.BasePrefix;
 
 /**
  * 
- * @author USER
+ * 
+ * @author 徐一鸣 
+ *
+ * @Date 2018年9月10日 上午10:17:16 
+ *
+ * @Package com.ysdevelop.lorchard.api.key
+ *
+ * @Description: TODO
+ *
+ * @version V1.0
  *
  */
 public class SessionKey extends BasePrefix {

@@ -6,7 +6,16 @@ import com.ysdevelop.lorchard.api.entity.MemberVo;
 
 /**
  * 
- * @author USER
+ * 
+ * @author 徐一鸣 
+ *
+ * @Date 2018年9月10日 上午10:20:12 
+ *
+ * @Package com.ysdevelop.lorchard.api.service
+ *
+ * @Description: TODO
+ *
+ * @version V1.0
  *
  */
 public interface ApiMemberService {

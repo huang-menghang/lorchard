@@ -2,6 +2,20 @@ package com.ysdevelop.lorchard.api.entity;
 
 import java.util.Date;
 
+/**
+ * 
+ * 
+ * @author 徐一鸣 
+ *
+ * @Date 2018年9月10日 上午10:16:46 
+ *
+ * @Package com.ysdevelop.lorchard.api.entity
+ *
+ * @Description: TODO
+ *
+ * @version V1.0
+ *
+ */
 public class PreviewImagesVo {
 	/**轮播图id*/
 	private Long id;
@@ -14,6 +28,8 @@ public class PreviewImagesVo {
 	
 	/**商品id*/
 	private Long goodsId;
+	
+	private Long status;
 	
 	/**创建时间*/
 	private Date createTime;
@@ -48,6 +64,14 @@ public class PreviewImagesVo {
 
 	public void setGoodsId(Long goodsId) {
 		this.goodsId = goodsId;
+	}
+	
+	public Long getStatus() {
+		return status;
+	}
+
+	public void setStatus(Long status) {
+		this.status = status;
 	}
 
 	public Date getCreateTime() {

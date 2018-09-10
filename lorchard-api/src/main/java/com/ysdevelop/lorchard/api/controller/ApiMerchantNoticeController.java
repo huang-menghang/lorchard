@@ -13,7 +13,16 @@ import com.ysdevelop.lorchard.common.result.Result;
 
 /**
  * 
- * @author USER
+ * 
+ * @author 徐一鸣 
+ *
+ * @Date 2018年9月10日 上午10:15:24 
+ *
+ * @Package com.ysdevelop.lorchard.api.controller
+ *
+ * @Description: TODO
+ *
+ * @version V1.0
  *
  */
 @RestController

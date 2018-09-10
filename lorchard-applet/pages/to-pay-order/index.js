@@ -9,9 +9,9 @@ Page({
     sendArray: ["自提", "商家配送"],
     sendMethod: 1,
     isNeedLogistics: 0,
-    allGoodsPrice: 0,
     freightPrice: 0.01,
     orderTotalPrice: 0,
+    orderPendingBalance:0,
     orderInfo: {},
     orderType: "",
     hasNoCoupons: true,
@@ -52,6 +52,7 @@ Page({
       orderItems: shopList,
     });
     that.initShippingAddress();
+    that.createOrderItem();
   },
 
   //收货地址
@@ -74,7 +75,7 @@ Page({
         }
       }
     })
-    this.createOrderItem();
+    
   },
 
   bindPickersendMethodChange: function(event) {
@@ -89,7 +90,6 @@ Page({
       isNeedLogistics: event.detail.value,
       freightPrice: freightPrice
     })
-    
     this.createOrderItem();
   },
 
@@ -99,24 +99,17 @@ Page({
     that.data.orderInfo.sendMethod = that.data.sendMethod;
     that.data.orderInfo.freightPrice = that.data.freightPrice;
     var orderItems = this.data.orderItems;
-    var allGoodsPrice = 0;
+    var orderTotalPrice = 0;
     for (var i=0;i<orderItems.length;i++){
       orderItems[i].itemPrice = util.multiply(orderItems[i].goodsPrice, orderItems[i].itemNum);
-      allGoodsPrice += orderItems[i].itemPrice;
+      orderTotalPrice += orderItems[i].itemPrice;
     }
-
-    util.requestJson({
-      url: api.OrderItems,
-      data:JSON.stringify(orderItems),
-      success:function(res){
-        console.log("订单号:", res.data)
-        that.data.orderInfo.orderNo = res.data;
-        that.setData({
-          allGoodsPrice: allGoodsPrice,
-          orderTotalPrice: allGoodsPrice + that.data.freightPrice
-        })
-      }
+    this.data.orderItems = orderItems;
+    that.setData({
+      orderTotalPrice: orderTotalPrice,
+      orderPendingBalance: (orderTotalPrice + that.data.freightPrice).toFixed(2)
     })
+
     // that.getMyCoupons();
   },
 
@@ -127,7 +120,8 @@ Page({
     wx.showLoading();
     //设置备注信息
     orderInfo.remark = e.detail.value.remark;
-    orderInfo.orderPendingBalance = that.data.orderTotalPrice;
+    orderInfo.orderTotalPrice = that.data.orderTotalPrice;
+    orderInfo.orderPendingBalance = that.data.orderPendingBalance;
     //判断是否选择地址
     if (that.data.isNeedLogistics > 0) {
       if (!that.data.curAddressData) {
@@ -147,32 +141,39 @@ Page({
       orderInfo.orderMemberName = that.data.curAddressData.consignee;
       orderInfo.mobile = that.data.curAddressData.mobile;
     }
-    console.log("orderInfo", orderInfo)
     util.requestJson({
-      url: api.UpdateOeder,
-      data: JSON.stringify(orderInfo),
+      url: api.OrderItems,
+      data: JSON.stringify(that.data.orderItems),
       success: function (res) {
-        wx.hideLoading();
-        if (res.code != 0) {
-          wx.showModal({
-            title: '订单有误,请重新下单',
-            content: '订单有误,请重新下单',
-            showCancel: false
-          })
-          return;
-        }
-        if ("buyNow" != that.data.orderType) {
-          // 清空购物车数据
-          wx.removeStorageSync('shopCarInfo'+app.globalData.merchantId);
-        }
-        //发送模板消息
-        //sendTempleMsg(res);
-        // 下单成功，跳转到订单管理界面
-        wx.redirectTo({
-          url: "/pages/ucenter/order-list/index"
+        that.data.orderInfo.orderNo = res.data;
+        util.requestJson({
+          url: api.UpdateOrder,
+          data: JSON.stringify(orderInfo),
+          success: function (res) {
+            wx.hideLoading();
+            if (res.code != 0) {
+              wx.showModal({
+                title: '订单有误,请重新下单',
+                content: '订单有误,请重新下单',
+                showCancel: false
+              })
+              return;
+            }
+            if ("buyNow" != that.data.orderType) {
+              // 清空购物车数据
+              wx.removeStorageSync('shopCarInfo' + app.globalData.merchantId);
+            }
+            //发送模板消息
+            //sendTempleMsg(res);
+            // 下单成功，跳转到订单管理界面
+            wx.redirectTo({
+              url: "/pages/ucenter/order-list/index"
+            })
+          }
         })
       }
     })
+    
   },
 
   sendTempleMsg:function(res){
@@ -234,45 +235,5 @@ Page({
     wx.navigateTo({
       url: "/pages/select-address/index"
     })
-  },
-
-  getMyCoupons: function() {
-    var that = this;
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/discounts/my',
-      data: {
-        token: wx.getStorageSync('token'),
-        status: 0
-      },
-      success: function(res) {
-        if (res.data.code === 0) {
-          var coupons = res.data.data.filter(entity => {
-            return entity.moneyHreshold <= that.data.allGoodsAndYunPrice;
-          });
-          if (coupons.length > 0) {
-            that.setData({
-              hasNoCoupons: false,
-              coupons: coupons
-            });
-          }
-        }
-      }
-    })
-  },
-
-  bindChangeCoupon: function(e) {
-    const selIndex = e.detail.value[0] - 1;
-    if (selIndex === -1) {
-      this.setData({
-        youhuijine: 0,
-        curCoupon: null
-      });
-      return;
-    }
-    //console.log("selIndex:" + selIndex);
-    this.setData({
-      youhuijine: this.data.coupons[selIndex].money,
-      curCoupon: this.data.coupons[selIndex]
-    });
-  },
+  }
 })

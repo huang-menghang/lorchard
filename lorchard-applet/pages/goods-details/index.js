@@ -20,7 +20,6 @@ Page({
     buyNumber: 0,
     buyNumMin: 1,
     buyNumMax: 0,
-
     shopDeliveryPrice: 0,
     propertyChildIds: "",
     propertyChildNames: "",
@@ -63,6 +62,10 @@ Page({
           hasMoreSelect: true,
           selectSize: that.data.selectSize + selectSizeTemp,
           selectSizePrice: res.data.minPrice,
+          goodsDetail: res.data,
+          buyNumMax: res.data.stock,
+          buyNumber: (res.data.stock > 0) ? 1 : 0,
+          propertyName: res.data.specificationsDescription
         });
         //设置商品详细信息
         that.data.goodsDetail = res.data;
@@ -70,20 +73,10 @@ Page({
         if (res.data.videoId) {
           that.getVideoSrc(res.data.data.videoId);
         }
-        //设置属性
-        that.setData({
-          goodsDetail: res.data,
-          selectSizePrice: res.data.minPrice,
-          buyNumMax: res.data.stock,
-          buyNumber: (res.data.stock > 0) ? 1 : 0,
-          propertyName: res.data.specificationsDescription
-        });
         //设置详细描述
         WxParse.wxParse('article', 'html', res.data.description, that, 5);
       }
     })
-    //调用获取评价函数
-    this.reputation(e.id);
     //调用获取起送价函数
     this.getDeliveryPrice();
   },
@@ -276,7 +269,7 @@ Page({
       var tmpShopCarMap = shopCarInfo.shopList[i];
       if (tmpShopCarMap.goodsId == shopCarMap.goodsId) {
         hasSameGoodsIndex = i;
-        shopCarMap.number = shopCarMap.number + tmpShopCarMap.number;
+        shopCarMap.itemNum = shopCarMap.itemNum + tmpShopCarMap.itemNum;
         break;
       }
     }
@@ -341,44 +334,7 @@ Page({
       }
     }
   },
-
-  //评价详情
-  reputation: function(goodsId) {
-    var that = this;
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/shop/goods/reputation',
-      data: {
-        goodsId: goodsId
-      },
-      success: function(res) {
-        if (res.data.code == 0) {
-          //console.log(res.data.data);
-          that.setData({
-            reputation: res.data.data
-          });
-        }
-      }
-    })
-  },
-
-  //视频地址
-  getVideoSrc: function(videoId) {
-    var that = this;
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/media/video/detail',
-      data: {
-        videoId: videoId
-      },
-      success: function(res) {
-        if (res.data.code == 0) {
-          that.setData({
-            videoMp4Src: res.data.data.fdMp4
-          });
-        }
-      }
-    })
-  },
-
+  
   //最低配送
   getDeliveryPrice: function() {
     var that = this

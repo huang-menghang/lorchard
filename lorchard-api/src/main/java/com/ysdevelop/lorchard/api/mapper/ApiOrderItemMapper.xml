@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ysdevelop.lorchard.api.mapper.ApiOrderItemDao">
+	
+	<insert id="batchInsert">
+		<foreach collection="orderItems" item="item" index="index"
+			open="" close="" separator=";">
+			insert into `t_lorchard_mall_goods_order_item`
+			(`orderNo`,`merchantId`,`memberId`,`goodsId`,`goodsName`,`goodsPrice`,`goodsType`,`parentId`,`parentCategoryName`,`itemNum`,`itemPrice`,`createTime`)
+			values(#{item.orderNo},#{item.merchantId},#{item.memberId},#{item.goodsId},#{item.goodsName},#{item.goodsPrice},#{item.goodsType},#{item.parentId},#{item.parentCategoryName},#{item.itemNum},#{item.itemPrice},now())
+		</foreach>
+	</insert>
+	
+	<select id="list" resultType="com.ysdevelop.lorchard.api.entity.OrderItemVo">
+		select 
+		  `orderNo`,`merchantId`,`memberId`,`goodsId`,`goodsName`,`goodsPrice`,`goodsType`,`parentId`,`parentCategoryName`,`itemNum`,`itemPrice`
+		from
+		  t_lorchard_mall_goods_order_item
+	</select>
+	
+	<select id="getOrderByNo" resultType="com.ysdevelop.lorchard.api.entity.OrderItemVo">
+		select 
+		  `orderNo`,`merchantId`,`memberId`,`goodsId`,`goodsName`,`goodsPrice`,`goodsType`,`parentId`,`parentCategoryName`,`itemNum`,`itemPrice`
+		from
+		  t_lorchard_mall_goods_order_item
+		where
+		  orderNo = #{orderNo}
+	</select>	
+</mapper>

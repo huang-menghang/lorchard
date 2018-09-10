@@ -10,6 +10,7 @@ import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.ysdevelop.lorchard.api.entity.OrderLogVo;
 import com.ysdevelop.lorchard.api.entity.SystemAccessLogVo;
 import com.ysdevelop.lorchard.api.service.ApiSystemAccessLogService;
 import com.ysdevelop.lorchard.api.util.ApiConstant;
@@ -18,7 +19,16 @@ import com.ysdevelop.lorchard.common.utils.HttpUtils;
 
 /**
  * 
- * @author USER
+ * 
+ * @author 徐一鸣 
+ *
+ * @Date 2018年9月10日 上午10:14:56 
+ *
+ * @Package com.ysdevelop.lorchard.api.aop
+ *
+ * @Description: TODO
+ *
+ * @version V1.0
  *
  */
 @Aspect
@@ -34,12 +44,19 @@ public class SystemLogAspect {
 	 * @param joinPoint
 	 */
 	@Before(value = "@annotation(log)")
-	public void doBefore(JoinPoint joinPoint, SystemControllerLog log) {
-		String description = log.description();
-		
-		int index = log.logType().getIndex();
+	public void doBefore(JoinPoint joinPoint, SystemControllerLog log) {		
 		HttpServletRequest request = (HttpServletRequest) joinPoint.getArgs()[0];
 		Map<String, String> queryMap = HttpUtils.getParameterMap(request);
+		if(log.logType() != null){
+			accessLog(log, queryMap);			
+		}else if(log.orderType() != null){
+			orderLog(log, queryMap);
+		}
+	}
+	
+	private void accessLog(SystemControllerLog log, Map<String, String> queryMap){
+		String description = log.description();
+		int index = log.logType().getIndex();
 		SystemAccessLogVo accessLogVo = null;
 		switch (index) {
 		case ApiConstant.DEFALULT_ZERO:
@@ -64,5 +81,12 @@ public class SystemLogAspect {
 		if(accessLogVo != null){
 			accessLogService.addSystemAccessLog(accessLogVo);
 		}
+	}
+	
+	private void orderLog(SystemControllerLog log, Map<String, String> queryMap){
+		String description = log.description();
+		int index = log.logType().getIndex();
+		OrderLogVo orderLog = null;
+		
 	}
 }

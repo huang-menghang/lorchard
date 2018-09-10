@@ -19,7 +19,7 @@ public class Constant {
 	public static final Integer DEFALULT_ZERO = 0;
 
 	/**
-	 * 判断是否为0
+	 * 判断是否为1
 	 */
 	public static final Integer DEFALULT_ONE = 1;
 
@@ -222,7 +222,7 @@ public class Constant {
 
 	// 订单类型
 	public enum OrderType {
-		UNPAYMENYT(0, "未付款"), UNSEND(1, "待发货"), UNRECEIVED(2, "待收货"), FINISHED(3, "已完成"), CLOSED(4, "关闭");
+		UNPAYMENYT(0, "未付款"), UNSEND(1, "待发货"), UNRECEIVED(2, "待收货"), REFUND(3, "退款中"), CLOSED(4, "已取消"), FINISHED(5, "已完成");
 		private int index;
 		private String value;
 

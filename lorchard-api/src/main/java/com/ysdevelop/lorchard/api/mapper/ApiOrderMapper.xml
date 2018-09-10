@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ysdevelop.lorchard.api.mapper.ApiOrderDao">
+	
+	<select id="list" resultType="com.ysdevelop.lorchard.api.entity.OrderVo">
+		select
+		  `id` as id,`orderNo` as orderNo,`orderMerchantId` as orderMerchantId,
+		  `orderMemberId` as orderMemberId,`orderMemberName` as orderMemberName,
+		  `sendMethod` as sendMethod,`province` as province,`city` as city,
+		  `diatrict` as diatrict,`address` as address,`mobile` as mobile,
+		  `expressNo` as expressNo,`remark` as remark,`freightPrice` as freightPrice,
+		  `orderTotalPrice` as orderTotalPrice,`orderDiscount` as orderDiscount,`orderPendingBalance` as orderPendingBalance,
+		  `orderPayPrice` as orderPayPrice,`orderStatus` as orderStatus,`createTime` as createTime
+		 from
+		   `t_lorchard_mall_goods_order`
+		 where 
+		  `orderMerchantId` = #{queryMap.merchantId} AND `orderMemberId` = #{queryMap.memberId}
+	</select>
+	
+	<insert id="add" parameterType="com.ysdevelop.lorchard.api.entity.OrderVo">
+	    insert into
+	      `t_lorchard_mall_goods_order`(`orderNo`,`orderMerchantId`,`orderMemberId`,`orderStatus`,`orderTotalPrice`,`createTime`)
+	    values
+	       (#{orderNo},#{orderMerchantId},#{orderMemberId},#{orderStatus},#{orderTotalPrice},now())
+	</insert>
+	
+	<update id="updateOrderByNo" parameterType="com.ysdevelop.lorchard.api.entity.OrderVo">
+		update t_lorchard_mall_goods_order
+		<set>
+		    address = #{address},
+		    orderMemberName = #{orderMemberName},
+		    province = #{province},
+		    city = #{city},
+		    diatrict = #{diatrict},
+		    freightPrice = #{freightPrice},
+		    mobile = #{mobile},
+		    orderPendingBalance = #{orderPendingBalance},
+		    sendMethod = #{sendMethod},
+		    remark = #{remark}
+		</set>
+		where orderNo = #{orderNo}
+	</update>
+	
+	<delete id="updateStatusByOrderNo">
+		update t_lorchard_mall_goods_order
+			set orderStatus = #{status}
+		<if test="status == 1">
+		,payTime = now()
+		</if>
+		<if test="status == 3">
+		,confirmTime = now()
+		</if>
+			where orderNo = #{orderNo}
+	</delete>
+	
+	<select id="getOrderByNo" resultType="com.ysdevelop.lorchard.api.entity.OrderVo">
+		select
+		  `id` as id,`orderNo` as orderNo,`orderMerchantId` as orderMerchantId,
+		  `orderMemberId` as orderMemberId,`orderMemberName` as orderMemberName,
+		  `sendMethod` as sendMethod,`province` as province,`city` as city,
+		  `diatrict` as diatrict,`address` as address,`mobile` as mobile,
+		  `expressNo` as expressNo,`remark` as remark,`freightPrice` as freightPrice,
+		  `orderTotalPrice` as orderTotalPrice,`orderDiscount` as orderDiscount,`orderPendingBalance` as orderPendingBalance,
+		  `orderPayPrice` as orderPayPrice,`orderStatus` as orderStatus,`createTime` as createTime
+		 from
+		   `t_lorchard_mall_goods_order`
+		 where 
+		  `orderNo` = #{orderNo}
+	</select>
+</mapper>
