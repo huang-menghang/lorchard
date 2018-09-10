@@ -5,7 +5,7 @@
     <view wx:for="{{tabs}}" wx:key="unique" data-index="{{index}}" bindtap="handlerTabTap" class="tab {{activeTab==index?'active':''}}" style="width: {{stv.windowWidth/tabs.length}}px">
       {{item}}
       <!--如果存在商品集合-->
-      <wxc-badge wx:if='{{index == 0}}' class="message__badge ">{{orderList[index].orderList.length}}</wxc-badge>
+      <wxc-badge wx:if='{{index == (0 || 1 || 2) && orderList[index].orderList.length>0}}' class="message__badge ">{{orderList[index].orderList.length}}</wxc-badge>
       <!--显示粉色圆点-->
       <view class="{{tabClass[index]}}"></view>
     </view>
@@ -80,5 +80,4 @@
       </view>
     </swiper>
   </view>
-
 </view>

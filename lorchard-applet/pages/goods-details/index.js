@@ -63,6 +63,10 @@ Page({
           hasMoreSelect: true,
           selectSize: that.data.selectSize + selectSizeTemp,
           selectSizePrice: res.data.minPrice,
+          goodsDetail: res.data,
+          buyNumMax: res.data.stock,
+          buyNumber: (res.data.stock > 0) ? 1 : 0,
+          propertyName: res.data.specificationsDescription
         });
         //设置商品详细信息
         that.data.goodsDetail = res.data;
@@ -70,14 +74,6 @@ Page({
         if (res.data.videoId) {
           that.getVideoSrc(res.data.data.videoId);
         }
-        //设置属性
-        that.setData({
-          goodsDetail: res.data,
-          selectSizePrice: res.data.minPrice,
-          buyNumMax: res.data.stock,
-          buyNumber: (res.data.stock > 0) ? 1 : 0,
-          propertyName: res.data.specificationsDescription
-        });
         //设置详细描述
         WxParse.wxParse('article', 'html', res.data.description, that, 5);
       }
@@ -276,7 +272,7 @@ Page({
       var tmpShopCarMap = shopCarInfo.shopList[i];
       if (tmpShopCarMap.goodsId == shopCarMap.goodsId) {
         hasSameGoodsIndex = i;
-        shopCarMap.number = shopCarMap.number + tmpShopCarMap.number;
+        shopCarMap.itemNum = shopCarMap.itemNum + tmpShopCarMap.itemNum;
         break;
       }
     }

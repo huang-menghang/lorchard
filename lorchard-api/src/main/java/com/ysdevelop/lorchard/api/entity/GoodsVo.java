@@ -64,12 +64,12 @@ public class GoodsVo {
 	/**
 	 * 最低价
 	 */
-	private Long minPrice;
+	private Double minPrice;
 	
 	/**
 	 * 正常价
 	 */
-	private Long originalPrice;
+	private Double originalPrice;
 	
 	/**商品规格,0表示500g,1表示1份*/
 	private Long type;
@@ -228,19 +228,19 @@ public class GoodsVo {
 		this.parentCategoryName = parentCategoryName;
 	}
 
-	public Long getMinPrice() {
+	public Double getMinPrice() {
 		return minPrice;
 	}
 
-	public void setMinPrice(Long minPrice) {
+	public void setMinPrice(Double minPrice) {
 		this.minPrice = minPrice;
 	}
 
-	public Long getOriginalPrice() {
+	public Double getOriginalPrice() {
 		return originalPrice;
 	}
 
-	public void setOriginalPrice(Long originalPrice) {
+	public void setOriginalPrice(Double originalPrice) {
 		this.originalPrice = originalPrice;
 	}
 

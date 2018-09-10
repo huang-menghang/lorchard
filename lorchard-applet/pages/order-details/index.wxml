@@ -1,0 +1,94 @@
+<import src="/dist/packages/@zanui/steps/index.wxml" />
+<view class="container">
+  <!--订单状态-->
+  <view class="sec-wrap">
+    <!--订单进度-->
+    <view class="zan-cell__bd" style='padding: 30rpx 30rpx;'>
+      <template is="zan-steps" data="{{ type: 'horizon', hasDesc: true, steps: statusSteps }}"></template>
+    </view>
+    <!--订单状态描述-->
+    <view class="order-status">
+      <view class="right-text">
+        <view class="status red">{{orderDetail.statusStr}}</view>
+      </view>
+    </view>
+  </view>
+  <!--订单商品列表-->
+  <view class="goods-list">
+    <view class="list-title">商品信息</view>
+    <form bindsubmit="submitReputation">
+      <block wx:for-items="{{orderDetail.orderItems}}" wx:key="{{index}}">
+        <view class="a-goods">
+          <view class="img-box">
+            <image src="{{item.previewImages[0].previewImagePath}}" class="img" />
+          </view>
+          <view class="text-box">
+            <view class="arow arow01">
+              <view class="goods-name">{{item.goodsName}}</view>
+              <view class="goods-price">¥ {{item.goodsPrice}}</view>
+            </view>
+            <view class="arow">
+              <view class="goods-label">{{item.goodsType}}</view>
+              <view class="goods-num">x {{item.itemNum}}</view>
+            </view>
+          </view>
+        </view>
+        <!--商品评价-->
+        <view class="btn-row" wx:if="{{orderDetail.orderStatus==3}}">
+          <view class="section section_gap">
+            <view style="margin-top:35rpx;margin-bottom:35rpx;">评价：</view>
+            <radio-group name="goodReputation{{index}}">
+              <label style="margin-right:35rpx;">
+                <radio value="2" checked/>好评</label>
+              <label style="margin-right:35rpx;">
+                <radio value="1" />中评</label>
+              <label style="margin-right:35rpx;">
+                <radio value="0" />差评</label>
+            </radio-group>
+          </view>
+          <view class="row-box" style="margin-top:35rpx">
+            <view class="row-label">文字描述</view>
+            <input name="orderGoodsId{{index}}" value="{{item.id}}" style="display:none;" />
+            <textarea name="goodReputationRemark{{index}}" style="margin-top:35rpx;width:100%;" value="非常愉快的一次购物！" />
+          </view>
+        </view>
+      </block>
+      <view class="btn-row" wx:if="{{orderDetail.orderStatus==3}}">
+        <button class="confirm-btn" formType="submit">提交评价</button>
+      </view>
+    </form>
+    <view class="btn-row" wx:if="{{orderDetail.orderStatus==2}}">
+      <view class="confirm-btn" bindtap="confirmBtnTap" data-orderNo="{{orderDetail.orderNo}}">确认收货</view>
+    </view>
+  </view>
+
+ <!--配送方式-->
+  <view class="peisong-way" hidden="true">
+    <view class="row-box">
+      <view class="row-label">配送方式</view>
+      <view class="right-text">顺丰快递</view>
+    </view>
+    <view class="row-box">
+      <view class="row-label">留言</view>
+      <view class="right-text">
+        <input name="remark" type="text" class="liuyan" placeholder="如需留言请输入" />
+      </view>
+    </view>
+  </view>
+
+  <!--价格信息-->
+  <view class="goods-info">
+    <view class="row-box">
+      <view class="row-label">商品金额</view>
+      <view class="right-text">¥ {{orderDetail.orderTotalPrice}}</view>
+    </view>
+    <view class="row-box">
+      <view class="row-label">运费</view>
+      <view class="right-text">+ ¥ {{orderDetail.freightPrice}}</view>
+    </view>
+    <view class="row-box">
+      <view class="row-label">应付总额</view>
+      <view class="right-text">¥ {{orderDetail.orderPendingBalance}}</view>
+    </view>
+  </view>
+</view>
