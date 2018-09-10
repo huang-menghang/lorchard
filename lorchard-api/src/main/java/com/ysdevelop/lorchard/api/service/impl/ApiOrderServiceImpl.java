@@ -44,7 +44,25 @@ import com.ysdevelop.lorchard.common.utils.Constant;
 import com.ysdevelop.lorchard.common.utils.NumberArithmeticUtils;
 import com.ysdevelop.lorchard.common.utils.OrderNumberGeneratorUtil;
 import com.ysdevelop.lorchard.common.utils.WechantAppletApiUtil;
+import com.ysdevelop.lorchard.mq.bo.MerchantMessage;
+import com.ysdevelop.lorchard.mq.constant.MessageKey;
+import com.ysdevelop.lorchard.mq.define.MessageType;
+import com.ysdevelop.lorchard.mq.service.MessageProducer;
 
+/**
+ * 
+ * 
+ * @author 徐一鸣 
+ *
+ * @Date 2018年9月10日 上午10:21:44 
+ *
+ * @Package com.ysdevelop.lorchard.api.service.impl
+ *
+ * @Description: TODO
+ *
+ * @version V1.0
+ *
+ */
 @Service
 public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 
@@ -62,6 +80,9 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 	
 	@Autowired
 	private ApiOrderItemService orderItemService;
+	
+	@Autowired
+	private MessageProducer messageProducer;
 	
 	private WxPayService wxPayService;
 	
@@ -215,6 +236,9 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 		if (count == Constant.DEFALULT_ZERO) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
+		if(status == ApiConstant.DEFALULT_FIVE){
+			//sendMessage(orderNo,MessageType.FINISHED);
+		}
 	}
 
 	@Override
@@ -301,6 +325,7 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 			} else if (result_code.equalsIgnoreCase("SUCCESS")) {
 				// 订单编号
 				String orderNo = result.getOut_trade_no();
+				//sendMessage(orderNo,MessageType.UNDELIVERY);
 				orderDao.updateStatusByOrderNo(orderNo,ApiConstant.DEFALULT_ONE);
 				response.getWriter().write(setXml("SUCCESS", "OK"));
 			}
@@ -308,12 +333,19 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 			e.printStackTrace();
 			return;
 		}
-
-		
 	}
 
 	public static String setXml(String return_code, String return_msg) {
 		return "<xml><return_code><![CDATA[" + return_code + "]]></return_code><return_msg><![CDATA[" + return_msg
 				+ "]]></return_msg></xml>";
+	}
+	
+	private void sendMessage(String orderNo,MessageType messageType){
+		OrderVo order = orderDao.getOrderByNo(orderNo);
+		MerchantMessage merchantMessage = new MerchantMessage();
+		merchantMessage.setMerchantId(order.getOrderMerchantId());
+		merchantMessage.setMessageType(messageType);
+		merchantMessage.setConent(messageType.getValue());
+		messageProducer.sendMessage(MessageKey.MERCHANT_KEY, merchantMessage);
 	}
 }

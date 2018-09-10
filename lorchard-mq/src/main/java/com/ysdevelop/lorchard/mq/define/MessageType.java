@@ -14,7 +14,7 @@ package com.ysdevelop.lorchard.mq.define;
  */
 public enum MessageType {
 
-	APPLY_SHOP(0, "申请店铺");
+	APPLY_SHOP(0, "申请店铺"),UNDELIVERY(1,"用户已下单,请尽快发货"),FINISHED(2,"买家已确认收货");
 	private int index;
 	private String value;
 

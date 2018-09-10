@@ -10,15 +10,27 @@ import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.ysdevelop.lorchard.api.entity.OrderLogVo;
+import com.ysdevelop.lorchard.api.entity.OrderVo;
 import com.ysdevelop.lorchard.api.entity.SystemAccessLogVo;
+import com.ysdevelop.lorchard.api.service.ApiOrderLogService;
+import com.ysdevelop.lorchard.api.service.ApiOrderService;
 import com.ysdevelop.lorchard.api.service.ApiSystemAccessLogService;
 import com.ysdevelop.lorchard.api.util.ApiConstant;
 import com.ysdevelop.lorchard.common.annotation.SystemControllerLog;
+import com.ysdevelop.lorchard.common.utils.Constant;
 import com.ysdevelop.lorchard.common.utils.HttpUtils;
 
 /**
- * 
- * @author USER
+ * @author 徐一鸣 
+ *
+ * @Date 2018年9月10日 上午10:14:56 
+ *
+ * @Package com.ysdevelop.lorchard.api.aop
+ *
+ * @Description: TODO
+ *
+ * @version V1.0
  *
  */
 @Aspect
@@ -27,6 +39,12 @@ public class SystemLogAspect {
 
 	@Autowired
 	ApiSystemAccessLogService accessLogService;
+	
+	@Autowired
+	ApiOrderLogService orderLogService;
+	
+	@Autowired
+	private ApiOrderService orderService;
 
 	/**
 	 * 前置通知 用于拦截Controller层记录用户的操作
@@ -35,11 +53,20 @@ public class SystemLogAspect {
 	 */
 	@Before(value = "@annotation(log)")
 	public void doBefore(JoinPoint joinPoint, SystemControllerLog log) {
+		if(log.orderType().getIndex() == Constant.OrderType.NOTORDERTYPE.getIndex()){
+			HttpServletRequest request = (HttpServletRequest) joinPoint.getArgs()[0];
+			Map<String, String> queryMap = HttpUtils.getParameterMap(request);
+			accessLog(log, queryMap);			
+		}else{
+			String orderNo = (String) joinPoint.getArgs()[0];
+			OrderVo order = orderService.getOrderByNo(orderNo);
+			orderLog(log, order);
+		}
+	}
+	
+	private void accessLog(SystemControllerLog log, Map<String, String> queryMap){
 		String description = log.description();
-		
 		int index = log.logType().getIndex();
-		HttpServletRequest request = (HttpServletRequest) joinPoint.getArgs()[0];
-		Map<String, String> queryMap = HttpUtils.getParameterMap(request);
 		SystemAccessLogVo accessLogVo = null;
 		switch (index) {
 		case ApiConstant.DEFALULT_ZERO:
@@ -64,5 +91,17 @@ public class SystemLogAspect {
 		if(accessLogVo != null){
 			accessLogService.addSystemAccessLog(accessLogVo);
 		}
+	}
+	
+	private void orderLog(SystemControllerLog log, OrderVo order){
+		System.out.println("order--->"+order);
+		OrderLogVo orderLog = new OrderLogVo();
+		orderLog.setMemberId(order.getOrderMemberId());
+		orderLog.setMerchantId(order.getOrderMerchantId());
+		orderLog.setOrderNo(order.getOrderNo());
+		orderLog.setOrderPendingBalance(order.getOrderPendingBalance());
+		orderLog.setOrderType(log.orderType());
+		orderLog.setDescription(log.description());
+		orderLogService.addOrderLog(orderLog);
 	}
 }

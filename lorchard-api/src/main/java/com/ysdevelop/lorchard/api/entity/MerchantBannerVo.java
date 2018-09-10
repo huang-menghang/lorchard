@@ -4,7 +4,16 @@ import java.util.Date;
 
 /**
  * 
- * @author USER
+ * 
+ * @author 徐一鸣 
+ *
+ * @Date 2018年9月10日 上午10:16:18 
+ *
+ * @Package com.ysdevelop.lorchard.api.entity
+ *
+ * @Description: TODO
+ *
+ * @version V1.0
  *
  */
 public class MerchantBannerVo {

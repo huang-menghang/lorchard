@@ -27,6 +27,15 @@ function wxpay(orderNo, redirectUrl) {
                 url: redirectUrl
               });
             }
+            util.requestGet({
+              url: api.SuccessPay,
+              data:{
+                orderNo: orderNo
+              },
+              success:function(){
+                console.log("支付成功")
+              }
+            })
             util.showWarn(message, callback);
           }
         })

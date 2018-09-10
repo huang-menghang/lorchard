@@ -3,6 +3,20 @@ package com.ysdevelop.lorchard.api.entity;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 
+ * 
+ * @author 徐一鸣 
+ *
+ * @Date 2018年9月10日 上午10:16:32 
+ *
+ * @Package com.ysdevelop.lorchard.api.entity
+ *
+ * @Description: TODO
+ *
+ * @version V1.0
+ *
+ */
 public class OrderItemVo {
 
 	private Long id;

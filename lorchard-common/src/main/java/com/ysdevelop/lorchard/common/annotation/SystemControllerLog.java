@@ -37,5 +37,10 @@ public @interface SystemControllerLog {
 	 * 日志类型
 	 */
 	Constant.SystemLogType logType() default Constant.SystemLogType.SHOP;
+	
+	/**
+	 * 订单日志
+	 */
+	Constant.OrderType orderType() default Constant.OrderType.NOTORDERTYPE;
 
 }

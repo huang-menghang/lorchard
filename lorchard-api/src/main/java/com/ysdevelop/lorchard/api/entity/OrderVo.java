@@ -7,6 +7,20 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+/**
+ * 
+ * 
+ * @author 徐一鸣 
+ *
+ * @Date 2018年9月10日 上午10:16:37 
+ *
+ * @Package com.ysdevelop.lorchard.api.entity
+ *
+ * @Description: TODO
+ *
+ * @version V1.0
+ *
+ */
 public class OrderVo {
 
 	private Long id;

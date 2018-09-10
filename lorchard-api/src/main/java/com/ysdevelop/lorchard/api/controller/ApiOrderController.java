@@ -21,13 +21,24 @@ import com.ysdevelop.lorchard.api.entity.OrderVo;
 import com.ysdevelop.lorchard.api.service.ApiOrderService;
 import com.ysdevelop.lorchard.api.util.ApiConstant;
 import com.ysdevelop.lorchard.api.util.WechatRefundApiResult;
+import com.ysdevelop.lorchard.common.annotation.SystemControllerLog;
 import com.ysdevelop.lorchard.common.result.Result;
+import com.ysdevelop.lorchard.common.utils.Constant;
 import com.ysdevelop.lorchard.common.utils.HttpUtils;
 import com.ysdevelop.lorchard.common.utils.XmlUtil;
 
 /**
  * 
- * @author USER
+ * 
+ * @author 徐一鸣
+ *
+ * @Date 2018年9月10日 上午10:15:37
+ *
+ * @Package com.ysdevelop.lorchard.api.controller
+ *
+ * @Description: TODO
+ *
+ * @version V1.0
  *
  */
 @RestController
@@ -42,23 +53,31 @@ public class ApiOrderController {
 		OrderVo order = orderService.createOrder(orderItems);
 		return Result.successData(order.getOrderNo());
 	}
-
+	
 	@RequestMapping(method = RequestMethod.POST, value = "/updateOrderByNo")
 	public Result<String> updateOrderByNo(@RequestBody OrderVo orderVo) {
 		orderService.updateOrderByNo(orderVo);
 		return Result.successData("订单更新成功");
 	}
-
+	
+	@SystemControllerLog(description="用户下单成功",orderType=Constant.OrderType.UNPAYMENYT)
+	@RequestMapping(value = "/successCreate", method = RequestMethod.GET)
+	public Result<String> successCreate(String orderNo) {
+		
+		return Result.successData("创建订单成功");
+	}
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/list")
 	public Result<List<OrderVo>> list(HttpServletRequest request) {
 		Map<String, String> queryMap = HttpUtils.getParameterMap(request);
 		PageInfo<OrderVo> pageInfo = orderService.list(queryMap);
 		return Result.successPaginationData(pageInfo.getList(), pageInfo.getTotal());
 	}
-
+	
+	@SystemControllerLog(description="取消订单",orderType=Constant.OrderType.CLOSED)
 	@RequestMapping(method = RequestMethod.GET, value = "/close")
 	public Result<String> closeOrder(String orderNo) {
-		orderService.updateStatusByOrderNo(orderNo,ApiConstant.DEFALULT_FOUR);
+		orderService.updateStatusByOrderNo(orderNo, ApiConstant.DEFALULT_FOUR);
 		return Result.successData("取消订单成功");
 	}
 
@@ -75,45 +94,54 @@ public class ApiOrderController {
 		WxPayMpOrderResult orderResult = orderService.prepareWxpay(order, request);
 		return Result.successData(orderResult);
 	}
-	
+
 	// 微信支付接口回调通知,修改订单状态
-		@RequestMapping(value = "/notify", method = RequestMethod.POST)
-		public void wxNotify(HttpServletRequest request, HttpServletResponse response) {
-			System.out.println("微信支付回调开始运行--->");
-			
-			try {
-				request.setCharacterEncoding("UTF-8");
-				response.setCharacterEncoding("UTF-8");
-				response.setContentType("text/html;charset=UTF-8");
-				response.setHeader("Access-Control-Allow-Origin", "*");
-				InputStream in = request.getInputStream();
-				ByteArrayOutputStream out = new ByteArrayOutputStream();
-				byte[] buffer = new byte[1024];
-				int len = 0;
-				while ((len = in.read(buffer)) != -1) {
-					out.write(buffer, 0, len);
-				}
-				out.close();
-				in.close();
-				// xml数据
-				String reponseXml = new String(out.toByteArray(), "utf-8");
-				WechatRefundApiResult result = (WechatRefundApiResult) XmlUtil.xmlStrToBean(reponseXml, WechatRefundApiResult.class);
-				orderService.confirmOrder(result, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-				return;
+	@RequestMapping(value = "/notify", method = RequestMethod.POST)
+	public void wxNotify(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("微信支付回调开始运行--->");
+
+		try {
+			request.setCharacterEncoding("UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html;charset=UTF-8");
+			response.setHeader("Access-Control-Allow-Origin", "*");
+			InputStream in = request.getInputStream();
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			byte[] buffer = new byte[1024];
+			int len = 0;
+			while ((len = in.read(buffer)) != -1) {
+				out.write(buffer, 0, len);
 			}
+			out.close();
+			in.close();
+			// xml数据
+			String reponseXml = new String(out.toByteArray(), "utf-8");
+			WechatRefundApiResult result = (WechatRefundApiResult) XmlUtil.xmlStrToBean(reponseXml,
+					WechatRefundApiResult.class);
+			orderService.confirmOrder(result, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
 		}
+	}
+	
+	@SystemControllerLog(description="支付成功,等待发货",orderType=Constant.OrderType.UNSEND)
+	@RequestMapping(value = "/successPay", method = RequestMethod.GET)
+	public Result<String> confirmOrder(String orderNo) {
 		
-		/**
-		 * 确认收货
-		 * @param orderNo
-		 * @param request
-		 * @return
-		 */
-		@RequestMapping(value = "/confirmOrder", method = RequestMethod.GET)
-		public Result<String> confirmOrder(String orderNo, HttpServletRequest request) {
-			orderService.updateStatusByOrderNo(orderNo,ApiConstant.DEFALULT_FIVE);
-			return Result.successData("确定收货成功");
-		}
+		return Result.successData("支付成功");
+	}
+	
+	/**
+	 * 确认收货
+	 * @param orderNo
+	 * @param request
+	 * @return
+	 */
+	@SystemControllerLog(description="用户已确定收货",orderType=Constant.OrderType.FINISHED)
+	@RequestMapping(value = "/confirmOrder", method = RequestMethod.GET)
+	public Result<String> confirmOrder(String orderNo, HttpServletRequest request) {
+		orderService.updateStatusByOrderNo(orderNo, ApiConstant.DEFALULT_FIVE);
+		return Result.successData("确定收货成功");
+	}
 }

@@ -12,6 +12,20 @@ import com.ysdevelop.lorchard.api.entity.OrderItemVo;
 import com.ysdevelop.lorchard.api.entity.OrderVo;
 import com.ysdevelop.lorchard.api.util.WechatRefundApiResult;
 
+/**
+ * 
+ * 
+ * @author 徐一鸣 
+ *
+ * @Date 2018年9月10日 上午10:20:36 
+ *
+ * @Package com.ysdevelop.lorchard.api.service
+ *
+ * @Description: TODO
+ *
+ * @version V1.0
+ *
+ */
 public interface ApiOrderService{
 
 	OrderVo createOrder(List<OrderItemVo> orderItems);

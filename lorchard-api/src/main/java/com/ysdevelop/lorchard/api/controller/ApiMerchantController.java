@@ -17,7 +17,16 @@ import com.ysdevelop.lorchard.common.utils.HttpUtils;
 
 /**
  * 
- * @author USER
+ * 
+ * @author 徐一鸣 
+ *
+ * @Date 2018年9月10日 上午10:15:19 
+ *
+ * @Package com.ysdevelop.lorchard.api.controller
+ *
+ * @Description: TODO
+ *
+ * @version V1.0
  *
  */
 @RestController
@@ -33,7 +42,6 @@ public class ApiMerchantController {
 		MerchantVo apiMerchant = apiMerchantService.getById(merchantId);
 		return Result.successData(apiMerchant);
 	}
-	
 	
 	@SystemControllerLog(description="访问商家")
 	@RequestMapping(value="/firstVisit",method = RequestMethod.GET,produces="application/json;charset=utf-8")

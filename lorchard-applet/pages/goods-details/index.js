@@ -20,7 +20,6 @@ Page({
     buyNumber: 0,
     buyNumMin: 1,
     buyNumMax: 0,
-
     shopDeliveryPrice: 0,
     propertyChildIds: "",
     propertyChildNames: "",
@@ -78,8 +77,6 @@ Page({
         WxParse.wxParse('article', 'html', res.data.description, that, 5);
       }
     })
-    //调用获取评价函数
-    this.reputation(e.id);
     //调用获取起送价函数
     this.getDeliveryPrice();
   },
@@ -337,44 +334,7 @@ Page({
       }
     }
   },
-
-  //评价详情
-  reputation: function(goodsId) {
-    var that = this;
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/shop/goods/reputation',
-      data: {
-        goodsId: goodsId
-      },
-      success: function(res) {
-        if (res.data.code == 0) {
-          //console.log(res.data.data);
-          that.setData({
-            reputation: res.data.data
-          });
-        }
-      }
-    })
-  },
-
-  //视频地址
-  getVideoSrc: function(videoId) {
-    var that = this;
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/media/video/detail',
-      data: {
-        videoId: videoId
-      },
-      success: function(res) {
-        if (res.data.code == 0) {
-          that.setData({
-            videoMp4Src: res.data.data.fdMp4
-          });
-        }
-      }
-    })
-  },
-
+  
   //最低配送
   getDeliveryPrice: function() {
     var that = this

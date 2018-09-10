@@ -1,5 +1,19 @@
 package com.ysdevelop.lorchard.api.util;
 
+/**
+ * 
+ * 
+ * @author 徐一鸣 
+ *
+ * @Date 2018年9月10日 上午10:22:06 
+ *
+ * @Package com.ysdevelop.lorchard.api.util
+ *
+ * @Description: TODO
+ *
+ * @version V1.0
+ *
+ */
 public class WechatRefundApiResult {
 	private String return_code;
 	private String return_msg;

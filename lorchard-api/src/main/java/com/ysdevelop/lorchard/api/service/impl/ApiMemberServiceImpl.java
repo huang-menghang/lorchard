@@ -18,7 +18,16 @@ import com.ysdevelop.lorchard.common.utils.WechantAppletApiUtil;
 
 /**
  * 
- * @author USER
+ * 
+ * @author 徐一鸣 
+ *
+ * @Date 2018年9月10日 上午10:21:17 
+ *
+ * @Package com.ysdevelop.lorchard.api.service.impl
+ *
+ * @Description: TODO
+ *
+ * @version V1.0
  *
  */
 @Service
@@ -90,3 +99,4 @@ public class ApiMemberServiceImpl implements ApiMemberService {
 	}
 
 }
+

@@ -13,6 +13,20 @@ import com.ysdevelop.lorchard.common.exception.WebServiceException;
 import com.ysdevelop.lorchard.common.result.CodeMsg;
 import com.ysdevelop.lorchard.common.utils.Constant;
 
+/**
+ * 
+ * 
+ * @author 徐一鸣 
+ *
+ * @Date 2018年9月10日 上午10:21:01 
+ *
+ * @Package com.ysdevelop.lorchard.api.service.impl
+ *
+ * @Description: TODO
+ *
+ * @version V1.0
+ *
+ */
 @Service
 public class ApiAddressServiceImpl implements ApiAddressService {
 

@@ -21,7 +21,7 @@ import com.ysdevelop.lorchard.common.annotation.SystemControllerLog;
  * 
  */
 @Component
-@Aspect
+@Aspect 
 public class SystemLogAspect {
 
 	@Around(value = "execution(* com.ysdevelop.lorchard.merchant.controller..*(..)) && @annotation(log)")
