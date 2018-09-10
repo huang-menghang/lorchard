@@ -222,7 +222,7 @@ public class Constant {
 
 	// 订单类型
 	public enum OrderType {
-		UNPAYMENYT(0, "未付款"), UNSEND(1, "待发货"), UNRECEIVED(2, "待收货"), REFUND(3, "退款中"), CLOSED(4, "已取消"), FINISHED(5, "已完成");
+		UNPAYMENYT(0, "未付款"), UNSEND(1, "待发货"), UNRECEIVED(2, "待收货"), REFUND(3, "退款中"), CLOSED(4, "已取消"), FINISHED(5, "已完成"),NOTORDERTYPE(6,"判断是否为订单类型");
 		private int index;
 		private String value;
 

@@ -29,7 +29,6 @@ public class ApiSystemAccessLogServiceImpl implements ApiSystemAccessLogService 
 	
 	@Override
 	public void addSystemAccessLog(SystemAccessLogVo accessLog) {
-		// TODO Auto-generated method stub
 		accessLogDao.addSystemAccessLog(accessLog);
 	}
 

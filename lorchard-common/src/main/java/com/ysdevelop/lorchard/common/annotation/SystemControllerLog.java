@@ -41,6 +41,6 @@ public @interface SystemControllerLog {
 	/**
 	 * 订单日志
 	 */
-	Constant.OrderType orderType() default Constant.OrderType.UNPAYMENYT;
+	Constant.OrderType orderType() default Constant.OrderType.NOTORDERTYPE;
 
 }

@@ -43,7 +43,6 @@ public class ApiMerchantController {
 		return Result.successData(apiMerchant);
 	}
 	
-	
 	@SystemControllerLog(description="访问商家")
 	@RequestMapping(value="/firstVisit",method = RequestMethod.GET,produces="application/json;charset=utf-8")
 	public void firstVisit(HttpServletRequest request){
