@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  * @Package com.ysdevelop.lorchard.controller
  * 
- * @Description 商家控制器
+ * @Description 管理平台商家控制器
  *
  * @Date 2018年8月28日
  *
