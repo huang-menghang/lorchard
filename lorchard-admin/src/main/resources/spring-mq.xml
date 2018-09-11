@@ -8,19 +8,23 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:yuansheng-rabbitmq.properties</value>
+				<value>classpath:lorchard-rabbitmq.properties</value>
 			</list>
 		</property>
 	</bean>
 	<!-- 消息消费者 -->
+
 	<bean id="merchantMessageConsumer"
 		class="com.ysdevelop.lorchard.mq.service.MerchantMessageConsumer"></bean>
+	
 	<!-- 绑定队列监听器 -->
+	
 	<rabbit:listener-container
 		connection-factory="connectionFactory" acknowledge="auto"
 		requeue-rejected="false">
 		<rabbit:listener ref="merchantMessageConsumer"
 			queues="${mq.merchant.queue}_messageQueue" />
 	</rabbit:listener-container>
+	
 
 </beans>

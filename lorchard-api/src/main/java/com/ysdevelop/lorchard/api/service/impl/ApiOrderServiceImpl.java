@@ -237,7 +237,7 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
 		if(status == ApiConstant.DEFALULT_FIVE){
-			sendMessage(orderNo,MessageType.FINISHED);
+			//sendMessage(orderNo,MessageType.FINISHED);
 		}
 	}
 
@@ -325,7 +325,7 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 			} else if (result_code.equalsIgnoreCase("SUCCESS")) {
 				// 订单编号
 				String orderNo = result.getOut_trade_no();
-				sendMessage(orderNo,MessageType.UNDELIVERY);
+				//sendMessage(orderNo,MessageType.UNDELIVERY);
 				orderDao.updateStatusByOrderNo(orderNo,ApiConstant.DEFALULT_ONE);
 				response.getWriter().write(setXml("SUCCESS", "OK"));
 			}

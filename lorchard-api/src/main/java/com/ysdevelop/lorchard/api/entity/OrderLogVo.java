@@ -30,7 +30,7 @@ public class OrderLogVo {
 	/** 订单状态描述 **/
 	private String description;
 	/** 订单总价 **/
-	private Double orderTotalPrice;
+	private Double orderPendingBalance;
 	/** 创建时间 **/
 	private Date createTime;
 
@@ -82,12 +82,12 @@ public class OrderLogVo {
 		this.description = description;
 	}
 
-	public Double getOrderTotalPrice() {
-		return orderTotalPrice;
+	public Double getOrderPendingBalance() {
+		return orderPendingBalance;
 	}
 
-	public void setOrderTotalPrice(Double orderTotalPrice) {
-		this.orderTotalPrice = orderTotalPrice;
+	public void setOrderPendingBalance(Double orderPendingBalance) {
+		this.orderPendingBalance = orderPendingBalance;
 	}
 
 	public Date getCreateTime() {

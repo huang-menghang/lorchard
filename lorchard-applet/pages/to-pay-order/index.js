@@ -163,6 +163,15 @@ Page({
               // 清空购物车数据
               wx.removeStorageSync('shopCarInfo' + app.globalData.merchantId);
             }
+            util.requestGet({
+              url:api.SuccessCreate,
+              data:{
+                orderNo: that.data.orderInfo.orderNo
+              },
+              success:function(){
+                console.log("创建订单成功")
+              }
+            })
             //发送模板消息
             //sendTempleMsg(res);
             // 下单成功，跳转到订单管理界面
