@@ -19,10 +19,16 @@
 	</select>
 	
 	<insert id="add" parameterType="com.ysdevelop.lorchard.api.entity.OrderVo">
-	    insert into
-	      `t_lorchard_mall_goods_order`(`orderNo`,`orderMerchantId`,`orderMemberId`,`orderStatus`,`orderTotalPrice`,`createTime`)
+	    insert into `t_lorchard_mall_goods_order`
+	    (`orderNo`,`orderMerchantId`,`orderMemberId`,`orderStatus`,
+	    `orderTotalPrice`,`address`,`orderMemberName`,`province`,`city`,
+	    `diatrict`,`freightPrice`,`mobile`,`orderPendingBalance`,`sendMethod`,
+	    `remark`,`createTime`)
 	    values
-	       (#{orderNo},#{orderMerchantId},#{orderMemberId},#{orderStatus},#{orderTotalPrice},now())
+	     (#{orderNo},#{orderMerchantId},#{orderMemberId},#{orderStatus},
+	     #{orderTotalPrice},#{address},#{orderMemberName},#{province},#{city},
+	     #{diatrict},#{freightPrice},#{mobile},#{orderPendingBalance},#{sendMethod},
+	     #{remark},now())
 	</insert>
 	
 	<update id="updateOrderByNo" parameterType="com.ysdevelop.lorchard.api.entity.OrderVo">

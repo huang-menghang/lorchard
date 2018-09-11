@@ -44,10 +44,6 @@ import com.ysdevelop.lorchard.common.utils.Constant;
 import com.ysdevelop.lorchard.common.utils.NumberArithmeticUtils;
 import com.ysdevelop.lorchard.common.utils.OrderNumberGeneratorUtil;
 import com.ysdevelop.lorchard.common.utils.WechantAppletApiUtil;
-import com.ysdevelop.lorchard.mq.bo.MerchantMessage;
-import com.ysdevelop.lorchard.mq.constant.MessageKey;
-import com.ysdevelop.lorchard.mq.define.MessageType;
-import com.ysdevelop.lorchard.mq.service.MessageProducer;
 
 /**
  * 
@@ -81,9 +77,6 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 	@Autowired
 	private ApiOrderItemService orderItemService;
 	
-	@Autowired
-	private MessageProducer messageProducer;
-	
 	private WxPayService wxPayService;
 	
 	private WxPayConfig wxPayConfig;
@@ -102,29 +95,28 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 	
 	@Transactional
 	@Override
-	public OrderVo createOrder(List<OrderItemVo> orderItems) {
-
-		if (orderItems == null || orderItems.size() == Constant.DEFALULT_ZERO) {
+	public String createOrder(OrderVo order) {
+		if (order.getOrderItems() == null || order.getOrderItems().size() == Constant.DEFALULT_ZERO) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
 
-		OrderVo orderVo = new OrderVo();
 		String orderNo = OrderNumberGeneratorUtil.get().toString();
-		orderVo.setOrderNo(orderNo);
-		orderVo.setOrderMerchantId(orderItems.get(0).getMerchantId());
-		orderVo.setOrderMemberId(orderItems.get(0).getMemberId());
-		orderVo.setOrderStatus(Constant.OrderType.UNPAYMENYT.getIndex());
-		orderVo.setOrderTotalPrice(getTotalPrice(orderItems));
-		Integer changeCount = orderDao.add(orderVo);
+		order.setOrderNo(orderNo);
+		order.setOrderMerchantId(order.getOrderItems().get(0).getMerchantId());
+		order.setOrderMemberId(order.getOrderItems().get(0).getMemberId());
+		order.setOrderStatus(Constant.OrderType.UNPAYMENYT.getIndex());
+		order.setOrderTotalPrice(getTotalPrice(order.getOrderItems()));
+		Integer changeCount = orderDao.add(order);
 		if (changeCount == Constant.DEFALULT_ZERO) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
-		setItemOrderNo(orderItems, orderNo);
-		changeCount = orderItemService.batchInsert(orderItems);
+		setItemOrderNo(order.getOrderItems(), orderNo);
+		changeCount = orderItemService.batchInsert(order.getOrderItems());
 		if (changeCount == Constant.DEFALULT_ZERO) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
-		return orderVo;
+		
+		return orderNo;
 	}
 	
 	public void setItemOrderNo(List<OrderItemVo> orderItems, String orderNo) {
@@ -144,14 +136,6 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 		}
 
 		return totalPrice.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-	}
-
-	@Override
-	public void updateOrderByNo(OrderVo order) {
-		Integer changeCount = orderDao.updateOrderByNo(order);
-		if (changeCount == Constant.DEFALULT_ZERO) {
-			throw new WebServiceException(CodeMsg.SERVER_ERROR);
-		}
 	}
 
 	@Override
@@ -197,7 +181,6 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 			}
 			order.setOrderItems(transitionOrderItem);
 			setOrder(order);
-			
 		}
 	}
      
@@ -235,9 +218,6 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 		Integer count = orderDao.updateStatusByOrderNo(orderNo,status);
 		if (count == Constant.DEFALULT_ZERO) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
-		}
-		if(status == ApiConstant.DEFALULT_FIVE){
-			//sendMessage(orderNo,MessageType.FINISHED);
 		}
 	}
 
@@ -338,14 +318,5 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 	public static String setXml(String return_code, String return_msg) {
 		return "<xml><return_code><![CDATA[" + return_code + "]]></return_code><return_msg><![CDATA[" + return_msg
 				+ "]]></return_msg></xml>";
-	}
-	
-	private void sendMessage(String orderNo,MessageType messageType){
-		OrderVo order = orderDao.getOrderByNo(orderNo);
-		MerchantMessage merchantMessage = new MerchantMessage();
-		merchantMessage.setMerchantId(order.getOrderMerchantId());
-		merchantMessage.setMessageType(messageType);
-		merchantMessage.setConent(messageType.getValue());
-		messageProducer.sendMessage(MessageKey.MERCHANT_KEY, merchantMessage);
 	}
 }

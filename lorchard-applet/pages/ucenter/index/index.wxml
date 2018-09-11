@@ -6,12 +6,9 @@
       <view class='userinfo-others'>
         <text class="userinfo-nickname">{{ userInfo.nickName }}</text>
         <view style='height:40rpx;'></view>
-        <wxc-label wx:if="{{userMobile}}" class="phoneNumber" type='fill' type-color="#747ba1">
-          {{userMobile}}
+        <wxc-label class="phoneNumber" type='fill' type-color="#747ba1">
+          欢迎你的到来
         </wxc-label>
-        <button wx:else open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="pin-phoneNumber" size='min'>
-          点击绑定手机号码
-        </button>
       </view>
     </view>
     <view class='user-phone-info'>
@@ -21,6 +18,30 @@
       <wxc-label class='my-sign' wx:if="{{score_sign_continuous > 0}}" bindtap="scoresign" type='fill' type-color="#747bc1">
         已连续签到 {{score_sign_continuous}} 天
       </wxc-label>
+    </view>
+  </view>
+
+  <view class='h-contents'>
+    <view class='a-item'>
+      <wxc-icon type='purse' size='{{iconSize-10}}' color='#69C3AA' style='margin:15rpx 0 10rpx 0;'></wxc-icon>
+      <view class='my'>
+        可用积分:
+        <view style='padding:0 10rpx;color: #69C3AA;font-weight: bold;'> {{canUseScore}} </view>
+      </view>
+    </view>
+    <view class='a-item'>
+      <wxc-icon type='purse' size='{{iconSize-10}}' color='#69C3AA' style='margin:15rpx 0 10rpx 0;'></wxc-icon>
+      <view class='my'>
+        今日可得积分:
+        <view style='padding: 0 10rpx;color: #666666;font-weight: bold;'> {{totayScore}} </view>
+      </view>
+    </view>
+    <view class='a-item'>
+      <wxc-icon type='purse' size='{{iconSize-10}}' color='#69C3AA' style='margin:15rpx 0 10rpx 0;'></wxc-icon>
+      <view class='my'>
+        共获得积分:
+        <view style='padding: 0 10rpx;color: #FF5777;font-weight: bold;'> {{totalScore}} </view>
+      </view>
     </view>
   </view>
 
@@ -68,7 +89,7 @@
       </navigator>
     </view>
     <view class="item item-bottom" bindtap="aboutUs">
-      <navigator url="url" hover-class="none" class="a">
+      <navigator url="" hover-class="none" class="a">
         <wxc-icon type='help' size='{{iconSize}}' color='{{iconColor}}' style='margin:15rpx 0 10rpx 0;'></wxc-icon>
         <text class="txt">关于我们</text>
       </navigator>
@@ -85,6 +106,6 @@
   </view>
 
   <view class="version" style='margin-top:10rpx;font-size:18rpx;'>Copyright © 2017-2018 小果源</view>
-  <view class='version' style='height:20rpx;line-height:20rpx;font-size:16rpx;font-style: oblique;'>Powered by EastWorld v {{version}}</view>
+  <view class='version' style='height:20rpx;line-height:20rpx;font-size:16rpx;font-style: oblique;'>Powered by 源盛科技 v {{version}}</view>
   <view style="height:12rpx;width:100%;"></view>
 </view>

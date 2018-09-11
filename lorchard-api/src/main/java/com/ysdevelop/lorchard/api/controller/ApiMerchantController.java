@@ -1,15 +1,23 @@
 package com.ysdevelop.lorchard.api.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ysdevelop.lorchard.api.entity.MerchantBannerVo;
+import com.ysdevelop.lorchard.api.entity.MerchantFeedbackVo;
+import com.ysdevelop.lorchard.api.entity.MerchantNoticeVo;
 import com.ysdevelop.lorchard.api.entity.MerchantVo;
+import com.ysdevelop.lorchard.api.service.ApiMerchantBannerService;
+import com.ysdevelop.lorchard.api.service.ApiMerchantFeedbackService;
+import com.ysdevelop.lorchard.api.service.ApiMerchantNoticeService;
 import com.ysdevelop.lorchard.api.service.ApiMerchantService;
 import com.ysdevelop.lorchard.common.annotation.SystemControllerLog;
 import com.ysdevelop.lorchard.common.result.Result;
@@ -35,6 +43,15 @@ public class ApiMerchantController {
 	@Autowired
 	private ApiMerchantService apiMerchantService;
 	
+	@Autowired
+	private ApiMerchantBannerService apiMerchantBannerService;
+	
+	@Autowired
+	private ApiMerchantNoticeService apiMerchantNoticeService;
+	
+	@Autowired
+	private ApiMerchantFeedbackService apiMerchantFeedbackService;
+	
 	@RequestMapping(value="",method = RequestMethod.GET)
 	public Result<MerchantVo> getMerchant(HttpServletRequest request){
 		Map<String, String> queryMap = HttpUtils.getParameterMap(request);
@@ -47,5 +64,23 @@ public class ApiMerchantController {
 	@RequestMapping(value="/firstVisit",method = RequestMethod.GET,produces="application/json;charset=utf-8")
 	public void firstVisit(HttpServletRequest request){
 		
+	}
+	
+	@RequestMapping(value="/merchantNotice",method = RequestMethod.GET)
+	public Result<List<MerchantNoticeVo>> getNotice(Long merchantId){
+		List<MerchantNoticeVo> apiMerchantNotice = apiMerchantNoticeService.list(merchantId);
+		return Result.successData(apiMerchantNotice);
+	}
+	
+	@RequestMapping(value="/merchantBanner",method = RequestMethod.GET)
+	public Result<List<MerchantBannerVo>> getMerchantBanner(Long merchantId){
+		List<MerchantBannerVo> apiMerchantBanner = apiMerchantBannerService.list(merchantId);
+		return Result.successData(apiMerchantBanner);
+	}
+	
+	@RequestMapping(value="/addFeedback",method = RequestMethod.POST)
+	public Result<String> addFeedback(@RequestBody MerchantFeedbackVo merchantFeedback){
+		apiMerchantFeedbackService.add(merchantFeedback);
+		return Result.successData("添加反馈意见成功");
 	}
 }

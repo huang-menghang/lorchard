@@ -1,5 +1,5 @@
 // 后台数据接口统一放在api.js中
-var NewApiRootUrl = 'https://97b57b4f.ngrok.io/lorchard-api/';
+var NewApiRootUrl = 'https://localhost/lorchard-api/';
 
 module.exports = {
   //检查用户token是否失效
@@ -23,9 +23,11 @@ module.exports = {
   //首次访问商家首页
   FirstVisitUrl: NewApiRootUrl + 'merchant/firstVisit',
   //获取商家公告
-  MerchantNoticeUrl: NewApiRootUrl + 'merchantNotice',
+  MerchantNoticeUrl: NewApiRootUrl + 'merchant/merchantNotice',
   //获取商家轮播图
-  MerchantBannerUrl: NewApiRootUrl +'merchantBanner',
+  MerchantBannerUrl: NewApiRootUrl +'merchant/merchantBanner',
+  //商家反馈意见
+  MerchantFeedbackUrl: NewApiRootUrl + 'merchant/addFeedback',
 
   //收货地址
   AddressDetail: NewApiRootUrl+ 'address',
@@ -37,9 +39,7 @@ module.exports = {
   AddressState: NewApiRootUrl + 'address/state',
 
   //创建订单物品
-  OrderItems: NewApiRootUrl + 'order/addOrderItem',
-  //更新订单
-  UpdateOrder: NewApiRootUrl +'order/updateOrderByNo',
+  CreateOrder: NewApiRootUrl + 'order/createOrder',
   //获取订单列表
   OrderList: NewApiRootUrl + 'order/list',
   //取消订单

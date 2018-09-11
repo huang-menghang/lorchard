@@ -1,9 +1,11 @@
 <view class='shopInfo'>
   <view class='shopname'>
-    甜果果小铺：迁西县丰泽御景低商88号
+  店铺地址：{{address}}
   </view>
   <view class='shopconnect'>
-    手机号：13155555555(赵女士)
+  
+    手机号：{{telephone}}
+  
   </view>
   <view style='margin-left: 20rpx; width: 90%; height: 50rpx; font-size: 28rpx; align-items: center;'>
     (可直接在"我的"-->"客服电话"里联系店家)

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
 import com.github.pagehelper.PageInfo;
-import com.ysdevelop.lorchard.api.entity.OrderItemVo;
 import com.ysdevelop.lorchard.api.entity.OrderVo;
 import com.ysdevelop.lorchard.api.service.ApiOrderService;
 import com.ysdevelop.lorchard.api.util.ApiConstant;
@@ -48,16 +47,10 @@ public class ApiOrderController {
 	@Autowired
 	ApiOrderService orderService;
 
-	@RequestMapping(method = RequestMethod.POST, value = "/addOrderItem")
-	public Result<String> addOrderItem(@RequestBody List<OrderItemVo> orderItems) {
-		OrderVo order = orderService.createOrder(orderItems);
-		return Result.successData(order.getOrderNo());
-	}
-	
-	@RequestMapping(method = RequestMethod.POST, value = "/updateOrderByNo")
-	public Result<String> updateOrderByNo(@RequestBody OrderVo orderVo) {
-		orderService.updateOrderByNo(orderVo);
-		return Result.successData("订单更新成功");
+	@RequestMapping(method = RequestMethod.POST, value = "/createOrder")
+	public Result<String> createOrder(@RequestBody OrderVo order) {
+		String orderNo = orderService.createOrder(order);
+		return Result.successData(orderNo);
 	}
 	
 	@SystemControllerLog(description="用户下单成功",orderType=Constant.OrderType.UNPAYMENYT)
