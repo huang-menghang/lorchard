@@ -72,10 +72,10 @@
                             </svg> 应用中心
 		</a></li>
 		<li class="sidebar-nav-link"><a
-			href="<%=basePath%>/main/goods?title=goodsIndex" class=""> <i
-				class="iconfont sidebar-nav-link-logo icon-yunliankeji-" style=""></i> 财务管理
-		</a>
-		</li>
+			href="<%=basePath%>/finance?title=financeIndex" class="">
+				<i class="iconfont sidebar-nav-link-logo icon-yunliankeji-" style=""></i>
+				财务管理
+		</a></li>
 		<li class="sidebar-nav-link"><a
 			href="<%=basePath%>/main/goods?title=goodsIndex" class=""> <i
 				class="iconfont sidebar-nav-link-logo icon-setting" style=""></i> 设置
@@ -118,8 +118,14 @@
 		</li>
 	</ul>
 	
-	<ul class="left-sidebar-second" >
-	  <li><a name="member"></a></li>
+	<ul class="left-sidebar-second">
+		<li class="sidebar-second-title">资产管理</li>
+		<li class="sidebar-second-item">
+			<!-- 二级菜单--> 
+			<a name="financeIndex" href="<%=basePath%>/finance?title=financeIndex" class=""> 资产中心</a> 
+			<a name="financeFlow" href="<%=basePath%>/finance?title=financeFlow" class="">对账单</a>
+			<a name="financetWithdrawal" href="<%=basePath%>/finance?title=financeReceived" class="">提现</a> 
+		</li>
 	</ul>
 	
 	<ul class="left-sidebar-second">
