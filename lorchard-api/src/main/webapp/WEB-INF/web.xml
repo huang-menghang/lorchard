@@ -7,8 +7,10 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 		classpath:lorchard-common.xml
+		classpath:lorchard-mq.xml
 		classpath:spring-mvc.xml
 		classpath:spring-mybatis.xml
+		classpath:spring-mq.xml
 		</param-value>
 	</context-param>
 

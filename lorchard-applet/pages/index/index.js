@@ -25,13 +25,27 @@ Page({
     that.getMallName()
     //获取所有顶层分类
     getGoods.getCategories()
-    //获取商品分数
-    //that.getScore()
-    //最低充值金额
-    //that.getRechargeMin()
-    // 获取砍价设置
-    //that.getKanjia()
-  },
+
+
+  //   //建立连接
+  //   wx.connectSocket({
+  //     url: "ws://localhost:9000",
+  //   })
+
+  //   //连接成功
+  //   wx.onSocketOpen(function () {
+  //     console.log("连接成功")
+  //     //发送消息
+  //     wx.sendSocketMessage({
+  //       data: '{"messageConent":"stack","messageType":"ON_LINE","fromMerchantId":"1"}',
+  //     })
+  //   })
+
+  //   //接受消息
+  //   wx.onSocketMessage(function (data) {
+  //     console.log(data);
+  //   })
+   },
 
   //获取商城名称
   getMallName: function() {
