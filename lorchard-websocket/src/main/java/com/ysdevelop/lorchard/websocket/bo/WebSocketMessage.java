@@ -27,7 +27,7 @@ public class WebSocketMessage {
 	private Long toMerchantId;
 
 	/** 消息内容 **/
-	private String messageConent;
+	private Object messageConent;
 
 	/** 消息类型 **/
 	private WebSocketMessageType messageType;
@@ -80,11 +80,11 @@ public class WebSocketMessage {
 		this.toMerchantId = toMerchantId;
 	}
 
-	public String getMessageConent() {
+	public Object getMessageConent() {
 		return messageConent;
 	}
 
-	public void setMessageConent(String messageConent) {
+	public void setMessageConent(Object messageConent) {
 		this.messageConent = messageConent;
 	}
 

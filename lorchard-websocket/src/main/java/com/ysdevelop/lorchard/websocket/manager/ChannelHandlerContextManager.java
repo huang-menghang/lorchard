@@ -26,9 +26,9 @@ import com.ysdevelop.lorchard.common.utils.Constant;
  * 
  */
 public class ChannelHandlerContextManager {
-    /**
-     * 客户端缓存类
-     */
+	/**
+	 * 客户端缓存类
+	 */
 	private static final Map<Long, ChannelHandlerContext> CONEXT_STORE = new ConcurrentHashMap<>();
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ChannelHandlerContextManager.class);
@@ -81,13 +81,17 @@ public class ChannelHandlerContextManager {
 	 * 发送消息给客户端
 	 * 
 	 * @param ctx
+	 *            客户端频道
+	 * 
 	 * @param msg
+	 *            消息
+	 * 
 	 * @throws Exception
 	 * 
 	 */
-	public static void sendWebSocket(ChannelHandlerContext ctx, String msg) throws Exception {
+	public static void sendWebSocket(ChannelHandlerContext ctx, String msg) {
 		if (ctx == null || ctx.isRemoved()) {
-			throw new Exception("尚未握手成功,无法向客户端发送WebSocket消息");
+			throw new RuntimeException("尚未握手成功,无法向客户端发送WebSocket消息");
 		}
 		ctx.channel().write(new TextWebSocketFrame(msg));
 		ctx.flush();

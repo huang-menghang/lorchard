@@ -33,14 +33,55 @@ public class RedisService {
 	}
 
 	/**
-	 * 获取当个对象
-	 * */
+	 * 
+	 * @param prefix
+	 *            对应的key
+	 * 
+	 * @param key
+	 *            自定义的key,与prefix拼凑返回完整的key
+	 * 
+	 * @param clazz
+	 *            返回的class类型
+	 * 
+	 * @return 返回值与泛型相关
+	 */
 	public <T> T get(KeyPrefix prefix, String key, Class<T> clazz) {
 		Jedis jedis = null;
 		try {
 			jedis = jedisPool.getResource();
 			// 生成真正的key
 			String realKey = prefix.getPrefix() + key;
+			String str = jedis.get(realKey);
+			T t = stringToBean(str, clazz);
+			return t;
+		} catch (JedisConnectionException e) {
+			returnBrokenResource(jedis);
+			jedis = null;
+			return null;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			returnToPool(jedis);
+		}
+	}
+
+	/**
+	 * 
+	 * @param realKey
+	 *            真实key值
+	 * 
+	 * 
+	 * @param clazz
+	 *            返回的类型
+	 * 
+	 * 
+	 * @return 返回值与泛型相关
+	 */
+	public <T> T get(String realKey, Class<T> clazz) {
+		Jedis jedis = null;
+		try {
+			jedis = jedisPool.getResource();
+			// 生成真正的key
 			String str = jedis.get(realKey);
 			T t = stringToBean(str, clazz);
 			return t;
@@ -98,6 +139,24 @@ public class RedisService {
 			// 生成真正的key
 			String realKey = prefix.getPrefix() + key;
 			return jedis.exists(realKey);
+		} catch (JedisConnectionException e) {
+			e.printStackTrace();
+			returnBrokenResource(jedis);
+			jedis = null;
+			return false;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			returnToPool(jedis);
+		}
+	}
+
+	public boolean delete(String realKey) {
+		Jedis jedis = null;
+		try {
+			jedis = jedisPool.getResource();
+			long ret = jedis.del(realKey);
+			return ret > 0;
 		} catch (JedisConnectionException e) {
 			e.printStackTrace();
 			returnBrokenResource(jedis);
@@ -190,12 +249,12 @@ public class RedisService {
 			jedis = jedisPool.getResource();
 			jedis.del(keys.toArray(new String[0]));
 			return true;
-		}catch (JedisConnectionException e) {
+		} catch (JedisConnectionException e) {
 			e.printStackTrace();
 			returnBrokenResource(jedis);
 			jedis = null;
 			return false;
-		}  catch (final Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 			return false;
 		} finally {
@@ -224,12 +283,12 @@ public class RedisService {
 				cursor = ret.getStringCursor();
 			} while (!cursor.equals("0"));
 			return keys;
-		}catch (JedisConnectionException e) {
+		} catch (JedisConnectionException e) {
 			e.printStackTrace();
 			returnBrokenResource(jedis);
 			jedis = null;
 			return null;
-		}  catch (final Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 			return null;
 		} finally {
