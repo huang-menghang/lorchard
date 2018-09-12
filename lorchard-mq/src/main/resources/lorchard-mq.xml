@@ -26,7 +26,7 @@
 		port="${mq.port}" />
 
 	<!--rabbit mq 连接工厂 -->
-	<rabbit:admin connection-factory="connectionFactory" />
+	<rabbit:admin connection-factory="connectionFactory"  />
 
 	<!-- 消息队列客户端 -->
 	<rabbit:template id="amqpTemplate" exchange="${mq.exchang}_exchange"
