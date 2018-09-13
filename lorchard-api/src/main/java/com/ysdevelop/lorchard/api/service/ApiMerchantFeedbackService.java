@@ -17,5 +17,9 @@ import com.ysdevelop.lorchard.api.entity.MerchantFeedbackVo;
  *
  */
 public interface ApiMerchantFeedbackService {
+	/**
+	 * 添加反馈意见
+	 * @param merchantFeedback
+	 */
 	void add(MerchantFeedbackVo merchantFeedback);
 }

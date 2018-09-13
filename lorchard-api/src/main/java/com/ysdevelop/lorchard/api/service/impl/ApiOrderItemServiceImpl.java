@@ -32,7 +32,7 @@ public class ApiOrderItemServiceImpl implements ApiOrderItemService {
 	@Autowired
 	private ApiOrderItemDao itemDao;
 
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Integer batchInsert(List<OrderItemVo> orderItems) {
 		if (orderItems == null || orderItems.size() == 0) {

@@ -34,7 +34,12 @@ public interface ApiMemberService {
 	 * @return
 	 */
 	MemberVo addMember(MemberVo member, HttpServletRequest request);
-
+	
+	/**
+	 * 获取用户
+	 * @param orderMemberId
+	 * @return
+	 */
 	MemberVo getMemberById(Long orderMemberId);
 	
 }

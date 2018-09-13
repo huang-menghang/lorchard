@@ -106,7 +106,7 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 		wxPayConfig.setNotifyUrl(WechantAppletApiUtil.NOTITY_URL);
 	}
 
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public String createOrder(OrderVo order) {
 		if (order.getOrderItems() == null || order.getOrderItems().size() == Constant.DEFALULT_ZERO) {
@@ -313,15 +313,15 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 	@Override
 	public void confirmOrder(WechatRefundApiResult result, HttpServletResponse response) {
 		try {
-			String result_code = result.getResult_code();
-			if (result_code.equalsIgnoreCase("FAIL")) {
+			String resultCode = result.getResultCode();
+			if (resultCode.equalsIgnoreCase(ApiConstant.FAIL)) {
 				// 订单编号
-				String out_trade_no = result.getOut_trade_no();
-				logger.error("订单" + out_trade_no + "支付失败");
+				String outTradeNo = result.getOutTradeNo();
+				logger.error("订单" + outTradeNo + "支付失败");
 				response.getWriter().write(setXml("SUCCESS", "OK"));
-			} else if (result_code.equalsIgnoreCase("SUCCESS")) {
+			} else if (resultCode.equalsIgnoreCase(ApiConstant.SUCCESS)) {
 				// 订单编号
-				String orderNo = result.getOut_trade_no();
+				String orderNo = result.getOutTradeNo();
 				sendMessage(orderNo, MessageType.UNDELIVERY);
 				orderDao.updateStatusByOrderNo(orderNo, ApiConstant.DEFALULT_ONE);
 				response.getWriter().write(setXml("SUCCESS", "OK"));
@@ -332,8 +332,8 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 		}
 	}
 
-	public static String setXml(String return_code, String return_msg) {
-		return "<xml><return_code><![CDATA[" + return_code + "]]></return_code><return_msg><![CDATA[" + return_msg
+	public static String setXml(String returnCode, String returnMsg) {
+		return "<xml><return_code><![CDATA[" + returnCode + "]]></return_code><return_msg><![CDATA[" + returnMsg
 				+ "]]></return_msg></xml>";
 	}
 

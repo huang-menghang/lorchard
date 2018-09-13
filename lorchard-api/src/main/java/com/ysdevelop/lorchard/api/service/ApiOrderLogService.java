@@ -20,7 +20,7 @@ public interface ApiOrderLogService {
 	/**
 	 * 插入订单日志
 	 * 
-	 * @param accessLog
+	 * @param orderLog
 	 */
 	void addOrderLog(OrderLogVo orderLog);
 }

@@ -21,11 +21,25 @@ import com.ysdevelop.lorchard.api.entity.OrderItemVo;
  *
  */
 public interface ApiOrderItemDao {
-
+	
+	/**
+	 * 添加订单商品
+	 * @param orderItems
+	 * @return
+	 */
 	Integer batchInsert(@Param(value = "orderItems")List<OrderItemVo> orderItems);
-
+	
+	/**
+	 * 获取订单商品集合
+	 * @return
+	 */
 	List<OrderItemVo> list();
-
+	
+	/**
+	 * 根据订单号获取订单商品集合
+	 * @param orderNo
+	 * @return
+	 */
 	List<OrderItemVo> getOrderByNo(String orderNo);
 
 }

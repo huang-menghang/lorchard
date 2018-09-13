@@ -22,16 +22,40 @@ import com.ysdevelop.lorchard.api.entity.OrderVo;
  *
  */
 public interface ApiOrderDao {
-
-	List<OrderVo> getOrderVoList(OrderVo orderVo);
-
+	
+	/**
+	 * 添加订单
+	 * @param orderVo
+	 * @return
+	 */
 	Integer add(OrderVo orderVo);
 	
+	/**
+	 * 更新订单
+	 * @param order
+	 * @return
+	 */
 	Integer updateOrderByNo(OrderVo order);
 
+	/**
+	 * 更新订单状态
+	 * @param orderNo
+	 * @param status
+	 * @return
+	 */
 	Integer updateStatusByOrderNo(@Param(value = "orderNo")String orderNo,@Param(value = "status")Integer status);
-
+	
+	/**
+	 * 获取订单集合
+	 * @param queryMap
+	 * @return
+	 */
 	List<OrderVo> list(@Param(value = "queryMap")Map<String, String> queryMap);
-
+	
+	/**
+	 * 获取订单
+	 * @param orderNo
+	 * @return
+	 */
 	OrderVo getOrderByNo(String orderNo);
 }

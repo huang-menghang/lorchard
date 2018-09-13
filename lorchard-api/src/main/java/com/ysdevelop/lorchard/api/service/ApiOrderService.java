@@ -25,17 +25,48 @@ import com.ysdevelop.lorchard.api.util.WechatRefundApiResult;
  *
  */
 public interface ApiOrderService{
-
+	
+	/**
+	 * 创建订单
+	 * @param orderVo
+	 * @return
+	 */
 	String createOrder(OrderVo orderVo);
-
+	
+	/**
+	 * 获取商品集合
+	 * @param queryMap
+	 * @return
+	 */
 	PageInfo<OrderVo> list(Map<String, String> queryMap);
-
+	
+	/**
+	 * 更新订单状态
+	 * @param orderNo
+	 * @param status
+	 */
 	void updateStatusByOrderNo(String orderNo,Integer status);
-
+	
+	/**
+	 * 获取订单
+	 * @param orderNo
+	 * @return
+	 */
 	OrderVo getOrderByNo(String orderNo);
-
+	
+	/**
+	 * 微信支付接口
+	 * @param order
+	 * @param request
+	 * @return
+	 */
 	WxPayMpOrderResult prepareWxpay(OrderVo order, HttpServletRequest request);
-
+	
+	/**
+	 * 确定完成订单
+	 * @param result
+	 * @param response
+	 */
 	void confirmOrder(WechatRefundApiResult result, HttpServletResponse response);
  
 }
