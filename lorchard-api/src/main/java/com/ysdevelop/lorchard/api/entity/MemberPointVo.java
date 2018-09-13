@@ -7,27 +7,29 @@ import java.util.Date;
  * 
  * @author 徐一鸣 
  *
- * @Date 2018年9月11日 下午3:53:32 
+ * @Date 2018年9月13日 上午11:41:07 
  *
  * @Package com.ysdevelop.lorchard.api.entity
  *
- * @Description: 商家意见反馈
+ * @Description: 用户积分
  *
  * @version V1.0
  *
  */
-public class MerchantFeedbackVo {
+public class MemberPointVo {
 	private Long id;
 	
 	private Long merchantId;
 	
 	private Long memberId;
 	
-	private String feedbackType;
+	private Long availableScore;
 	
-	private String message;
+	private Long todayScore;
 	
-	private String mobile;
+	private Long totalDay;
+	
+	private Integer status;
 	
 	private Date createTime;
 	
@@ -48,7 +50,7 @@ public class MerchantFeedbackVo {
 	public void setMerchantId(Long merchantId) {
 		this.merchantId = merchantId;
 	}
-	
+
 	public Long getMemberId() {
 		return memberId;
 	}
@@ -56,29 +58,21 @@ public class MerchantFeedbackVo {
 	public void setMemberId(Long memberId) {
 		this.memberId = memberId;
 	}
-	
-	public String getFeedbackType() {
-		return feedbackType;
+
+	public Long getTodayScore() {
+		return todayScore;
 	}
 
-	public void setFeedbackType(String feedbackType) {
-		this.feedbackType = feedbackType;
+	public void setTodayScore(Long todayScore) {
+		this.todayScore = todayScore;
 	}
 
-	public String getMobile() {
-		return mobile;
+	public Long getTotalDay() {
+		return totalDay;
 	}
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
+	public void setTotalDay(Long totalDay) {
+		this.totalDay = totalDay;
 	}
 
 	public Date getCreateTime() {
@@ -95,6 +89,22 @@ public class MerchantFeedbackVo {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public Long getAvailableScore() {
+		return availableScore;
+	}
+
+	public void setAvailableScore(Long availableScore) {
+		this.availableScore = availableScore;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 }

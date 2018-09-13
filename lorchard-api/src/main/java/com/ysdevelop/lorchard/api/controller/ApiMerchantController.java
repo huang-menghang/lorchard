@@ -107,4 +107,6 @@ public class ApiMerchantController {
 		apiMerchantFeedbackService.add(merchantFeedback);
 		return Result.successData("添加反馈意见成功");
 	}
+	
+	
 }

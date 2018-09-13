@@ -1,5 +1,5 @@
 // 后台数据接口统一放在api.js中
-var NewApiRootUrl = 'https://605c7411.ngrok.io/lorchard-api/';
+var NewApiRootUrl = 'https://752406f9.ngrok.io/lorchard-api/';
 
 module.exports = {
   //检查用户token是否失效
@@ -28,6 +28,10 @@ module.exports = {
   MerchantBannerUrl: NewApiRootUrl +'merchant/merchantBanner',
   //商家反馈意见
   MerchantFeedbackUrl: NewApiRootUrl + 'merchant/addFeedback',
+  //商家用户积分获取
+  MemberPointUrl: NewApiRootUrl + 'memberPoint',
+  //商家用户积分更新
+  PointUpdateUrl: NewApiRootUrl + 'memberPoint/update',
 
   //收货地址
   AddressDetail: NewApiRootUrl+ 'address',

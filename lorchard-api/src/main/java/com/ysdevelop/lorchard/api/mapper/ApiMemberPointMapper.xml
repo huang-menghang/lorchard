@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ysdevelop.lorchard.api.mapper.ApiMemberPointDao">
+	<select id="getById"
+		resultType="com.ysdevelop.lorchard.api.entity.MemberPointVo">
+		select
+		`merchantId`,`memberId`,`availableScore`,`todayScore`,`totalDay`,`status`
+		from
+		t_lorchard_mall_merchant_membershipPoint
+		where
+		`memberId`=#{memberId} and `merchantId`=#{merchantId}
+	</select>
+	
+	<insert id="add"
+		parameterType="com.ysdevelop.lorchard.api.entity.MemberPointVo">
+		insert into
+		t_lorchard_mall_merchant_membershipPoint(`merchantId`,`memberId`,`availableScore`,`todayScore`,`totalDay`,`status`,`createTime`)
+		values(#{merchantId},#{memberId},#{availableScore},#{todayScore},#{totalDay},#{status},now())
+	</insert>
+
+	<update id="update"
+		parameterType="com.ysdevelop.lorchard.api.entity.MemberPointVo">
+		update `t_lorchard_mall_merchant_membershipPoint`
+		 set `status` = 1,
+		`availableScore` = #{availableScore},
+		`todayScore` = #{todayScore},
+		`totalDay` = #{totalDay},
+		`updateTime` = now()
+		where
+		`memberId`=#{memberId} and `merchantId`=#{merchantId} and status=0
+	</update>
+</mapper>

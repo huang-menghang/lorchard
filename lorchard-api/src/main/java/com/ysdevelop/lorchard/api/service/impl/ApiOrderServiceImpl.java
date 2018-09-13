@@ -313,15 +313,15 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 	@Override
 	public void confirmOrder(WechatRefundApiResult result, HttpServletResponse response) {
 		try {
-			String resultCode = result.getResultCode();
+			String resultCode = result.getResult_code();
 			if (resultCode.equalsIgnoreCase(ApiConstant.FAIL)) {
 				// 订单编号
-				String outTradeNo = result.getOutTradeNo();
+				String outTradeNo = result.getOut_trade_no();
 				logger.error("订单" + outTradeNo + "支付失败");
 				response.getWriter().write(setXml("SUCCESS", "OK"));
 			} else if (resultCode.equalsIgnoreCase(ApiConstant.SUCCESS)) {
 				// 订单编号
-				String orderNo = result.getOutTradeNo();
+				String orderNo = result.getOut_trade_no();
 				sendMessage(orderNo, MessageType.UNDELIVERY);
 				orderDao.updateStatusByOrderNo(orderNo, ApiConstant.DEFALULT_ONE);
 				response.getWriter().write(setXml("SUCCESS", "OK"));

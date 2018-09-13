@@ -12,11 +12,11 @@
       </view>
     </view>
     <view class='user-phone-info'>
-      <wxc-label class='my-sign' wx:if="{{score_sign_continuous == 0}}" bindtap="scoresign" type='fill'>
+      <wxc-label class='my-sign' wx:if="{{totalDay == 0}}" bindtap="scoresign" type='fill'>
         每日签到
       </wxc-label>
-      <wxc-label class='my-sign' wx:if="{{score_sign_continuous > 0}}" bindtap="scoresign" type='fill' type-color="#747bc1">
-        已连续签到 {{score_sign_continuous}} 天
+      <wxc-label class='my-sign' wx:if="{{totalDay > 0}}" bindtap="scoresign" type='fill' type-color="#747bc1">
+        已连续签到 {{totalDay}} 天
       </wxc-label>
     </view>
   </view>
@@ -26,21 +26,21 @@
       <wxc-icon type='purse' size='{{iconSize-10}}' color='#69C3AA' style='margin:15rpx 0 10rpx 0;'></wxc-icon>
       <view class='my'>
         可用积分:
-        <view style='padding:0 10rpx;color: #69C3AA;font-weight: bold;'> {{canUseScore}} </view>
+        <view style='padding:0 10rpx;color: #69C3AA;font-weight: bold;'> {{availableScore}} </view>
       </view>
     </view>
     <view class='a-item'>
       <wxc-icon type='purse' size='{{iconSize-10}}' color='#69C3AA' style='margin:15rpx 0 10rpx 0;'></wxc-icon>
       <view class='my'>
         今日可得积分:
-        <view style='padding: 0 10rpx;color: #666666;font-weight: bold;'> {{totayScore}} </view>
+        <view style='padding: 0 10rpx;color: #666666;font-weight: bold;'> {{todayScore}} </view>
       </view>
     </view>
     <view class='a-item'>
       <wxc-icon type='purse' size='{{iconSize-10}}' color='#69C3AA' style='margin:15rpx 0 10rpx 0;'></wxc-icon>
       <view class='my'>
-        共获得积分:
-        <view style='padding: 0 10rpx;color: #FF5777;font-weight: bold;'> {{totalScore}} </view>
+        已签到天数:
+        <view style='padding: 0 10rpx;color: #FF5777;font-weight: bold;'> {{totalDay}} </view>
       </view>
     </view>
   </view>

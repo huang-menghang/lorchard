@@ -15,7 +15,7 @@ import org.hibernate.validator.constraints.NotBlank;
  *
  * @Package com.ysdevelop.lorchard.api.entity
  *
- * @Description: TODO
+ * @Description: 商品分类
  *
  * @version V1.0
  *

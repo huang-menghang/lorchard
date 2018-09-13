@@ -42,4 +42,6 @@ public class ApiConstant {
 	public static final String FAIL = "FAIL";
 	
 	public static final String SUCCESS = "SUCCESS";
+	
+	public static final String REPEATPOINT = "不能重复签到";
 }

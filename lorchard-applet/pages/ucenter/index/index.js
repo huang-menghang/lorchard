@@ -1,14 +1,15 @@
 const app = getApp()
-
+var util = require('../../../utils/util.js');
+var api = require('../../../config/api.js');
 Page({
   data: {
     aboutUsTitle: '',
     aboutUsContent: '',
     servicePhoneNumber: '',
-    balance: 0,
-    freeze: 0,
-    score: 0,
-    score_sign_continuous: 0,
+    availableScore: 0,
+    todayScore: 1,
+    totalDay: 0,
+    status: 0,
     iconSize: 45,
     iconColor: '#999999'
   },
@@ -31,8 +32,8 @@ Page({
   },
 
   onShow() {
+    this.getUserAmount();
     // this.getUserApiInfo();
-    // this.getUserAmount();
     // this.checkScoreSign();
     // this.getAboutUs();
     // this.getservicePhoneNumber();
@@ -60,6 +61,64 @@ Page({
         })
       },
       complete: function(res) {},
+    })
+  },
+
+  getUserAmount: function () {
+    var that = this;
+    util.requestGet({
+      url: api.MemberPointUrl,
+      data: {
+        merchantId: app.globalData.merchantId,
+        memberId: app.globalData.memberId,
+        availableScore: that.data.availableScore,
+        todayScore: that.data.todayScore,
+        totalDay: that.data.totalDay,
+        status: that.data.status
+      },
+      success: function (res) {
+       
+        if (res.code == 0) {
+          that.setData({
+            availableScore: res.data.availableScore,
+            todayScore: res.data.todayScore,
+            totalDay: res.data.totalDay,
+            status: res.data.status
+          });
+        }
+      } 
+    })
+  },
+
+  scoresign: function () {
+    var that = this;
+    console.log("status",that.data.status)
+    util.requestGet({
+      url: api.PointUpdateUrl,
+      data: {
+        merchantId: app.globalData.merchantId,
+        memberId: app.globalData.memberId,
+        availableScore: that.data.availableScore,
+        todayScore: that.data.todayScore,
+        totalDay: that.data.totalDay,
+        status: that.data.status
+      },
+      success: function (res) {
+        if (res.code == 0 && (typeof res.data) != "string") {
+          that.setData({
+            availableScore: res.data.availableScore,
+            todayScore: res.data.todayScore,
+            totalDay: res.data.totalDay,
+            status: res.data.status
+          })
+        } else {
+          wx.showModal({
+            title: '已签到',
+            content: res.data,
+            showCancel: false
+          })
+        }
+      }
     })
   },
 
