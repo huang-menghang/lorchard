@@ -58,6 +58,7 @@ Page({
       success: function (res) {
         var selectSizeTemp = "规格";
         //是否拥有可选属性(尺寸,型号,颜色等)
+        console.log("res.data.minPrice", res.data.minPrice)
         that.setData({
           hasMoreSelect: true,
           selectSize: that.data.selectSize + selectSizeTemp,

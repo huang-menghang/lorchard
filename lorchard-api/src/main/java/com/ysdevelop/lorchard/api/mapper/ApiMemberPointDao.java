@@ -37,4 +37,9 @@ public interface ApiMemberPointDao {
 	 * @return
 	 */
 	MemberPointVo getById(MemberPointVo membershipPoint);
+	
+	/**
+	 * 更新签到状态
+	 */
+	void refreshPointStatus();
 }

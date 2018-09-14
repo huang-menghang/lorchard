@@ -34,7 +34,7 @@
     <!--分享奖励类型 可以没有-->
     <view class="goods-share" wx:if="{{goodsDetail.commissionType == 2}}">分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}}元 现金奖励</view>
     <!--商品价格-->
-    <wxc-price style="padding-left:25rpx;color: #e64340;font-weight: bold;float: left;width: 20%;height:60rpx;line-height:40rpx;" value='{{selectSizePrice}}'></wxc-price>
+    <view style="padding-left:25rpx;color: #e64340;font-weight: bold;float: left;width: 20%;height:60rpx;line-height:40rpx;">¥ {{selectSizePrice}}</view>
     <!--<view class="goods-price" style="padding-left:35rpx;">¥ {{selectSizePrice}}</view>-->
     <!--购买次数-->
     <view class="goods-price" style="color:#999;font-size:24rpx;">购买{{goodsDetail.sales}}次</view>

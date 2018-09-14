@@ -29,4 +29,9 @@ public interface ApiMemberPointService {
 	 * @param membershipPoint
 	 */
 	void update(MemberPointVo memberPoint);
+	
+	/**
+	 * 更新签到状态
+	 */
+	void refreshPointStatus();
 }

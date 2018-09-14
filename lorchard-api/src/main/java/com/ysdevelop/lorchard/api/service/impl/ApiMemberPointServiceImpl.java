@@ -28,16 +28,15 @@ import com.ysdevelop.lorchard.common.utils.Constant;
 @Service
 public class ApiMemberPointServiceImpl implements ApiMemberPointService{
 	@Autowired
-	private ApiMemberPointDao membershipPointDao;
-
+	private ApiMemberPointDao memberPointDao;
 
 	@Override
 	public MemberPointVo getById(MemberPointVo memberPoint) {
-		MemberPointVo memberPointVo = membershipPointDao.getById(memberPoint);
+		MemberPointVo memberPointVo = memberPointDao.getById(memberPoint);
 		if (memberPointVo == null) {
 			memberPointVo = memberPoint;
 			memberPointVo.setStatus(0);
-			Integer changeCount = membershipPointDao.add(memberPointVo);
+			Integer changeCount = memberPointDao.add(memberPointVo);
 			if (changeCount == Constant.DEFALULT_ZERO) {
 				throw new WebServiceException(CodeMsg.CATEGORY_ADD_FAILED);
 			}
@@ -58,7 +57,7 @@ public class ApiMemberPointServiceImpl implements ApiMemberPointService{
 			long totalDay=memberPoint.getTotalDay()+1;
 			memberPoint.setAvailableScore(availableScore);
 			memberPoint.setTotalDay(totalDay);
-			Integer changeCount = membershipPointDao.update(memberPoint);
+			Integer changeCount = memberPointDao.update(memberPoint);
 			if (changeCount == Constant.DEFALULT_ZERO) {
 				throw new WebServiceException(CodeMsg.CATEGORY_UPDATE_ERROR);
 			}
@@ -66,7 +65,11 @@ public class ApiMemberPointServiceImpl implements ApiMemberPointService{
 			throw new WebServiceException(CodeMsg.CATEGORY_UPDATE_ERROR); 
 		}
 
-		
+	}
+
+	@Override
+	public void refreshPointStatus() {
+		memberPointDao.refreshPointStatus();
 	}
 	
 	

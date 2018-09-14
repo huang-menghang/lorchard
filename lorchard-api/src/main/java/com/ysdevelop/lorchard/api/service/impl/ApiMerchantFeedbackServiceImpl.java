@@ -13,7 +13,6 @@ import com.ysdevelop.lorchard.common.utils.Constant;
 
 /**
  * 
- * 
  * @author 徐一鸣 
  *
  * @Date 2018年9月11日 下午3:54:34 
@@ -29,7 +28,7 @@ import com.ysdevelop.lorchard.common.utils.Constant;
 public class ApiMerchantFeedbackServiceImpl implements ApiMerchantFeedbackService {
 	@Autowired
 	private ApiMerchantFeedbackDao merchantFeedbackDao;
-
+	
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void add(MerchantFeedbackVo merchantFeedback) {

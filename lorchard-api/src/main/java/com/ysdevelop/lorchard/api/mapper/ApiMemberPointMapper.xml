@@ -30,4 +30,12 @@
 		where
 		`memberId`=#{memberId} and `merchantId`=#{merchantId} and status=0
 	</update>
+	
+	<update id="refreshPointStatus">
+		update `t_lorchard_mall_merchant_membershipPoint`
+		 set `status` = 0
+		where
+		 status = 1
+	</update>
+	
 </mapper>

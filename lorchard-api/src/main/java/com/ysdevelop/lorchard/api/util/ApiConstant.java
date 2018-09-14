@@ -43,5 +43,5 @@ public class ApiConstant {
 	
 	public static final String SUCCESS = "SUCCESS";
 	
-	public static final String REPEATPOINT = "不能重复签到";
+	public static final String REPEATPOINT = "今天已签到,不能重复签到";
 }

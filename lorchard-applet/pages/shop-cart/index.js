@@ -56,7 +56,8 @@ Page({
   },
 
   toIndexPage: function() {
-    wx.switchTab({
+    console.log("跳转页面")
+    wx.reLaunch({
       url: "/pages/classification/index"
     });
   },
