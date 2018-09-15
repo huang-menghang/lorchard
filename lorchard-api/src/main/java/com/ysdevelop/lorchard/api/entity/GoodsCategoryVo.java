@@ -32,21 +32,16 @@ public class GoodsCategoryVo {
 	@NotBlank(message = "描述不能为空")
 	private String description;
 
-	/**
-	 * 上级分类
-	 */
 	@NotNull(message="上级分类不能为空")
 	private Long parentId;
-	/**
-	 * 上级分类名称
-	 */
+	
+	/**上级分类名称*/
 	private String parentCategoryName;
 
 	@NotBlank(message = "分类图片不能为空")
 	private String imagePath;
-	/**
-	 * 分类排序,越往上,越大
-	 */
+	
+	/**分类排序,越往上,越大*/
 	@NotNull(message="排列索引不能为空")
 	private Integer index;
 

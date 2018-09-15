@@ -14,5 +14,8 @@ package com.ysdevelop.lorchard.api.task;
  */
 public interface ApiMemberPointTask {
 	
+	/**
+	 * 刷新签到状态
+	 */
 	void refreshPointStatus();
 }

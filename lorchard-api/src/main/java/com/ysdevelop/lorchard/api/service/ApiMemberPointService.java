@@ -19,14 +19,14 @@ import com.ysdevelop.lorchard.api.entity.MemberPointVo;
 public interface ApiMemberPointService {
 	/**
 	 * 获取用户积分
-	 * @param membershipPoint
+	 * @param memberPoint
 	 * @return
 	 */
 	MemberPointVo getById(MemberPointVo memberPoint);
 	
 	/**
 	 * 更新用户积分
-	 * @param membershipPoint
+	 * @param memberPoint
 	 */
 	void update(MemberPointVo memberPoint);
 	

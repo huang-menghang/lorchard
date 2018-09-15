@@ -22,13 +22,13 @@ public class MerchantVo {
 	private Long merchantId;
 	
 	private String name;
-	/**
-	 * 温馨提示 滑动标题
-	 */
+	
+	/**温馨提示 滑动标题*/
 	private String shopPrompt;
 	
 	private String shopLogo;
 	
+	/**配送标题*/
 	private String shopDelivery;
 	
 	private Date createTime;

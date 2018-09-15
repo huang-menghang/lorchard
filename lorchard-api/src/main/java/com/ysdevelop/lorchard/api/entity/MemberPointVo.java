@@ -17,18 +17,25 @@ import java.util.Date;
  *
  */
 public class MemberPointVo {
+	
 	private Long id;
 	
+	/**商家id*/
 	private Long merchantId;
 	
+	/**会员id*/
 	private Long memberId;
 	
+	/**可用积分*/
 	private Long availableScore;
 	
+	/**今日可得积分*/
 	private Long todayScore;
 	
+	/**签到天数*/
 	private Long totalDay;
 	
+	/**是否可签到标识*/
 	private Integer status;
 	
 	private Date createTime;

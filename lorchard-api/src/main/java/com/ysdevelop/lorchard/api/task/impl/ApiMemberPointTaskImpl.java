@@ -26,7 +26,10 @@ public class ApiMemberPointTaskImpl implements ApiMemberPointTask {
 	@Autowired
 	ApiMemberPointService memberPointService;
 	
-	@Scheduled(cron = "0/30 * * * * ?")
+	/**
+	 * 刷新签到状态
+	 */
+	@Scheduled(cron = "* * 6 * * ?")
 	@Override
 	public void refreshPointStatus() {
 		System.out.println("执行任务开始");

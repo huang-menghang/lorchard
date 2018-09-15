@@ -40,9 +40,11 @@ public class OrderItemVo {
 	private Long parentId;
 
 	private String parentCategoryName;
-
+	
+	/**订单商品数量*/
 	private Integer itemNum;
-
+	
+	/**订单商品总价*/
 	private Double itemPrice;
 
 	private Date createTime;

@@ -20,117 +20,71 @@ import org.hibernate.validator.constraints.NotBlank;
  *
  */
 public class GoodsVo {
-	/**
-	 * 商品ID
-	 */
+	
+	/**商品ID*/
 	private Long id;
 	
-	/**
-	 * 商家ID
-	 */
+	/**商家ID*/
 	private Long merchantId;
 	
-	/**
-	 * 所属分类
-	 */
+	/**所属分类*/
 	private Long parentId;
 	
-	/**
-	 * 商品名称
-	 */
 	@NotBlank(message = "商品名不能为空")
 	private String name;
 	
-	/**
-	 * 商品描述
-	 */
 	@NotBlank(message = "描述不能为空")
 	private String description;
 	
-	/**
-	 * 商品轮播图地址
-	 */
+	/**商品轮播图地址*/
 	private List<PreviewImagesVo> previewImages;
 	
-	/**
-	 * 商品库存
-	 */
 	@NotBlank(message = "库存不能为空")
 	private Long stock;
 	
-	/**
-	 * 商品销量
-	 */
 	@NotBlank(message = "销量不能为空")
 	private Long sales;
 	
-	/**
-	 * 商品顶级分类
-	 */
 	@NotBlank(message = "顶级分类不能为空")
 	private String parentCategoryName;
 	
-	/**
-	 * 最低价
-	 */
+	/**最低价*/
 	private Double minPrice;
 	
-	/**
-	 * 正常价
-	 */
+	/**正常价*/
 	private Double originalPrice;
 	
 	/**商品规格,0表示500g,1表示1份*/
 	private Long type;
 	
-	/**商品规格描述*/
 	@NotBlank(message = "商品规格描述不能为空")
 	private String specificationsDescription;
 	
 	/**商品评论*/
 	private String comment;
 	
-	/**
-	 * 品牌ID
-	 */
 	@NotBlank(message = "品牌不能为空")
 	private Long brandID;
 	
-	/**
-	 * 商品批准文号
-	 */
 	@NotBlank(message = "批准文号不能为空")
 	private String approvalNumber;
 	
-	/**
-	 * 商品视频路径
-	 */
+	/**商品视频路径*/
 	private String videoPath;
 	
-	/**
-	 * 商品分类
-	 */
 	@NotBlank(message = "分类名不能为空")
 	private String categoryName;
 
-	/**
-	 * 推荐商品
-	 */
+	/**推荐商品*/
 	private Long recommend;
 	
-	/**
-	 * 商品好评数
-	 */
+	/**商品好评数*/
 	private Long numberGoodReputation;
 	
-	/**
-	 * 创建时间
-	 */
+	/**创建时间*/
 	private Date createTime;
 	
-	/**
-	 * 更新时间
-	 */
+	/**更新时间*/
 	private Date updateTime;
 
 	public Long getId() {

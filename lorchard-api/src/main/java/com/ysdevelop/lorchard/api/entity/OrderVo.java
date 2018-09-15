@@ -34,7 +34,7 @@ public class OrderVo {
 	@NotEmpty(message = "收货人不能为空")
 	private String orderMemberName;
 
-	/**邮寄和自取**/
+	/**邮寄和自取*/
 	private Integer sendMethod;
 
 	@NotEmpty(message = "省名不能为空")
@@ -55,25 +55,25 @@ public class OrderVo {
 
 	private String remark;
 
-	/**运费**/
+	/**运费*/
 	private Double freightPrice;
 	
 	@NotNull(message = "订单金额不能为空")
 	private Double orderTotalPrice;
 
-	/**代结金额**/
+	/**代结金额*/
 	private Double orderPendingBalance;
 	
-	/**订单折扣**/
+	/**订单折扣*/
 	private Double orderDiscount;
 	
-	/**订单支付金额**/
+	/**订单支付金额*/
 	private Double orderPayPrice;
 	
-	/**订单状态**/
+	/**订单状态*/
 	private Integer orderStatus;
 	
-	/**快递单号**/
+	/**快递单号*/
 	private String expressNo;
 	
 	private List<OrderItemVo> orderItems;

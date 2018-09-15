@@ -19,19 +19,23 @@ import com.ysdevelop.lorchard.common.utils.Constant;
  */
 public class OrderLogVo {
 	private Long id;
-	/** 商家id **/
+
 	private Long merchantId;
-	/** 会员id **/
+
 	private Long memberId;
+	
 	/** 订单号 **/
 	private String orderNo;
+	
 	/** 订单日志类型 **/
 	private Constant.OrderType orderType;
+	
 	/** 订单状态描述 **/
 	private String description;
+	
 	/** 订单总价 **/
 	private Double orderPendingBalance;
-	/** 创建时间 **/
+	
 	private Date createTime;
 
 	public Long getId() {

@@ -7,9 +7,9 @@ import com.ysdevelop.lorchard.common.utils.Constant;
 /**
  * 
  * 
- * @author 徐一鸣 
+ * @author 徐一鸣
  *
- * @Date 2018年9月10日 上午10:16:52 
+ * @Date 2018年9月10日 上午10:16:52
  *
  * @Package com.ysdevelop.lorchard.api.entity
  *
@@ -20,17 +20,23 @@ import com.ysdevelop.lorchard.common.utils.Constant;
  */
 public class SystemAccessLogVo {
 	private Long id;
-    /** 商家id **/
+	
+	/**商家id*/
 	private Long merchantId;
-    /** 会员id **/
+	
+	/**会员id*/
 	private Long memberId;
-    /** 产品id **/
+	
+	/**产品id*/
 	private Long goodsId;
-	/** 日志类型  **/
+	
+	/**日志类型 */
 	private Constant.SystemLogType logType;
-    /** 描述 **/
+	
+	/**描述*/
 	private String description;
-    /** 创建时间  **/
+	
+	/**创建时间*/
 	private Date createTime;
 
 	public Long getId() {
@@ -64,7 +70,7 @@ public class SystemAccessLogVo {
 	public void setGoodsId(Long goodsId) {
 		this.goodsId = goodsId;
 	}
-	
+
 	public Constant.SystemLogType getLogType() {
 		return logType;
 	}
@@ -88,5 +94,5 @@ public class SystemAccessLogVo {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	
+
 }

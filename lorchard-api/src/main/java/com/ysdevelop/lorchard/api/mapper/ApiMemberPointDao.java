@@ -19,24 +19,24 @@ import com.ysdevelop.lorchard.api.entity.MemberPointVo;
 public interface ApiMemberPointDao {
 	/**
 	 * 添加用户积分
-	 * @param membershipPoint
+	 * @param memberPoint
 	 * @return
 	 */
 	Integer add(MemberPointVo memberPoint);
 	
 	/**
 	 * 更新用户积分
-	 * @param membershipPoint
+	 * @param memberPoint
 	 * @return
 	 */
 	Integer update(MemberPointVo memberPoint);
 	
 	/**
 	 * 获取用户积分
-	 * @param membershipPoint
+	 * @param memberPoint
 	 * @return
 	 */
-	MemberPointVo getById(MemberPointVo membershipPoint);
+	MemberPointVo getById(MemberPointVo memberPoint);
 	
 	/**
 	 * 更新签到状态

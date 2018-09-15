@@ -17,6 +17,7 @@ import java.util.Date;
  *
  */
 public class PreviewImagesVo {
+	
 	/**轮播图id*/
 	private Long id;
 	

@@ -20,28 +20,26 @@ import java.util.Date;
 public class MemberVo {
 
 	private Long id;
-
+	
+	/**商家id*/
 	private Long merchantId;
-
+	
+	/**性别标识*/
 	private Integer gender;
 
 	private String mobile;
 
-	/**
-	 * 会员名称
-	 * 昵称,二进制保存emoji表情
-	 */
+	/**会员名称昵称,二进制保存emoji表情*/
 	private byte[] nickname; 
 	
-	/**
-	 * 昵称显示
-	 */
+	/**昵称显示*/
 	private String nicknameStr;
-
+	
 	private String openid;
 
 	private String registerIp;
-
+	
+	/**头像*/
 	private String avatar;
 
 	private String language;
@@ -52,19 +50,11 @@ public class MemberVo {
 	
 	private String token;
 
-	/**
-	 * 省份
-	 */
 	private String province;
 
-	/**
-	 * 状态
-	 */
+	/**状态*/
 	private Integer status;
 	
-	/**
-	 * 创建时间
-	 */
 	private Date createTime;
 	
 	private Date updateTime;

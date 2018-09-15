@@ -34,12 +34,14 @@ public class AddressVo{
 
 	@NotEmpty(message = "市名不能为空")
 	private String city;
-
+	
+	/**地区*/
 	private String diatrict;
 
 	@NotEmpty(message = "详细地址不能为空")
 	private String address;
-
+	
+	/**默认地址标识*/
 	private Integer state;
 	
 	private Date createTime;
