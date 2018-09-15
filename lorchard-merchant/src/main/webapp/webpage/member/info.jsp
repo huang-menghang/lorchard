@@ -4,6 +4,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+.layui-form-label{
+width: 12%; 
+margin-right: 2%;
+}
+
+.layui-form-item {
+	margin-left: 5%;
+	padding-bottom: 4%
+}
+</style>
 <jsp:include page="/context/css-tags.jsp" />
 </head>
 <body>

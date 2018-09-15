@@ -18,21 +18,26 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
+import com.ysdevelop.lorchard.common.result.Result;
+import com.ysdevelop.lorchard.common.utils.HttpUtils;
 import com.ysdevelop.lorchard.merchant.entity.Goods;
 import com.ysdevelop.lorchard.merchant.entity.PreviewImages;
 import com.ysdevelop.lorchard.merchant.service.GoodsService;
 import com.ysdevelop.lorchard.shiro.token.TokenManager;
-import com.ysdevelop.lorchard.common.result.Result;
-import com.ysdevelop.lorchard.common.utils.HttpUtils;
+
 
 
 /**
- * 
- * @author user
- * 
- * 
+ * @author zesen
+ *
+ * @Package com.ysdevelop.lorchard.merchant.controller
+ *
+ * @Description 商品控制器
+ *
+ * @Date 2018年9月10日
+ *
+ * @Version
  */
-
 @Controller
 @RequestMapping(value = "/goods")
 public class GoodsController {
@@ -51,6 +56,7 @@ public class GoodsController {
 		Long merchantId = TokenManager.getUserId();
 		return Result.successData(merchantId);
 	}
+	
 	/**
 	 * 获取index的商品列表
 	 * */
@@ -61,6 +67,7 @@ public class GoodsController {
 		PageInfo<Goods> pageInfo = goodsService.list(queryMap);
 		return Result.successPaginationData(pageInfo.getList(), pageInfo.getTotal());
 	}
+	
 	/**
 	 * 跳转到修改或者添加界面
 	 * */
@@ -68,6 +75,7 @@ public class GoodsController {
 	public String set() {
 		return "goods/set";
 	}
+	
 	/**
 	 * 通过商品的id查看详情
 	 * */
@@ -77,6 +85,7 @@ public class GoodsController {
 		Goods goods = goodsService.getById(id);
 		return Result.successData(goods);
 	}
+	
 	/**
 	 * 获取商品的所有顶级分类
 	 * */
@@ -84,10 +93,9 @@ public class GoodsController {
 	@ResponseBody
 	public Result<List<Goods>> category(HttpServletRequest request) {
 		return Result.successData(goodsService.listCategory());
-
 	}
 
-	/**修改商品分类*/
+	/**修改商品*/
 	@RequestMapping(value = "", method = RequestMethod.PUT, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Result<String> update(@Valid Goods goods) {

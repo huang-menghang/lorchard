@@ -8,9 +8,17 @@ import org.apache.ibatis.annotations.Param;
 import com.ysdevelop.lorchard.merchant.entity.Goods;
 import com.ysdevelop.lorchard.merchant.entity.PreviewImages;
 
+
 /**
- * @author user
+ * @author zesen
  *
+ * @Package com.ysdevelop.lorchard.merchant.mapper
+ *
+ * @Description 商品dao层
+ *
+ * @Date 2018年9月10日
+ *
+ * @Version
  */
 public interface GoodsDao {
 	

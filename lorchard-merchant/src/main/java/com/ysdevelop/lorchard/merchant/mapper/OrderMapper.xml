@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysdevelop.lorchard.merchant.mapper.OrderDao">
+
+	<!--查看所有订单-->
+	<select id="list" resultType="com.ysdevelop.lorchard.merchant.entity.Order">
+		select
+		`o`.id as `id`,
+		`o`.orderNo as `orderNo`,
+		`o`.orderMemberName as `orderMemberName`,
+		`o`.deliverTime as `deliverTime`,
+		`o`.sendMethod as `sendMethod`,
+		`o`.orderStatus as `orderStatus`,
+		`o`.orderPendingBalance as `orderPendingBalance`,
+		`o`.mobile as `mobile`,
+		`o`.orderMemberId as `orderMemberId`,
+		`o`.expressNo as `expressNo`,
+		`o`.orderMerchantId as `orderMerchantId`,
+		`o`.payTime as `payTime`
+		from
+		`t_lorchard_mall_goods_order` as `o`
+		<where>
+			1 = 1
+			<if test="queryMap.orderStatus !=null">
+				and o.`orderStatus` =#{queryMap.orderStatus}
+			</if>
+			<if test="queryMap.startTime != null and queryMap.startTime != ''">
+                <![CDATA[ and `o`.payTime > #{queryMap.startTime} ]]>
+			</if>
+			<if test="queryMap.endTime != null and queryMap.endTime != ''">
+                <![CDATA[ and `o`.payTime < #{queryMap.endTime} ]]>
+		 	</if>
+			<if test="queryMap.orderNo !=null and queryMap.orderNo != ''">
+				and o.`orderNo` =#{queryMap.orderNo}
+			</if>
+		 	<if test="queryMap.orderMemberName !=null and queryMap.orderMemberName != ''">
+				and o.`orderMemberName` like CONCAT('%',#{queryMap.orderMemberName},'%')
+			</if>
+			<if test="queryMap.address !=null and queryMap.address != ''">
+				and o.`address` like CONCAT('%',#{queryMap.address},'%')
+			</if>
+			<if test="queryMap.mobile !=null and queryMap.mobile != ''">
+				and o.`mobile` =#{queryMap.mobile}
+			</if>
+			<if test="queryMap.sendMethod !=null and queryMap.sendMethod != ''">
+				and o.`sendMethod` =#{queryMap.sendMethod}
+			</if>
+			<if test="queryMap.timeOut !=null and queryMap.timeOut != ''">
+				<![CDATA[ and now() - `o`.deliverTime > 24*60*60]]>
+			</if>
+		</where>
+		and o.`orderMerchantId` =#{queryMap.orderMerchantId}
+		and o.`orderStatus`!=4
+</select>
+
+<!--查询单个订单-->
+    <select id="getById" resultType="com.ysdevelop.lorchard.merchant.entity.Order">
+       select
+        `o`.orderNo as `orderNo`,
+        `o`.orderMerchantId as `orderMerchantId`,
+        `o`.orderMemberId as `orderMemberId`,
+        `o`.orderMemberName as `orderMemberName`,
+        `o`.sendMethod as `sendMethod`,
+        `o`.province as `province`,
+        `o`.city as `city`,
+        `o`.diatrict as `diatrict`,
+        `o`.address as `address`,
+        `o`.mobile as `mobile`,
+        `o`.expressNo as `expressNo`,
+        `o`.orderTotalPrice as `orderTotalPrice`,
+        `o`.orderDiscount as `orderDiscount`,
+        `o`.orderPayPrice as `orderPayPrice`,
+        `o`.payTime as `payTime`,
+        `o`.confirmTime as `confirmTime`,
+        `o`.orderStatus as `orderStatus`,     
+        `o`.remark as `remark`,
+        `o`.freightPrice as `freightPrice`,
+        `o`.orderPendingBalance as `orderPendingBalance`,
+		Count(goodsName) as `count`
+		from
+		`t_lorchard_mall_goods_order` as `o`
+		left join `t_lorchard_mall_goods_order_item` as `i` on `i`.orderNo = `o`.orderNo
+		where `o`.id = #{id}
+    </select>
+    
+	<!-- 取消订单 -->
+	<update id="updateById">
+		update `t_lorchard_mall_goods_order`
+		set `orderStatus`=4
+		where
+		`id`=#{id}
+	</update>
+	
+	<!--查询订单下的商品-->
+	<select id="listOrderItems" resultType="com.ysdevelop.lorchard.merchant.entity.OrderItem">
+	select
+	`i`.goodsName  as  `goodsName`,
+	`i`.goodsPrice  as  `goodsPrice`,
+	`i`.itemNum  as  `itemNum`,
+	`i`.itemPrice  as  `itemPrice`,
+	`i`.goodsType as `goodsType`,
+	`i`.goodsId as `goodsId`
+	from
+	`t_lorchard_mall_goods_order_item` as `i`
+	<where>
+			1 = 1
+			<if test="queryMap.orderNo !=null and queryMap.orderNo != ''" >
+				and i.`orderNo` =#{queryMap.orderNo}
+			</if>
+	</where>
+	</select>
+	
+	<!-- 确认发货 -->
+	<update id="update">
+		update `t_lorchard_mall_goods_order`
+		set `orderStatus`=2 ,`deliverTime`=now()
+		where 
+		`id`=#{id}
+	</update>
+	
+	<!-- 订单完成向流水表中插数据-->
+	<insert id="completeFlow" parameterType="com.ysdevelop.lorchard.merchant.entity.Order" useGeneratedKeys="true" keyProperty="id">
+		insert into t_lorchard_mall_flow(`orderNo`,`totalAmount`,`merchantId`,`memberId`,`createTime`,`commission`)
+		values(#{orderNo},#{orderPendingBalance},#{orderMerchantId},#{orderMemberId},now(),1)
+	</insert>
+
+	<!-- 订单完成向财务表中插数据-->	
+	<insert id="completeFinance" parameterType="com.ysdevelop.lorchard.merchant.entity.Finance" useGeneratedKeys="true" keyProperty="id">
+		insert into t_lorchard_mall_finance(`merchantId`,`balance`,`createTime`,`totalCommission`,`orderNo`)	
+		select
+		    `f`.merchantId as `merchantId`,
+		    (sum(totalAmount)-sum(commission)) as `balance`,
+		    `f`.createTime as `createTime`,
+		    sum(commission) as `totalCommission`,
+		    `f`.orderNo as `orderNo`
+		from
+		  `t_lorchard_mall_flow` as `f`
+		   order by `id` desc limit 1
+	</insert>	
+	
+	<!--确认完成订单-->
+	<update id="updateStatus">
+		update `t_lorchard_mall_goods_order`
+		set `orderStatus`=5
+		where
+		`id`=#{id}
+	</update>
+</mapper>

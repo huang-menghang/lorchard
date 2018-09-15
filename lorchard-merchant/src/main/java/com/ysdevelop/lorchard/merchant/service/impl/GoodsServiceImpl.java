@@ -19,9 +19,17 @@ import com.ysdevelop.lorchard.common.exception.WebServiceException;
 import com.ysdevelop.lorchard.common.result.CodeMsg;
 import com.ysdevelop.lorchard.common.utils.Constant;
 
+
 /**
- * @author user
+ * @author zesen
  *
+ * @Package com.ysdevelop.lorchard.merchant.service.impl
+ *
+ * @Description 商品
+ *
+ * @Date 2018年9月10日
+ *
+ * @Version
  */
 @Service
 public class GoodsServiceImpl implements GoodsService {

@@ -65,7 +65,10 @@ public class CodeMsg {
 	public static CodeMsg ORDERID_EXPRESSNO = new CodeMsg(500013,"快递号不能为空");
 	public static CodeMsg ORDERID_EXCL = new CodeMsg(500014,"EXCL无数据");
 	public static CodeMsg IS_DELIVERY = new CodeMsg(500030,"订单已派送或无法派送");
-	
+	public static CodeMsg IS_COMPLETED = new CodeMsg(500031,"订单已完成,无法取消");
+	public static CodeMsg ISNOT_PENDINGDELIVERY= new CodeMsg(500032,"商品不是待发货状态,无法发货");
+	public static CodeMsg ISNOT_COMPLETE=new CodeMsg(500033,"商品不是待收货状态，无法确认完成！");
+
 	//统计
 	public static CodeMsg NEWMEMBER_EXIST = new CodeMsg(500012,"新增会员数量为空");
 	

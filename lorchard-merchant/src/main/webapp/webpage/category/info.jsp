@@ -12,7 +12,15 @@
 .error{
   color: red
  }
+.layui-form-item {
+	margin-left: 5%;
+	padding-bottom: 1%
+}
 
+.layui-form-label {
+	width: 12%;
+	margin-right: 2%;
+}
 </style>
 </head>
 <body>

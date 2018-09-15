@@ -17,6 +17,7 @@ td .layui-table-cell {
 .laytable-cell-1-8 {
 	height: auto;
 }
+
 </style>
 </head>
 <body>

@@ -9,10 +9,16 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
+ * @author zesen
+ *
  * @Package com.ysdevelop.lorchard.merchant.entity
- * @author user
+ *
+ * @Description 商品实体类
+ *
+ * @Date 2018年9月10日
+ *
+ * @Version
  */
-
 public class Goods {
 	/**商品ID*/
 	private Long id;

@@ -1,11 +1,19 @@
 package com.ysdevelop.lorchard.merchant.aop;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ysdevelop.lorchard.common.annotation.SystemControllerLog;
+import com.ysdevelop.lorchard.common.utils.Constant;
+import com.ysdevelop.lorchard.merchant.entity.Order;
+import com.ysdevelop.lorchard.merchant.entity.OrderLog;
+import com.ysdevelop.lorchard.merchant.service.OrderLogService;
+import com.ysdevelop.lorchard.merchant.service.OrderService;
 
 /**
  * 
@@ -24,6 +32,23 @@ import com.ysdevelop.lorchard.common.annotation.SystemControllerLog;
 @Aspect 
 public class SystemLogAspect {
 
+	@Autowired
+	OrderLogService orderLogService;
+	
+	@Autowired
+	private OrderService orderService;
+	
+	@Before(value = "@annotation(log)")
+	public void doBefore(JoinPoint joinPoint, SystemControllerLog log) {
+			if(log.orderType().getIndex()!=Constant.OrderType.NOTORDERTYPE.getIndex()) {
+				
+				Integer id  = (Integer)joinPoint.getArgs()[0];
+				Order order = orderService.getById(id);
+				orderLog(log, order);
+			}
+
+	}
+	
 	@Around(value = "execution(* com.ysdevelop.lorchard.merchant.controller..*(..)) && @annotation(log)")
 	public Object around(ProceedingJoinPoint joinPoint, SystemControllerLog log) {
 		Object result = null;
@@ -38,5 +63,16 @@ public class SystemLogAspect {
 		System.out.println("返回通知");
 		return result;
 	}
-
+	
+	
+	private void orderLog(SystemControllerLog log, Order order){
+		OrderLog orderLog = new OrderLog();
+		orderLog.setMemberId(order.getOrderMemberId());
+		orderLog.setMerchantId(order.getOrderMerchantId());
+		orderLog.setOrderNo(order.getOrderNo());
+		orderLog.setOrderPendingBalance(order.getOrderPendingBalance());
+		orderLog.setOrderType(log.orderType());
+		orderLog.setDescription(log.description());
+		orderLogService.addOrderLog(orderLog);
+	}
 }

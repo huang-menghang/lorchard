@@ -12,7 +12,15 @@
 .error{
   color: red
  }
+.layui-form-label{
+width: 12%; 
+margin-right: 2%;
+}
 
+.layui-form-item {
+	margin-left: 5%;
+	padding-bottom: 4%
+}
 </style>
 </head>
 <body>
@@ -39,7 +47,7 @@
 					
 					<div class="layui-form-item">
 					    <label class="layui-form-label"><span class="x-red">*</span>上级分类</label>
-					    <div class="layui-input-block" style="width: 190px; text-align: center;margin-left: 80px">
+					    <div class="layui-input-block" style="width: 190px; text-align: center; margin-left: 14%">
 							<select name="parentId"  lay-filter="reportType" >
 								<option >请选择上级分类</option>
 								<option value="0">顶层分类</option>
@@ -78,7 +86,7 @@
 					
                     <div class="layui-form-item">
 						<label class="layui-form-label"><span class="x-red">*</span>分类索引</label>
-						<div class="layui-input-block" style="width: 190px; text-align: center;margin-left: 80px">
+						<div class="layui-input-block" style="width: 190px; text-align: center; margin-left: 14%">
 							<select name="index" lay-filter="reportType" >
 								<option >请选分类索引</option>
 								<option value="0">0</option>

@@ -2,10 +2,17 @@ package com.ysdevelop.lorchard.merchant.entity;
 
 import java.util.Date;
 
-/**轮播图实体类*/
+
 /**
- * @author user
+ * @author zesen
  *
+ * @Package com.ysdevelop.lorchard.merchant.entity
+ *
+ * @Description 商品轮播图实体类
+ *
+ * @Date 2018年9月10日
+ *
+ * @Version
  */
 public class PreviewImages {
 	/**轮播图id*/

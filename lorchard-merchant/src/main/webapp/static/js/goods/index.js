@@ -11,13 +11,12 @@ var category_index_ops = {
   		}).done(function(res){
   			console.log("res.data"+res.data)
   			merchantId=res.data;
-  		});
+  		
 		layui.use([ 'table', 'layer', 'laydate', 'laypage' ],function() {
 			laydate = layui.laydate;// 日期插件
 			laypage = layui.laypage;// 分页
 			layer = layui.layer;// 弹出层
 			table = layui.table;
-			
 			var tableIns = table.render({
 				 // 设置table组件控制的元素
 				 elem: '#goodsTable',
@@ -118,7 +117,7 @@ var category_index_ops = {
 							name: name,
 							startTime : startTime,
 							endTime : endTime,
-							merchantId:1,
+							merchantId:merchantId,
 							minPriceMin:minPriceMin,
 							minPriceMax:minPriceMax,
 							salesMin:salesMin,
@@ -176,7 +175,7 @@ var category_index_ops = {
 			laydate.render(start);
 			laydate.render(end);
 			
-		
+		});
 		});
 	},
 	

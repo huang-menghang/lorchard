@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ysdevelop.lorchard.merchant.mapper.OrderLogDao">
+	<!-- 插入订单日志 -->
+	<insert id="addOrderLog" parameterType="com.ysdevelop.lorchard.merchant.entity.OrderLog">
+		 insert into `t_lorchard_mall_goods_order_log`
+	    	(`memberId`,`merchantId`,`orderNo`,
+	    	`orderPendingBalance`,`description`,`orderType`,`createTime`) 
+	    values 
+	    	(#{memberId},#{merchantId},#{orderNo},#{orderPendingBalance},
+	    	#{description},#{orderType.index},now())
+	</insert>
+</mapper>

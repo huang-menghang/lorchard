@@ -29,7 +29,7 @@ td .layui-table-cell{
 			<div class="main-tab-item layui-bg-blue">会员管理</div>
 		</ul>
 		<div class="layui-tab-content">
-			<div class="layui-form xbs" align="center">
+			<div class="layui-form xbs" align="center" style="width:102%">
 				<div class="layui-form-pane">
 					<div class="layui-form-item" style="display: inline-block;">
 						<label class="layui-form-label ">时间范围</label>
