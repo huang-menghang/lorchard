@@ -110,7 +110,7 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 		if (frame instanceof CloseWebSocketFrame) {
 			logger.info("关闭握手.....");
 			// 移除map缓存中的数据
-		    ChannelHandlerContextManager.removeChannelHandlerContext(ctx);
+			ChannelHandlerContextManager.removeChannelHandlerContext(ctx);
 			handshaker.close(ctx.channel(), (CloseWebSocketFrame) frame.retain());
 		}
 		// 判断是否Ping消息
@@ -130,12 +130,12 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 			logger.info("get client msg" + webSocketFrame.text());
 			WebSocketMessage websocketMessage = WebSocketMessage.create(webSocketFrame.text());
 			// 如果websocketMessage解析不成功,我们需要发送错误信息给客户端
-			System.out.println("websocketMessage-->"+websocketMessage);
+			System.out.println("websocketMessage-->" + websocketMessage);
 			if (websocketMessage == null) {
 				sendWebSocket("decode websocket error");
 			}
-		  //sendWebSocket("hello client ! old huang websocketServer handle");
-			 websocketService.receiveWebsocketMessage(websocketMessage, ctx);
+			// sendWebSocket("hello client ! old huang websocketServer handle");
+			websocketService.receiveWebsocketMessage(websocketMessage, ctx);
 		} catch (Exception e) {
 			logger.error("send websocket msg error !!!");
 			e.printStackTrace();

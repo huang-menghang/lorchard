@@ -141,44 +141,38 @@ Page({
       orderInfo.orderMemberName = that.data.curAddressData.consignee;
       orderInfo.mobile = that.data.curAddressData.mobile;
     }
+    orderInfo.orderItems = that.data.orderItems;
     util.requestJson({
-      url: api.OrderItems,
-      data: JSON.stringify(that.data.orderItems),
+      url: api.CreateOrder,
+      data: JSON.stringify(orderInfo),
       success: function (res) {
-        that.data.orderInfo.orderNo = res.data;
-        util.requestJson({
-          url: api.UpdateOrder,
-          data: JSON.stringify(orderInfo),
-          success: function (res) {
-            wx.hideLoading();
-            if (res.code != 0) {
-              wx.showModal({
-                title: '订单有误,请重新下单',
-                content: '订单有误,请重新下单',
-                showCancel: false
-              })
-              return;
-            }
-            if ("buyNow" != that.data.orderType) {
-              // 清空购物车数据
-              wx.removeStorageSync('shopCarInfo' + app.globalData.merchantId);
-            }
-            util.requestGet({
-              url:api.SuccessCreate,
-              data:{
-                orderNo: that.data.orderInfo.orderNo
-              },
-              success:function(){
-                console.log("创建订单成功")
-              }
-            })
-            //发送模板消息
-            //sendTempleMsg(res);
-            // 下单成功，跳转到订单管理界面
-            wx.redirectTo({
-              url: "/pages/ucenter/order-list/index"
-            })
+        wx.hideLoading();
+        if (res.code != 0) {
+          wx.showModal({
+            title: '订单有误,请重新下单',
+            content: '订单有误,请重新下单',
+            showCancel: false
+          })
+          return;
+        }
+        if ("buyNow" != that.data.orderType) {
+          // 清空购物车数据
+          wx.removeStorageSync('shopCarInfo' + app.globalData.merchantId);
+        }
+        util.requestGet({
+          url: api.SuccessCreate,
+          data: {
+            orderNo: res.data
+          },
+          success: function () {
+            console.log("创建订单成功")
           }
+        })
+        //发送模板消息
+        //sendTempleMsg(res);
+        // 下单成功，跳转到订单管理界面
+        wx.redirectTo({
+          url: "/pages/ucenter/order-list/index"
         })
       }
     })

@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  * @Package com.ysdevelop.lorchard.api.entity
  *
- * @Description: TODO
+ * @Description: 用户地址
  *
  * @version V1.0
  *

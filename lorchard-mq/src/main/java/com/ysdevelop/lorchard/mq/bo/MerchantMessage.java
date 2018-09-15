@@ -22,6 +22,8 @@ public class MerchantMessage {
 
 	/* 商家Id */
 	private Long merchantId;
+	/* 用户Id */
+	private Long userId;
 	/* 消息内容 */
 	private String conent;
 	/* 消息枚举类型 */
@@ -35,6 +37,14 @@ public class MerchantMessage {
 
 	public void setMerchantId(Long merchantId) {
 		this.merchantId = merchantId;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public String getConent() {

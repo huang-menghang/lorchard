@@ -57,7 +57,7 @@
             <view class="name ellipsis">{{item.name}}</view>
             <view class='soldInfo'>
               <view class='good-price-box'>
-                <wxc-price class='price' value='{{item.minPrice}}'></wxc-price>
+                <view class='price'>¥ {{item.minPrice}}</view>
               </view>
             </view>
             <view class='soldInfo'>

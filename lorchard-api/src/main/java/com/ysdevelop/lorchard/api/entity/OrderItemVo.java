@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @Package com.ysdevelop.lorchard.api.entity
  *
- * @Description: TODO
+ * @Description: 订单商品
  *
  * @version V1.0
  *

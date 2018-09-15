@@ -48,7 +48,6 @@ public class SystemLogAspect {
 
 	/**
 	 * 前置通知 用于拦截Controller层记录用户的操作
-	 * 
 	 * @param joinPoint
 	 */
 	@Before(value = "@annotation(log)")
@@ -64,6 +63,11 @@ public class SystemLogAspect {
 		}
 	}
 	
+	/**
+	 * 记录浏览日志
+	 * @param log
+	 * @param queryMap
+	 */
 	private void accessLog(SystemControllerLog log, Map<String, String> queryMap){
 		String description = log.description();
 		int index = log.logType().getIndex();
@@ -93,6 +97,11 @@ public class SystemLogAspect {
 		}
 	}
 	
+	/**
+	 * 记录订单日志
+	 * @param log
+	 * @param order
+	 */
 	private void orderLog(SystemControllerLog log, OrderVo order){
 		System.out.println("order--->"+order);
 		OrderLogVo orderLog = new OrderLogVo();

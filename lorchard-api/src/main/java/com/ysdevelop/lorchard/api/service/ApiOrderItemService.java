@@ -19,7 +19,12 @@ import com.ysdevelop.lorchard.api.entity.OrderItemVo;
  *
  */
 public interface ApiOrderItemService {
-
+	
+	/**
+	 * 添加商品集合
+	 * @param orderItems
+	 * @return
+	 */
 	Integer batchInsert(List<OrderItemVo> orderItems);
 
 }

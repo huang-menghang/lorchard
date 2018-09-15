@@ -10,12 +10,12 @@
     "pages/notice/show",
     "pages/goods-details/index",
     "pages/search/index",
-    "pages/authorize/index",
     "pages/to-pay-order/index",
     "pages/address-add/index",
     "pages/select-address/index",
     "pages/order-details/index",
-    "pages/ucenter/location/location"
+    "pages/ucenter/location/location",
+    "pages/ucenter/feedback/feedback"
   ],
   "window": {
     "backgroundTextStyle": "light",

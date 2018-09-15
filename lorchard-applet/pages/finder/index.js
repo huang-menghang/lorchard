@@ -29,8 +29,8 @@ Page({
     WxSearch.init(that, 43, app.globalData.hotGoods);
     //获取全部商品名称，做为智能联想输入库
     WxSearch.initMindKeys(app.globalData.goodsName);  
-    that.getCouponsTitlePicStr();
-    that.getCoupons();
+    //that.getCouponsTitlePicStr();
+    //that.getCoupons();
     console.log("hasNoCoupons", that.data.hasNoCoupons)
     if (that.data.hasNoCoupons){
       setTimeout(()=>{
@@ -70,26 +70,6 @@ Page({
     
   },
   
-  //获取优惠券标题图片
-  getCouponsTitlePicStr: function () {
-    var that = this;
-    //  获取商城名称
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/config/get-value',
-      data: {
-        key: 'couponsTitlePicStr'
-      },
-      success: function (res) {
-        if (res.data.code == 0) {
-          that.setData({
-            couponsTitlePicStr: res.data.data.value
-          })
-          console.log('couponsTitlePicStr:', res.data.data.value)
-        }
-      },
-    })
-  },
-
   //前往商品详情
   toDetailsTap: function (e) {
     wx.navigateTo({
@@ -123,126 +103,6 @@ Page({
       });
       return;
     }
-  },
-
-  //获取优惠券
-  getCoupons: function () {
-    var that = this;
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/discounts/coupons',
-      data: {
-        type: ''
-      },
-      success: function (res) {
-        if (res.data.code == 0) {
-          that.setData({
-            hasNoCoupons: false,
-            coupons: res.data.data,
-            couponsStatus: 1
-          });
-          setTimeout(() => {
-            that.setData({
-              couponsStatus: -1
-            })
-          }, 1500)
-        } else if (res.data.code == 700) {
-          that.setData({
-            hasNoCoupons: true,
-            coupons: res.data.data,
-            couponsStatus: 2
-          });
-          setTimeout(() => {
-            that.setData({
-              couponsStatus: -1
-            })
-          }, 1500)
-        }
-      },
-      fail: function(res) {
-        that.setData({
-          networkStatus: false
-        })
-        setTimeout(() => {
-          that.setData({
-            networkStatus: true
-          })
-        }, 1500)
-      }
-    })
-  },
-
-  //点击优惠券事件
-  gitCoupon: function (e) {
-    var that = this;
-    wx.request({
-      url: 'https://api.it120.cc/' + app.globalData.subDomain + '/discounts/fetch',
-      data: {
-        id: e.currentTarget.dataset.id,
-        token: wx.getStorageSync('token')
-      },
-      success: function (res) {
-        if (res.data.code == 20001 || res.data.code == 20002) {
-          that.setData({
-            getCoupStatus: 0
-          })
-          setTimeout(() => {
-            that.setData({
-              getCoupStatus: -1
-            })
-          }, 1500)
-          return;
-        }
-        if (res.data.code == 20003) {
-          that.setData({
-            getCoupStatus: 2
-          })
-          setTimeout(() => {
-            that.setData({
-              getCoupStatus: -1
-            })
-          }, 1500)
-          return;
-        }
-        if (res.data.code == 30001) {
-          that.setData({
-            getCoupStatus: 3
-          })
-          setTimeout(() => {
-            that.setData({
-              getCoupStatus: -1
-            })
-          }, 1500)
-          return;
-        }
-        if (res.data.code == 20004) {
-          that.setData({
-            getCoupStatus: 4
-          })
-          setTimeout(() => {
-            that.setData({
-              getCoupStatus: -1
-            })
-          }, 1500)
-          return;
-        }
-        if (res.data.code == 0) {
-          that.setData({
-            getCoupStatus: 1
-          })
-          setTimeout(() => {
-            that.setData({
-              getCoupStatus: -1
-            })
-          }, 1500)
-        } else {
-          wx.showModal({
-            title: '错误',
-            content: res.data.msg,
-            showCancel: false
-          })
-        }
-      }
-    })
   },
 
   couponDisplay:function(){

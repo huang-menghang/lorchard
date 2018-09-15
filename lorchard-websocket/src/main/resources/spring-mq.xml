@@ -5,26 +5,23 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- 加载数据库redis配置文件 -->
-	<bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-		lazy-init="true">
-		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
-		<property name="ignoreResourceNotFound" value="true" />
+	<!-- 需要加载配置文件 -->
+	<bean id="propertyPlaceHolderConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:/lorchard-rabbitmq.properties</value>
+				<value>classpath:lorchard-rabbitmq.properties</value>
 			</list>
 		</property>
-		<property name="ignoreUnresolvablePlaceholders" value="true" />
 	</bean>
-
+	
 	<!-- 连接配置 -->
 	<rabbit:connection-factory id="connectionFactory"
 		host="${mq.host}" username="${mq.username}" password="${mq.password}"
 		port="${mq.port}" />
 
 	<!--rabbit mq 连接工厂 -->
-	<rabbit:admin connection-factory="connectionFactory" />
+	<rabbit:admin connection-factory="connectionFactory"  />
 
 	<!-- 消息队列客户端 -->
 	<rabbit:template id="amqpTemplate" exchange="${mq.exchang}_exchange"
@@ -45,19 +42,20 @@
 				key="${mq.websocket.queue}"></rabbit:binding>
 		</rabbit:bindings>
 	</rabbit:direct-exchange>
+	
 
-	<!-- 需要加载配置文件 -->
-
-	<bean id="webSocketService"
-		class="com.ysdevelop.lorchard.websocket.service.impl.WebSocketServiceImpl"></bean>
-
+	<!-- 消息消费者 -->
+	<bean id="messageConsumer"
+		class="com.ysdevelop.lorchard.websocket.service.impl.MessageConusmerService"></bean>
+	
 	<!-- 绑定队列监听器 -->
 	<rabbit:listener-container
 		connection-factory="connectionFactory" acknowledge="auto"
 		requeue-rejected="false">
-		<rabbit:listener ref="webSocketService"
+		<rabbit:listener ref="messageConsumer"
 			queues="${mq.merchant.queue}_messageQueue" />
 	</rabbit:listener-container>
+	
 
 
 

@@ -45,7 +45,9 @@ public class MerchantMessageConsumer implements MessageListener, Subject,Initial
 			byte[] messageBytes = new byte[1024];
 			// 通过主题发生消息到各个观察者
 			if ((messageBytes = message.getBody()) != null) {
-				notifyObserver(new String(messageBytes));
+				String messageStr = new String(new String(messageBytes));
+				logger.info("message--->"+messageStr);
+				notifyObserver(messageStr);
 			} else {
 				logger.error("message is null");
 				throw new NullPointerException("message is null");

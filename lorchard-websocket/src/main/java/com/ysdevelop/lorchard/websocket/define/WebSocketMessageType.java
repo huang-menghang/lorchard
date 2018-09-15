@@ -2,7 +2,7 @@ package com.ysdevelop.lorchard.websocket.define;
 
 public enum WebSocketMessageType {
 
-	ON_LINE(0, "上线");
+	ON_LINE(0, "上线"),RETURN(1,"返回"),MERCHANT(3,"商家");
 	private int index;
 	private String value;
 

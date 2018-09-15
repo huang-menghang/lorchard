@@ -31,7 +31,12 @@ public interface ApiMemberDao {
 	 * @return
 	 */
 	Integer addMemeber(MemberVo member);
-
+	
+	/**
+	 * 通过id获取会员
+	 * @param orderMemberId
+	 * @return
+	 */
 	MemberVo getByMemberId(Long orderMemberId);
 
 }

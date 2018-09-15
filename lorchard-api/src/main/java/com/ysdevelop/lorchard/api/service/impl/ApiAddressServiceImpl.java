@@ -32,8 +32,8 @@ public class ApiAddressServiceImpl implements ApiAddressService {
 
 	@Autowired
 	ApiAddressDao apiAddressDao;
-
-	@Transactional
+	
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void addAddress(AddressVo address) {
 		apiAddressDao.addAddress(address);
@@ -42,7 +42,7 @@ public class ApiAddressServiceImpl implements ApiAddressService {
 			apiAddressDao.editState(address);
 		}
 	}
-
+	
 	@Override
 	public List<AddressVo> listByMemberId(Long memberId) {
 		return apiAddressDao.listByMemberId(memberId);

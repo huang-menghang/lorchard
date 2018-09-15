@@ -13,7 +13,7 @@ import com.ysdevelop.lorchard.common.utils.Constant;
  *
  * @Package com.ysdevelop.lorchard.api.entity
  *
- * @Description: TODO
+ * @Description: 浏览日志
  *
  * @version V1.0
  *

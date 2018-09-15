@@ -16,10 +16,10 @@ import com.ysdevelop.lorchard.api.entity.OrderLogVo;
  *
  */
 public interface ApiOrderLogDao {
+	
 	/**
-	 * 插入订单日志
-	 * 
-	 * @param accessLog
+	 * 添加订单日志
+	 * @param orderLog
 	 */
 	void addOrderLog(OrderLogVo orderLog);
 }

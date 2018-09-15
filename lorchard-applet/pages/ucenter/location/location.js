@@ -1,3 +1,4 @@
+var app=getApp();
 var countTooGetLocation = 0;
 var total_micro_second = 0;
 var starRun = 0;
@@ -71,8 +72,7 @@ Page({
   data: {
     clock: '',
     isLocation:false,
-    tglatitude: 36.542332,
-    tglongitude: 115.278742,
+   
     latitude: 0,
     longitude: 0,
     markers: [],
@@ -84,9 +84,34 @@ Page({
 //****************************
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    this.getTgLocation()
+    this.getTgLocation();
+    this.getaddress();
+    this.gettelephone();
+  this.gettglongitude();
     console.log("onLoad")
     count_down(this);
+  },
+  getaddress:function(){
+    var that=this
+    that.setData({
+      address:app.globalData.merchant.address,
+    })
+   
+
+  },
+  gettelephone:function(){
+    var that=this
+    that.setData({
+      telephone:app.globalData.merchant.telephone,
+    })
+  },
+  gettglongitude:function(){
+    var that=this
+    that.setData({
+      tglongitude:app.globalData.merchant.tglongitude,
+     tglatitude:app.globalData.merchant.tglatitude,
+    })
+   
   },
   //****************************
   openLocation:function (){
@@ -98,6 +123,7 @@ Page({
           wx.openLocation({
             latitude: res.latitude, // 纬度，范围为-90~90，负数表示南纬
             longitude: res.longitude, // 经度，范围为-180~180，负数表示西经
+            
             scale: 18, // 缩放比例
           })
       },
@@ -199,6 +225,7 @@ Page({
     })
   },
 //****************************
+//as
   getTgLocation: function () {
     var that = this
     wx.getLocation({

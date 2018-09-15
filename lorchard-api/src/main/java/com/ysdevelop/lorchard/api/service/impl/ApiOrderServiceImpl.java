@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSON;
 import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
 import com.github.binarywang.wxpay.bean.request.WxPayBaseRequest;
 import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
@@ -39,6 +40,7 @@ import com.ysdevelop.lorchard.api.service.ApiOrderService;
 import com.ysdevelop.lorchard.api.util.ApiConstant;
 import com.ysdevelop.lorchard.api.util.WechatRefundApiResult;
 import com.ysdevelop.lorchard.common.exception.WebServiceException;
+import com.ysdevelop.lorchard.common.redis.RedisService;
 import com.ysdevelop.lorchard.common.result.CodeMsg;
 import com.ysdevelop.lorchard.common.utils.Constant;
 import com.ysdevelop.lorchard.common.utils.NumberArithmeticUtils;
@@ -47,14 +49,15 @@ import com.ysdevelop.lorchard.common.utils.WechantAppletApiUtil;
 import com.ysdevelop.lorchard.mq.bo.MerchantMessage;
 import com.ysdevelop.lorchard.mq.constant.MessageKey;
 import com.ysdevelop.lorchard.mq.define.MessageType;
+import com.ysdevelop.lorchard.mq.key.MerchantMessageKey;
 import com.ysdevelop.lorchard.mq.service.MessageProducer;
 
 /**
  * 
  * 
- * @author 徐一鸣 
+ * @author 徐一鸣
  *
- * @Date 2018年9月10日 上午10:21:44 
+ * @Date 2018年9月10日 上午10:21:44
  *
  * @Package com.ysdevelop.lorchard.api.service.impl
  *
@@ -68,26 +71,29 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 
 	@Autowired
 	private ApiOrderDao orderDao;
-	
+
 	@Autowired
 	private ApiMemberService memberService;
-	
+
 	@Autowired
 	private ApiOrderItemDao orderItemDao;
-	
+
 	@Autowired
 	private ApiGoodsDao goodsDao;
-	
+
 	@Autowired
 	private ApiOrderItemService orderItemService;
-	
+
 	@Autowired
 	private MessageProducer messageProducer;
-	
+
+	@Autowired
+	private RedisService redisService;
+
 	private WxPayService wxPayService;
-	
+
 	private WxPayConfig wxPayConfig;
-	
+
 	private Logger logger = Logger.getLogger(this.getClass());
 
 	@Override
@@ -99,34 +105,33 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 		wxPayConfig.setMchKey(WechantAppletApiUtil.KEY);
 		wxPayConfig.setNotifyUrl(WechantAppletApiUtil.NOTITY_URL);
 	}
-	
-	@Transactional
+
+	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public OrderVo createOrder(List<OrderItemVo> orderItems) {
-
-		if (orderItems == null || orderItems.size() == Constant.DEFALULT_ZERO) {
+	public String createOrder(OrderVo order) {
+		if (order.getOrderItems() == null || order.getOrderItems().size() == Constant.DEFALULT_ZERO) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
 
-		OrderVo orderVo = new OrderVo();
 		String orderNo = OrderNumberGeneratorUtil.get().toString();
-		orderVo.setOrderNo(orderNo);
-		orderVo.setOrderMerchantId(orderItems.get(0).getMerchantId());
-		orderVo.setOrderMemberId(orderItems.get(0).getMemberId());
-		orderVo.setOrderStatus(Constant.OrderType.UNPAYMENYT.getIndex());
-		orderVo.setOrderTotalPrice(getTotalPrice(orderItems));
-		Integer changeCount = orderDao.add(orderVo);
+		order.setOrderNo(orderNo);
+		order.setOrderMerchantId(order.getOrderItems().get(0).getMerchantId());
+		order.setOrderMemberId(order.getOrderItems().get(0).getMemberId());
+		order.setOrderStatus(Constant.OrderType.UNPAYMENYT.getIndex());
+		order.setOrderTotalPrice(getTotalPrice(order.getOrderItems()));
+		Integer changeCount = orderDao.add(order);
 		if (changeCount == Constant.DEFALULT_ZERO) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
-		setItemOrderNo(orderItems, orderNo);
-		changeCount = orderItemService.batchInsert(orderItems);
+		setItemOrderNo(order.getOrderItems(), orderNo);
+		changeCount = orderItemService.batchInsert(order.getOrderItems());
 		if (changeCount == Constant.DEFALULT_ZERO) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
-		return orderVo;
+
+		return orderNo;
 	}
-	
+
 	public void setItemOrderNo(List<OrderItemVo> orderItems, String orderNo) {
 		for (int i = 0; i < orderItems.size(); i++) {
 			OrderItemVo orderItem = orderItems.get(i);
@@ -144,14 +149,6 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 		}
 
 		return totalPrice.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-	}
-
-	@Override
-	public void updateOrderByNo(OrderVo order) {
-		Integer changeCount = orderDao.updateOrderByNo(order);
-		if (changeCount == Constant.DEFALULT_ZERO) {
-			throw new WebServiceException(CodeMsg.SERVER_ERROR);
-		}
 	}
 
 	@Override
@@ -176,8 +173,8 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 		PageInfo<OrderVo> pageInfo = new PageInfo<>(orders);
 		return pageInfo;
 	}
-	
-	private void setOrders(List<OrderVo> orders, List<OrderItemVo> orderItems, List<PreviewImagesVo> listPreviewImage){
+
+	private void setOrders(List<OrderVo> orders, List<OrderItemVo> orderItems, List<PreviewImagesVo> listPreviewImage) {
 		for (OrderItemVo orderItem : orderItems) {
 			List<PreviewImagesVo> transitionPreviewImage = new ArrayList<>();
 			for (PreviewImagesVo previewImages : listPreviewImage) {
@@ -187,49 +184,48 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 			}
 			orderItem.setPreviewImages(transitionPreviewImage);
 		}
-		
+
 		for (OrderVo order : orders) {
 			List<OrderItemVo> transitionOrderItem = new ArrayList<>();
 			for (OrderItemVo orderItem : orderItems) {
-				if(order.getOrderNo().equals(orderItem.getOrderNo())){
+				if (order.getOrderNo().equals(orderItem.getOrderNo())) {
 					transitionOrderItem.add(orderItem);
 				}
 			}
 			order.setOrderItems(transitionOrderItem);
 			setOrder(order);
-			
 		}
 	}
-     
-	private void setOrder(OrderVo order){
+
+	private void setOrder(OrderVo order) {
 		Date date = order.getCreateTime();
-	    SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-	    order.setAddDate(format.format(date));
-	    
-	    switch(order.getOrderStatus()){
-	    	case ApiConstant.DEFALULT_ZERO: 
-	    		order.setStatusStr(ApiConstant.STATUS_ZERO);
-	    		break;
-	    	case ApiConstant.DEFALULT_ONE: 
-	    		order.setStatusStr(ApiConstant.STATUS_ONE);
-	    		break;
-	    	case ApiConstant.DEFALULT_TWO: 
-	    		order.setStatusStr(ApiConstant.STATUS_TWO);
-	    		break;
-	    	case ApiConstant.DEFALULT_THREE: 
-	    		order.setStatusStr(ApiConstant.STATUS_THREE);
-	    		break;
-	    	case ApiConstant.DEFALULT_FOUR: 
-	    		order.setStatusStr(ApiConstant.STATUS_FOUR);
-	    		break;
-	    	case ApiConstant.DEFALULT_FIVE: 
-	    		order.setStatusStr(ApiConstant.STATUS_FIVE);
-	    		break;
-	    	default:
-	    		break;
-	    }
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		order.setAddDate(format.format(date));
+
+		switch (order.getOrderStatus()) {
+		case ApiConstant.DEFALULT_ZERO:
+			order.setStatusStr(ApiConstant.STATUS_ZERO);
+			break;
+		case ApiConstant.DEFALULT_ONE:
+			order.setStatusStr(ApiConstant.STATUS_ONE);
+			break;
+		case ApiConstant.DEFALULT_TWO:
+			order.setStatusStr(ApiConstant.STATUS_TWO);
+			break;
+		case ApiConstant.DEFALULT_THREE:
+			order.setStatusStr(ApiConstant.STATUS_THREE);
+			break;
+		case ApiConstant.DEFALULT_FOUR:
+			order.setStatusStr(ApiConstant.STATUS_FOUR);
+			break;
+		case ApiConstant.DEFALULT_FIVE:
+			order.setStatusStr(ApiConstant.STATUS_FIVE);
+			break;
+		default:
+			break;
+		}
 	}
-	
+
 	@Override
 	public void updateStatusByOrderNo(String orderNo,Integer status) {
 		Integer count = orderDao.updateStatusByOrderNo(orderNo,status);
@@ -237,7 +233,7 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
 		if(status == ApiConstant.DEFALULT_FIVE){
-			//sendMessage(orderNo,MessageType.FINISHED);
+			sendMessage(orderNo, MessageType.FINISHED);
 		}
 	}
 
@@ -266,7 +262,7 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
 		MemberVo memberVo = memberService.getMemberById(order.getOrderMemberId());
-		if(memberVo == null){
+		if (memberVo == null) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
 		wxPayService.setConfig(wxPayConfig);
@@ -295,15 +291,16 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 		} else {
 			throw new WebServiceException(CodeMsg.ORDER_PAYED);
 		}
-		
+
 	}
-	
+
 	private void caculatePayPrice(OrderVo order) {
 		BigDecimal payMoney = BigDecimal.ZERO;
-		payMoney = NumberArithmeticUtils.safeAdd(new BigDecimal(order.getFreightPrice()), new BigDecimal(order.getOrderTotalPrice()));
+		payMoney = NumberArithmeticUtils.safeAdd(new BigDecimal(order.getFreightPrice()),
+				new BigDecimal(order.getOrderTotalPrice()));
 		order.setOrderPayPrice(payMoney.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
 	}
-	
+
 	public String generateGoodsInfo(List<OrderItemVo> orderItems) {
 		StringBuffer goodsInfo = new StringBuffer();
 		for (int i = 0; i < orderItems.size(); i++) {
@@ -316,17 +313,17 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 	@Override
 	public void confirmOrder(WechatRefundApiResult result, HttpServletResponse response) {
 		try {
-			String result_code = result.getResult_code();
-			if (result_code.equalsIgnoreCase("FAIL")) {
+			String resultCode = result.getResult_code();
+			if (resultCode.equalsIgnoreCase(ApiConstant.FAIL)) {
 				// 订单编号
-				String out_trade_no = result.getOut_trade_no();
-				logger.error("订单" + out_trade_no + "支付失败");
+				String outTradeNo = result.getOut_trade_no();
+				logger.error("订单" + outTradeNo + "支付失败");
 				response.getWriter().write(setXml("SUCCESS", "OK"));
-			} else if (result_code.equalsIgnoreCase("SUCCESS")) {
+			} else if (resultCode.equalsIgnoreCase(ApiConstant.SUCCESS)) {
 				// 订单编号
 				String orderNo = result.getOut_trade_no();
-				//sendMessage(orderNo,MessageType.UNDELIVERY);
-				orderDao.updateStatusByOrderNo(orderNo,ApiConstant.DEFALULT_ONE);
+				sendMessage(orderNo, MessageType.UNDELIVERY);
+				orderDao.updateStatusByOrderNo(orderNo, ApiConstant.DEFALULT_ONE);
 				response.getWriter().write(setXml("SUCCESS", "OK"));
 			}
 		} catch (IOException e) {
@@ -335,17 +332,33 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 		}
 	}
 
-	public static String setXml(String return_code, String return_msg) {
-		return "<xml><return_code><![CDATA[" + return_code + "]]></return_code><return_msg><![CDATA[" + return_msg
+	public static String setXml(String returnCode, String returnMsg) {
+		return "<xml><return_code><![CDATA[" + returnCode + "]]></return_code><return_msg><![CDATA[" + returnMsg
 				+ "]]></return_msg></xml>";
 	}
-	
-	private void sendMessage(String orderNo,MessageType messageType){
+
+	private void sendMessage(String orderNo, MessageType messageType) {
 		OrderVo order = orderDao.getOrderByNo(orderNo);
 		MerchantMessage merchantMessage = new MerchantMessage();
 		merchantMessage.setMerchantId(order.getOrderMerchantId());
-		merchantMessage.setMessageType(messageType);
+		merchantMessage.setUserId(order.getOrderMemberId());
 		merchantMessage.setConent(messageType.getValue());
-		messageProducer.sendMessage(MessageKey.MERCHANT_KEY, merchantMessage);
+		merchantMessage.setMessageType(messageType);
+		merchantMessage.setCreateTime(new Date());
+
+		try {
+			messageProducer.sendMessage(MessageKey.MERCHANT_KEY, JSON.toJSONString(merchantMessage));
+			String jsonMessage = redisService.get(MerchantMessageKey.messageKey, order.getOrderMerchantId().toString(),
+					String.class);
+			List<MerchantMessage> messages = JSON.parseArray(jsonMessage, MerchantMessage.class);
+			if (messages == null || messages.isEmpty()) {
+				messages = new ArrayList<MerchantMessage>();
+			}
+			messages.add(merchantMessage);
+			jsonMessage = JSON.toJSONString(messages);
+			redisService.set(MerchantMessageKey.messageKey, order.getOrderMerchantId().toString(), jsonMessage);
+		} catch (Exception e) {
+			logger.error("queueKey is null or object param is null");
+		}
 	}
 }

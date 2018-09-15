@@ -38,4 +38,10 @@ public class ApiConstant {
 	public static final int DEFALULT_FIVE = 5;
 	
 	public static final String STATUS_FIVE = "已完成";
+	
+	public static final String FAIL = "FAIL";
+	
+	public static final String SUCCESS = "SUCCESS";
+	
+	public static final String REPEATPOINT = "今天已签到,不能重复签到";
 }

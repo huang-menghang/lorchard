@@ -34,6 +34,11 @@ public class ApiGoodsCategoryController {
 	@Autowired 
 	private ApiGoodsCategoryService categoryService;
   
+	/**
+	 * 获取顶级分类
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/parent",method = RequestMethod.GET)
 	public Result<List<GoodsCategoryVo>> parent(HttpServletRequest request) {
 		return Result.successData(categoryService.listParent());

@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @Package com.ysdevelop.lorchard.api.entity
  *
- * @Description: TODO
+ * @Description: 商家
  *
  * @version V1.0
  *

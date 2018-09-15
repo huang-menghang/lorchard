@@ -39,6 +39,11 @@ public class ApiGoodsController {
 	@Autowired
 	private ApiGoodsService goodsService;
 	
+	/**
+	 * 获取商品集合
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/pagination", method = RequestMethod.GET)
 	public Result<List<GoodsVo>> pagination(HttpServletRequest request) {
 		Map<String, String> queryMap = HttpUtils.getParameterMap(request);
@@ -46,6 +51,11 @@ public class ApiGoodsController {
 		return Result.successPaginationData(pageInfo.getList(), pageInfo.getTotal());
 	}
 	
+	/**
+	 * 访问商品
+	 * @param request
+	 * @return
+	 */
 	@SystemControllerLog(description="访问商品",logType=Constant.SystemLogType.GOODS)
 	@RequestMapping(value = "/details", method = RequestMethod.GET)
 	public Result<GoodsVo> getDetails(HttpServletRequest request) {
@@ -54,6 +64,11 @@ public class ApiGoodsController {
 		return Result.successData(goodsService.getById(goodId));
 	}
 	
+	/**
+	 * 验证商品信息
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/validate", method = RequestMethod.GET)
 	public Result<GoodsVo> getValidate(HttpServletRequest request) {
 		Map<String, String> queryMap = HttpUtils.getParameterMap(request);

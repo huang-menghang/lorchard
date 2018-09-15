@@ -2,14 +2,16 @@ package com.ysdevelop.lorchard.websocket.service.impl;
 
 import io.netty.channel.ChannelHandlerContext;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageListener;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ysdevelop.lorchard.mq.service.MerchantMessageConsumer;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.ysdevelop.lorchard.common.utils.Constant;
+import com.ysdevelop.lorchard.mq.bo.MerchantMessage;
 import com.ysdevelop.lorchard.websocket.bo.WebSocketMessage;
 import com.ysdevelop.lorchard.websocket.define.WebSocketMessageType;
 import com.ysdevelop.lorchard.websocket.manager.ChannelHandlerContextManager;
@@ -28,11 +30,10 @@ import com.ysdevelop.lorchard.websocket.service.WebSocketService;
  * @Version
  * 
  */
-
-public class WebSocketServiceImpl implements WebSocketService, MessageListener {
+@Service
+public class WebSocketServiceImpl implements WebSocketService {
 
 	private Logger logger = LoggerFactory.getLogger(WebSocketServiceImpl.class);
-
 
 	@Override
 	public void receiveWebsocketMessage(WebSocketMessage message, ChannelHandlerContext context) {
@@ -53,7 +54,11 @@ public class WebSocketServiceImpl implements WebSocketService, MessageListener {
 				// 发送消息告知客户端连接成功
 				logger.info("客户端商家id为" + clientMerchantId + " ,连接成功");
 				String ackMesasge = "商家id为" + clientMerchantId + " ,上线成功";
-				ChannelHandlerContextManager.sendWebSocket(context, ackMesasge);
+				WebSocketMessage returnMessage = new WebSocketMessage();
+				returnMessage.setMessageConent(ackMesasge);
+				returnMessage.setMessageType(WebSocketMessageType.RETURN);
+				// 发送消息给上线的用户
+				ChannelHandlerContextManager.sendWebSocket(context, JSON.toJSONString(returnMessage));
 				break;
 			default:
 				break;
@@ -66,9 +71,27 @@ public class WebSocketServiceImpl implements WebSocketService, MessageListener {
 	}
 
 	@Override
-	public void onMessage(Message message) {
-		String messageStr = new String(message.getBody());
-		System.out.println("message-->" + messageStr);
+	public void receiveMerchantMessage(List<MerchantMessage> messages) {
+		if (messages != null) {
+			// 获取到商家的Id
+			Long merchantId = messages.get(Constant.DEFALULT_ZERO).getMerchantId();
+			ChannelHandlerContext clientContext = ChannelHandlerContextManager.getContextByUserId(merchantId);
+			if (clientContext == null || clientContext.isRemoved()) {
+				throw new RuntimeException("尚未握手成功,无法向客户端发送WebSocket消息");
+			}
+			// 将我们的消息转成json,再发给客户端进行解析
+			String jsonMessage = JSONArray.toJSONString(messages);
+			logger.info("message--->" + jsonMessage);
+			WebSocketMessage merchantMessage = new WebSocketMessage();
+			merchantMessage.setFromMerchantId(merchantId);
+			merchantMessage.setMessageConent(messages);
+			// 设置商家信息
+			merchantMessage.setMessageType(WebSocketMessageType.MERCHANT);
+			// 将消息发送给
+			ChannelHandlerContextManager.sendWebSocket(clientContext, JSON.toJSONString(merchantMessage));
+
+		}
+
 	}
 
 }

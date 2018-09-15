@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @Package com.ysdevelop.lorchard.api.entity
  *
- * @Description: TODO
+ * @Description: 用户
  *
  * @version V1.0
  *

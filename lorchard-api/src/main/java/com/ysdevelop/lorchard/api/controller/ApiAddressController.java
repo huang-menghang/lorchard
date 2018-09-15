@@ -35,40 +35,67 @@ public class ApiAddressController {
 	@Autowired
 	ApiAddressService apiAddressService;
 
-	// 添加地址
+	/**
+	 * 添加地址
+	 * @param address
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = "")
 	public Result<Long> add(@Valid AddressVo address) {
 		apiAddressService.addAddress(address);
 		return Result.successData(address.getId());
 	}
 
-	// 详细地址界面
+	/**
+	 * 地址详细信息
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "")
 	public Result<AddressVo> detail(@RequestParam(value = "id", required = false) Long id) {
 		AddressVo addressInfo = apiAddressService.getAddressById(id);
 		return Result.successData(addressInfo);
 	}
 
-	// 修改地址
+	/**
+	 * 修改地址
+	 * @param address
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.PUT, value = "")
 	public Result<String> edit(@Valid AddressVo address) {
 		apiAddressService.editAddress(address);
 		return Result.successData("修改成功");
 	}
 
-	// 地址列表
+	/**
+	 * 地址列表
+	 * @param memberId
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/list")
 	public Result<List<AddressVo>> list(Long memberId) {
 		List<AddressVo> address = apiAddressService.listByMemberId(memberId);
 		return Result.successData(address);
 	}
-
+	
+	/**
+	 * 设置为默认地址
+	 * @param address
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/updateState")
 	public Result<String> updateState(AddressVo address) {
 		apiAddressService.updateState(address);
 		return Result.successData("已设置默认地址");
 	}
-
+	
+	/**
+	 * 获取默认地址
+	 * @param memberId
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/state")
 	public Result<AddressVo> state(Long memberId, @RequestParam(required = false, value = "id") Long id) {
 		AddressVo address = apiAddressService.getAddressByMemberId(memberId, id);
