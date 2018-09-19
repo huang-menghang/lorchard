@@ -29,6 +29,7 @@ public class CodeMsg {
 	public static CodeMsg CATEGORY_ADD_FAILED = new CodeMsg(500110, "分类创建失败");
 	public static CodeMsg CATEGORY_UPDATE_ERROR =  new CodeMsg(500111, "分类更新失败");
 	public static CodeMsg DELETE_ERROR = new CodeMsg(500112, "分类存在子类,删除失败"); 
+	public static CodeMsg SHOP_UPDATE_ERROR=new CodeMsg(500113, "店铺信息修改失败");
 	// 商家 12开始
 	public static CodeMsg MERCHANT_SUREPASSWORD_WRONG = new CodeMsg(500120, "两次密码不一致");	
 	public static CodeMsg MERCHANT_EXISTS =new CodeMsg(500121,"商家已经被注册");
@@ -118,6 +119,7 @@ public class CodeMsg {
 	
 	// 提现失败
 	public static CodeMsg CASH_FAILURE = new CodeMsg(500601, "提现失败!");
+	public static CodeMsg BALANCE_INSUFFICIENT = new CodeMsg(500605, "余额不足!");
     
 	//上传的图片类型有误
 	public static CodeMsg TYPE_WRONG = new CodeMsg(500901, "上传的图片类型有误!");

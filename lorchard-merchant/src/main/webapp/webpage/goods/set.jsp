@@ -12,9 +12,10 @@
 
 <jsp:include page="/context/css-tags.jsp" />
 <style type="text/css">
-     <style type ="text /css">.uploader-list {
-	margin-left: -15px;
-}
+     
+	.uploader-list {
+		margin-left: -15px;
+	}
 
 .uploader-list .handle {
 	background-color: black;
@@ -91,7 +92,7 @@ margin-right: 2%;
 								<label class="layui-form-label"><span
 									class="x-red">*</span>商品名称：</label>
 								<div class="layui-input-inline input-custom-width">
-									<input type="text" name="name" required="true" value="" diyRule="^[\\u4E00-\\u9FA5A-Za-z0-9_]+$" diyCheck="不能有特殊字符"
+									<input type="text" name="name" required="true" value="" diyRule="^[\u4E00-\u9FA5A-Za-z0-9_]+$" diyCheck="不能有特殊字符"
 										autocomplete="off" placeholder="请输入商品名称" class="layui-input"
 										lay-verType="alert">
 								</div>

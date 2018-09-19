@@ -37,10 +37,8 @@
 	<!-- 一级菜单 -->
 	<ul class="sidebar-nav">
 		<li class="sidebar-nav-heading">小果源</li>
-		<li class="sidebar-nav-link"><a href="<%=basePath%>/index"
-			class=""> <i class="iconfont sidebar-nav-link-logo icon-home"
-				style=""></i> 首页
-		</a></li>
+		
+		
 		<li class="sidebar-nav-link"><a
 			href="<%=basePath%>/shop?title=shopIndex" class=""> <i
 				class="iconfont sidebar-nav-link-logo icon-shop" style=""></i> 店铺管理
@@ -58,16 +56,14 @@
 				class="iconfont sidebar-nav-link-logo icon-account" style=""></i>
 				会员管理
 		</a></li>
-		<li class="sidebar-nav-link"><a
-			href="<%=basePath%>/main/goods?title=goodsIndex" class=""> <i
-				class="iconfont sidebar-nav-link-logo icon-wxapp"
-				style="color: #36b313;"></i> 小程序
-		</a></li>
-		<li class="sidebar-nav-link"><a href="javascript:void(0);"
-			class=""> <svg class="icon sidebar-nav-link-logo"
-					aria-hidden="true">
-                                <use xlink:href="#icon-application"></use>
-                            </svg> 应用中心
+		
+
+
+		<li class="sidebar-nav-link">
+		 	<a href="<%=basePath%>/applicationCenter?title=applicationCenter" class=""> 
+		 	<svg class="icon sidebar-nav-link-logo" aria-hidden="true">
+             	<use xlink:href="#icon-application"></use>
+            </svg> 应用中心
 		</a></li>
 		<li class="sidebar-nav-link"><a
 			href="<%=basePath%>/finance?title=financeIndex" class="">
@@ -75,15 +71,14 @@
 				财务管理
 		</a></li>
 		<li class="sidebar-nav-link"><a
-			href="<%=basePath%>/main/goods?title=goodsIndex" class=""> <i
+			href="<%=basePath%>/set?title=setIndex" class=""> <i
 				class="iconfont sidebar-nav-link-logo icon-setting" style=""></i> 设置
 		</a></li>
 	</ul>
 
 
 	<!-- 子级菜单-->
-	<ul class="left-sidebar-second"></ul>
-
+	
 	<ul class="left-sidebar-second">
 		<li class="sidebar-second-title">店铺管理</li>
 		<li class="sidebar-second-item">
@@ -124,21 +119,10 @@
 		<li><a name="member"></a></li>
 	</ul>
 	
-
 	<ul class="left-sidebar-second">
-		<li class="sidebar-second-title">小程序</li>
-		<li class="sidebar-second-item">
-			<!-- 二级菜单--> <a href="<%=basePath%>/goods?titile='goodsIndex'"
-			class=""> 小程序设置 </a> <a
-			href="<%=basePath%>/goods?titile='goodsIndex'" class=""> 首页设置 </a> <a
-			href="<%=basePath%>/goods?titile='goodsIndex'" class=""> 导航设置 </a> <a
-			href="<%=basePath%>/goods?titile='goodsIndex'" class=""> 帮助中心 </a>
-		</li>
+		<li><a name="applicationCenter"></a></li>
 	</ul>
 	
-	<ul class="left-sidebar-second">
-		<li><a name="1"></a></li>
-	</ul>
 	
 	<ul class="left-sidebar-second">
 		<li class="sidebar-second-title">资产管理</li>
@@ -152,16 +136,11 @@
 	<ul class="left-sidebar-second">
 		<li class="sidebar-second-title">设置</li>
 		<li class="sidebar-second-item">
-			<!-- 二级菜单--> <a href="<%=basePath%>/goods?titile='goodsIndex'"
-			class=""> 商城设置 </a> <a href="<%=basePath%>/goods?titile='goodsIndex'"
-			class=""> 交易设置 </a> <a href="<%=basePath%>/goods?titile='goodsIndex'"
-			class=""> 配送设置 </a> <a href="<%=basePath%>/goods?titile='goodsIndex'"
-			class=""> 短信设置 </a> <a href="<%=basePath%>/goods?titile='goodsIndex'"
-			class=""> 上传设置 </a> <a href="<%=basePath%>/goods?titile='goodsIndex'"
-			class=""> 清理缓存 </a> <a href="<%=basePath%>/goods?titile='goodsIndex'"
-			class=""> 环境检测 </a>
+			<!-- 二级菜单--> 
+			<a name="setIndex" href="<%=basePath%>/set?title='setIndex'" class=""> 商城设置 </a> 
 		</li>
 	</ul>
+
 
 
 </div>

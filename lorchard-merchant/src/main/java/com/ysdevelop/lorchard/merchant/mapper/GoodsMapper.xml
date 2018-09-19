@@ -11,17 +11,16 @@
 		`g`.description as `description`,
 		`g`.createTime as`createTime`,
 	    `g`.sales as `sales`,
-	    `a`.id as parentId,
+	    `c`.id as parentId,
 		`g`.recommend as `recommend`,
 		`s`.minPrice as `minPrice`,
 		`s`.originalPrice as `originalPrice`,
 		`s`.type as `type`,
-		`g`.categoryId as `categoryId`,
-		`a`.name as `parentCategoryName`
+		`g`.parentId as `parentId`,
+		`c`.name as `parentCategoryName`
 		from
 		`t_lorchard_mall_goods` as `g`
-		LEFT JOIN `t_lorchard_mall_goods_category` as `c` on `c`.id =`g`.categoryId
-		LEFT JOIN `t_lorchard_mall_goods_category` as `a` on  `a`.id=`c`.parentId
+		LEFT JOIN `t_lorchard_mall_goods_category` as `c` on `c`.id =`g`.parentId
 		LEFT JOIN `t_lorchard_mall_goods_specifications` as `s` on `s`.goodsId=`g`.id
 		<where>
 			1 = 1
@@ -83,7 +82,7 @@
 	     select
 	   `g`.name as `name`,
 	   `g`.description as `description`,
-	   `g`.categoryId as `categoryId`,
+	   `g`.parentId as `parentId`,
 	   `s`.type as `type`,
 	   `s`.originalPrice as `originalPrice`,
 	   `s`.minPrice as `minPrice`,
@@ -91,11 +90,9 @@
 	   `g`.recommend as `recommend`,
 	   `g`.stock as `stock`,
 	   `g`.sales as `sales`,
-	   `a`.name as `parentCategoryName`,
-	   `a`.id as `parentId`
+	   `c`.name as `parentCategoryName`
 	   	from `t_lorchard_mall_goods` as `g`
-	   	left join `t_lorchard_mall_goods_category` as `c` on `c`.id = `g`.categoryId
-	   	left join `t_lorchard_mall_goods_category` as `a` on  `a`.id=`c`.parentId
+	   	left join `t_lorchard_mall_goods_category` as `c` on `c`.id = `g`.parentId
 	   	left join `t_lorchard_mall_goods_specifications` as `s` on `s`.goodsId=`g`.id
 	    where `g`.id = #{id}
 	</select>
@@ -133,8 +130,8 @@
 			<if test="stock != null  ">
 				g.`stock` = #{stock},
 			</if>
-			<if test="categoryId != null  ">
-				g.`categoryId` = #{categoryId},
+			<if test="parentId != null  ">
+				g.`parentId` = #{parentId},
 			</if>
 			<if test="recommend != null  ">
 				g.`recommend` = #{recommend},
@@ -174,8 +171,8 @@
 	
 	<!-- 添加商品 -->
 	<insert id="add" parameterType="com.ysdevelop.lorchard.merchant.entity.Goods" useGeneratedKeys="true" keyProperty="id">
-	   insert into `t_lorchard_mall_goods`(`merchantId`,`name`,`description`,`categoryId`,`status`,`recommend`,`stock`,`createTime`)
-	   values(#{merchantId},#{name},#{description},#{categoryId},0,#{recommend},#{stock},now())
+	   insert into `t_lorchard_mall_goods`(`merchantId`,`name`,`description`,`parentId`,`status`,`recommend`,`stock`,`createTime`)
+	   values(#{merchantId},#{name},#{description},#{parentId},0,#{recommend},#{stock},now())
 	</insert>
 	
 	<!-- 添加商品尺寸 -->

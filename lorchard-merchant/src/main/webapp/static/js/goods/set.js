@@ -77,13 +77,15 @@ var category_set_ops = {
 				success : function(res) {
 					console.log(res);
 					$.each(res.data, function(i, v) {
-						$("select[name='categoryId']").append(
+						$("select[name='parentId']").append(
 								"<option value=" + v.id + ">" + v.parentCategoryName
 										+ "</option>");
 					});
+					
 					that.renderFrom();
 				}
 			});
+			
 
 		}
 		//修改商品
@@ -160,10 +162,8 @@ var category_set_ops = {
 			   var minPrice = $('.layui-form input[name="minPrice"]').val();
 			   var specificationsDescription = $('.layui-form textarea[name="specificationsDescription"]').val();
 			   var stock = $('.layui-form input[name="stock"]').val();
-			   var categoryId = $('.layui-form select[name="categoryId"]').val();
+			   var parentId = $('.layui-form select[name="parentId"]').val();
 			   var recommend=$('.layui-form select[name="recommend"]').val();
-			   var isNumber = category_set_ops.validateIsNumber(originalPrice,minPrice,stock);
-			   
 			   
 			   //向controller的update传商品数据
 			   $.ajax({
@@ -179,7 +179,7 @@ var category_set_ops = {
 					   minPrice:minPrice,
 					   specificationsDescription:specificationsDescription,
 					   stock:stock,
-					   categoryId:categoryId,
+					   parentId:parentId,
 					   recommend:recommend
 				   },
 				   dataType:'json'

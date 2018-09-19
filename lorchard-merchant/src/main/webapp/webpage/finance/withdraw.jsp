@@ -14,9 +14,7 @@
 	text-align: center;
 }
 
-#bankNumber {
-	width:350px;
-}
+
 #financelabel {
 	font-size: 30px;
 }
@@ -56,7 +54,9 @@ p {
 	margin-bottom: 10px;
 	width: 80%;
 }
-
+.layui-input{
+width:150%;
+}
 span {
 	color: #c2c2c2;
 }
@@ -103,8 +103,8 @@ span {
 					
 
 
-			<div class="layui-col-md9" style="margin-top: 3%;margin-left: -5%">
-				<div class="layui-col-md4" style="margin-left: 7%">提现</div>
+			<div class="layui-col-md9">
+				<div class="layui-col-md4" style="margin-left: 5%;">提现详情</div>
 			</div>
 					<div class="layui-form-item" style="margin-top: 6%; margin-right: 6%;margin-bottom:-1%;">
 						<div class="layui-col-sm4" style="margin-top: 4%;margin-left: 5%">
@@ -126,7 +126,7 @@ span {
 								
 								<div class="layui-input-inline input-custom-width" style="margin-top: 3%">
 									<input type="text" name="name" required="true"
-										value="" autocomplete="off" placeholder="请输入姓名"
+										value="" autocomplete="off" diyRule="^[\u4e00-\u9fa5]{0,}$" diyCheck="输入的不是汉字" placeholder="请输入姓名"
 										class="layui-input">
 								</div>			
 								</div>
@@ -147,7 +147,7 @@ span {
 								
 								<div class="layui-input-inline input-custom-width">
 									<input type="text" name="openBank" required="true"
-										value="" autocomplete="off" placeholder="请输入开户银行"
+										value="" autocomplete="off" diyRule="^[\u4e00-\u9fa5]{0,}$" diyCheck="输入的不是汉字" placeholder="请输入开户银行"
 										class="layui-input" >
 								</div>
 								</div>
@@ -174,11 +174,15 @@ span {
 
 
 			<div class="layui-form-item" style="margin-top: -1%">
-				<label class="layui-form-label" >提现记录 :</label>
+				<div class="layui-col-md9">
+				<div class="layui-col-md4" style="margin-left: 5%;">提现详情</div>
+			   </div>
 			</div>
 
 			<!-- 表格 -->
-			<div id="withdrawTable" lay-filter="table-order" ></div>
+			<div class="layui-form-item" style="margin-right:22%;margin-left:1%;margin-top:-1%">
+			<div id="withdrawTable" lay-filter="table-order"  ></div>
+			</div>
 		</div>
 	</div>
 

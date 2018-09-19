@@ -43,12 +43,12 @@ var finance_index_ops = {
   					 // 设置table组件控制的元素
   					 elem: '#withdrawTable',
   					 cols: [[    //标题栏
-  						    {field: 'createTime', title: '时间', templet: '#date_formate',width: '20%',align: 'center'},
-  						 	{field: 'name', title: '姓名',align: 'center',width:'13%'},
-  						 	{field: 'openBank',title:'开户银行',align:'center',width:'13%'},
-  						    {field: 'bankNumber',title:'银行卡号',align:'center',width:'25%'},
-  						 	{field: 'cash', title: '提现金额',align: 'center',width:'13%'},
-  						    {field: 'balance',title:'余额',align:'center',width:'13%'},
+  						{field: 'createTime', title: '时间', templet: '#date_formate',width: '20%',align: 'center'},
+						 	{field: 'name', title: '姓名',align: 'center',width:'14%'},
+						 	{field: 'openBank',title:'银行',align:'center',width:'18%'},
+						    {field: 'bankNumber',title:'卡号',align:'center',width:'25%'},
+						 	{field: 'cash', title: '金额',align: 'center',width:'13%'},
+						    {field: 'balance',title:'余额',align:'center',width:'13%'},
   						   ]],
   					  url: WEB_ROOT + "/finance/cashPagination",
   					  method: 'get',

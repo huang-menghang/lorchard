@@ -21,13 +21,13 @@ var category_index_ops = {
 				 // 设置table组件控制的元素
 				 elem: '#goodsTable',
 				 cols: [[                  //标题栏
-					 	{field: 'id',title: '商品id',align: 'center',width:100},
-					 	{field: 'name', title: '名称',align: 'center',width:100},
-					    {field: 'parentCategoryName', title: '类别',align: 'center', width:100},
-					    {field: 'description', title: '描述',align: 'center', width:170},
-						{field: 'sales',title: '销量',align: 'center',width:100,sort:true},
-					    {field: 'createTime',title: '创建时间',templet: '#date_formate',align: 'center',width:140},
-						{fixed: 'right', title: '操作', width: 257,height: 40, align: 'center', templet: '#barOption'} 
+					 {field: 'id',title: '商品id',align: 'center',width:'12%'},
+					 	{field: 'name', title: '名称',align: 'center',width:'12%'},
+					    {field: 'parentCategoryName', title: '类别',align: 'center', width:'12%'},
+					    {field: 'description', title: '描述',align: 'center', width:'15%'},
+						{field: 'sales',title: '销量',align: 'center',width:'12%',sort:true},
+					    {field: 'createTime',title: '创建时间',templet: '#date_formate',align: 'center',width:'15%'},
+						{fixed: 'right', title: '操作', width: '25%',height: 40, align: 'center', templet: '#barOption'}
 					   ]],
 				  url: WEB_ROOT + "/goods/pagination",
 				  method: 'get',

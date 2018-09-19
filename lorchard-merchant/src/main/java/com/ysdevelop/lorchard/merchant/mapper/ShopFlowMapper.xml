@@ -74,5 +74,9 @@
 	  where `merchantId` = #{merchantId} and  DATEDIFF(`date`, NOW()) =- 1 
    </select>
 
-
+	<!-- 查询所有商家id -->
+	<select id="getMerchantId" resultType="java.lang.Long">
+		SELECT `merchantId`
+		from `t_lorchard_mall_shop`
+	</select>
 </mapper>

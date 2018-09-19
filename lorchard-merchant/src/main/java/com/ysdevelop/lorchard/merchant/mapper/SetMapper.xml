@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysdevelop.lorchard.merchant.mapper.SetDao">
+	<!-- 查询商铺信息 -->
+	<select id="getByMerchantId" resultType="com.ysdevelop.lorchard.merchant.entity.Shop">
+	    select
+	   `c`.name as `name`,
+	   `c`.province as `province`,
+	   `c`.city as `city`,
+	   `c`.town as `town`,
+	   `c`.detailAddress as `detailAddress`,
+	   `c`.description as `description`,
+	   `c`.operatorName as `operatorName`,
+	   `c`.mobile as `mobile`,
+	   `c`.qq as `qq`,
+	   `c`.wechatNo as `wechatNo`,
+	   `c`.email as `email`
+	   	from `t_lorchard_mall_shop` as c
+	    where c.merchantId = #{merchantId}
+	</select>
+	
+	<!-- 修改商铺信息 -->
+	<update id="update" parameterType="com.ysdevelop.lorchard.merchant.entity.Shop">
+	    update `t_lorchard_mall_shop`
+	    <trim prefix="set" suffixOverrides="," suffix="where merchantId = #{merchantId}">
+			<if test="name != null and name != '' ">
+				`name` = #{name},
+			</if>
+			<if test="province != null and province != '' ">
+				`province` = #{province},
+			</if>
+			<if test="city != null and city != '' ">
+				`city` = #{city},
+			</if>
+			<if test="town != null and town != '' ">
+				`town` = #{town},
+			</if>
+			<if test="detailAddress != null and detailAddress != '' ">
+				`detailAddress` = #{detailAddress},
+			</if>
+			<if test="description != null and description != '' ">
+				`description` = #{description},
+			</if>
+			<if test="id != null">
+			    `updateTime` = now(),
+			</if>
+			<if test="operatorName != null and operatorName != '' ">
+				`operatorName` = #{operatorName},
+			</if>
+			<if test="mobile != null and mobile != '' ">
+				`mobile` = #{mobile},
+			</if>
+			<if test="qq != null and qq != '' ">
+				`qq` = #{qq},
+			</if>
+			<if test="wechatNo != null and wechatNo != '' ">
+				`wechatNo` = #{wechatNo},
+			</if>
+			<if test="email != null and email != '' ">
+				`email` = #{email},
+			</if>
+		</trim>
+	</update>
+
+
+</mapper>

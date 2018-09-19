@@ -87,15 +87,19 @@ public class FinanceServiceImpl implements FinanceService {
 		
 		Integer changeCount = financeDao.withdraw(finance);
 		if (changeCount == Constant.DEFALULT_ZERO) {
-			throw new WebServiceException(CodeMsg.CATEGORY_ADD_FAILED);
+			throw new WebServiceException(CodeMsg.CASH_FAILURE);
 		}	
 		
 		Double balance1 = financeDao.queryBalance(merchantId);
+		if(balance1==null) {
+			balance1=0.00;
+		}
 		Double balance=balance1-cash;
-		
+		if(balance<0) {
+			throw new WebServiceException(CodeMsg.BALANCE_INSUFFICIENT);
+		}
 		Finance previousFinance = financeDao.getFinance(merchantId);
 		Double totalCommission = previousFinance.getTotalCommission();
-		System.out.println("totalCommission"+totalCommission);
 		
 		Finance finance2=new Finance();
 		finance2.setTotalCommission(totalCommission);
@@ -106,7 +110,7 @@ public class FinanceServiceImpl implements FinanceService {
 		
 		Integer changeCount2 = financeDao.balance(finance2);
 		if (changeCount2 == Constant.DEFALULT_ZERO) {
-			throw new WebServiceException(CodeMsg.CATEGORY_ADD_FAILED);
+			throw new WebServiceException(CodeMsg.CASH_FAILURE);
 		}
 		
 	}
@@ -141,26 +145,22 @@ public class FinanceServiceImpl implements FinanceService {
 			finance.setTotalCommission(commission);
 			finance.setStatus((long) 0);
 			finance.setAccount(order.getOrderPendingBalance());
-			Integer changeCount1 = financeDao.insertFinance(finance);
-			System.out.println("changeCount1---->" + changeCount1);
+			financeDao.insertFinance(finance);
 		} else {
 			Double orderPendingBalance = order.getOrderPendingBalance();
 			Double balance = finance.getBalance();
 			Double commission = 1.00;
 			Double totalCommission = finance.getTotalCommission();
-			System.out.println("totalCommission--->" + totalCommission);
 			finance.setOrderId(order.getId());
 			finance.setBalance(orderPendingBalance + balance - commission);
 			finance.setOrderNo(order.getOrderNo());
 			finance.setMerchantId(order.getOrderMerchantId());
 			finance.setMemberId(order.getOrderMemberId());
 			finance.setCommission(1.00);
-			System.out.println("totalCommission+commission--->" + totalCommission + commission);
 			finance.setTotalCommission(totalCommission + commission);
 			finance.setStatus((long) 0);
 			finance.setAccount(orderPendingBalance);
-			Integer changeCount2 = financeDao.insertFinance(finance);
-			System.out.println("changeCount2---->" + changeCount2);
+			financeDao.insertFinance(finance);
 		}
 
 	}

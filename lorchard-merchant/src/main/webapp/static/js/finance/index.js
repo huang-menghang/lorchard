@@ -16,15 +16,19 @@ var category_index_ops = {
 			dataType:'json'
 		}).done(function(res){
 			console.log(res.data);
-			if(res.data!=null){
+			if(res.data.balance!=null){
 				$('.layui-tab-content input[name="balance"]').val(res.data.balance);
 				$('.layui-tab-content input[name="totalCommission"]').val(res.data.totalCommission);
-				$('.layui-tab-content input[name="totalCash"]').val(res.data.totalCash);
 			}else{
 				$('.layui-tab-content input[name="balance"]').val("0.00");
 				$('.layui-tab-content input[name="totalCommission"]').val("0.00");
+			}
+			if(res.data.totalCash!=null){
+				$('.layui-tab-content input[name="totalCash"]').val(res.data.totalCash);
+			}else{
 				$('.layui-tab-content input[name="totalCash"]').val("0.00");
 			}
+
 			layui.use([ 'table', 'layer', 'laydate', 'laypage' ],function() {
 				laydate = layui.laydate;// 日期插件
 				laypage = layui.laypage;// 分页

@@ -20,7 +20,7 @@ public class IndexController {
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "text/html;charset=utf-8")
 	public String index(HttpServletRequest request) {
 
-		return "main/index";
+		return "shop/index";
 	}
 
 	@RequestMapping(value = "/refreshToken", method = RequestMethod.GET, produces = "text/html;charset=utf-8")

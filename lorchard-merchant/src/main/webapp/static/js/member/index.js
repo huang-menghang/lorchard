@@ -15,14 +15,14 @@ var member_index_ops ={
 					 // 设置table组件控制的元素
 					 elem: '#dateTable',
 					 cols: [[                  //标题栏
-						    {field: 'id', title: 'ID',align: 'center', width:80},
-						    {field: 'nicknameStr', title: '昵称', align: 'center',width:200},
-						    {field: 'gender', title: '性别',templet: '#gender' ,align: 'center', width:80},
-							{field: 'mobile',title: '手机号',align: 'center',width:150},
-							{field: 'province',title: '省',templet: '#province_ch',align: 'center',width:100},
-						    {field: 'city',title: '市',templet: '#city_ch',align: 'center',width:100},
-						    {field: 'createTime',title: '创建时间',templet: '#date_formate',align: 'center',width:120},
-							{fixed: 'right', title: '操作', width: 257,height: 40, align: 'center', templet: '#barOption'} 
+						 {field: 'id', title: 'ID',align: 'center', width:'10%'},
+						    {field: 'nicknameStr', title: '昵称', align: 'center',width:'15%'},
+						    {field: 'gender', title: '性别',templet: '#gender' ,align: 'center', width:'10%'},
+							{field: 'mobile',title: '手机号',align: 'center',width:'15%'},
+							{field: 'province',title: '省',templet: '#province_ch',align: 'center',width:'12%'},
+						    {field: 'city',title: '市',templet: '#city_ch',align: 'center',width:'12%'},
+						    {field: 'createTime',title: '创建时间',templet: '#date_formate',align: 'center',width:'15%'},
+							{fixed: 'right', title: '操作', width: '20%',height: 40, align: 'center', templet: '#barOption'}
 						   ]],
 					  url: WEB_ROOT + "/member/pagination",
 					  method: 'get',

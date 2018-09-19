@@ -28,5 +28,12 @@ public interface ShopFlowDao {
 	 * @return
 	 */
 	Map<String, Integer> yesterdayStat(Long merchantId);
-
+	
+	
+	/**
+	 * 查询所有商家id
+	 * 
+	 * @return 商家id集合
+	 * */
+	List<Long> getMerchantId();
 }
