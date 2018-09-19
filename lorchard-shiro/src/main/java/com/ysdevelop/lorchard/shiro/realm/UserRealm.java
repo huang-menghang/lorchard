@@ -1,4 +1,4 @@
-﻿package com.ysdevelop.lorchard.shiro.realm;
+package com.ysdevelop.lorchard.shiro.realm;
 
 import java.util.Set;
 

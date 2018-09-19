@@ -43,7 +43,7 @@
 				<input type="text" class="content" name="verifyCode"
 					style="width: 250px;"  required="true" minlength="4" maxlength="4" placeholder="请输入验证码">	
 					
-				<img id="captchaImg" style="width: 120px;height:44px" src="<%=basePath%>/merchant/captcha.jpg" />
+				<img id="captchaImg" style="width: 120px;height:44px" src="<%=basePath%>/merchant/captcha" />
 			<div class="clear"></div>	
 			</div>
 

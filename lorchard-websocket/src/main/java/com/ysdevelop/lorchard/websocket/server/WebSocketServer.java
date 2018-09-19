@@ -1,19 +1,5 @@
 package com.ysdevelop.lorchard.websocket.server;
 
-import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.http.HttpObjectAggregator;
-import io.netty.handler.codec.http.HttpServerCodec;
-import io.netty.handler.stream.ChunkedWriteHandler;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -24,13 +10,21 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.alibaba.fastjson.JSONArray;
 import com.ysdevelop.lorchard.common.redis.RedisService;
 import com.ysdevelop.lorchard.common.utils.ResourceUtil;
-import com.ysdevelop.lorchard.mq.bo.MerchantMessage;
-import com.ysdevelop.lorchard.mq.key.MerchantMessageKey;
 import com.ysdevelop.lorchard.websocket.service.WebSocketService;
 import com.ysdevelop.lorchard.websocket.service.impl.MessageSchedule;
+
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.http.HttpObjectAggregator;
+import io.netty.handler.codec.http.HttpServerCodec;
+import io.netty.handler.stream.ChunkedWriteHandler;
 
 /**
  * 
@@ -106,15 +100,6 @@ public class WebSocketServer implements InitializingBean {
 	 * 消息定时查询任务器,用于查询未读消息,然后推送给在线用户
 	 */
 	private void messagePoll() {
-		List<MerchantMessage> messages = new ArrayList<>();
-		MerchantMessage message = new MerchantMessage();
-		message.setConent("测试消息");
-		message.setMerchantId(1L);
-		message.setCreateTime(new Date());
-		message.setUserId(1L);
-		messages.add(message);
-		String jsonMessage = JSONArray.toJSONString(messages);
-		redisService.set(MerchantMessageKey.messageKey, "1", jsonMessage);
 		logger.info("lorchard-message-poll server begin");
 		ScheduledExecutorService schedule = Executors.newScheduledThreadPool(1);
 		MessageSchedule messageSchedule = new MessageSchedule();

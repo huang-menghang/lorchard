@@ -55,7 +55,7 @@ public class MerchantController {
 	}
 
 	// 生成图像验证码
-	@RequestMapping("/captcha.jpg")
+	@RequestMapping("/captcha")
 	public void captcha(HttpServletResponse response) throws ServletException, IOException {
 		response.setHeader("Cache-Control", "no-store, no-cache");
 		response.setContentType("image/jpeg");
