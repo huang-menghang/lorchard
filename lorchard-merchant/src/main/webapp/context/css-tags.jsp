@@ -10,7 +10,7 @@
 		if (path.equals("/")) {
 			basePath = request.getScheme() + "://" + request.getServerName() ;
 		} else {
-			basePath = request.getScheme() + "://" + request.getServerName() + "/" + path;
+			basePath = request.getScheme() + "://" + request.getServerName() + path;
 		}
 	}
 %>
@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="<%=basePath%>/static/plugin/amazeui/amazeui.min.css"/>
 <link rel="stylesheet" href="<%=basePath%>/static/plugin/layui/css/layui.css">
 <link rel="stylesheet" href="<%=basePath%>/static/css/common/app.css"/>
-<link rel="stylesheet" href="http://at.alicdn.com/t/font_664399_1z02i08jjid.css">
-<link rel="stylesheet" href="http://at.alicdn.com/t/font_827207_ld86l1pca8s.css">
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_664399_1z02i08jjid.css">
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_827207_ld86l1pca8s.css">
 <script src="<%=basePath%>/static/plugin/jquery/1.12.1/jquery-1.12.1.min.js"></script>
-<script src="http://at.alicdn.com/t/font_664399_1z02i08jjid.js"></script>
+<script src="https://at.alicdn.com/t/font_664399_1z02i08jjid.js"></script>

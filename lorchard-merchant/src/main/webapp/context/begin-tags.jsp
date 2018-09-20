@@ -12,7 +12,7 @@
 		if (path.equals("/")) {
 			basePath = request.getScheme() + "://" + request.getServerName();
 		} else {
-			basePath = request.getScheme() + "://" + request.getServerName() + "/" + path;
+			basePath = request.getScheme() + "://" + request.getServerName() + path;
 		}
 	}
 %>

@@ -14,7 +14,7 @@
 					+ request.getServerName();
 		}else{
 		basePath = request.getScheme() + "://"
-				+ request.getServerName() + "/" + path;
+				+ request.getServerName()  + path;
 		}
 	}
 %>
