@@ -15,6 +15,7 @@ import com.ysdevelop.lorchard.common.utils.Constant;
 import com.ysdevelop.lorchard.merchant.entity.GoodsCategory;
 import com.ysdevelop.lorchard.merchant.mapper.GoodsCategoryDao;
 import com.ysdevelop.lorchard.merchant.service.GoodsCategoryService;
+import com.ysdevelop.lorchard.shiro.token.TokenManager;
 
 @Service
 public class GoodsCategoryServiceImpl implements GoodsCategoryService {
@@ -44,9 +45,9 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 	}
 
 	@Override
-	public List<GoodsCategory> listParent() {
+	public List<GoodsCategory> listParent(Long merchantId) {
 
-		return categoryDao.listParent();
+		return categoryDao.listParent(merchantId);
 	}
 
 	@Override
@@ -60,7 +61,7 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 		} else {
 			category.setLevel(Constant.DEFALULT_TWO);
 		}
-
+		category.setMerchantId(TokenManager.getUserId());
 		Integer changeCount = categoryDao.add(category);
 		if (changeCount == Constant.DEFALULT_ZERO) {
 			throw new WebServiceException(CodeMsg.CATEGORY_ADD_FAILED);

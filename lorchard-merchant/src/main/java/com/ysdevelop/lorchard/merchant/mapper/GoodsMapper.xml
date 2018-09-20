@@ -11,11 +11,12 @@
 		`g`.description as `description`,
 		`g`.createTime as`createTime`,
 	    `g`.sales as `sales`,
-		`g`.parentId as `parentId`,
+	    `c`.id as parentId,
 		`g`.recommend as `recommend`,
 		`s`.minPrice as `minPrice`,
 		`s`.originalPrice as `originalPrice`,
 		`s`.type as `type`,
+		`g`.parentId as `parentId`,
 		`c`.name as `parentCategoryName`
 		from
 		`t_lorchard_mall_goods` as `g`
@@ -143,14 +144,14 @@
 	
 	<!-- 删除同一个商品下的图片 -->
 	<update id="deletePreviewImagesByGoodsId" >
-		update `t_lorchard_mall_goods_previewimage`
+		update `t_lorchard_mall_goods_previewImage`
 		set `status`=1
 		where `goodsId`=#{goodsId}
 	</update>
 	
 	<!-- 在同一商品下添加图片 -->
 	<insert id="addPreviewImagesByGoodsId" parameterType="com.ysdevelop.lorchard.merchant.entity.PreviewImages">
-		insert into `t_lorchard_mall_goods_previewimage`(`previewImagePath`,`previewImageIndex`,`goodsId`,`createTime`,`status`)
+		insert into `t_lorchard_mall_goods_previewImage`(`previewImagePath`,`previewImageIndex`,`goodsId`,`createTime`,`status`)
 		values
 		<foreach collection="previewImages" index="index" item="previewImages" separator=",">
 			(#{previewImages.previewImagePath},

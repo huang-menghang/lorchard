@@ -18,6 +18,7 @@ import com.ysdevelop.lorchard.common.result.Result;
 import com.ysdevelop.lorchard.common.utils.HttpUtils;
 import com.ysdevelop.lorchard.merchant.entity.GoodsCategory;
 import com.ysdevelop.lorchard.merchant.service.GoodsCategoryService;
+import com.ysdevelop.lorchard.shiro.token.TokenManager;
 
 /**
  * 
@@ -49,6 +50,7 @@ public class GoodsCategoryController {
 	@ResponseBody
 	public Result<List<GoodsCategory>> pagination(HttpServletRequest request) {
 		Map<String, String> queryMap = HttpUtils.getParameterMap(request);
+		queryMap.put("merchantId", TokenManager.getUserId().toString());
 		PageInfo<GoodsCategory> pageInfo = categoryService.list(queryMap);
 		return Result.successPaginationData(pageInfo.getList(), pageInfo.getTotal());
 	}
@@ -61,7 +63,8 @@ public class GoodsCategoryController {
 	@RequestMapping(value = "/parent", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Result<List<GoodsCategory>> parent(HttpServletRequest request) {
-		return Result.successData(categoryService.listParent());
+		Long merchantId=TokenManager.getUserId();
+		return Result.successData(categoryService.listParent(merchantId));
 
 	}
 

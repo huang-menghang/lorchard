@@ -25,6 +25,7 @@
                <![CDATA[ and `c`.createTime < #{queryMap.endTime} ]]>
 		 	</if>
 		 	   and status = 0
+			   and merchantId=#{queryMap.merchantId}
 		</where>
 		ORDER BY t.sCort
 	</select>
@@ -37,12 +38,12 @@
 	   select
 	   `c`.id as `id`,`c`.name as name
 	   from `t_lorchard_mall_goods_category` as c
-	   where c.parentId = 0
+	   where c.parentId = 0 and merchantId=#{merchantId}
 	</select>
 	
 	<insert id="add" parameterType="com.ysdevelop.lorchard.merchant.entity.GoodsCategory">
-	   insert into `t_lorchard_mall_goods_category`(`name`,`imagePath`,`index`,`level`,`parentId`,`description`,`createTime`)
-	   values(#{name},#{imagePath},#{index},#{level},#{parentId},#{description},now())
+	   insert into `t_lorchard_mall_goods_category`(`merchantId`,`name`,`imagePath`,`index`,`level`,`parentId`,`description`,`createTime`)
+	   values(#{merchantId},#{name},#{imagePath},#{index},#{level},#{parentId},#{description},now())
 	</insert>
 	
 	<select id="getById" resultType="com.ysdevelop.lorchard.merchant.entity.GoodsCategory">

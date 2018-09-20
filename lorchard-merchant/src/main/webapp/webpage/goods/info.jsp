@@ -100,7 +100,7 @@ img {
 							<div class="layui-form-item">
 								<label class="layui-form-label">商品规格:</label>
 								<div class="layui-input-inline input-custom-width">
-									<input type="text" name="specificationsDescription"
+									<input type="text" name="parentId"
 										readonly="readonly" class="layui-input">
 								</div>
 							</div>
@@ -120,7 +120,12 @@ img {
 								</div>
 							</div>
 
-
+                             <div class="layui-form-item">
+						        <label class="layui-form-label">分类描述</label>
+						        <div class="layui-input-inline input-custom-width">
+							    <textarea name="description" class="layui-textarea" readonly="readonly"></textarea>
+						        </div>
+					         </div>
 							<!--其他信息  -->
 							<div class="layui-col-md9">
 								<div class="layui-col-md4" style="width: 12%; margin-right: 2%">其他信息:</div>

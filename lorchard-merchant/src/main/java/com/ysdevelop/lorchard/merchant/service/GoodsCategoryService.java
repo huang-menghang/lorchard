@@ -9,7 +9,7 @@ import com.ysdevelop.lorchard.merchant.entity.GoodsCategory;
 public interface GoodsCategoryService {
 	PageInfo<GoodsCategory> list(Map<String, String> queryMap);
 
-	List<GoodsCategory> listParent();
+	List<GoodsCategory> listParent(Long merchantId);
 
 	void add(GoodsCategory category);
 

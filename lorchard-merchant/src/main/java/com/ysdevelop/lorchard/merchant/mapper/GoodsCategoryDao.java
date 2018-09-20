@@ -13,7 +13,7 @@ public interface GoodsCategoryDao {
 
 	void callTreeProcedure(Integer rootId);
 
-	List<GoodsCategory> listParent();
+	List<GoodsCategory> listParent(Long merchantId);
 
 	Integer add(GoodsCategory category);
 
