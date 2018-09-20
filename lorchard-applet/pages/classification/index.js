@@ -72,11 +72,11 @@ Page({
       }
     }
     //获取商家logo
-    that.getShopLogo();
+    //that.getShopLogo();
     //获取温馨提示
-    that.getPrompt();
+    //that.getPrompt();
     //获取关于我们
-    that.getDelivery();
+    //that.getDelivery();
     if (!that.data.onLoadStatus) {
       that.showDialog('.onLoad-err')
     }

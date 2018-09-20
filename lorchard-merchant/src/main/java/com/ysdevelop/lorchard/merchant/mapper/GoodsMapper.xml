@@ -11,12 +11,11 @@
 		`g`.description as `description`,
 		`g`.createTime as`createTime`,
 	    `g`.sales as `sales`,
-	    `c`.id as parentId,
+		`g`.parentId as `parentId`,
 		`g`.recommend as `recommend`,
 		`s`.minPrice as `minPrice`,
 		`s`.originalPrice as `originalPrice`,
 		`s`.type as `type`,
-		`g`.parentId as `parentId`,
 		`c`.name as `parentCategoryName`
 		from
 		`t_lorchard_mall_goods` as `g`

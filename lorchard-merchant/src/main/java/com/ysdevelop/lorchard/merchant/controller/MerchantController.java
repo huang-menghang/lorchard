@@ -65,8 +65,10 @@ public class MerchantController {
 		// 生成图片验证码
 		BufferedImage image = producer.createImage(text);
 		// 保存到shiro session
-		System.out.println("sessionId-->" + TokenManager.getSession().getId());
+		System.out.println("控制方法中获取的sessionId-->" + TokenManager.getSession().getId());
 		TokenManager.getSession().setAttribute(Constant.KAPTCHA_SESSION_KEY, text);
+		System.out.println("控制方法中获取的session--->"+TokenManager.getSession());
+		System.out.println("控制方法中shiro保存的验证码--->"+TokenManager.getSession().getAttribute(Constant.KAPTCHA_SESSION_KEY));
 		ServletOutputStream out = response.getOutputStream();
 		ImageIO.write(image, "jpg", out);
 	}

@@ -5,9 +5,9 @@
 	<select id="getById"
 		resultType="com.ysdevelop.lorchard.api.entity.MerchantVo">
 		select 
-			`merchantId`,`name`,`shopPrompt`,`shopLogo`,`shopDelivery`
+			`merchantId`,`name`
 		from 
-			t_lorchard_mall_merchant
+			t_lorchard_mall_shop
 		where
 			`merchantId`=#{merchantId}
 	</select>

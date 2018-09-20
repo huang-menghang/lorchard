@@ -31,7 +31,7 @@ public interface ApiGoodsDao {
 	 * 
 	 * @return
 	 */
-	List<GoodsVo> list(@Param(value = "queryMap") Map<String, String> queryMap,Integer merchantId);
+	List<GoodsVo> list(@Param(value = "queryMap") Map<String, String> queryMap);
 	
 	/**
 	 * 获取指定商品
@@ -39,12 +39,6 @@ public interface ApiGoodsDao {
 	 * @return
 	 */
 	GoodsVo getById(Long id);
-	
-	/**
-	 * 执行数据库函数
-	 * @param rootId
-	 */
-	void callTreeProcedure(Integer rootId);
 	
 	/**
 	 * 获取所有商品图片

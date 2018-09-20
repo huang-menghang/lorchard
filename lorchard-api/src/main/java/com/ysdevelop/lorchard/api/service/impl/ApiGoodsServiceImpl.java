@@ -16,7 +16,6 @@ import com.ysdevelop.lorchard.api.mapper.ApiGoodsDao;
 import com.ysdevelop.lorchard.api.service.ApiGoodsService;
 import com.ysdevelop.lorchard.common.exception.WebServiceException;
 import com.ysdevelop.lorchard.common.result.CodeMsg;
-import com.ysdevelop.lorchard.common.utils.Constant;
 
 /**
  * 
@@ -53,9 +52,8 @@ public class ApiGoodsServiceImpl implements ApiGoodsService {
 		Integer integerPageSize = Integer.parseInt(pageSize);
 		Integer integerPageNum = Integer.parseInt(pageNum);
 		// 调用存储过程实现树形分类
-		apiGoodsDao.callTreeProcedure(Constant.DEFALULT_ZERO);
 		PageHelper.startPage(integerPageNum, integerPageSize, Boolean.TRUE);
-		List<GoodsVo> goods = apiGoodsDao.list(queryMap, Constant.DEFALULT_ONE);
+		List<GoodsVo> goods = apiGoodsDao.list(queryMap);
 		// 查询所有图片,并将他们放入对应的商品
 		List<PreviewImagesVo> listPreviewImage = apiGoodsDao.listPreviewImage();
 		for (GoodsVo good : goods) {
