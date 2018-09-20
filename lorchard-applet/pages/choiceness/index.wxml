@@ -41,9 +41,9 @@
       <swiper class="swiper_box" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" current="{{swiperCurrent}}" bindchange="swiperchange">
         <!--<block wx:for="{{banners}}" wx:key="id">-->
         <!--遍历轮播图-->
-        <swiper-item wx:for="{{banners}}" wx:key="id" style="overflow: visible;border-radius: 50%;">
+        <swiper-item wx:for="{{recommendGoodsShow}}" wx:key="id" style="overflow: visible;border-radius: 50%;">
           <!--轮播图动画-->
-          <image bindtap="tapBanner" data-id="{{item.goodId}}" src="{{item.imagePath}}" class="slide-image" style="-webkit-transform: scale({{ swiperCurrent == index ? 0.9 : 0.65 }}) translate({{ (swiperCurrent == index - 1 || swiperCurrent == index + 1) ? (swiperCurrent - index) * 30 : 0 }}%, 0); -webkit-transition: 0.6s;"
+          <image bindtap="tapBanner" data-id="{{item.id}}" src="{{item.previewImages[0].previewImagePath}}" class="slide-image" style="-webkit-transform: scale({{ swiperCurrent == index ? 0.9 : 0.65 }}) translate({{ (swiperCurrent == index - 1 || swiperCurrent == index + 1) ? (swiperCurrent - index) * 30 : 0 }}%, 0); -webkit-transition: 0.6s;"
             mode="aspectFill" />
         </swiper-item>
         <!--</block>-->

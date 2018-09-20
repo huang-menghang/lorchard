@@ -22,8 +22,9 @@ public interface ApiGoodsCategoryDao {
 	
 	/**
 	 * 获取所有顶级分类
+	 * @param merchantId 
 	 * @return
 	 */
-	List<GoodsCategoryVo> listParent();
+	List<GoodsCategoryVo> listParent(Long merchantId);
 	
 }

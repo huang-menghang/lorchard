@@ -7,7 +7,7 @@
 		select
 		`merchantId`,`memberId`,`availableScore`,`todayScore`,`totalDay`,`status`
 		from
-		t_lorchard_mall_merchant_membershipPoint
+		t_lorchard_mall_merchant_memberPoint
 		where
 		`memberId`=#{memberId} and `merchantId`=#{merchantId}
 	</select>
@@ -15,13 +15,13 @@
 	<insert id="add"
 		parameterType="com.ysdevelop.lorchard.api.entity.MemberPointVo">
 		insert into
-		t_lorchard_mall_merchant_membershipPoint(`merchantId`,`memberId`,`availableScore`,`todayScore`,`totalDay`,`status`,`createTime`)
+		t_lorchard_mall_merchant_memberPoint(`merchantId`,`memberId`,`availableScore`,`todayScore`,`totalDay`,`status`,`createTime`)
 		values(#{merchantId},#{memberId},#{availableScore},#{todayScore},#{totalDay},#{status},now())
 	</insert>
 
 	<update id="update"
 		parameterType="com.ysdevelop.lorchard.api.entity.MemberPointVo">
-		update `t_lorchard_mall_merchant_membershipPoint`
+		update `t_lorchard_mall_merchant_memberPoint`
 		 set `status` = 1,
 		`availableScore` = #{availableScore},
 		`todayScore` = #{todayScore},
@@ -32,7 +32,7 @@
 	</update>
 	
 	<update id="refreshPointStatus">
-		update `t_lorchard_mall_merchant_membershipPoint`
+		update `t_lorchard_mall_merchant_memberPoint`
 		 set `status` = 0
 		where
 		 status = 1

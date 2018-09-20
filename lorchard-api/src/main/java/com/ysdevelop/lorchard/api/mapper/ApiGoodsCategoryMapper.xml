@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ysdevelop.lorchard.api.mapper.ApiGoodsCategoryDao">
-	
-	<select id="callTreeProcedure" statementType="CALLABLE" >
-	   call showCategoryTreeNodes(#{rootId});
-	</select>
-	
+
 	<select id="listParent" resultType="com.ysdevelop.lorchard.api.entity.GoodsCategoryVo">
 	   select
-	   `c`.id as `id`,`c`.name as name
+	   `c`.id as `id`,`c`.merchantId as `merchantId`,`c`.name as name
 	   from `t_lorchard_mall_goods_category` as c
-	   where c.parentId = 0
+	   where c.parentId = 0 and c.merchantId = #{merchantId}
 	</select>
 	
 </mapper>

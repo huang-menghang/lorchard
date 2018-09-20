@@ -40,8 +40,8 @@ public class ApiGoodsCategoryController {
 	 * @return
 	 */
 	@RequestMapping(value = "/parent",method = RequestMethod.GET)
-	public Result<List<GoodsCategoryVo>> parent(HttpServletRequest request) {
-		return Result.successData(categoryService.listParent());
+	public Result<List<GoodsCategoryVo>> parent(Long merchantId) {
+		return Result.successData(categoryService.listParent(merchantId));
 
 	}
 

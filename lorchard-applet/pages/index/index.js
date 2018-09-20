@@ -59,9 +59,9 @@ Page({
         app.globalData.merchant = res.data
         //设置本地缓存mallName的值(data数据)
         if (res.code == 0) {
-         // wx.setStorageSync('mallName', res.data.name);
+         wx.setStorageSync('mallName', res.data.name);
           that.setData({
-            //mallName: res.data.name
+            mallName: res.data.name
           })
         }
       }
@@ -186,6 +186,7 @@ Page({
               url: api.MemberRegisterUrl,
               data: {
                 avatar: userinfo.avatarUrl,
+                merchantId: app.globalData.merchantId,
                 gender: userinfo.gender,
                 nicknameStr: userinfo.nickName,
                 openid: app.globalData.openid,

@@ -7,8 +7,9 @@
   function getCategories() {
     util.requestGet({
       url: api.ParentCategoryUrl,
-      data: {id: app.globalData.merchantId},
+      data: { merchantId: app.globalData.merchantId},
       success: function (res) {
+        console.log("获取的商品种类:", res.data)
         var categories = [];
         if (res.code == 0) {
           for (var i = 0; i < res.data.length; i++) {

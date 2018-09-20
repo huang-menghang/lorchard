@@ -22,7 +22,8 @@ public interface ApiGoodsCategoryService {
 	
 	/**
 	 * 获取顶级分类
+	 * @param merchantId 
 	 * @return
 	 */
-	List<GoodsCategoryVo> listParent();
+	List<GoodsCategoryVo> listParent(Long merchantId);
 }

@@ -30,9 +30,9 @@ public class ApiGoodsCategoryServiceImpl implements ApiGoodsCategoryService {
 	private ApiGoodsCategoryDao categoryDao;
 
 	@Override
-	public List<GoodsCategoryVo> listParent() {
+	public List<GoodsCategoryVo> listParent(Long merchantId) {
 
-		return categoryDao.listParent();
+		return categoryDao.listParent(merchantId);
 	}
 
 }

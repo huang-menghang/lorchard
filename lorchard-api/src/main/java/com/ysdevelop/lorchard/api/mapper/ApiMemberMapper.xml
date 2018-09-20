@@ -15,9 +15,9 @@
 	<insert id="addMemeber" parameterType="com.ysdevelop.lorchard.api.entity.MemberVo"
 		useGeneratedKeys="true" keyProperty="id">
 		insert into
-		`t_lorchard_mall_member`(`avatar`,`openid`,`nickname`,`gender`,`language`,`country`,`province`,`city`,`registerIp`,`createTime`)
+		`t_lorchard_mall_member`(`merchantId`,`avatar`,`openid`,`nickname`,`gender`,`language`,`country`,`province`,`city`,`registerIp`,`createTime`)
 		values
-		(#{avatar},#{openid},#{nickname},#{gender},#{language},#{country},#{province},#{city},#{registerIp},now())
+		(#{merchantId},#{avatar},#{openid},#{nickname},#{gender},#{language},#{country},#{province},#{city},#{registerIp},now())
 	</insert>
 	
 	<select id="getByMemberId" resultType="com.ysdevelop.lorchard.api.entity.MemberVo">

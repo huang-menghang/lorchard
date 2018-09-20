@@ -38,18 +38,15 @@
 		select
 		`g`.id as`id`,g.`name` AS `name`,
 		`g`.description as `description`,`g`.createTime as`createTime`,
-	    `g`.sales as `sales`,`t`.parentId as parentId,
+	    `g`.sales as `sales`,`g`.parentId as parentId,
 		`g`.recommend as `recommend`,`g`.stock as `stock`,
 		`s`.minPrice as `minPrice`,`s`.originalPrice as `originalPrice`,
-		`s`.type as `type`,`g`.categoryId as `categoryId`,
-		`s`.specificationsDescription as `specificationsDescription`,
-		`a`.name as`parentCategoryName`
+		`s`.type as `type`,`s`.specificationsDescription as `specificationsDescription`,
+		`c`.name as`parentCategoryName`
 		from
 		`t_lorchard_mall_goods` as `g`
-		left join `tmpLst` as t on `g`.categoryId = `t`.id
-		LEFT JOIN `t_lorchard_mall_goods_category` as `c` on `c`.id =`g`.categoryId
-		left join `t_lorchard_mall_goods_category` as `a` on  `a`.id=`c`.parentId
-		left join `t_lorchard_mall_goods_specifications` as `s` on `s`.goodsId=`g`.id
+		LEFT JOIN `t_lorchard_mall_goods_category` as `c` on `c`.id =`g`.parentId
+		LEFT JOIN `t_lorchard_mall_goods_specifications` as `s` on `s`.goodsId=`g`.id
 		where
 		    g.status = 0
 		 	and g.id=#{id}
@@ -63,6 +60,8 @@
 		`p`.goodsId as `goodsId`,
 		`p`.createTime as `createTime`
 		from `t_lorchard_mall_goods_previewImage` as `p`
+		where
+		`p`.status = 0
 	</select>
 	
 	<!-- 查询单个商品的所有轮播图 -->
@@ -72,7 +71,7 @@
 		`p`.goodsId as `goodsId`,
 		`p`.createTime as `createTime`
 		from `t_lorchard_mall_goods_previewImage` as `p`
-		where  `p`.goodsId=#{id}
+		where  `p`.goodsId=#{id} and `p`.status = 0
 	</select>
 	
 </mapper>
