@@ -50,7 +50,11 @@ public class Finance {
 	 * 订单佣金
 	 * */
 	private Double commission;
-	
+	/**
+	 * 订单佣金比例
+	 * */
+	private Double commissionRate;
+
 	/**
 	 * 商家总佣金
 	 * */
@@ -150,6 +154,14 @@ public class Finance {
 
 	public void setOrderPendingBalance(Double orderPendingBalance) {
 		this.orderPendingBalance = orderPendingBalance;
+	}
+	
+	public Double getCommissionRate() {
+		return commissionRate;
+	}
+
+	public void setCommissionRate(Double commissionRate) {
+		this.commissionRate = commissionRate;
 	}
 
 	public Double getTotalAmount() {

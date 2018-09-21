@@ -62,7 +62,7 @@ public class ShopServiceImpl implements ShopService {
 		}
 		// 生成商家二维码
 		this.createMerchantQr(merchantId, shop);
-
+        shop.setMerchantId(merchantId);
 		Integer changCount = shopDao.addShop(shop);
 		if (changCount == Constant.DEFALULT_ZERO) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);

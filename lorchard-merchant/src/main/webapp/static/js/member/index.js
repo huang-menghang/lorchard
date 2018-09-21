@@ -19,9 +19,9 @@ var member_index_ops ={
 						    {field: 'nicknameStr', title: '昵称', align: 'center',width:'15%'},
 						    {field: 'gender', title: '性别',templet: '#gender' ,align: 'center', width:'10%'},
 							{field: 'mobile',title: '手机号',align: 'center',width:'15%'},
-							{field: 'province',title: '省',templet: '#province_ch',align: 'center',width:'12%'},
-						    {field: 'city',title: '市',templet: '#city_ch',align: 'center',width:'12%'},
-						    {field: 'createTime',title: '创建时间',templet: '#date_formate',align: 'center',width:'15%'},
+							{field: 'province',title: '省',templet: '#province_ch',align: 'center',width:'13%'},
+						    {field: 'city',title: '市',templet: '#city_ch',align: 'center',width:'13%'},
+						    {field: 'createTime',title: '创建时间',templet: '#date_formate',align: 'center',width:'16%'},
 							{fixed: 'right', title: '操作', width: '20%',height: 40, align: 'center', templet: '#barOption'}
 						   ]],
 					  url: WEB_ROOT + "/member/pagination",

@@ -86,7 +86,7 @@ margin-right: 2%;
 								<label class="layui-form-label"><span
 									class="x-red">*</span>店铺名称：</label>
 								<div class="layui-input-inline input-custom-width">
-									<input type="text" name="name" required="true" value="" diyRule="^[\\u4E00-\\u9FA5A-Za-z0-9_]+$" diyCheck="不能有特殊字符"
+									<input type="text" name="name" required="true" value="" diyRule="^[\u4E00-\u9FA5A-Za-z0-9_]+$" diyCheck="不能有特殊字符"
 										autocomplete="off" placeholder="" class="layui-input"
 										lay-verType="alert">
 								</div>
@@ -125,7 +125,7 @@ margin-right: 2%;
 								<label class="layui-form-label"><span class="x-red">*</span>详细地址：</label>
 								<div class="layui-input-inline input-custom-width">
 									<input type="text" name="detailAddress" required="true"
-										 value="" autocomplete="off" diyRule="^[\\u4E00-\\u9FA5A-Za-z0-9_]+$" diyCheck="不能有特殊字符"
+										 value="" autocomplete="off" diyRule="^[\u4E00-\u9FA5A-Za-z0-9_]+$" diyCheck="不能有特殊字符"
 										placeholder="" class="layui-input" lay-verType="alert" style="width: 350px">
 								</div>
 							</div>

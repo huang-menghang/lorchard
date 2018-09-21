@@ -117,7 +117,7 @@ public class OrderServiceImpl implements OrderService, Observer, InitializingBea
 		if (id == null) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
-		if (orderStatus == 1) {
+		if (orderStatus == ApiConstant.DEFALULT_ONE) {
 			orderDao.update(id);
 			List<OrderItem> orderItemById = orderDao.getOrderItemById(id);
 			List<Goods> stockAndSales = orderDao.getStockAndSales(orderItemById);
@@ -156,7 +156,7 @@ public class OrderServiceImpl implements OrderService, Observer, InitializingBea
 		if (order.getId() == null) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
-		if (order.getOrderStatus() == 2) {
+		if (order.getOrderStatus() == ApiConstant.DEFALULT_TWO) {
 			financeService.addFinance(order);
 			orderDao.updateStatus(order);
 		} else {
