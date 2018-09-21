@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ysdevelop.lorchard.api.entity.MemberPointVo;
 import com.ysdevelop.lorchard.api.service.ApiMemberPointService;
-import com.ysdevelop.lorchard.api.util.ApiConstant;
 import com.ysdevelop.lorchard.common.result.Result;
+import com.ysdevelop.lorchard.common.utils.ApiConstant;
 
 /**
  * 

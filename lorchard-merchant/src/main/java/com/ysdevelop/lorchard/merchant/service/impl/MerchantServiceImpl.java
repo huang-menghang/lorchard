@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ysdevelop.lorchard.common.exception.WebServiceException;
 import com.ysdevelop.lorchard.common.result.CodeMsg;
+import com.ysdevelop.lorchard.common.utils.ApiConstant;
 import com.ysdevelop.lorchard.common.utils.Constant;
 import com.ysdevelop.lorchard.merchant.entity.Merchant;
 import com.ysdevelop.lorchard.merchant.mapper.MerchantDao;
@@ -67,21 +68,12 @@ public class MerchantServiceImpl implements UserService {
 	@Override
 	public void login(LoginVo loginVo) {
 		// 校验二维码
-		System.out.println("登录的验证码--->"+loginVo.getVerifyCode());
-		System.out.println("登录方法中获取的session--->"+TokenManager.getSession());
-		System.out.println("控制方法中获取的sessionId-->" + TokenManager.getSession().getId());
-		System.out.println("登录方法中shiro保存的验证码--->"+TokenManager.getSession().getAttribute(Constant.KAPTCHA_SESSION_KEY));
 		if (!loginVo.getVerifyCode().equals(TokenManager.getSession().getAttribute(Constant.KAPTCHA_SESSION_KEY))) {
 			throw new WebServiceException(CodeMsg.MERCHANT_VERIFYCODE_WRONG);
 		}
 		TokenManager.login(loginVo);
 		BaseAuth baseAuth = TokenManager.getToken();
-		System.out.println();
-		System.out.println("loginName--->"+baseAuth.getLoginName());
-		System.out.println("status--->"+baseAuth.getStatus());
-		System.out.println("Constant--->"+Constant.DEFALULT_ONE);
-		System.out.println("1=1--->"+(baseAuth.getStatus() == Constant.DEFALULT_ONE));
-		if (baseAuth.getStatus() == Constant.DEFALULT_ONE) {
+		if (baseAuth.getStatus() == ApiConstant.DEFALULT_ONE) {
 			throw new WebServiceException(CodeMsg.MERCHANT_UNOPEN);
 		}
 

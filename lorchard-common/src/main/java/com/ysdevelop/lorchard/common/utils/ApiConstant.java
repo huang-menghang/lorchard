@@ -1,4 +1,4 @@
-package com.ysdevelop.lorchard.api.util;
+package com.ysdevelop.lorchard.common.utils;
 
 /**
  * 
@@ -37,7 +37,11 @@ public class ApiConstant {
 	
 	public static final int DEFALULT_FIVE = 5;
 	
-	public static final String STATUS_FIVE = "已完成";
+	public static final String STATUS_FIVE = "商家已完成";
+	
+	public static final int DEFALULT_SIX = 6;
+	
+	public static final String STATUS_SIX = "客户已完成";
 	
 	public static final String FAIL = "FAIL";
 	

@@ -51,7 +51,7 @@ Page({
   makePhoneCall: function() {
     var that = this;
     wx.makePhoneCall({
-      phoneNumber: "800-100-6000",
+      phoneNumber: "10086",
       success: function(res) {},
       fail: function(res) {
         wx.showModal({

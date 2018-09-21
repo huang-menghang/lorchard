@@ -37,11 +37,11 @@ import com.ysdevelop.lorchard.api.mapper.ApiOrderItemDao;
 import com.ysdevelop.lorchard.api.service.ApiMemberService;
 import com.ysdevelop.lorchard.api.service.ApiOrderItemService;
 import com.ysdevelop.lorchard.api.service.ApiOrderService;
-import com.ysdevelop.lorchard.api.util.ApiConstant;
 import com.ysdevelop.lorchard.api.util.WechatRefundApiResult;
 import com.ysdevelop.lorchard.common.exception.WebServiceException;
 import com.ysdevelop.lorchard.common.redis.RedisService;
 import com.ysdevelop.lorchard.common.result.CodeMsg;
+import com.ysdevelop.lorchard.common.utils.ApiConstant;
 import com.ysdevelop.lorchard.common.utils.Constant;
 import com.ysdevelop.lorchard.common.utils.NumberArithmeticUtils;
 import com.ysdevelop.lorchard.common.utils.OrderNumberGeneratorUtil;
@@ -109,7 +109,7 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public String createOrder(OrderVo order) {
-		if (order.getOrderItems() == null || order.getOrderItems().size() == Constant.DEFALULT_ZERO) {
+		if (order.getOrderItems() == null || order.getOrderItems().size() == ApiConstant.DEFALULT_ZERO) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
 
@@ -120,12 +120,12 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 		order.setOrderStatus(Constant.OrderType.UNPAYMENYT.getIndex());
 		order.setOrderTotalPrice(getTotalPrice(order.getOrderItems()));
 		Integer changeCount = orderDao.add(order);
-		if (changeCount == Constant.DEFALULT_ZERO) {
+		if (changeCount == ApiConstant.DEFALULT_ZERO) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
 		setItemOrderNo(order.getOrderItems(), orderNo);
 		changeCount = orderItemService.batchInsert(order.getOrderItems());
-		if (changeCount == Constant.DEFALULT_ZERO) {
+		if (changeCount == ApiConstant.DEFALULT_ZERO) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
 
@@ -229,10 +229,10 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 	@Override
 	public void updateStatusByOrderNo(String orderNo,Integer status) {
 		Integer count = orderDao.updateStatusByOrderNo(orderNo,status);
-		if (count == Constant.DEFALULT_ZERO) {
+		if (count == ApiConstant.DEFALULT_ZERO) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
-		if(status == ApiConstant.DEFALULT_FIVE){
+		if(status == ApiConstant.DEFALULT_SIX){
 			sendMessage(orderNo, MessageType.FINISHED);
 		}
 	}
@@ -271,7 +271,7 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 		// 重新确认下订单
 		if (order.getOrderStatus() == Constant.OrderType.UNPAYMENYT.getIndex()) {
 			List<OrderItemVo> orderItems = order.getOrderItems();
-			if (orderItems == null || orderItems.size() == Constant.DEFALULT_ZERO) {
+			if (orderItems == null || orderItems.size() == ApiConstant.DEFALULT_ZERO) {
 				throw new WebServiceException(CodeMsg.SERVER_ERROR);
 			}
 			orderRequest.setBody(generateGoodsInfo(orderItems));

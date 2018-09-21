@@ -9,7 +9,7 @@ import com.ysdevelop.lorchard.api.mapper.ApiMerchantFeedbackDao;
 import com.ysdevelop.lorchard.api.service.ApiMerchantFeedbackService;
 import com.ysdevelop.lorchard.common.exception.WebServiceException;
 import com.ysdevelop.lorchard.common.result.CodeMsg;
-import com.ysdevelop.lorchard.common.utils.Constant;
+import com.ysdevelop.lorchard.common.utils.ApiConstant;
 
 /**
  * 
@@ -37,7 +37,7 @@ public class ApiMerchantFeedbackServiceImpl implements ApiMerchantFeedbackServic
 		}
 
 		Integer changeCount = merchantFeedbackDao.add(merchantFeedback);
-		if (changeCount == Constant.DEFALULT_ZERO) {
+		if (changeCount == ApiConstant.DEFALULT_ZERO) {
 			throw new WebServiceException(CodeMsg.CATEGORY_ADD_FAILED);
 		}
 	}

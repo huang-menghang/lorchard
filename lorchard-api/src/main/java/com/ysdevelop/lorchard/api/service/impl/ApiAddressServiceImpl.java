@@ -11,7 +11,7 @@ import com.ysdevelop.lorchard.api.mapper.ApiAddressDao;
 import com.ysdevelop.lorchard.api.service.ApiAddressService;
 import com.ysdevelop.lorchard.common.exception.WebServiceException;
 import com.ysdevelop.lorchard.common.result.CodeMsg;
-import com.ysdevelop.lorchard.common.utils.Constant;
+import com.ysdevelop.lorchard.common.utils.ApiConstant;
 
 /**
  * 
@@ -37,8 +37,7 @@ public class ApiAddressServiceImpl implements ApiAddressService {
 	@Override
 	public void addAddress(AddressVo address) {
 		apiAddressDao.addAddress(address);
-		System.out.println("address--->" + address.getId());
-		if (address.getState() == Constant.YESNO.YES.getValue()) {
+		if (address.getState() == ApiConstant.DEFALULT_ZERO) {
 			apiAddressDao.editState(address);
 		}
 	}
@@ -70,8 +69,7 @@ public class ApiAddressServiceImpl implements ApiAddressService {
 	@Override
 	public void editAddress(AddressVo address) {
 		apiAddressDao.editAddress(address);
-		System.out.println("address--->" + address.getId());
-		if (address.getState() == Constant.YESNO.YES.getValue()) {
+		if (address.getState() == ApiConstant.DEFALULT_ZERO) {
 			apiAddressDao.editState(address);
 		}
 	}

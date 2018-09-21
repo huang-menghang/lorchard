@@ -18,10 +18,10 @@ import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
 import com.github.pagehelper.PageInfo;
 import com.ysdevelop.lorchard.api.entity.OrderVo;
 import com.ysdevelop.lorchard.api.service.ApiOrderService;
-import com.ysdevelop.lorchard.api.util.ApiConstant;
 import com.ysdevelop.lorchard.api.util.WechatRefundApiResult;
 import com.ysdevelop.lorchard.common.annotation.SystemControllerLog;
 import com.ysdevelop.lorchard.common.result.Result;
+import com.ysdevelop.lorchard.common.utils.ApiConstant;
 import com.ysdevelop.lorchard.common.utils.Constant;
 import com.ysdevelop.lorchard.common.utils.HttpUtils;
 import com.ysdevelop.lorchard.common.utils.XmlUtil;
@@ -173,7 +173,7 @@ public class ApiOrderController {
 	@SystemControllerLog(description="用户已确定收货",orderType=Constant.OrderType.FINISHED)
 	@RequestMapping(value = "/confirmOrder", method = RequestMethod.GET)
 	public Result<String> confirmOrder(String orderNo, HttpServletRequest request) {
-		orderService.updateStatusByOrderNo(orderNo, ApiConstant.DEFALULT_FIVE);
+		orderService.updateStatusByOrderNo(orderNo, ApiConstant.DEFALULT_SIX);
 		return Result.successData("确定收货成功");
 	}
 }

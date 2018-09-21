@@ -16,8 +16,8 @@ import com.ysdevelop.lorchard.api.entity.SystemAccessLogVo;
 import com.ysdevelop.lorchard.api.service.ApiOrderLogService;
 import com.ysdevelop.lorchard.api.service.ApiOrderService;
 import com.ysdevelop.lorchard.api.service.ApiSystemAccessLogService;
-import com.ysdevelop.lorchard.api.util.ApiConstant;
 import com.ysdevelop.lorchard.common.annotation.SystemControllerLog;
+import com.ysdevelop.lorchard.common.utils.ApiConstant;
 import com.ysdevelop.lorchard.common.utils.Constant;
 import com.ysdevelop.lorchard.common.utils.HttpUtils;
 

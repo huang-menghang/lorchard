@@ -11,6 +11,7 @@ import com.ysdevelop.lorchard.api.mapper.ApiOrderItemDao;
 import com.ysdevelop.lorchard.api.service.ApiOrderItemService;
 import com.ysdevelop.lorchard.common.exception.WebServiceException;
 import com.ysdevelop.lorchard.common.result.CodeMsg;
+import com.ysdevelop.lorchard.common.utils.ApiConstant;
 
 /**
  * 
@@ -35,7 +36,7 @@ public class ApiOrderItemServiceImpl implements ApiOrderItemService {
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Integer batchInsert(List<OrderItemVo> orderItems) {
-		if (orderItems == null || orderItems.size() == 0) {
+		if (orderItems == null || orderItems.size() == ApiConstant.DEFALULT_ZERO) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
 		return itemDao.batchInsert(orderItems);

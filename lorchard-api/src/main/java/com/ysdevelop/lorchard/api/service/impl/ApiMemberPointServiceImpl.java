@@ -9,7 +9,7 @@ import com.ysdevelop.lorchard.api.mapper.ApiMemberPointDao;
 import com.ysdevelop.lorchard.api.service.ApiMemberPointService;
 import com.ysdevelop.lorchard.common.exception.WebServiceException;
 import com.ysdevelop.lorchard.common.result.CodeMsg;
-import com.ysdevelop.lorchard.common.utils.Constant;
+import com.ysdevelop.lorchard.common.utils.ApiConstant;
 
 /**
  * 
@@ -37,7 +37,7 @@ public class ApiMemberPointServiceImpl implements ApiMemberPointService{
 			memberPointVo = memberPoint;
 			memberPointVo.setStatus(0);
 			Integer changeCount = memberPointDao.add(memberPointVo);
-			if (changeCount == Constant.DEFALULT_ZERO) {
+			if (changeCount == ApiConstant.DEFALULT_ZERO) {
 				throw new WebServiceException(CodeMsg.CATEGORY_ADD_FAILED);
 			}
 		}
@@ -52,13 +52,13 @@ public class ApiMemberPointServiceImpl implements ApiMemberPointService{
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
 		
-		if(memberPoint.getStatus() == Constant.DEFALULT_ZERO) {
+		if(memberPoint.getStatus() == ApiConstant.DEFALULT_ZERO) {
 			long availableScore=memberPoint.getAvailableScore()+memberPoint.getTodayScore();
 			long totalDay=memberPoint.getTotalDay()+1;
 			memberPoint.setAvailableScore(availableScore);
 			memberPoint.setTotalDay(totalDay);
 			Integer changeCount = memberPointDao.update(memberPoint);
-			if (changeCount == Constant.DEFALULT_ZERO) {
+			if (changeCount == ApiConstant.DEFALULT_ZERO) {
 				throw new WebServiceException(CodeMsg.CATEGORY_UPDATE_ERROR);
 			}
 		}else{
