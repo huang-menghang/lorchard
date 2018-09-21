@@ -173,7 +173,7 @@ public class ApiOrderController {
 	@SystemControllerLog(description="用户已确定收货",orderType=Constant.OrderType.FINISHED)
 	@RequestMapping(value = "/confirmOrder", method = RequestMethod.GET)
 	public Result<String> confirmOrder(String orderNo, HttpServletRequest request) {
-		orderService.updateStatusByOrderNo(orderNo, ApiConstant.DEFALULT_SIX);
+		orderService.updateStatusByOrderNo(orderNo, ApiConstant.DEFALULT_FIVE);
 		return Result.successData("确定收货成功");
 	}
 }

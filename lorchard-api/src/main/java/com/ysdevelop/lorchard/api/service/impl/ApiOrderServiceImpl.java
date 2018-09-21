@@ -232,7 +232,7 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 		if (count == ApiConstant.DEFALULT_ZERO) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
-		if(status == ApiConstant.DEFALULT_SIX){
+		if(status == ApiConstant.DEFALULT_FIVE){
 			sendMessage(orderNo, MessageType.FINISHED);
 		}
 	}
