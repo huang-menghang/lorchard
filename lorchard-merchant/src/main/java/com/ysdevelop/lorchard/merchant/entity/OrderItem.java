@@ -69,7 +69,7 @@ public class OrderItem {
 	/**
 	 * 同一商品的商品数
 	 * */
-	private Integer itemNum;
+	private Long itemNum;
 	
 	/**
 	 * 同一商品的价格和=同一商品商品数*商品价格
@@ -92,7 +92,44 @@ public class OrderItem {
 	 * */
 	private String goodsType;
 	
+	/**
+	 * 商品库存
+	 * */
+	private Long stock;
 	
+	/**
+	 * 商品销量
+	 * */
+	private Long sales;
+	
+	
+	
+	
+
+	public Long getItemNum() {
+		return itemNum;
+	}
+
+	public void setItemNum(Long itemNum) {
+		this.itemNum = itemNum;
+	}
+
+	public Long getStock() {
+		return stock;
+	}
+
+	public void setStock(Long stock) {
+		this.stock = stock;
+	}
+
+	public Long getSales() {
+		return sales;
+	}
+
+	public void setSales(Long sales) {
+		this.sales = sales;
+	}
+
 	public String getGoodsType() {
 		return goodsType;
 	}
@@ -179,14 +216,6 @@ public class OrderItem {
 
 	public void setParentCategoryName(String parentCategoryName) {
 		this.parentCategoryName = parentCategoryName;
-	}
-
-	public Integer getItemNum() {
-		return itemNum;
-	}
-
-	public void setItemNum(Integer itemNum) {
-		this.itemNum = itemNum;
 	}
 
 	public Double getItemPrice() {

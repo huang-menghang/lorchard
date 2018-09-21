@@ -94,6 +94,7 @@
 	<!--查询订单下的商品-->
 	<select id="listOrderItems" resultType="com.ysdevelop.lorchard.merchant.entity.OrderItem">
 	select
+	`i`.id as `id`,
 	`i`.goodsName  as  `goodsName`,
 	`i`.goodsPrice  as  `goodsPrice`,
 	`i`.itemNum  as  `itemNum`,
@@ -145,4 +146,46 @@
 		where
 		`id`=#{id}
 	</update>
+	
+	<!-- 通过订单id查询订单商品-->
+	<select id="getOrderItemById" resultType="com.ysdevelop.lorchard.merchant.entity.OrderItem">
+		select 
+			`i`.id as `id`,
+			`i`.goodsName  as  `goodsName`,
+			`i`.goodsPrice  as  `goodsPrice`,
+			`i`.itemNum  as  `itemNum`,
+			`i`.itemPrice  as  `itemPrice`,
+			`i`.goodsType as `goodsType`,
+			`i`.goodsId as `goodsId`
+		from
+			`t_lorchard_mall_goods_order_item` as `i`
+		where `i`.orderNo=
+		(select
+			`o`.orderNo as `orderNo`
+		from
+			`t_lorchard_mall_goods_order` as `o`
+		where `o`.id=#{id})
+	</select>
+	
+	
+	<!-- 通过商品id修改商品的库存和销量 -->
+	<update id="updateStockAndSales" parameterType="com.ysdevelop.lorchard.merchant.entity.OrderItem">
+  		<foreach collection="OrderItem" item="OrderItem" index="index" open="" close="" separator=";">
+  			update `t_lorchard_mall_goods` as `g`
+			set `g`.stock = (#{OrderItem.stock}-#{OrderItem.itemNum} ) ,`g`.sales = (#{OrderItem.sales}+#{OrderItem.itemNum} )
+			where `g`.id=#{OrderItem.goodsId}
+      	</foreach> 
+  	</update>
+  
+  	<!-- 通过goodsId获取商品的库存金额销量 -->
+  	<select id="getStockAndSales" resultType="com.ysdevelop.lorchard.merchant.entity.Goods">
+  		select 
+  		`g`.stock as `stock`,
+  		`g`.sales as `sales`
+  		from `t_lorchard_mall_goods` as `g`
+  		where `g`.id IN
+  		<foreach collection ="orderItem" item="orderItem" index= "index" open="(" separator="," close=")">
+            #{orderItem.goodsId}
+        </foreach >
+  	</select>
 </mapper>

@@ -16,6 +16,8 @@ import com.ysdevelop.lorchard.common.exception.WebServiceException;
 import com.ysdevelop.lorchard.common.observer.Observer;
 import com.ysdevelop.lorchard.common.observer.Subject;
 import com.ysdevelop.lorchard.common.result.CodeMsg;
+import com.ysdevelop.lorchard.common.utils.ApiConstant;
+import com.ysdevelop.lorchard.merchant.entity.Goods;
 import com.ysdevelop.lorchard.merchant.entity.Order;
 import com.ysdevelop.lorchard.merchant.entity.OrderItem;
 import com.ysdevelop.lorchard.merchant.mapper.OrderDao;
@@ -117,6 +119,18 @@ public class OrderServiceImpl implements OrderService, Observer, InitializingBea
 		}
 		if (orderStatus == 1) {
 			orderDao.update(id);
+			List<OrderItem> orderItemById = orderDao.getOrderItemById(id);
+			List<Goods> stockAndSales = orderDao.getStockAndSales(orderItemById);
+			for (OrderItem orderItem : orderItemById) {
+				for (Goods goods : stockAndSales) {
+					orderItem.setStock(goods.getStock());
+					orderItem.setSales(goods.getSales());
+				}
+			}
+			Integer updateStockAndSales = orderDao.updateStockAndSales(orderItemById);
+			if(updateStockAndSales== ApiConstant.DEFALULT_ZERO) {
+				throw new WebServiceException(CodeMsg.DELIVER_ERROR);
+			}
 		} else {
 			throw new WebServiceException(CodeMsg.ISNOT_PENDINGDELIVERY);
 		}

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.ysdevelop.lorchard.merchant.entity.Goods;
 import com.ysdevelop.lorchard.merchant.entity.Order;
 import com.ysdevelop.lorchard.merchant.entity.OrderItem;
 
@@ -97,6 +98,30 @@ public interface OrderDao {
 	 * */
 	Integer completeFinance(Order order);
 	
+	/**
+	 * 通过id来获取订单商品
+	 * 
+	 * @param id 订单id
+	 * 
+	 * @return 返回订单商品集合
+	 * */
+	List<OrderItem> getOrderItemById(Integer id);
 	
-
+	/**
+	 * 通过商品id获取商品的库存和销量
+	 * 
+	 * @param 订单商品集合
+	 * 
+	 * @return 商品集合
+	 * */
+	List<Goods> getStockAndSales(@Param("orderItem")List<OrderItem> orderItemById);
+	
+	/**
+	 * 修改goods表的库存和销量
+	 * 
+	 * @param 订单商品集合
+	 * 
+	 * @return 判断是否修改成功
+	 * */
+	Integer updateStockAndSales(@Param("OrderItem")List<OrderItem> orderItemById);
 }
