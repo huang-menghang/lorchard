@@ -70,6 +70,7 @@ Page({
               orderList: orderListByStatus
             })
           }
+
           that.setData({
             loadingStatus: false,
             orderList: orderList

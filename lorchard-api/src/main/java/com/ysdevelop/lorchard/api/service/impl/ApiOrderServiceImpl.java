@@ -34,6 +34,7 @@ import com.ysdevelop.lorchard.api.entity.PreviewImagesVo;
 import com.ysdevelop.lorchard.api.mapper.ApiGoodsDao;
 import com.ysdevelop.lorchard.api.mapper.ApiOrderDao;
 import com.ysdevelop.lorchard.api.mapper.ApiOrderItemDao;
+import com.ysdevelop.lorchard.api.service.ApiFinanceService;
 import com.ysdevelop.lorchard.api.service.ApiMemberService;
 import com.ysdevelop.lorchard.api.service.ApiOrderItemService;
 import com.ysdevelop.lorchard.api.service.ApiOrderService;
@@ -74,7 +75,10 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 
 	@Autowired
 	private ApiMemberService memberService;
-
+	
+	@Autowired
+	private ApiFinanceService financeService;
+	
 	@Autowired
 	private ApiOrderItemDao orderItemDao;
 
@@ -233,6 +237,8 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
 		if(status == ApiConstant.DEFALULT_FIVE){
+			OrderVo order = orderDao.getOrderByNo(orderNo);
+			financeService.addFinance(order);
 			sendMessage(orderNo, MessageType.FINISHED);
 		}
 	}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysdevelop.lorchard.merchant.mapper.FinanceDao">
+	<!--查询财务表中的数据 -->
+	<select id="getFinance"
+		resultType="com.ysdevelop.lorchard.merchant.entity.Finance">
+		select
+		`f`.id as `id`,
+		`f`.status as `status`,
+		`f`.orderNo as `orderNo`,
+		`f`.account as `account`,
+		`f`.balance as `balance`,
+		`f`.memberId as `memberId`,
+		`f`.commission as `commission`,
+		`f`.totalCommission as `totalCommission`,
+		`f`.withdrawalId as `withdrawalId`,
+		`f`.createTime as `createTime`
+		from
+		`t_lorchard_mall_finance` as `f`
+		where
+		`f`. merchantId =#{merchantId}
+		order by `id` desc limit 1
+	</select>
+
+	<!-- 订单完成向财务表中插数据 -->
+	<insert id="insertFinance"
+		parameterType="com.ysdevelop.lorchard.merchant.entity.Finance"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into
+		t_lorchard_mall_finance(`orderId`,`status`,`merchantId`,`orderNo`,`account`,`balance`,`memberId`,`commission`,`totalCommission`,`createTime`)
+		values(#{orderId},#{status},#{merchantId},#{orderNo},#{account},#{balance},#{memberId},#{commission},#{totalCommission},now())
+	</insert>
+</mapper>
