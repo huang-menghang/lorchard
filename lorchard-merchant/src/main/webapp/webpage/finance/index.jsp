@@ -45,9 +45,7 @@ p {
 	width: 80%;
 }
 
-span {
-	color: #c2c2c2;
-}
+
 
 .layui-col-sm4 {
 	border-right: 1px solid #000;
@@ -89,7 +87,7 @@ span {
 						<div class="layui-col-sm4">
 							<div class="layui-block">
 								<p class="layui-title">
-									总计收入： <span>（截止到今天0点）</span>
+									总计收入：
 								</p>
 							</div>
 							<div class="layui-block">

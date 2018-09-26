@@ -19,11 +19,13 @@
 		<div class="am-fr tpl-header-navbar">
 			<ul>
 				<!-- 欢迎语 -->
-				<li class="am-text-sm tpl-header-navbar-welcome"><a
-					href="<?= url('store.user/renew') ?>">欢迎你，<span>老黄</span>
-				</a></li>
+				<li class="am-text-sm" >
+				<a href="<%=basePath%>/set?title=setIndex">
+				欢迎您,<span class="shopName"></span>
+				</a>
+				</li>
 				<!-- 退出 -->
-				<li class="am-text-sm"><a href="<?= url('passport/logout') ?>">
+				<li class="am-text-sm"><a href="<%=basePath%>/index/logout?title=logout" class="">
 						<i class="iconfont">&#xe60b;</i> 退出
 				</a></li>
 			</ul>
@@ -141,6 +143,7 @@
 		</li>
 	</ul>
 
-
-
 </div>
+
+<script>WEB_ROOT="<%=basePath%>"</script>
+<script type="text/javascript" src="<%=basePath%>/static/js/common/shopName.js"></script>

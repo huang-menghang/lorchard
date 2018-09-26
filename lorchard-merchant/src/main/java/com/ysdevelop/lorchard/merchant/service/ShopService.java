@@ -20,5 +20,11 @@ public interface ShopService {
 	
 	/** 测试mq*/
 	void testMq();
+	/**
+     * 获得运营人姓名
+     * @param userId
+     * @return
+     */
+	Shop getOperatorName(Long userId);
 
 }

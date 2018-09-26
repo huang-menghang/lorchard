@@ -81,7 +81,7 @@ td .layui-table-cell{
     <script id="gender" type="text/html">
     {{#  
     console.log(d.gender);
-    return (d.gender == 0 ? "男":"女"); 
+    return (d.gender == 0 ? "女":"男"); 
     }} 
     </script>
     <script type="text/html" id="province_ch">

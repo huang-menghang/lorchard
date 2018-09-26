@@ -65,7 +65,7 @@ public class SetController {
 	@ResponseBody
 	public Result<String> update(@Valid Shop shop) {
 		setService.update(shop);
-		return Result.success("商品修改成功");
+		return Result.success("商城信息修改成功");
 	}
 	
 

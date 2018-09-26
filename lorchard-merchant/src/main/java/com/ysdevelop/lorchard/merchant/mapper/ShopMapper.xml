@@ -2,9 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ysdevelop.lorchard.merchant.mapper.ShopDao">
 
-	<insert id="addShop" parameterType="com.ysdevelop.lorchard.merchant.entity.Shop">
-	   insert into `t_lorchard_mall_shop`(`name`,`merchantId`,`province`,`city`,`town`,`detailAddress`,`description`,`operatorName`,`merchantQr`,`mobile`,`qq`,`wechatNo`,`email`,`createTime`)
-	   values(#{name},#{merchantId},#{province},#{city},#{town},#{detailAddress},#{description},#{operatorName},#{merchantQr},#{mobile},#{qq},#{wechatNo},#{email},now())
+	
+	
+	<insert id="addShop" parameterType="com.ysdevelop.lorchard.merchant.entity.Shop" useGeneratedKeys="true" keyProperty="id">
+	   insert into t_lorchard_mall_shop(`merchantId`,`name`,`province`,`city`,`town`,`detailAddress`,`description`,`operatorName`,`mobile`,`qq`,`wechatNo`,`email`)
+	   values(#{merchantId},#{name},#{province},#{city},#{town},#{detailAddress},#{description},#{operatorName},#{mobile},#{qq},#{wechatNo},#{email})
 	</insert>
-
+		
+	<!--查询运营人信息-->
+	<select id="getOperatorName" resultType="com.ysdevelop.lorchard.merchant.entity.Shop">
+	   select
+	   s.`operatorName`
+	   from
+	   `t_lorchard_mall_shop` as s
+	   where s.`merchantId` = #{userId}
+	</select>
 </mapper>

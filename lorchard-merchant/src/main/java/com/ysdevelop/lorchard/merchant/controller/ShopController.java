@@ -85,8 +85,20 @@ public class ShopController {
 		}
 		return Result.successData(shopFlowService.yesterdayStat(TokenManager.getUserId()));
 	}
-	
-	
+	/**
+	 * 获得运营人名称
+	 * 
+	 * @return 运营人姓名
+	 * 
+	 */
+	@RequestMapping(value="/operatorName" ,method=RequestMethod.GET, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Result<Shop> operatorName(){
+		if(TokenManager.getToken() == null){
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
+		return Result.successData(shopService.getOperatorName(TokenManager.getUserId()));
+	}
 	
 	
 	@RequestMapping(value = "/testMq", method = RequestMethod.GET)

@@ -150,5 +150,12 @@ public class ShopServiceImpl implements ShopService {
 		messageProducer.sendMessage(MessageKey.MERCHANT_KEY, JSON.toJSONString(message));
 
 	}
-
+	   /**
+	    * 取得运营人姓名
+	    * */
+		@Override
+		public Shop getOperatorName(Long userId) {
+			Shop shop = shopDao.getOperatorName(userId);
+			return shop;
+		}
 }
