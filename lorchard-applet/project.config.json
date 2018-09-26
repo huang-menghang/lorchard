@@ -45,7 +45,7 @@
 					"id": 1,
 					"name": "模拟多商家应用",
 					"pathName": "pages/index/index",
-					"query": "scene=6",
+					"query": "scene=7",
 					"scene": "1001"
 				}
 			]

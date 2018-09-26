@@ -22,9 +22,11 @@ public class ApiFinanceServiceImpl implements ApiFinanceService {
 	public void addFinance(OrderVo order) {
 		FinanceVo finance = financeDao.getFinance(order.getOrderMerchantId());
 		System.out.println("finance------->" + finance);
+		//Double commissionRate = (从admin端获取具体的的佣金比例) 
+		Double commission = order.getOrderPendingBalance()*0.01;
+		//Double commission = order.getOrderPendingBalance()*Double commissionRate;
 		if (finance == null) {
 			finance = new FinanceVo();
-			Double commission = 1.00;
 			finance.setOrderId(order.getId());
 			finance.setBalance(order.getOrderPendingBalance() - commission);
 			finance.setOrderNo(order.getOrderNo());
@@ -38,7 +40,6 @@ public class ApiFinanceServiceImpl implements ApiFinanceService {
 		} else {
 			Double orderPendingBalance = order.getOrderPendingBalance();
 			Double balance = finance.getBalance();
-			Double commission = 1.00;
 			Double totalCommission = finance.getTotalCommission();
 			finance.setOrderId(order.getId());
 			finance.setBalance(orderPendingBalance + balance - commission);
@@ -51,6 +52,5 @@ public class ApiFinanceServiceImpl implements ApiFinanceService {
 			finance.setAccount(orderPendingBalance);
 			financeDao.insertFinance(finance);
 		}
-
 	}
 }

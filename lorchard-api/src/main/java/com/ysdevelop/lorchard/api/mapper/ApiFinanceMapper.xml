@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ysdevelop.lorchard.merchant.mapper.FinanceDao">
+<mapper namespace="com.ysdevelop.lorchard.api.mapper.ApiFinanceDao">
 	<!--查询财务表中的数据 -->
 	<select id="getFinance"
-		resultType="com.ysdevelop.lorchard.merchant.entity.Finance">
+		resultType="com.ysdevelop.lorchard.api.entity.FinanceVo">
 		select
 		`f`.id as `id`,
 		`f`.status as `status`,
@@ -24,7 +24,7 @@
 
 	<!-- 订单完成向财务表中插数据 -->
 	<insert id="insertFinance"
-		parameterType="com.ysdevelop.lorchard.merchant.entity.Finance"
+		parameterType="com.ysdevelop.lorchard.api.entity.FinanceVo"
 		useGeneratedKeys="true" keyProperty="id">
 		insert into
 		t_lorchard_mall_finance(`orderId`,`status`,`merchantId`,`orderNo`,`account`,`balance`,`memberId`,`commission`,`totalCommission`,`createTime`)
