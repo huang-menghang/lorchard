@@ -33,7 +33,7 @@ public class IndexController {
 		return "缓存清空成功";
 	}
 	
-	@RequestMapping(value="/logout",method=RequestMethod.GET,produces="application/json;charset=utf-8")
+	@RequestMapping(value="/logout",method=RequestMethod.GET,produces="text/html;charset=utf-8")
 	public String logout(){
 		TokenManager.logout();
 		return "merchant/login";

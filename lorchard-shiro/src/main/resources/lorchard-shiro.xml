@@ -95,7 +95,8 @@
 				/upload/** = anon
 				/user/login = anon
 				/api/** = anon
-				/** = anon
+				/merchant/captcha=anon
+				/** = authc
 			</value>
 		</property>
 	</bean>
