@@ -95,7 +95,7 @@
 				/upload/** = anon
 				/user/login = anon
 				/api/** = anon
-				/merchant/captcha=anon
+				/merchant/** = anon
 				/** = authc
 			</value>
 		</property>
