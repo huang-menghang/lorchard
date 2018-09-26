@@ -51,6 +51,7 @@
 		`t_lorchard_mall_shop_flow_stat_daily_site`
 		where `merchantId` = #{merchantId}
       ) b ON a.`click_date` = b.`date`
+      ORDER BY `a`.click_date
 	</select>
 
    <select id="yesterdayStat" resultType="java.util.HashMap">

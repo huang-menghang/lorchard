@@ -34,10 +34,9 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value="/logout",method=RequestMethod.GET,produces="application/json;charset=utf-8")
-	@ResponseBody
 	public String logout(){
 		TokenManager.logout();
-		return "退出成功";
+		return "merchant/login";
 	}
 
 }

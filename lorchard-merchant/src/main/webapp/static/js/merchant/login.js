@@ -33,7 +33,7 @@ var merchant_login_ops ={
 				  if(res.code == 0){
 					 callback = function(){
 						 $that.removeClass('disable');
-						 window.location.href = WEB_ROOT+'/index';
+						 window.location.href = WEB_ROOT+'/index?title=shopIndex';
 					 };
 				  }else if(res.code == 500122){
 					 callback = function(){
