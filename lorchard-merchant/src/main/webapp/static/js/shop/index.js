@@ -24,18 +24,28 @@ var shop_index_ops = {
 				websocket = new SockJS("https://" + "www.ysdevelop.cn/websocket"
 					+ "/socketjs");
 			}
-
-			// 打开时
-			websocket.onopen = function(evnt) {
-				// 发送上线消息
-				var onLineMessage = {};
-				onLineMessage.fromMerchantId = 1;
-				onLineMessage.messageConent = "商家客户端id1,上线";
-				onLineMessage.messageType = "ON_LINE";
-				var jsonOnLineMessage= JSON.stringify(onLineMessage);
-				console.log("json message --->"+jsonOnLineMessage);
-				websocket.send(jsonOnLineMessage);
-			};
+			var merchantId;
+			$.ajax({
+	  			url:WEB_ROOT+'/goods/merchantId',
+	  			type:'GET',
+	  			dataType:'json'
+	  		}).done(function(res){
+	  			console.log("res.data"+res.data);
+	  			if(res.code==0){
+	  				merchantId=res.data;
+	  				// 打开时
+	  				websocket.onopen = function(evnt) {
+	  					// 发送上线消息
+	  					var onLineMessage = {};
+	  					onLineMessage.fromMerchantId = merchantId;
+	  					onLineMessage.messageConent = "商家客户端id:"+"merchantId"+",上线";
+	  					onLineMessage.messageType = "ON_LINE";
+	  					var jsonOnLineMessage= JSON.stringify(onLineMessage);
+	  					console.log("json message --->"+jsonOnLineMessage);
+	  					websocket.send(jsonOnLineMessage);
+	  				};
+	  			}
+	  		});
 			// 处理消息时
 			websocket.onmessage = function(evnt) {
 				var message = JSON.parse(event.data);

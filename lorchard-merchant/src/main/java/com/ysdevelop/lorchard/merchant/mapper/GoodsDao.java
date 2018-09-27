@@ -57,7 +57,7 @@ public interface GoodsDao {
 	 * 
 	 * @return List<Goods> 商品分类的id和类别名
 	 */
-	List<Goods> listCategory();
+	List<Goods> listCategory(Long merchantId);
 	
 	/**
 	 * 修改商品

@@ -98,7 +98,8 @@ public class GoodsServiceImpl implements GoodsService {
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public List<Goods> listCategory() {
-		return goodsDao.listCategory();
+		Long merchantId = TokenManager.getUserId();
+		return goodsDao.listCategory(merchantId);
 	}
 
 	/**
