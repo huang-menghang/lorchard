@@ -94,6 +94,7 @@ var shop_index_ops = {
 			dataType : 'json'
 		}).then(
 				function(res) {
+					console.log(res.data);
 					if (res.code == 0) {
 						echarts_ops.four_line('流量趋势', [ 'pageView', 'visitorNumber', 'goodsView', 'goodsAceessNumber' ], [
 								'浏览量', '访客数', '商品浏览量', '商品访问数' ], res.data,
@@ -111,12 +112,20 @@ var shop_index_ops = {
 		}).then(
 				function(res) {
 					if (res.code == 0) {
-					    $(".header-name").html(res.data.merchantName);
-					    $(".yesterday-pageView").html(res.data.pageView);
-					    $(".yesterday-visitorNumber").html(res.data.visitorNumber);
-					    $(".yesterday-goodsView").html(res.data.goodsView);
-					    $(".yesterday-goodsAceessNumber").html(res.data.goodsAceessNumber);						
-					    $(".goodsCount").html(res.data.goodsCount);						
+						if(res.data!=null){
+							$(".header-name").html(res.data.merchantName);
+							$(".yesterday-pageView").html(res.data.pageView);
+							$(".yesterday-visitorNumber").html(res.data.visitorNumber);
+							$(".yesterday-goodsView").html(res.data.goodsView);
+							$(".yesterday-goodsAceessNumber").html(res.data.goodsAceessNumber);						
+							$(".goodsCount").html(res.data.goodsCount);						
+						}else{
+							$(".yesterday-pageView").html(0);
+							$(".yesterday-visitorNumber").html(0);
+							$(".yesterday-goodsView").html(0);
+							$(".yesterday-goodsAceessNumber").html(0);						
+							$(".goodsCount").html(0);
+						}
 					};	
 				}).fail(function(res) {
                       console.log(res.msg);

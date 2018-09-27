@@ -71,7 +71,7 @@ public class ShopServiceImpl implements ShopService {
 		userService.updateStatusById(merchantId);
 		// 清空用户缓存
 	    TokenManager.clearUserAuthByUserId(merchantId);
-
+	    TokenManager.logout();
 		// 发送队列消息到平台服务器预处理商家的基本信息
 		// MerchantMessage message = new MerchantMessage();
 		// message.setCreateTime(new Date());
@@ -86,6 +86,7 @@ public class ShopServiceImpl implements ShopService {
 	private void createMerchantQr(Long merchantId, Shop shop) {
 
 		String accessToken = redisService.get(AppletAccessTokenKey.accessTokenKey, "", String.class);
+		System.out.println("accessToken"+accessToken);
 		// 如果获取Token 为空
 		if (accessToken == null) {
 			String requestTokenUrl = WechantAppletApiUtil.getToken();
