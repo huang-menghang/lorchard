@@ -16,12 +16,12 @@ var shop_index_ops = {
 					console.log("初始化websocket");
 			// 首先判断是否 支持 WebSocket
 			if ('WebSocket' in window) {
-				websocket = new WebSocket("wss://106.14.177.78:9000/");
+				websocket = new WebSocket("wss://www.ysdevelop.cn/websocket");
 			} else if ('MozWebSocket' in window) {
-				websocket = new MozWebSocket("wss://106.14.177.78:9000"
+				websocket = new MozWebSocket("wss://www.ysdevelop.cn/websocket"
 					+ "/websocket");
 			} else {
-				websocket = new SockJS("https://" + "106.14.177.78:9000"
+				websocket = new SockJS("https://" + "www.ysdevelop.cn/websocket"
 					+ "/socketjs");
 			}
 
