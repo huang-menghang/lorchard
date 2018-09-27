@@ -126,7 +126,7 @@ public class HttpClientRequestUtil {
 	public static void httpRequestCreateMerchantQr(String requestUrl, String jsonRequest, String inviteFileCodePath){
 		InputStream inputStream = null;
 		FileOutputStream fileOutPutStream = null;
-   
+		System.out.println("inviteFileCodePath--->"+inviteFileCodePath);
 		try {
 			TrustManager[] tm = { new RequestX509TrustManager() };
 			SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
@@ -154,6 +154,7 @@ public class HttpClientRequestUtil {
 			File orImgFile = new File(inviteFileCodePath);
 			if (!orImgFile.exists()) {
 				if(!orImgFile.getParentFile().exists()){
+					System.out.println("orImgFile.getParentFile--->"+orImgFile.getParentFile());
 					orImgFile.getParentFile().mkdirs();
 				}
 				orImgFile.createNewFile();

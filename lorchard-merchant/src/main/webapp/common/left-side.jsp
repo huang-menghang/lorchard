@@ -2,8 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/context/begin-tags.jsp"%>
 
-
-
 <header class="tpl-header">
 	<!-- 右侧内容 -->
 	<div class="tpl-header-fluid">

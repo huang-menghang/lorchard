@@ -14,20 +14,21 @@ package com.ysdevelop.lorchard.common.utils;
  * @Version
  * 
  */
+@SuppressWarnings("static-access")
 public class WechantAppletApiUtil {
 
 	/* 小程序APPID */
-	public static final String APPID = ResourceUtil.getConfigByName("wx.appId");
+	public static final String APPID = ResourceUtil.getInstance("lorchard-common").getConfigByName("wx.appId");
 	/* 微信支付商家号 */
-	public static final String MCH_ID = ResourceUtil.getConfigByName("wx.mchId");
+	public static final String MCH_ID = ResourceUtil.getInstance("lorchard-common").getConfigByName("wx.mchId");
 	/* 微信支付商家秘钥 */
-	public static final String KEY = ResourceUtil.getConfigByName("wx.paySignKey");
+	public static final String KEY = ResourceUtil.getInstance("lorchard-common").getConfigByName("wx.paySignKey");
 	/* 支付成功回调地址 */
-	public static final String NOTITY_URL = ResourceUtil.getConfigByName("wx.notifyUrl");
+	public static final String NOTITY_URL = ResourceUtil.getInstance("lorchard-common").getConfigByName("wx.notifyUrl");
 	/* 签名方式,固定值 */
 	public static final String SIGNTYPE = "MD5";
 	/* 交易类型,小程序JSAPI */
-	public static final String TRADAETYPE = ResourceUtil.getConfigByName("wx.tradeType");
+	public static final String TRADAETYPE = ResourceUtil.getInstance("lorchard-common").getConfigByName("wx.tradeType");
 
 	/**
 	 * 
@@ -43,7 +44,7 @@ public class WechantAppletApiUtil {
 	 * @return
 	 */
 	public static String getCode(String APPID, String REDIRECT_URI, String SCOPE) {
-		return String.format(ResourceUtil.getConfigByName("wx.getCode"), APPID, REDIRECT_URI, SCOPE);
+		return String.format(ResourceUtil.getInstance("lorchard-common").getConfigByName("wx.getCode"), APPID, REDIRECT_URI, SCOPE);
 	}
 
 	/**
@@ -54,8 +55,8 @@ public class WechantAppletApiUtil {
 	 * @return
 	 */
 	public static String getWebAccess(String CODE) {
-		return String.format(ResourceUtil.getConfigByName("wx.webAccessTokenhttps"), ResourceUtil.getConfigByName("wx.appId"),
-				ResourceUtil.getConfigByName("wx.secret"), CODE);
+		return String.format(ResourceUtil.getInstance("lorchard-common").getConfigByName("wx.webAccessTokenhttps"), ResourceUtil.getInstance("lorchard-common").getConfigByName("wx.appId"),
+				ResourceUtil.getInstance("lorchard-common").getConfigByName("wx.secret"), CODE);
 	}
 
 	/**
@@ -69,7 +70,7 @@ public class WechantAppletApiUtil {
 	 * @return
 	 */
 	public static String getUserMessage(String access_token, String openid) {
-		return String.format(ResourceUtil.getConfigByName("wx.userMessage"), access_token, openid);
+		return String.format(ResourceUtil.getInstance("lorchard-common").getConfigByName("wx.userMessage"), access_token, openid);
 	}
 
 	/**
@@ -78,7 +79,7 @@ public class WechantAppletApiUtil {
 	 * @return
 	 */
 	public static String getToken() {
-		return String.format(ResourceUtil.getConfigByName("wx.token"), APPID, ResourceUtil.getConfigByName("wx.secret"));
+		return String.format(ResourceUtil.getInstance("lorchard-common").getConfigByName("wx.token"), APPID, ResourceUtil.getInstance("lorchard-common").getConfigByName("wx.secret"));
 	}
 
 	/**
@@ -87,9 +88,8 @@ public class WechantAppletApiUtil {
 	 * 
 	 * @return 获取场景二维码Url
 	 */
-	@SuppressWarnings("static-access")
 	public static String getQR(String access_token) {
-		return String.format(ResourceUtil.getInstance().getConfigByName("wx.wxacode"), access_token);
+		return String.format(ResourceUtil.getInstance("lorchard-common").getConfigByName("wx.wxacode"), access_token);
 	}
 
 	

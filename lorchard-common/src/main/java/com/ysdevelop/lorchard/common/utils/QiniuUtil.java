@@ -80,7 +80,9 @@ public class QiniuUtil {
 			DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
 			return origin + putRet.key;
 		} catch (QiniuException ex) {
+			System.out.println("ex--->"+ex);
 			Response r = ex.response;
+			System.out.println("r--->"+r);
 			log.warn(r.toString());
 			try {
 				return r.bodyString();
