@@ -54,7 +54,7 @@ public class UserRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
 		String name = (String) authenticationToken.getPrincipal();
-		System.out.println("name-->"+name);
+		System.out.println("Realmname-->"+name);
 		BaseAuth user = userService.getUserByName(name);
 		if (user == null) {
 			throw new UnknownAccountException();
@@ -90,7 +90,7 @@ public class UserRealm extends AuthorizingRealm {
 	 * 
 	 */
 	public void clearCachedAuthorizationInfo(PrincipalCollection principalCollection) {
-		System.out.println("name--->"+getName());
+		System.out.println("ClearName--->"+getName());
 		SimplePrincipalCollection principals = new SimplePrincipalCollection(principalCollection, getName());
 		super.clearCachedAuthorizationInfo(principals);
 	}

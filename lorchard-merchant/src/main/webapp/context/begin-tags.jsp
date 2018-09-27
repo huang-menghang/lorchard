@@ -1,3 +1,4 @@
+<%@page import="java.util.Enumeration"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
@@ -14,6 +15,13 @@
 		} else {
 			basePath = request.getScheme() + "://" + request.getServerName() + path;
 		}
+	}
+	Enumeration<String> names =  request.getSession().getAttributeNames();
+	while(names.hasMoreElements()){
+		String name = names.nextElement();
+		System.out.println("name----->"+name);
+		Object obj = request.getSession().getAttribute(name);
+		System.out.println("obj----->"+obj);
 	}
 %>
 <c:set var="webRoot" value="<%=basePath%>" />

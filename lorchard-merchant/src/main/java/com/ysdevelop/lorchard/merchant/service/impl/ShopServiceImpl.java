@@ -70,7 +70,6 @@ public class ShopServiceImpl implements ShopService {
 		// 修改商家状态
 		userService.updateStatusById(merchantId);
 		// 清空用户缓存
-	    TokenManager.clearUserAuthByUserId(merchantId);
 	    TokenManager.logout();
 		// 发送队列消息到平台服务器预处理商家的基本信息
 		// MerchantMessage message = new MerchantMessage();

@@ -33,7 +33,7 @@ public class MerchantServiceImpl implements UserService {
 		if (name == null) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
-		System.out.println("name--->" + name);
+		System.out.println("实现类name--->" + name);
 		return merchantDao.getUserByName(name);
 	}
 
