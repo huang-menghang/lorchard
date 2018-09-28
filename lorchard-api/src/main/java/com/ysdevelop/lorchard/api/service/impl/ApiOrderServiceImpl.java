@@ -173,21 +173,27 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 		PageHelper.startPage(integerPageNum, integerPageSize, Boolean.TRUE);
 		List<OrderVo> orders = orderDao.list(queryMap);
 		List<OrderItemVo> orderItems = orderItemDao.list(queryMap);
-		List<PreviewImagesVo> listPreviewImage = goodsDao.listPreviewImageByOrder(orderItems);
-		setOrders(orders, orderItems,listPreviewImage);
+		if(orderItems == null || orderItems.isEmpty()){
+			setOrders(orders, orderItems,null);
+		}else{
+			List<PreviewImagesVo> listPreviewImage = goodsDao.listPreviewImageByOrder(orderItems);
+			setOrders(orders, orderItems,listPreviewImage);
+		}
 		PageInfo<OrderVo> pageInfo = new PageInfo<>(orders);
 		return pageInfo;
 	}
 
 	private void setOrders(List<OrderVo> orders, List<OrderItemVo> orderItems,List<PreviewImagesVo> listPreviewImage) {
-		for (OrderItemVo orderItem : orderItems) {
-			List<PreviewImagesVo> transitionPreviewImage=new ArrayList<>();
-			for (PreviewImagesVo previewImage : listPreviewImage) {
-				if (orderItem.getGoodsId() == previewImage.getGoodsId()) {
-					transitionPreviewImage.add(previewImage);
+		if(listPreviewImage != null){
+			for (OrderItemVo orderItem : orderItems) {
+				List<PreviewImagesVo> transitionPreviewImage=new ArrayList<>();
+				for (PreviewImagesVo previewImage : listPreviewImage) {
+					if (orderItem.getGoodsId() == previewImage.getGoodsId()) {
+						transitionPreviewImage.add(previewImage);
+					}
 				}
+				orderItem.setPreviewImages(transitionPreviewImage);
 			}
-			orderItem.setPreviewImages(transitionPreviewImage);
 		}
 
 		for (OrderVo order : orders) {
@@ -304,16 +310,14 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 	
 	private void validateStockAndSales(List<OrderItemVo> orderItems,int status) {
 		List<GoodsVo> stockAndSales = orderItemDao.getStockAndSales(orderItems);
-		System.out.println("stockAndSales--->"+stockAndSales);
 		for (OrderItemVo orderItem : orderItems) {
 			for (GoodsVo goodsVo : stockAndSales) {
 				if(orderItem.getGoodsId() == goodsVo.getId()){
 					if(status == ApiConstant.DEFALULT_ZERO){
 						if(orderItem.getItemNum() > goodsVo.getStock()){
-							throw new WebServiceException(CodeMsg.SERVER_ERROR);
+							throw new WebServiceException(CodeMsg.GOODS_STOCK_CHANGE);
 						}	
 					}else if(status == ApiConstant.DEFALULT_ONE){
-						System.out.println("goodsVo--->"+goodsVo);
 						orderItem.setSales(goodsVo.getSales());
 						orderItem.setStock(goodsVo.getStock());
 					}

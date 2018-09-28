@@ -7,8 +7,8 @@ function wxpay(orderNo, redirectUrl) {
       orderNo: orderNo
     },
     success: function (res) {
+        console.log("订单提交的结果",res)
       if (res.code == 0) {
-        console.log(res)
         //发起支付
         wx.requestPayment({
           timeStamp: res.data.timeStamp,
@@ -40,7 +40,7 @@ function wxpay(orderNo, redirectUrl) {
           }
         })
       } else {
-        util.showWarn("定单提交失败");
+        util.showWarn(res.msg);
       }
     }
   })
