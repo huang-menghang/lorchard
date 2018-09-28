@@ -181,7 +181,8 @@
   	<select id="getStockAndSales" resultType="com.ysdevelop.lorchard.merchant.entity.Goods">
   		select 
   		`g`.stock as `stock`,
-  		`g`.sales as `sales`
+  		`g`.sales as `sales`,
+  		`g`.id as `id`
   		from `t_lorchard_mall_goods` as `g`
   		where `g`.id IN
   		<foreach collection ="orderItem" item="orderItem" index= "index" open="(" separator="," close=")">
