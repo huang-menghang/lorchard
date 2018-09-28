@@ -62,7 +62,11 @@
 		`p`.goodsId as `goodsId`,
 		`p`.createTime as `createTime`
 		from `t_lorchard_mall_goods_previewImage` as `p`
-		where `p`.status=0
+		where `p`.status=0 
+		and `p`.goodsId IN 
+		<foreach collection ="goods" item="goods" index= "index" open="(" separator="," close=")">
+            #{goods.id}
+        </foreach> 
 	</select>
 	
 	

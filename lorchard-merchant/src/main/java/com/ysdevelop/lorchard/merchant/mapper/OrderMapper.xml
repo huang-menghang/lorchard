@@ -172,7 +172,7 @@
 	<update id="updateStockAndSales" parameterType="com.ysdevelop.lorchard.merchant.entity.OrderItem">
   		<foreach collection="OrderItem" item="OrderItem" index="index" open="" close="" separator=";">
   			update `t_lorchard_mall_goods` as `g`
-			set `g`.stock = (#{OrderItem.stock}-#{OrderItem.itemNum} ) ,`g`.sales = (#{OrderItem.sales}+#{OrderItem.itemNum} )
+			set `g`.stock = (#{OrderItem.stock}+#{OrderItem.itemNum} ) ,`g`.sales = (#{OrderItem.sales}-#{OrderItem.itemNum} )
 			where `g`.id=#{OrderItem.goodsId}
       	</foreach> 
   	</update>

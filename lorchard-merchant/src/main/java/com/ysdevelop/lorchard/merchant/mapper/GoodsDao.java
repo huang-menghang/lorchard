@@ -35,9 +35,11 @@ public interface GoodsDao {
 	/**
 	 * 获取所有商品图片
 	 * 
+	 * @param List<Goods> goods订单商品集合
+	 *  
 	 * @return 返回轮播图集合
 	 */
-	List<PreviewImages> listPreviewImage();
+	List<PreviewImages> listPreviewImage(@Param("goods")List<Goods> goods);
 	
 	
 	

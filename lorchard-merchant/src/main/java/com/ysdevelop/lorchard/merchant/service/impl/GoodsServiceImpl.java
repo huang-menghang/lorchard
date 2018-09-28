@@ -62,7 +62,7 @@ public class GoodsServiceImpl implements GoodsService {
 		List<Goods> goods = goodsDao.list(queryMap);
 		
 		//查询所有图片,并将他们放入对应的商品
-		List<PreviewImages> listPreviewImage = goodsDao.listPreviewImage();
+		List<PreviewImages> listPreviewImage = goodsDao.listPreviewImage(goods);
 		for (Goods good : goods) {
 			List<PreviewImages> transitionPreviewImage=new ArrayList<>();
 			for (PreviewImages previewImages : listPreviewImage) {

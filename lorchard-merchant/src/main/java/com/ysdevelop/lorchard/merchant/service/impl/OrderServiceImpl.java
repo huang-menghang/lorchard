@@ -91,7 +91,7 @@ public class OrderServiceImpl implements OrderService, Observer, InitializingBea
 	}
 
 	/**
-	 * 通过id取消订单
+	 * 通过id取消订单,增加库存,减少销量
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
@@ -103,7 +103,25 @@ public class OrderServiceImpl implements OrderService, Observer, InitializingBea
 		if (orderStatus.equals(orderStatusIsFive)) {
 			throw new WebServiceException(CodeMsg.IS_COMPLETED);
 		} else {
-			orderDao.updateById(id);
+			Integer updateById = orderDao.updateById(id);
+			if(updateById== ApiConstant.DEFALULT_ZERO) {
+				throw new WebServiceException(CodeMsg.CANCAL_ORDER_ERROR);
+			}else {
+				List<OrderItem> orderItemById = orderDao.getOrderItemById(id);
+				List<Goods> stockAndSales = orderDao.getStockAndSales(orderItemById);
+				for (OrderItem orderItem : orderItemById) {
+					for (Goods goods : stockAndSales) {
+						if(orderItem.getGoodsId()==goods.getId()) {
+							orderItem.setStock(goods.getStock());
+							orderItem.setSales(goods.getSales());
+						}
+					}
+				}
+				Integer updateStockAndSales = orderDao.updateStockAndSales(orderItemById);
+				if(updateStockAndSales== ApiConstant.DEFALULT_ZERO) {
+					throw new WebServiceException(CodeMsg.CANCAL_ORDER_ERROR);
+				}
+			}
 		}
 
 	}
@@ -118,17 +136,8 @@ public class OrderServiceImpl implements OrderService, Observer, InitializingBea
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
 		if (orderStatus == ApiConstant.DEFALULT_ONE) {
-			orderDao.update(id);
-			List<OrderItem> orderItemById = orderDao.getOrderItemById(id);
-			List<Goods> stockAndSales = orderDao.getStockAndSales(orderItemById);
-			for (OrderItem orderItem : orderItemById) {
-				for (Goods goods : stockAndSales) {
-					orderItem.setStock(goods.getStock());
-					orderItem.setSales(goods.getSales());
-				}
-			}
-			Integer updateStockAndSales = orderDao.updateStockAndSales(orderItemById);
-			if(updateStockAndSales== ApiConstant.DEFALULT_ZERO) {
+			Integer update = orderDao.update(id);
+			if(update== ApiConstant.DEFALULT_ZERO) {
 				throw new WebServiceException(CodeMsg.DELIVER_ERROR);
 			}
 		} else {
