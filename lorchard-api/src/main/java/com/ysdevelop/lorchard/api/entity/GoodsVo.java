@@ -262,5 +262,11 @@ public class GoodsVo {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+
+	@Override
+	public String toString() {
+		return "GoodsVo [stock=" + stock + ", sales=" + sales + "]";
+	}
+	
 	
 }

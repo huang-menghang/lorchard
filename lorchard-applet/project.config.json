@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -45,7 +45,7 @@
 					"id": 1,
 					"name": "模拟多商家应用",
 					"pathName": "pages/index/index",
-					"query": "scene=7",
+					"query": "scene=34",
 					"scene": "1001"
 				}
 			]

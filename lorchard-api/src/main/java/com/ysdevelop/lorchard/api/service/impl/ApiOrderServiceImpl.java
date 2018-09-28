@@ -27,6 +27,7 @@ import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.binarywang.wxpay.service.impl.WxPayServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.ysdevelop.lorchard.api.entity.GoodsVo;
 import com.ysdevelop.lorchard.api.entity.MemberVo;
 import com.ysdevelop.lorchard.api.entity.OrderItemVo;
 import com.ysdevelop.lorchard.api.entity.OrderVo;
@@ -171,19 +172,19 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 		// 调用存储过程实现树形分类
 		PageHelper.startPage(integerPageNum, integerPageSize, Boolean.TRUE);
 		List<OrderVo> orders = orderDao.list(queryMap);
-		List<OrderItemVo> orderItems = orderItemDao.list();
-		List<PreviewImagesVo> listPreviewImage = goodsDao.listPreviewImage();
-		setOrders(orders, orderItems, listPreviewImage);
+		List<OrderItemVo> orderItems = orderItemDao.list(queryMap);
+		List<PreviewImagesVo> listPreviewImage = goodsDao.listPreviewImageByOrder(orderItems);
+		setOrders(orders, orderItems,listPreviewImage);
 		PageInfo<OrderVo> pageInfo = new PageInfo<>(orders);
 		return pageInfo;
 	}
 
-	private void setOrders(List<OrderVo> orders, List<OrderItemVo> orderItems, List<PreviewImagesVo> listPreviewImage) {
+	private void setOrders(List<OrderVo> orders, List<OrderItemVo> orderItems,List<PreviewImagesVo> listPreviewImage) {
 		for (OrderItemVo orderItem : orderItems) {
-			List<PreviewImagesVo> transitionPreviewImage = new ArrayList<>();
-			for (PreviewImagesVo previewImages : listPreviewImage) {
-				if (orderItem.getGoodsId() == previewImages.getGoodsId()) {
-					transitionPreviewImage.add(previewImages);
+			List<PreviewImagesVo> transitionPreviewImage=new ArrayList<>();
+			for (PreviewImagesVo previewImage : listPreviewImage) {
+				if (orderItem.getGoodsId() == previewImage.getGoodsId()) {
+					transitionPreviewImage.add(previewImage);
 				}
 			}
 			orderItem.setPreviewImages(transitionPreviewImage);
@@ -247,12 +248,12 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 	public OrderVo getOrderByNo(String orderNo) {
 		OrderVo order = orderDao.getOrderByNo(orderNo);
 		List<OrderItemVo> orderItems = orderItemDao.getOrderByNo(orderNo);
-		List<PreviewImagesVo> listPreviewImage = goodsDao.listPreviewImage();
+		List<PreviewImagesVo> listPreviewImage = goodsDao.listPreviewImageByOrder(orderItems);
 		for (OrderItemVo orderItem : orderItems) {
-			List<PreviewImagesVo> transitionPreviewImage = new ArrayList<>();
-			for (PreviewImagesVo previewImages : listPreviewImage) {
-				if (orderItem.getGoodsId() == previewImages.getGoodsId()) {
-					transitionPreviewImage.add(previewImages);
+			List<PreviewImagesVo> transitionPreviewImage=new ArrayList<>();
+			for (PreviewImagesVo previewImage : listPreviewImage) {
+				if (orderItem.getId() == previewImage.getGoodsId()) {
+					transitionPreviewImage.add(previewImage);
 				}
 			}
 			orderItem.setPreviewImages(transitionPreviewImage);
@@ -280,6 +281,7 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 			if (orderItems == null || orderItems.size() == ApiConstant.DEFALULT_ZERO) {
 				throw new WebServiceException(CodeMsg.SERVER_ERROR);
 			}
+			validateStockAndSales(orderItems,ApiConstant.DEFALULT_ZERO);
 			orderRequest.setBody(generateGoodsInfo(orderItems));
 			orderRequest.setSpbillCreateIp("192.168.0.1");
 			orderRequest.setOutTradeNo(order.getOrderNo().toString());
@@ -297,7 +299,28 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 		} else {
 			throw new WebServiceException(CodeMsg.ORDER_PAYED);
 		}
+	}
 
+	
+	private void validateStockAndSales(List<OrderItemVo> orderItems,int status) {
+		List<GoodsVo> stockAndSales = orderItemDao.getStockAndSales(orderItems);
+		System.out.println("stockAndSales--->"+stockAndSales);
+		for (OrderItemVo orderItem : orderItems) {
+			for (GoodsVo goodsVo : stockAndSales) {
+				if(orderItem.getGoodsId() == goodsVo.getId()){
+					if(status == ApiConstant.DEFALULT_ZERO){
+						if(orderItem.getItemNum() > goodsVo.getStock()){
+							throw new WebServiceException(CodeMsg.SERVER_ERROR);
+						}	
+					}else if(status == ApiConstant.DEFALULT_ONE){
+						System.out.println("goodsVo--->"+goodsVo);
+						orderItem.setSales(goodsVo.getSales());
+						orderItem.setStock(goodsVo.getStock());
+					}
+					break;
+				}
+			}
+		}
 	}
 
 	private void caculatePayPrice(OrderVo order) {
@@ -329,6 +352,9 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 				// 订单编号
 				String orderNo = result.getOut_trade_no();
 				sendMessage(orderNo, MessageType.UNDELIVERY);
+				List<OrderItemVo> orderItems = orderItemDao.getOrderByNo(orderNo);
+				validateStockAndSales(orderItems,ApiConstant.DEFALULT_ONE);
+				orderItemDao.updateStockAndSales(orderItems);
 				orderDao.updateStatusByOrderNo(orderNo, ApiConstant.DEFALULT_ONE);
 				response.getWriter().write(setXml("SUCCESS", "OK"));
 			}

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.ysdevelop.lorchard.api.entity.GoodsVo;
+import com.ysdevelop.lorchard.api.entity.OrderItemVo;
 import com.ysdevelop.lorchard.api.entity.PreviewImagesVo;
 
 /**
@@ -41,11 +42,18 @@ public interface ApiGoodsDao {
 	GoodsVo getById(Long id);
 	
 	/**
-	 * 获取所有商品图片
-	 * 
-	 * @return 返回轮播图集合
+	 * 通过order查询轮播图
+	 * @param orderItems
+	 * @return
 	 */
-	List<PreviewImagesVo> listPreviewImage();
+	List<PreviewImagesVo> listPreviewImageByOrder(List<OrderItemVo> orderItems);
+	
+	/**
+	 * 通过good查询轮播图
+	 * @param orderItems
+	 * @return
+	 */
+	List<PreviewImagesVo> listPreviewImageByGood(List<GoodsVo> goods);
 	
 	/**
 	 * 

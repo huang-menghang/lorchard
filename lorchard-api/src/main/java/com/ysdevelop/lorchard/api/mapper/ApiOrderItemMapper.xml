@@ -17,6 +17,8 @@
 		  `orderNo`,`merchantId`,`memberId`,`goodsId`,`goodsName`,`goodsPrice`,`goodsType`,`parentId`,`parentCategoryName`,`itemNum`,`itemPrice`
 		from
 		  t_lorchard_mall_goods_order_item
+		where
+		   `merchantId` = #{merchantId} AND `memberId` = #{memberId} 
 	</select>
 	
 	<select id="getOrderByNo" resultType="com.ysdevelop.lorchard.api.entity.OrderItemVo">
@@ -26,5 +28,27 @@
 		  t_lorchard_mall_goods_order_item
 		where
 		  orderNo = #{orderNo}
-	</select>	
+	</select>
+	
+	<!-- 通过商品id修改商品的库存和销量 -->
+	<update id="updateStockAndSales" parameterType="com.ysdevelop.lorchard.api.entity.OrderItemVo">
+  		<foreach collection="list" item="orderItem" index="index" open="" close="" separator=";">
+  			update `t_lorchard_mall_goods` as `g`
+			set `g`.stock = (#{orderItem.stock}-#{orderItem.itemNum} ) ,`g`.sales = (#{orderItem.sales}+#{orderItem.itemNum} )
+			where `g`.id=#{orderItem.goodsId}
+      	</foreach> 
+  	</update>
+  
+  	<!-- 通过goodsId获取商品的库存金额销量 -->
+  	<select id="getStockAndSales" resultType="com.ysdevelop.lorchard.api.entity.GoodsVo">
+  		select 
+  		`g`.id as id,
+  		`g`.stock as `stock`,
+  		`g`.sales as `sales`
+  		from `t_lorchard_mall_goods` as `g`
+  		where `g`.id IN
+  		<foreach collection ="list" item="orderItem" index= "index" open="(" separator="," close=")">
+            #{orderItem.goodsId}
+        </foreach >
+  	</select>	
 </mapper>

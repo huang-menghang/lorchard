@@ -307,18 +307,18 @@ Page({
             doneNumber++;
             if (!carShopBean.label || carShopBean.label == "") {
               if (res.data.specificationsDescription) {
-                that.goodsValidate(res.data.name + ' 商品已失效，请重新购买');
+                that.goodsValidate(res.data.name , ' 商品已失效，请重新购买');
                 isFail = true;
                 return;
               }
             }
             if (res.data.stock < carShopBean.itemNum) {
-              that.goodsValidate(res.data.name + ' 库存不足，请重新购买');
+              that.goodsValidate(res.data.name , ' 库存不足，请重新购买');
               isFail = true;
               return;
             }
             if (res.data.minPrice != carShopBean.goodsPrice) {
-              that.goodsValidate(res.data.name + ' 价格有调整，请重新购买');
+              that.goodsValidate(res.data.name , ' 价格有调整，请重新购买');
               isFail = true;
               return;
             }

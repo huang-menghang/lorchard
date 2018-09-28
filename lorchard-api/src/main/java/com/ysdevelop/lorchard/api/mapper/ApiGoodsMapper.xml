@@ -53,7 +53,7 @@
 	</select>
 	
 	<!-- 查询所有轮播图 -->
-	<select id="listPreviewImage" resultType="com.ysdevelop.lorchard.api.entity.PreviewImagesVo">
+	<select id="listPreviewImageByOrder" resultType="com.ysdevelop.lorchard.api.entity.PreviewImagesVo">
 		select `p`.id as `id`,
 		`p`.previewImagePath as `previewImagePath`,
 		`p`.previewImageIndex as `previewImageIndex`,
@@ -61,7 +61,27 @@
 		`p`.createTime as `createTime`
 		from `t_lorchard_mall_goods_previewImage` as `p`
 		where
-		`p`.status = 0
+		`p`.status = 0 and (`p`.goodsId in 
+		<foreach collection ="list" item="orderItem" index= "index" open="(" separator="," close=")">
+            #{orderItem.goodsId}
+        </foreach >
+		)
+	</select>
+	
+	<!-- 查询所有轮播图 -->
+	<select id="listPreviewImageByGood" resultType="com.ysdevelop.lorchard.api.entity.PreviewImagesVo">
+		select `p`.id as `id`,
+		`p`.previewImagePath as `previewImagePath`,
+		`p`.previewImageIndex as `previewImageIndex`,
+		`p`.goodsId as `goodsId`,
+		`p`.createTime as `createTime`
+		from `t_lorchard_mall_goods_previewImage` as `p`
+		where
+		`p`.status = 0 and (`p`.goodsId in 
+		<foreach collection ="list" item="goods" index= "index" open="(" separator="," close=")">
+            #{goods.id}
+        </foreach >
+		)
 	</select>
 	
 	<!-- 查询单个商品的所有轮播图 -->

@@ -55,7 +55,7 @@ public class ApiGoodsServiceImpl implements ApiGoodsService {
 		PageHelper.startPage(integerPageNum, integerPageSize, Boolean.TRUE);
 		List<GoodsVo> goods = apiGoodsDao.list(queryMap);
 		// 查询所有图片,并将他们放入对应的商品
-		List<PreviewImagesVo> listPreviewImage = apiGoodsDao.listPreviewImage();
+		List<PreviewImagesVo> listPreviewImage = apiGoodsDao.listPreviewImageByGood(goods);
 		for (GoodsVo good : goods) {
 			List<PreviewImagesVo> transitionPreviewImage = new ArrayList<>();
 			for (PreviewImagesVo previewImages : listPreviewImage) {

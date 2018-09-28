@@ -50,6 +50,12 @@ public class OrderItemVo {
 	private Date createTime;
 
 	private Date updateTime;
+	
+	/**商品库存*/
+	private Long stock;
+	
+	/**商品销量*/
+	private Long sales;
 
 	public Long getId() {
 		return id;
@@ -169,6 +175,22 @@ public class OrderItemVo {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+	
+	public Long getStock() {
+		return stock;
+	}
+
+	public void setStock(Long stock) {
+		this.stock = stock;
+	}
+
+	public Long getSales() {
+		return sales;
+	}
+
+	public void setSales(Long sales) {
+		this.sales = sales;
 	}
 
 	@Override

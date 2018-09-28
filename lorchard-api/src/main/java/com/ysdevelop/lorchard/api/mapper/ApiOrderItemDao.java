@@ -1,9 +1,11 @@
 package com.ysdevelop.lorchard.api.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.ysdevelop.lorchard.api.entity.GoodsVo;
 import com.ysdevelop.lorchard.api.entity.OrderItemVo;
 
 /**
@@ -31,9 +33,10 @@ public interface ApiOrderItemDao {
 	
 	/**
 	 * 获取订单商品集合
+	 * @param queryMap 
 	 * @return
 	 */
-	List<OrderItemVo> list();
+	List<OrderItemVo> list(Map<String, String> queryMap);
 	
 	/**
 	 * 根据订单号获取订单商品集合
@@ -42,4 +45,21 @@ public interface ApiOrderItemDao {
 	 */
 	List<OrderItemVo> getOrderByNo(String orderNo);
 
+	/**
+	 * 通过商品id获取商品的库存和销量
+	 * 
+	 * @param 订单商品集合
+	 * 
+	 * @return 商品集合
+	 * */
+	List<GoodsVo> getStockAndSales(List<OrderItemVo> orderItems);
+	
+	/**
+	 * 修改goods表的库存和销量
+	 * 
+	 * @param 订单商品集合
+	 * 
+	 * @return 判断是否修改成功
+	 * */
+	Integer updateStockAndSales(List<OrderItemVo> orderItems);
 }
