@@ -34,6 +34,33 @@ public class ShopFlow {
 	private Date date;
 	/** 创建时间 **/
 	private Date createTime;
+	/**每日交易量**/
+	private Double dailyPendingBalance;
+	/**待发货订单数量**/
+	private Long orderUnDeliveredCount;
+    /**待收货订单数量**/
+	private Long orderUnReceivedCount;
+	/**退款中的订单数量**/
+	private Long orderRefundCount;
+	/**待付款订单订单数量**/
+	private Long orderUnpaidCount;
+
+
+	public Long getOrderUnpaidCount() {
+		return orderUnpaidCount;
+	}
+
+	public void setOrderUnpaidCount(Long orderUnpaidCount) {
+		this.orderUnpaidCount = orderUnpaidCount;
+	}
+
+	public Double getDailyPendingBalance() {
+		return dailyPendingBalance;
+	}
+
+	public void setDailyPendingBalance(Double dailyPendingBalance) {
+		this.dailyPendingBalance = dailyPendingBalance;
+	}
 
 	public Long getId() {
 		return id;
@@ -98,5 +125,27 @@ public class ShopFlow {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
+	public Long getOrderUnDeliveredCount() {
+		return orderUnDeliveredCount;
+	}
 
+	public void setOrderUnDeliveredCount(Long orderUnDeliveredCount) {
+		this.orderUnDeliveredCount = orderUnDeliveredCount;
+	}
+
+	public Long getOrderUnReceivedCount() {
+		return orderUnReceivedCount;
+	}
+
+	public void setOrderUnReceivedCount(Long orderUnReceivedCount) {
+		this.orderUnReceivedCount = orderUnReceivedCount;
+	}
+
+	public Long getOrderRefundCount() {
+		return orderRefundCount;
+	}
+
+	public void setOrderRefundCount(Long orderRefundCount) {
+		this.orderRefundCount = orderRefundCount;
+	}
 }

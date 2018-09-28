@@ -80,4 +80,13 @@
 		SELECT `merchantId`
 		from `t_lorchard_mall_shop`
 	</select>
+	<!--获得不同状态订单的条数-->
+	<select id="getOrderCount" resultType="java.lang.Long">
+	  select 
+	  count(`id`)
+	  from `t_lorchard_mall_goods_order` as `o`
+	  where
+	  `o`.orderStatus = #{status}
+	  and `o`.orderMerchantId=#{merchantId}
+	</select>
 </mapper>

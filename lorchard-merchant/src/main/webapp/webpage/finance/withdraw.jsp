@@ -21,14 +21,14 @@
 
 #financeInput {
 	font-size: 31px;
-	width: 40%;
-	margin-top: -7%;
+	width: 60%;
+	margin-top: -4%;
 	background-color: #f2f2f2;
 	/*边框*/
 	border: 1px solid #f2f2f2;
 	/*去掉边框*/
 	border: none;
-	text-align: center;
+	text-align:left;
 }
 
 #financeInput2 {
@@ -107,14 +107,10 @@ span {
 				<div class="layui-col-md4" style="margin-left: 5%;">提现详情</div>
 			</div>
 					<div class="layui-form-item" style="margin-top: 6%; margin-right: 6%;margin-bottom:-1%;">
-						<div class="layui-col-sm4" style="margin-top: 4%;margin-left: 5%">
-							<div class="layui-block">
-								<p class="layui-title">
-									可用余额： <span>（截止到今天0点）</span>
-								</p>
-							</div>
-							<div class="layui-block">
-								<label id="financelabel" style="">￥</label>
+						<div class="layui-col-sm4" style="margin-top: 4%;margin-left: 5%;width:50%;">
+						
+							<div class="layui-block" style="margin-top:-5%;margin-left:-7%">
+								<label id="financelabel" style="">可用余额:  ￥</label>
 								<input type="text" name="balance" readonly="readonly" id="financeInput" value="">
 							</div>
 						</div>

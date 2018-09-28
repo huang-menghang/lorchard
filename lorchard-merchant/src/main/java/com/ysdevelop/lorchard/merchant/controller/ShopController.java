@@ -76,7 +76,13 @@ public class ShopController {
 		}
 		return Result.successData(shopFlowService.recentSevenDayStat(TokenManager.getUserId()));
 	}
-
+	
+	/**
+	 * 商店概述,统计昨日交易量
+	 * 
+	 * @return
+	 * 
+	 */
 	@RequestMapping(value="/dashboard" ,method=RequestMethod.GET, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Result<Map<String,Integer>> dashboard(){
@@ -99,7 +105,20 @@ public class ShopController {
 		}
 		return Result.successData(shopService.getOperatorName(TokenManager.getUserId()));
 	}
-	
+	/**
+	 * 统计订单条数放入待办事项
+	 * 
+	 * @return 不同状态订单的数量
+	 * 
+	 */
+	@RequestMapping(value="/statistics" ,method=RequestMethod.GET, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Result<ShopFlow> statistics(){
+		if(TokenManager.getToken() == null){
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
+		return Result.successData(shopFlowService.getOrderCount(TokenManager.getUserId()));
+	}
 	
 	@RequestMapping(value = "/testMq", method = RequestMethod.GET)
 	@ResponseBody

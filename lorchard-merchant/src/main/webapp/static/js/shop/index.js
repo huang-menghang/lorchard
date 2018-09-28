@@ -141,6 +141,23 @@ var shop_index_ops = {
                       console.log(res.msg);
 		             });
 		
+		
+		
+		// 获取当前订单状态数据，放到待办事项
+		$.ajax({
+			url:WEB_ROOT+'/shop/statistics',
+			type:'GET',
+			dataType:'json'
+		}).then(
+			function(res){
+				if(res.code==0){
+				$("#orderUnDelivered").html(res.data.orderUnDeliveredCount);//待发货
+				$("#orderUnReceived").html(res.data.orderUnReceivedCount);//待收货
+				$("#orderRefund").html(res.data.orderRefundCount);//退款中
+				$("#orderUnpaid").html(res.data.orderUnpaidCount);//待支付订单
+				};
+			}).fail(function(res){
+			});
 
 	},
 	eventBind : function() {

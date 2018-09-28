@@ -20,6 +20,7 @@ import com.ysdevelop.lorchard.merchant.key.ShopDashBoardStataKey;
 import com.ysdevelop.lorchard.merchant.key.ShopFlowDailyKey;
 import com.ysdevelop.lorchard.merchant.mapper.ShopFlowDao;
 import com.ysdevelop.lorchard.merchant.service.ShopFlowService;
+import com.ysdevelop.lorchard.common.utils.ApiConstant;
 
 @Service
 public class ShopFlowServiceImpl implements ShopFlowService {
@@ -29,7 +30,9 @@ public class ShopFlowServiceImpl implements ShopFlowService {
 
 	@Autowired
 	private RedisService redisService;
-
+	
+	private ShopFlow shopFlow;
+	
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void dailySata() {
@@ -112,5 +115,23 @@ public class ShopFlowServiceImpl implements ShopFlowService {
 			}
 		}
 	}
+    
+	
+	//获得不同状态订单的条数
+	@Override
+	public ShopFlow getOrderCount(Long userId) {
+		if (userId == null) {
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}else {
+		System.out.println("异常--->"+flowDao.getOrderCount(ApiConstant.DEFALULT_ONE,userId));
+		shopFlow=new ShopFlow();
+		shopFlow.setOrderUnReceivedCount(flowDao.getOrderCount(ApiConstant.DEFALULT_TWO,userId));//待收货订单
+		shopFlow.setOrderRefundCount(flowDao.getOrderCount(ApiConstant.DEFALULT_THREE,userId));//退款订单
+		shopFlow.setOrderUnpaidCount(flowDao.getOrderCount(ApiConstant.DEFALULT_ZERO,userId));//待付款订单
+		shopFlow.setOrderUnDeliveredCount(flowDao.getOrderCount(ApiConstant.DEFALULT_ONE,userId));//待发货订单
+		return shopFlow;
+		}
+	}
+
 
 }

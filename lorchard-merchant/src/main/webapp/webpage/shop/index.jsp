@@ -36,13 +36,16 @@
 					<div class="primary ">新建微商城</div>
 					<div class="access-shop" style="float: left;">
 						<div class="primary access-shop">访问店铺</div>
-					   <div class="shop-qrcode" >
-		                   <p style="color:#333">微信扫码访问小程序</p>
-		                   <p style="width: 180px; height: 180px;">
-			               <img style="width: 180px; height: 180px;" src="<%=basePath%>/static/images/my.png">
-		                   </p>
-		                  <p><a href="#" style="color: #38f;">下载小程序</a></p>
-	                   </div>
+						<div class="shop-qrcode">
+							<p style="color: #333">微信扫码访问小程序</p>
+							<p style="width: 180px; height: 180px;">
+								<img style="width: 180px; height: 180px;"
+									src="<%=basePath%>/static/images/my.png">
+							</p>
+							<p>
+								<a href="#" style="color: #38f;">下载小程序</a>
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -70,8 +73,110 @@
 				</div>
 			</div>
 			<div id="board-diagram" style="width: 860px; height: 400px;"></div>
+
+			<!--待办事项模块-->
+
+			<div class="layui-row layui-col-space15" style="width:96%;">
+				<div class="layui-col-md6">
+					<div class="layui-card">
+						<div class="layui-card-header">快捷方式</div>
+						<div class="layui-card-body">
+
+							<div class="layui-carousel layadmin-carousel layadmin-shortcut"
+								lay-anim="" lay-indicator="inside" lay-arrow="none"
+								style="width: 100%; height: 208px;">
+								<div carousel-item="">
+									<ul class="layui-row layui-col-space10 layui-this" id="ul">
+										<li class="layui-col-xs3"><a href="<%=basePath%>/set?title=setIndex">
+												<i class="layui-icon layui-icon-console">&#xe770;</i> <cite>我的资料</cite>
+										</a></li>
+										<li class="layui-col-xs3"><a href="<%=basePath%>/order?title=orderAll">
+												<i class="layui-icon layui-icon-chart">&#xe655;</i> <cite>查看订单</cite>
+										</a></li>
+										<li class="layui-col-xs3"><a
+											href="<%=basePath%>/goods?title=goodsIndex"> <i
+												class="layui-icon layui-icon-find-fill">&#xe698;</i> <cite>查看商品</cite>
+										</a></li>
+										<li class="layui-col-xs3"><a
+											href="<%=basePath%>/finance?title=financeIndex"> <i
+												class="layui-icon layui-icon-survey">&#xe65e;</i> <cite>查看余额</cite>
+										</a></li>
+										<li class="layui-col-xs3"><a href="<%=basePath%>/finance?title=financeReceived">
+												<i class="layui-icon layui-icon-user">&#xe735;</i> <cite>提现</cite>
+										</a></li>
+										<li class="layui-col-xs3"><a
+											lay-href="set/system/website"> <i
+												class="layui-icon layui-icon-set">&#xe607;</i> <cite>帮助</cite>
+										</a></li>
+										<li class="layui-col-xs3"><a href="https://www.ysdevelop.com/">
+												<i class="layui-icon layui-icon-chat">&#xe62e;</i> <cite>关于源盛</cite>
+										</a></li>
+										<li class="layui-col-xs3"><a
+											href="https://www.ysdevelop.com//contactPortal"> <i
+												class="layui-icon layui-icon-template-1">&#xe606;</i> <cite>留言板</cite>
+										</a></li>
+									</ul>
+								</div>
+								<div class="layui-carousel-ind"></div>
+								<button class="layui-icon layui-carousel-arrow" lay-type="sub"></button>
+								<button class="layui-icon layui-carousel-arrow" lay-type="add"></button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="layui-col-md6">
+					<div class="layui-card">
+						<div class="layui-card-header">待办事项</div>
+						<div class="layui-card-body">
+
+							<div class="layui-carousel layadmin-carousel layadmin-backlog"
+								lay-anim="" lay-indicator="inside" lay-arrow="none"
+								style="width: 100%; height: 208px;">
+								<div carousel-item="">
+									<ul class="layui-row layui-col-space10 layui-this" id="ul">
+										<li class="layui-col-xs6"><a
+											href="<%=basePath%>/order?title=orderUnDelivered" class="layadmin-backlog-body">
+												<h3 id="h">待发货订单</h3>
+												<p>
+													<cite id="orderUnDelivered"></cite>
+												</p>
+										</a></li>
+										<li class="layui-col-xs6"><a href="<%=basePath%>/order?title=orderUnReceived"
+											class="layadmin-backlog-body">
+												<h3 id="h">待收货订单</h3>
+												<p>
+													<cite id="orderUnReceived"></cite>
+												</p>
+										</a></li>
+										<li class="layui-col-xs6"><a
+											href="<%=basePath%>/order?title=orderRefund" class="layadmin-backlog-body">
+												<h3 id="h">退款中的订单</h3>
+												<p>
+													<cite id="orderRefund"></cite>
+												</p>
+										</a></li>
+										<li class="layui-col-xs6"><a href="<%=basePath%>/order?title=orderUnpaid"
+											class="layadmin-backlog-body">
+												<h3 id="h" >待支付订单</h3>
+												<p>
+													<cite id="orderUnpaid"></cite>
+												</p>
+										</a></li>
+									</ul>
+								</div>
+								<div class="layui-carousel-ind"></div>
+								<button class="layui-icon layui-carousel-arrow" lay-type="sub"></button>
+								<button class="layui-icon layui-carousel-arrow" lay-type="add"></button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
 		</div>
 	</div>
+
 	<jsp:include page="/context/js-tags.jsp" />
 	<script type="text/javascript"
 		src="<%=basePath%>/static/plugin/echarts/echarts.min.js"></script>

@@ -6,16 +6,6 @@
 <head>
 <jsp:include page="/context/css-tags.jsp" />
 <style>
-.layui-input {
-	/*背景色*/
-	background-color: #f2f2f2;
-	/*边框*/
-	border: 1px solid #f2f2f2;
-	/*去掉边框*/
-	border: none;
-	text-align: center;
-}
-
 #financelabel {
 	font-size: 30px;
 }
@@ -121,9 +111,27 @@ p {
 			</div>
 
 			<!--交易记录-->
-		
-				<div class="layui-col-md9">
+				<div class="layui-col-md9" style="margin-bottom:4%;">
 					<div class="layui-col-md4" style="margin-left: 5%;">流水信息</div>
+				</div>
+				<div class="layui-form-item"  style="margin-left: 7%;width:77%;">
+							<label class="layui-form-label " style="width: 10%">时间</label>
+							<div class="layui-input-inline " style="width: 15%">
+								<input type="text" readonly="readonly" class="layui-input"
+									value="" placeholder="开始时间" name="startTime">
+							</div>
+							<div class="layui-input-inline " style="width: 15%">
+								<input type="text" readonly="readonly" class="layui-input"
+									value="" placeholder="结束时间" name="endTime">
+							</div>
+				            <label class="layui-form-label " style="width: 9%">类型</label>
+							<div class="layui-input-inline" style="width: 202px; text-align: center;">
+									<select name="sendMethod" lay-filter="reportType">
+										<option></option>
+										<option value="0">订单新增</option>
+										<option value="1">资金提现</option>
+									</select>
+							</div>
 				</div>
 				<div class="layui-form-item" style="margin-right:25%;margin-left:7%">
 				<div id="financeTable" lay-filter="finance-data"></div>
@@ -149,5 +157,9 @@ p {
     </script>
 	<script type="text/javascript"
 		src="<%=basePath%>/static/js/finance/index.js"></script>
+		<script type="text/javascript"
+		src="<%=basePath%>/static/plugin/jquery/3.2.1/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript"
+		src="<%=basePath%>/static/plugin/sock/sockjs.min.js"></script>
 
 </body>

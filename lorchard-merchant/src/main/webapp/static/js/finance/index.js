@@ -38,12 +38,12 @@ var category_index_ops = {
 					 // 设置table组件控制的元素
 					 elem: '#financeTable',
 					 cols: [[                  //标题栏
-						 	{field: 'id',title: '流水号',align: 'center',width:'15%'},
-						 	{field: 'status', title: '流水类型',align: 'center',width:'14%'},
+						 	{field: 'id',title: '流水号',align: 'center',width:'12%'},
+						 	{field: 'status', title: '流水类型',align: 'center',width:'18%'},
 						    {field: 'account', title: '流水金额(元)',align: 'center', width:'18%'},
 						    {field: 'balance', title: '余额(元)',align: 'center', width:'15%'},
-						    {field: 'createTime', title: '时间', width: '23%',templet: '#date_formate',align: 'center'},
-							{fixed: 'right', title: '查看详情', width: '15%',height: 40, align: 'center', templet: '#barOption'} 
+						    {field: 'createTime', title: '时间', width: '25%',templet: '#date_formate',align: 'center'},
+							{fixed: 'right', title: '查看详情', width: '12%',height: 40, align: 'center', templet: '#barOption'} 
 						   ]],
 							  url: WEB_ROOT + "/finance/pagination",
 							  method: 'get',
@@ -60,9 +60,9 @@ var category_index_ops = {
 						           console.log(count);
 						           $("[data-field='status']").children().each(function(){  
 						               if($(this).text()=='0'){  
-						                  $(this).text("订单收益")  
+						                  $(this).text("订单收益+")  
 						               }else if($(this).text()=='1'){  
-						                  $(this).text("资金提现")  
+						                  $(this).text("资金提现-")  
 						               }
 						           });
 							  }

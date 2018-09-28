@@ -37,5 +37,11 @@ public interface ShopFlowService {
      * @return
      */
 	Map<String, Integer> yesterdayStat(Long userId);
-
+	/**
+	 * 将获取的不同状态订单的条数插入待办事项中
+	 * 
+	 * @param userId
+	 * @return
+	 * */
+	ShopFlow getOrderCount(Long userId);
 }
