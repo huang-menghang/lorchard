@@ -119,25 +119,7 @@
 		`id`=#{id}
 	</update>
 	
-	<!-- 订单完成向流水表中插数据-->
-	<insert id="completeFlow" parameterType="com.ysdevelop.lorchard.merchant.entity.Order" useGeneratedKeys="true" keyProperty="id">
-		insert into t_lorchard_mall_flow(`orderNo`,`totalAmount`,`merchantId`,`memberId`,`createTime`,`commission`)
-		values(#{orderNo},#{orderPendingBalance},#{orderMerchantId},#{orderMemberId},now(),1)
-	</insert>
-
-	<!-- 订单完成向财务表中插数据-->	
-	<insert id="completeFinance" parameterType="com.ysdevelop.lorchard.merchant.entity.Finance" useGeneratedKeys="true" keyProperty="id">
-		insert into t_lorchard_mall_finance(`merchantId`,`balance`,`createTime`,`totalCommission`,`orderNo`)	
-		select
-		    `f`.merchantId as `merchantId`,
-		    (sum(totalAmount)-sum(commission)) as `balance`,
-		    `f`.createTime as `createTime`,
-		    sum(commission) as `totalCommission`,
-		    `f`.orderNo as `orderNo`
-		from
-		  `t_lorchard_mall_flow` as `f`
-		   order by `id` desc limit 1
-	</insert>	
+	
 	
 	<!--确认完成订单-->
 	<update id="updateStatus">
