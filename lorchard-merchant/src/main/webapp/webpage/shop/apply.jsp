@@ -10,17 +10,6 @@
 	href="<%=basePath%>/static/plugin/city-select/citySet.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>商铺申请</title>
-<style type="text/css">
-.error {
-	color: red;
-	font-size: 14px;
-	height: 40px;
-	line-height: 40px;
-}
-#description-error{
-    height:100%
-}
-</style>
 <body>
 	<div class="container">
 		<form class="formarea">

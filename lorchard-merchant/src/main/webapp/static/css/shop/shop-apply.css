@@ -99,3 +99,12 @@ span{
     opacity: 1;
     pointer-events:none;
 }
+.error {
+	color: red;
+	font-size: 14px;
+	height: 40px;
+	line-height: 40px;
+}
+#description-error{
+    height:100%
+}
