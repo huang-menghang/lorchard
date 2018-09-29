@@ -115,5 +115,5 @@ public interface FinanceDao {
 	 *  @return 返回提现总金额
 	 * 
 	 * */
-	Double getAllWithdrawal();
+	Double getAllWithdrawal(Long merchantId);
 }

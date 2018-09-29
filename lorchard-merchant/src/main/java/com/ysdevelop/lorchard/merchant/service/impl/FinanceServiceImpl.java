@@ -16,6 +16,7 @@ import com.ysdevelop.lorchard.merchant.entity.Finance;
 import com.ysdevelop.lorchard.merchant.entity.Order;
 import com.ysdevelop.lorchard.merchant.mapper.FinanceDao;
 import com.ysdevelop.lorchard.merchant.service.FinanceService;
+import com.ysdevelop.lorchard.shiro.token.TokenManager;
 
 @Service
 public class FinanceServiceImpl implements FinanceService {
@@ -55,7 +56,8 @@ public class FinanceServiceImpl implements FinanceService {
 	@Override
 	public Finance getLast() {
 		Finance finance = financeDao.getLast();
-		Double allWithdrawal = financeDao.getAllWithdrawal();
+		Long merchantId = TokenManager.getUserId();
+		Double allWithdrawal = financeDao.getAllWithdrawal(merchantId);
 		finance.setTotalCash(allWithdrawal);
 		return finance;
 	}

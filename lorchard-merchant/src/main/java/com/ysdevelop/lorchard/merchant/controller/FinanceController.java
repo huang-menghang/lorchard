@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,16 +41,16 @@ public class FinanceController {
 	 * 全部资产
 	 * */
 	@RequestMapping(value="",method=RequestMethod.GET,produces="text/html;charset=UTF-8")
-	public String index(HttpServletRequest request,HttpSession session) {
-		String title = request.getParameter("title");
-		if(title.equals("financeIndex")) {
-			return "finance/index";
-		}else if(title.equals("financeReceived")){
-			return "finance/withdraw";
-		}else {
-			return null;
-		}
+	public String index() {
+		
+		return "finance/index";
 	}
+	
+	@RequestMapping(value="/financeReceived",method=RequestMethod.GET,produces="text/html;charset=UTF-8")
+	public String withdraw() {
+		return "finance/withdraw";
+	}
+	
 	/**
 	 * 获取商家id
 	 * */

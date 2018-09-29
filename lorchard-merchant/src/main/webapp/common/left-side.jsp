@@ -129,7 +129,7 @@
 		<li class="sidebar-second-item">
 			<!-- 二级菜单--> 
 			<a name="financeIndex" href="<%=basePath%>/finance?title=financeIndex" class=""> 资产中心</a> 
-			<a name="financeReceived" href="<%=basePath%>/finance?title=financeReceived" class="">提现</a> 
+			<a name="financeReceived" href="<%=basePath%>/finance/financeReceived?title=financeReceived" class="">提现</a> 
 		</li>
 	</ul>
 

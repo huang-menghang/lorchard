@@ -14,7 +14,19 @@
 		`f`.orderId as `orderId`
 		from
 		`t_lorchard_mall_finance` as `f`
-		where f.`merchantId` =#{queryMap.orderMerchantId}
+		<where>
+		  1=1
+		  <if test="queryMap.startTime != null and queryMap.startTime != ''">
+                <![CDATA[ and `f`.createTime > #{queryMap.startTime} ]]>
+			</if>
+			<if test="queryMap.endTime != null and queryMap.endTime != ''">
+                <![CDATA[ and `f`.createTime < #{queryMap.endTime} ]]>
+		 	</if>
+		 	<if test="queryMap.status !=null and queryMap.status != ''">
+				and f.`status` =#{queryMap.status}
+			</if>
+			and f.`merchantId` =#{queryMap.orderMerchantId}
+		</where>
 	</select>
 	
 	<!--查看提现记录-->
@@ -113,6 +125,6 @@
 		sum(`f`.account) as `totalCash`
 		from
 		`t_lorchard_mall_finance` as `f`
-		where `f`.status=1
+		where `f`.status=1 and `f`.merchantId=#{merchantId}
 	</select>
 </mapper>
