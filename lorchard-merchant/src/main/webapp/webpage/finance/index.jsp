@@ -36,7 +36,7 @@
 								</div>
 								<div class="layui-block">
 									<label id="financelabel" style="">￥</label> <input type="text"
-									name="balance" readonly="readonly" id="financeInput">
+									name="balance" readonly="readonly" id="financeInput" value="0.00">
 								</div>
 							</div>
 							<div class="layui-col-sm4">
@@ -47,7 +47,7 @@
 								</div>
 								<div class="layui-block">
 								<label id="financelabel" style="">￥</label> <input type="text"
-									name="totalCommission" readonly="readonly" id="financeInput">
+									name="totalCommission" readonly="readonly" id="financeInput" value="0.00">
 								</div>
 							</div>
 							<div class="layui-col-sm4">
@@ -56,7 +56,7 @@
 								</div>
 								<div class="layui-block">
 								<label id="financelabel" style="">￥</label> <input type="text"
-									name="totalCash" readonly="readonly" id="financeInput" value="">
+									name="totalCash" readonly="readonly" id="financeInput" value="0.00">
 								</div>
 							</div>
 						</div>

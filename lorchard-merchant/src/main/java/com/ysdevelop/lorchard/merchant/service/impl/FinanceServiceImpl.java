@@ -58,7 +58,9 @@ public class FinanceServiceImpl implements FinanceService {
 		Finance finance = financeDao.getLast();
 		Long merchantId = TokenManager.getUserId();
 		Double allWithdrawal = financeDao.getAllWithdrawal(merchantId);
-		finance.setTotalCash(allWithdrawal);
+		if(allWithdrawal!=null&&allWithdrawal.isNaN()) {
+			finance.setTotalCash(allWithdrawal);
+		}
 		return finance;
 	}
 	
