@@ -18,11 +18,11 @@ var category_index_ops = {
 			console.log(res.data);
 			if(res.data!=null){
 				if(res.data.balance!=null){
-					$('.layui-tab-content input[name="balance"]').val(res.data.balance);
-					$('.layui-tab-content input[name="totalCommission"]').val(res.data.totalCommission);
+					$('.layui-tab-content span[id="balance"]').html(res.data.balance);
+					$('.layui-tab-content span[id="totalCommission"]').html(res.data.totalCommission);
 				}
 				if(res.data.totalCash!=null){
-					$('.layui-tab-content input[name="totalCash"]').val(res.data.totalCash);
+					$('.layui-tab-content span[id="totalCash"]').html(res.data.totalCash);
 				}
 			}
 			layui.use([ 'table', 'layer', 'laydate', 'laypage' ],function() {
