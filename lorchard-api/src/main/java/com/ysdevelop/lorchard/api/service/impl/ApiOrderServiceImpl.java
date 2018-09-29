@@ -246,7 +246,7 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 		if(status == ApiConstant.DEFALULT_FIVE){
 			OrderVo order = orderDao.getOrderByNo(orderNo);
 			financeService.addFinance(order);
-			sendMessage(orderNo, MessageType.FINISHED);
+			sendMessage(order, MessageType.FINISHED);
 		}
 	}
 
@@ -355,11 +355,14 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 			} else if (resultCode.equalsIgnoreCase(ApiConstant.SUCCESS)) {
 				// 订单编号
 				String orderNo = result.getOut_trade_no();
-				sendMessage(orderNo, MessageType.UNDELIVERY);
-				List<OrderItemVo> orderItems = orderItemDao.getOrderByNo(orderNo);
-				validateStockAndSales(orderItems,ApiConstant.DEFALULT_ONE);
-				orderItemDao.updateStockAndSales(orderItems);
-				orderDao.updateStatusByOrderNo(orderNo, ApiConstant.DEFALULT_ONE);
+				OrderVo order = orderDao.getOrderByNo(orderNo);
+				if(order != null){
+					sendMessage(order, MessageType.UNDELIVERY);
+					List<OrderItemVo> orderItems = orderItemDao.getOrderByNo(orderNo);
+					validateStockAndSales(orderItems,ApiConstant.DEFALULT_ONE);
+					orderItemDao.updateStockAndSales(orderItems);
+					orderDao.updateStatusByOrderNo(orderNo, ApiConstant.DEFALULT_ONE);
+				}
 				response.getWriter().write(setXml("SUCCESS", "OK"));
 			}
 		} catch (IOException e) {
@@ -373,8 +376,7 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 				+ "]]></return_msg></xml>";
 	}
 
-	private void sendMessage(String orderNo, MessageType messageType) {
-		OrderVo order = orderDao.getOrderByNo(orderNo);
+	private void sendMessage(OrderVo order, MessageType messageType) {
 		MerchantMessage merchantMessage = new MerchantMessage();
 		merchantMessage.setMerchantId(order.getOrderMerchantId());
 		merchantMessage.setUserId(order.getOrderMemberId());
