@@ -14,7 +14,6 @@
 
 	<div class="tpl-content-wrapper">
 		<div style="margin-top: 20px" class="layui-tab layui-tab-brief main-tab-container">
-			<form class="formarea">
 			<div class="layui-tab-content">
 				<div class="layui-tab layui-tab-card">
 			     	<ul class="layui-tab-title main-tab-title">
@@ -35,8 +34,8 @@
 									</p>
 								</div>
 								<div class="layui-block">
-									<label id="financelabel" style="">￥</label> <input type="text"
-									name="balance" readonly="readonly" id="financeInput" value="0.00">
+									<label id="financelabel" style="">￥</label>
+									<span id="balance" class="financeSpan">0.00</span>
 								</div>
 							</div>
 							<div class="layui-col-sm4">
@@ -46,8 +45,8 @@
 								</p>
 								</div>
 								<div class="layui-block">
-								<label id="financelabel" style="">￥</label> <input type="text"
-									name="totalCommission" readonly="readonly" id="financeInput" value="0.00">
+								<label id="financelabel" style="">￥</label>
+								<span id="totalCommission" class="financeSpan">0.00</span>
 								</div>
 							</div>
 							<div class="layui-col-sm4">
@@ -55,8 +54,8 @@
 								<p class="layui-title">提现金额：</p>
 								</div>
 								<div class="layui-block">
-								<label id="financelabel" style="">￥</label> <input type="text"
-									name="totalCash" readonly="readonly" id="financeInput" value="0.00">
+								<label id="financelabel" style="">￥</label>
+								<span id="totalCash" class="financeSpan">0.00</span>
 								</div>
 							</div>
 						</div>
@@ -105,7 +104,6 @@
            </div>
 		</div>
 	</div>
-</form>
 </div>
 </div>
 	<jsp:include page="/context/js-tags.jsp" />
