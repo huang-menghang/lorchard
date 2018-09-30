@@ -110,7 +110,7 @@
 			<a name="orderUnpaid" href="<%=basePath%>/order?title=orderUnpaid" class="">待付款订单</a> 		
 			<a name="orderUnDelivered" href="<%=basePath%>/order?title=orderUnDelivered" class="">待发货订单</a>
 			<a name="orderUnReceived" href="<%=basePath%>/order?title=orderUnReceived" class="">待收货订单</a>  
-			<a name="orderRefund" href="<%=basePath%>/order?title=orderRefund" class="">退款中订单</a> 		
+			<a name="orderRefund" href="<%=basePath%>/order?title=orderRefund" class="">已退款订单</a> 		
 			<a name="orderCompleted" href="<%=basePath%>/order?title=orderCompleted" class="">已完成订单</a> 		
 		</li>
 	</ul>

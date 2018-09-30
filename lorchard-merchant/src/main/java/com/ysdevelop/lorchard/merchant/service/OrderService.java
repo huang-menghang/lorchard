@@ -48,7 +48,7 @@ public interface OrderService {
 	 * @param orderStatus 订单状态
 	 * 
 	 * */
-	void updateById(Integer id,Integer orderStatus);
+	void updateById(Order order);
 	
 	/**
 	 * 修改订单发货状态

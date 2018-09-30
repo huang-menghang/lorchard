@@ -50,7 +50,6 @@ public class OrderServiceImpl implements OrderService, Observer, InitializingBea
 	@Autowired
 	private FinanceService financeService;
 	
-	private Integer orderStatusIsFive =5;
 	
 	Logger logger = Logger.getLogger(this.getClass());
 	
@@ -91,23 +90,25 @@ public class OrderServiceImpl implements OrderService, Observer, InitializingBea
 	}
 
 	/**
-	 * 通过id取消订单,增加库存,减少销量
+	 * 通过id订单退款,增加库存,减少销量
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public void updateById(Integer id, Integer orderStatus) {
-		if (id == null) {
+	public void updateById(Order order) {
+		if (order == null) {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
 		
-		if (orderStatus.equals(orderStatusIsFive)) {
+		if (order.getOrderStatus()==ApiConstant.DEFALULT_FIVE) {
 			throw new WebServiceException(CodeMsg.IS_COMPLETED);
-		} else {
-			Integer updateById = orderDao.updateById(id);
+		}else if(order.getOrderStatus()==ApiConstant.DEFALULT_ZERO) {
+			throw new WebServiceException(CodeMsg.ORDER_UNPAID);
+		}else {
+			Integer updateById = orderDao.updateById(order.getId());
 			if(updateById== ApiConstant.DEFALULT_ZERO) {
 				throw new WebServiceException(CodeMsg.CANCAL_ORDER_ERROR);
 			}else {
-				List<OrderItem> orderItemById = orderDao.getOrderItemById(id);
+				List<OrderItem> orderItemById = orderDao.getOrderItemById(order.getId());
 				List<Goods> stockAndSales = orderDao.getStockAndSales(orderItemById);
 				for (OrderItem orderItem : orderItemById) {
 					for (Goods goods : stockAndSales) {
@@ -122,6 +123,7 @@ public class OrderServiceImpl implements OrderService, Observer, InitializingBea
 					throw new WebServiceException(CodeMsg.CANCAL_ORDER_ERROR);
 				}
 			}
+			financeService.addFinance(order);
 		}
 
 	}
