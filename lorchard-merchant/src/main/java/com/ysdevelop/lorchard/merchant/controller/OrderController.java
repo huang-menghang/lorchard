@@ -100,14 +100,16 @@ public class OrderController {
 		return Result.success("订单完成！");
 	}
 	
-	/**取消订单*/
-	@SystemControllerLog(description="取消订单成功",orderType=Constant.OrderType.CLOSED)
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json;charset=utf-8")
+	/**订单退款*/
+	@SystemControllerLog(description="订单退款成功",orderType=Constant.OrderType.CLOSED)
+	@RequestMapping(value = "/refund", method = RequestMethod.PUT, produces = "application/json;charset=utf-8")
 	@ResponseBody 
-	public Result<String> delete(@PathVariable Integer id,Integer orderStatus) {
-		orderService.updateById(id,orderStatus);
-		return Result.success("订单取消成功");
+	public Result<String> delete(@Valid Order order) {
+		orderService.updateById(order);
+		return Result.success("订单退款成功");
 	}
+	
+	
 	
 	/**
 	 * 确认发货

@@ -1,8 +1,6 @@
 package com.ysdevelop.lorchard.merchant.aop;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import com.ysdevelop.lorchard.common.utils.Constant;
 import com.ysdevelop.lorchard.merchant.entity.Order;
 import com.ysdevelop.lorchard.merchant.entity.OrderLog;
 import com.ysdevelop.lorchard.merchant.service.OrderLogService;
-import com.ysdevelop.lorchard.merchant.service.OrderService;
 
 /**
  * 
@@ -35,15 +32,13 @@ public class SystemLogAspect {
 	@Autowired
 	OrderLogService orderLogService;
 	
-	@Autowired
-	private OrderService orderService;
+
 	
 	@Before(value = "@annotation(log)")
 	public void doBefore(JoinPoint joinPoint, SystemControllerLog log) {
 			if(log.orderType().getIndex()!=Constant.OrderType.NOTORDERTYPE.getIndex()) {
 				
-				Integer id  = (Integer)joinPoint.getArgs()[0];
-				Order order = orderService.getById(id);
+				Order order  = (Order)joinPoint.getArgs()[0];
 				orderLog(log, order);
 			}
 

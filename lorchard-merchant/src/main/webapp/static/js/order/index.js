@@ -1,4 +1,4 @@
-var category_index_ops = {
+var order_index_ops = {
 	init:function(){
 		this.inintComponent();
 	},
@@ -53,10 +53,6 @@ var category_index_ops = {
 			console.log("orderStatus"+orderStatus);
 			console.log("orderMerchantId"+orderMerchantId);
 			
-			
-
-			
-			
 			var tableIns = table.render({
 				 // 设置table组件控制的元素
 				 elem: '#orderTable',
@@ -98,8 +94,13 @@ var category_index_ops = {
 			table.on('tool(table-order)', function(obj) {
 				var data = obj.data;
 				var id = data.id;
-				var event = obj.event;
+				var orderNo=data.orderNo;
+				var orderMerchantId=data.orderMerchantId;
+				var orderPendingBalance=data.orderPendingBalance;
+				var orderPayPrice=data.orderPayPrice;
 				var orderStatus=data.orderStatus;
+				var orderMemberId=data.orderMemberId;
+				var event = obj.event;
 				switch (event) {
                 case 'info':
                 	window.location.href = WEB_ROOT+'/order/info?id='+id+'&ops=info&title=orderIndex';
@@ -128,17 +129,21 @@ var category_index_ops = {
                      };
                  	common_ops.confirm("是否确认发货", callback)
                  	break;
-                case 'cancel':
+                case 'refund':
                 	var callback = {
                 	   ok:function(){
                 			
        					$.ajax({
-       						type:'POST',
-       						url:WEB_ROOT+'/order/'+id,
+       						type:'PUT',
+       						url:WEB_ROOT+'/order/refund',
        						data:{
-       							_method:'delete',
-       							orderStatus:orderStatus,
-       							id:id
+       							id:id,
+    							orderNo:orderNo,
+    							orderMerchantId:orderMerchantId,
+    							orderPendingBalance:orderPendingBalance,
+    							orderPayPrice:orderPayPrice,
+    							orderStatus:orderStatus,
+    							orderMemberId:orderMemberId,
        						}
        					}).done(function(res){
        						var msg = res.msg;
@@ -151,7 +156,7 @@ var category_index_ops = {
        					});
                 	   },
                     };
-                	common_ops.confirm("是否确认取消订单", callback)
+                	common_ops.confirm("是否确认退款", callback);
                 	break;
                 	
 				default:
@@ -239,7 +244,7 @@ var category_index_ops = {
 	
 }
 $(function(){
-	category_index_ops.init();
+	order_index_ops.init();
 })
 
 

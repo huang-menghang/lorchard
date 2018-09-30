@@ -73,7 +73,7 @@ public class CodeMsg {
 	public static CodeMsg ISNOT_COMPLETE=new CodeMsg(500033,"商品不是待收货状态，无法确认完成！");
 	public static CodeMsg DELIVER_ERROR=new CodeMsg(500034,"商品发货失败");
 	public static CodeMsg CANCAL_ORDER_ERROR=new CodeMsg(500035,"取消订单失败");
-	
+	public static CodeMsg ORDER_UNPAID=new CodeMsg(500035,"订单未付款,无法退款");
 	//统计
 	public static CodeMsg NEWMEMBER_EXIST = new CodeMsg(500012,"新增会员数量为空");
 	

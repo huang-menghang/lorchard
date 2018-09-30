@@ -83,10 +83,10 @@
 		where `o`.id = #{id}
     </select>
     
-	<!-- 取消订单 -->
+	<!-- 订单退款 -->
 	<update id="updateById">
 		update `t_lorchard_mall_goods_order`
-		set `orderStatus`=4
+		set `orderStatus`=3
 		where
 		`id`=#{id}
 	</update>

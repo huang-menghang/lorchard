@@ -122,7 +122,7 @@ margin-top:3%;
     {{#
     var barOption = "<a class='layui-btn layui-btn-small layui-btn-warm look_btn' title='查看' lay-event='info'><i class='layui-icon'>&#xe615;</i></a>";
 	barOption += "<a class='layui-btn  layui-btn-small' title='发货' lay-event='deliver'><i class='layui-icon'>&#xe698;</i></a>";
-    barOption += "<a class='layui-btn layui-btn-danger layui-btn-small' title='取消订单' lay-event='cancel'><i class='layui-icon'>&#xe640;</i></a>";
+    barOption += "<a class='layui-btn layui-btn-danger layui-btn-small' title='订单退款' lay-event='refund'><i class='layui-icon'>&#xe640;</i></a>";
     return barOption;
 
     }} 

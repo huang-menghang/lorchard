@@ -49,7 +49,7 @@ public interface OrderDao {
 	 * 
 	 * @return Integer 返回0表示修改失败
 	 */
-	Integer updateById(Integer id);
+	Integer updateById(Long id);
 	
 	
 	/**
@@ -105,7 +105,7 @@ public interface OrderDao {
 	 * 
 	 * @return 返回订单商品集合
 	 * */
-	List<OrderItem> getOrderItemById(Integer id);
+	List<OrderItem> getOrderItemById(Long id);
 	
 	/**
 	 * 通过商品id获取商品的库存和销量
