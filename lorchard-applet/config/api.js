@@ -1,5 +1,5 @@
 // 后台数据接口统一放在api.js中
-var NewApiRootUrl = 'https://3d5982b8.ngrok.io/lorchard-api/';
+var NewApiRootUrl = 'https://0de7cb4c.ngrok.io/lorchard-api/';
 // var NewApiRootUrl = 'https://www.ysdevelop.cn/lorchard-api/';
 
 module.exports = {

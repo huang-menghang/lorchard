@@ -258,7 +258,7 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 		for (OrderItemVo orderItem : orderItems) {
 			List<PreviewImagesVo> transitionPreviewImage=new ArrayList<>();
 			for (PreviewImagesVo previewImage : listPreviewImage) {
-				if (orderItem.getId() == previewImage.getGoodsId()) {
+				if (orderItem.getGoodsId() == previewImage.getGoodsId()) {
 					transitionPreviewImage.add(previewImage);
 				}
 			}
