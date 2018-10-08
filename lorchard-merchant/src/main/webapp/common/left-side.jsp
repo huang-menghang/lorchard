@@ -74,6 +74,10 @@
 			href="<%=basePath%>/set?title=setIndex" class=""> <i
 				class="iconfont sidebar-nav-link-logo icon-setting" style=""></i> 设置
 		</a></li>
+		<li class="sidebar-nav-link"><a
+			href="<%=basePath%>/activity?title=activityIndex" class=""> <i
+				class="iconfont sidebar-nav-link-logo icon-huodong1" style=""></i> 活动管理
+		</a></li>
 	</ul>
 
 
@@ -138,6 +142,15 @@
 		<li class="sidebar-second-item">
 			<!-- 二级菜单--> 
 			<a name="setIndex" href="<%=basePath%>/set?title='setIndex'" class=""> 商城设置 </a> 
+		</li>
+	</ul>
+    
+    <ul class="left-sidebar-second">
+		<li class="sidebar-second-title">活动管理</li>
+		<li class="sidebar-second-item">
+			<!-- 二级菜单--> 
+			<a name="activityIndex" href="<%=basePath%>/activity?title=activityIndex" class=""> 目前活动 </a>
+			<a name="activityHistory" href="<%=basePath%>/activity/activityHistory?title=activityHistory" class=""> 历史活动 </a>  
 		</li>
 	</ul>
 
