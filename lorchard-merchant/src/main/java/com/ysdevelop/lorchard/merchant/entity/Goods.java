@@ -51,10 +51,7 @@ public class Goods {
 	/**商品顶级分类*/
 	private String parentCategoryName;
 
-	/**折后价*/
-	@NotNull(message="折后价不能为空")
-	@Min(value=0,message="折后价不能小于0")
-	private Double minPrice;
+	
 	
 	/**父类id*/
 	private Long parentId;
@@ -81,13 +78,13 @@ public class Goods {
 	@NotNull(message="商品规格不能为空")
 	private Long type;
 	
-	
 	/**商品规格描述*/
 	@NotBlank(message = "商品规格描述不能为空")
 	private String specificationsDescription;
 	
-	/**商品评论*/
-	private String comment;
+	/**拼团价*/
+	@Min(value=0,message="拼团价不能小于0")
+	private Double spellingGroupPrice;
 
 	public Long getId() {
 		return id;
@@ -161,13 +158,6 @@ public class Goods {
 		this.parentCategoryName = parentCategoryName;
 	}
 
-	public Double getMinPrice() {
-		return minPrice;
-	}
-
-	public void setMinPrice(Double minPrice) {
-		this.minPrice = minPrice;
-	}
 
 	public Long getParentId() {
 		return parentId;
@@ -233,13 +223,14 @@ public class Goods {
 		this.specificationsDescription = specificationsDescription;
 	}
 
-	public String getComment() {
-		return comment;
+	public Double getSpellingGroupPrice() {
+		return spellingGroupPrice;
 	}
 
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setSpellingGroupPrice(Double spellingGroupPrice) {
+		this.spellingGroupPrice = spellingGroupPrice;
 	}
+	
 	
 }
 

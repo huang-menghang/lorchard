@@ -21,7 +21,7 @@ var info_ops = {
 			var parentId =  res.data.parentId == 0 ? '500g/元':'1份/元';
 			$('.layui-tab-content input[name="parentId"]').val(parentId);
 			$('.layui-tab-content input[name="originalPrice"]').val(res.data.originalPrice);
-			$('.layui-tab-content input[name="minPrice"]').val(res.data.minPrice);
+			$('.layui-tab-content input[name="spellingGroupPrice"]').val(res.data.spellingGroupPrice);
 			var recommend =  res.data.recommend == 0 ? '否':'是';
 			$('.layui-tab-content textarea[name="description"]').val(res.data.description);
 			$('.layui-tab-content input[name="recommend"]').val(recommend);

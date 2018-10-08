@@ -57,7 +57,7 @@ public class CodeMsg {
 	//商品
 	public static CodeMsg SPECATION_EXIST = new CodeMsg(500010,"该商品规格已存在");
 	public static CodeMsg COMMODITYNAME_EXIST = new CodeMsg(500022,"该商品名已存在");
-	public static CodeMsg ORIGINALPRIVE_LESS_THAN_MINPRICE=new CodeMsg(500032,"正常价应该大于折后价");
+	public static CodeMsg ORIGINALPRIVE_LESS_THAN_SPELLINGGROUPPRICE=new CodeMsg(500032,"正常价应该大于团购价");
 	public static CodeMsg GOODS_STOCK_CHANGE=new CodeMsg(500062,"商品库存不足,请取消订单,重新下单");
 	
 	//服务

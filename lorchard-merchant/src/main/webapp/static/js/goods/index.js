@@ -103,8 +103,8 @@ var category_index_ops = {
 				 
 			     var name = $("input[ name='name']").val();
 			     var description = $("input[ name='description']").val();
-			     var minPriceMin= $("input[ name='minPriceMin']").val();
-			     var minPriceMax = $("input[ name='minPriceMax']").val();
+			     var originalPriceMin= $("input[ name='originalPriceMin']").val();
+			     var originalPriceMax = $("input[ name='originalPriceMax']").val();
 			     var salesMin = $("input[ name='salesMin']").val();
 			     var salesMax = $("input[ name='salesMax']").val();
 			     console.log("startTime"+startTime);
@@ -118,8 +118,8 @@ var category_index_ops = {
 							startTime : startTime,
 							endTime : endTime,
 							merchantId:merchantId,
-							minPriceMin:minPriceMin,
-							minPriceMax:minPriceMax,
+							originalPriceMin:originalPriceMin,
+							originalPriceMax:originalPriceMax,
 							salesMin:salesMin,
 							salesMax:salesMax
 						}

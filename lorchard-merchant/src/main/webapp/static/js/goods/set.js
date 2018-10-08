@@ -112,7 +112,7 @@ var category_set_ops = {
 	  				that.renderFrom();
 	  				$('.layui-tab-content select[name="type"]').val(res.data.type);
 	  				$('.layui-tab-content input[name="originalPrice"]').val(res.data.originalPrice);
-	  				$('.layui-tab-content input[name="minPrice"]').val(res.data.minPrice);
+	  				$('.layui-tab-content input[name="spellingGroupPrice"]').val(res.data.spellingGroupPrice);
 	  				$('.layui-tab-content textarea[name="specificationsDescription"]').val(res.data.specificationsDescription);
 	  				$('.layui-tab-content input[name="stock"]').val(res.data.stock);
 	  				$('.layui-tab-content select[name="recommend"]').val(res.data.recommend);
@@ -159,7 +159,7 @@ var category_set_ops = {
                var description = $('.layui-form textarea[name="description"]').val();
                var type = $('.layui-form select[name="type"]').val();
 			   var originalPrice = $('.layui-form input[name="originalPrice"]').val();
-			   var minPrice = $('.layui-form input[name="minPrice"]').val();
+			   var spellingGroupPrice = $('.layui-form input[name="spellingGroupPrice"]').val();
 			   var specificationsDescription = $('.layui-form textarea[name="specificationsDescription"]').val();
 			   var stock = $('.layui-form input[name="stock"]').val();
 			   var parentId = $('.layui-form select[name="parentId"]').val();
@@ -176,7 +176,7 @@ var category_set_ops = {
 					   description:description,
 					   type:type,
 					   originalPrice:originalPrice,
-					   minPrice:minPrice,
+					   spellingGroupPrice:spellingGroupPrice,
 					   specificationsDescription:specificationsDescription,
 					   stock:stock,
 					   parentId:parentId,

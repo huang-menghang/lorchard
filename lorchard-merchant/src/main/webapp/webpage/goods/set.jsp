@@ -173,9 +173,9 @@ margin-right: 2%;
 							</div>
 							<div class="layui-form-item">
 								<label class="layui-form-label">
-								<span class="x-red">*</span>折后价：</label>
+								<span class="x-red">*</span>拼团价格：</label>
 								<div class="layui-input-inline input-custom-width">
-									<input type="text" name="minPrice" diyRule="^[0-9]+.?[0-9]*$" diyCheck="输入的不是数字"
+									<input type="text" name="spellingGroupPrice" diyRule="^[0-9]+.?[0-9]*$" diyCheck="输入的不是数字"
 										required="true" value="" autocomplete="off"
 										placeholder="请输入商品折后价" class="layui-input" lay-verType="alert">
 								</div>

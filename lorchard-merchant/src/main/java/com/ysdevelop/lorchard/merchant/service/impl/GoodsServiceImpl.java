@@ -114,9 +114,9 @@ public class GoodsServiceImpl implements GoodsService {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
 
-		// 判断正常价是否小于折后价
-		if (goods.getOriginalPrice() < goods.getMinPrice()) {
-			throw new WebServiceException(CodeMsg.ORIGINALPRIVE_LESS_THAN_MINPRICE);
+		// 判断正常价是否小于团购价
+		if (goods.getOriginalPrice() < goods.getSpellingGroupPrice()) {
+			throw new WebServiceException(CodeMsg.ORIGINALPRIVE_LESS_THAN_SPELLINGGROUPPRICE);
 		}
 
 		Integer changeCount = goodsDao.update(goods);
@@ -154,9 +154,9 @@ public class GoodsServiceImpl implements GoodsService {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
 
-		// 判断正常价是否小于折后价
-		if (goods.getOriginalPrice() < goods.getMinPrice()) {
-			throw new WebServiceException(CodeMsg.ORIGINALPRIVE_LESS_THAN_MINPRICE);
+		// 判断正常价是否小于团购价
+		if (goods.getOriginalPrice() < goods.getSpellingGroupPrice()) {
+			throw new WebServiceException(CodeMsg.ORIGINALPRIVE_LESS_THAN_SPELLINGGROUPPRICE);
 		}
 
 		goods.setMerchantId(TokenManager.getUserId());

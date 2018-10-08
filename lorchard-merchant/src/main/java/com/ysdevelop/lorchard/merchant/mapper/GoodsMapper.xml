@@ -13,7 +13,7 @@
 	    `g`.sales as `sales`,
 	    `c`.id as parentId,
 		`g`.recommend as `recommend`,
-		`s`.minPrice as `minPrice`,
+		`s`.spellingGroupPrice as `spellingGroupPrice`,
 		`s`.originalPrice as `originalPrice`,
 		`s`.type as `type`,
 		`g`.parentId as `parentId`,
@@ -36,11 +36,11 @@
 			<if test="queryMap.endTime != null and queryMap.endTime != ''">
                <![CDATA[ and `g`.createTime < #{queryMap.endTime} ]]>
 		 	</if>
-		 	<if test="queryMap.minPriceMin != null and queryMap.minPriceMin != ''">
-              <![CDATA[ and `s`.minPrice >= #{queryMap.minPriceMin} ]]>
+		 	<if test="queryMap.originalPriceMin != null and queryMap.originalPriceMin != ''">
+              <![CDATA[ and `s`.spellingGroupPrice >= #{queryMap.originalPriceMin} ]]>
             </if>
-		 	<if test="queryMap.minPriceMax != null and queryMap.minPriceMax!= ''">
-              <![CDATA[ and `s`.minPrice <= #{queryMap.minPriceMax} ]]>
+		 	<if test="queryMap.originalPriceMax != null and queryMap.originalPriceMax!= ''">
+              <![CDATA[ and `s`.spellingGroupPrice <= #{queryMap.originalPriceMax} ]]>
 		 	</if>
 		 	<if test="queryMap.salesMin != null and queryMap.salesMin!= ''">
               <![CDATA[ and `g`.sales >= #{queryMap.salesMin} ]]>
@@ -89,7 +89,7 @@
 	   `g`.parentId as `parentId`,
 	   `s`.type as `type`,
 	   `s`.originalPrice as `originalPrice`,
-	   `s`.minPrice as `minPrice`,
+	   `s`.spellingGroupPrice as `spellingGroupPrice`,
 	   `s`.specificationsDescription as `specificationsDescription`,
 	   `g`.recommend as `recommend`,
 	   `g`.stock as `stock`,
@@ -129,7 +129,7 @@
 				s.`originalPrice` = #{originalPrice},
 			</if>
 			<if test="minPrice != null  ">
-				s.`minPrice` = #{minPrice},
+				s.`spellingGroupPrice` = #{spellingGroupPrice},
 			</if>
 			<if test="stock != null  ">
 				g.`stock` = #{stock},
@@ -181,7 +181,7 @@
 	
 	<!-- 添加商品尺寸 -->
 	<insert id="addSpecifications" parameterType="com.ysdevelop.lorchard.merchant.entity.Goods" >
-	   insert into `t_lorchard_mall_goods_specifications`(`type`,`originalPrice`,`minPrice`,`specificationsDescription`,`goodsId`)
-	   values(#{type},#{originalPrice},#{minPrice},#{specificationsDescription},#{id})
+	   insert into `t_lorchard_mall_goods_specifications`(`type`,`originalPrice`,`spellingGroupPrice`,`specificationsDescription`,`goodsId`)
+	   values(#{type},#{originalPrice},#{spellingGroupPrice},#{specificationsDescription},#{id})
 	</insert>
 </mapper>

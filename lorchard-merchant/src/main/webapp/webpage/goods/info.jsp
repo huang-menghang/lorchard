@@ -113,9 +113,9 @@ img {
 							</div>
 
 							<div class="layui-form-item">
-								<label class="layui-form-label">最低价格:</label>
+								<label class="layui-form-label">拼团价格:</label>
 								<div class="layui-input-inline input-custom-width">
-									<input type="text" name="minPrice" readonly="readonly"
+									<input type="text" name="spellingGroupPrice" readonly="readonly"
 										class="layui-input">
 								</div>
 							</div>

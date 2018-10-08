@@ -81,12 +81,12 @@ td .layui-table-cell {
 						<div class="layui-form-item">
 						<label class="layui-form-label " style="width:10%;">价格范围</label>
 							<div class="layui-input-inline " style="width: 15%">
-								<input type="text" class="layui-input" name="minPriceMin"
-									value="" placeholder="最低折后价" autocomplete="off">
+								<input type="text" class="layui-input" name="originalPriceMin"
+									value="" placeholder="最低正常价" autocomplete="off">
 							</div>
 							<div class="layui-input-inline " style="width: 15%">
 								<input type="text"  class="layui-input" autocomplete="off"
-									value="" placeholder="最高折后价" name="minPriceMax">
+									value="" placeholder="最高正常价" name="originalPriceMax">
 							</div>
 							<label class="layui-form-label " style="width: 10%">销量范围</label>
 							<div class="layui-input-inline " style="width: 15%">
