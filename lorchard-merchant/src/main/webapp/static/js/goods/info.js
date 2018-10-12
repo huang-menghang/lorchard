@@ -22,6 +22,7 @@ var info_ops = {
 			$('.layui-tab-content input[name="parentId"]').val(parentId);
 			$('.layui-tab-content input[name="originalPrice"]').val(res.data.originalPrice);
 			$('.layui-tab-content input[name="spellingGroupPrice"]').val(res.data.spellingGroupPrice);
+			$('.layui-tab-content input[name="totalNumber"]').val(res.data.totalNumber);
 			var recommend =  res.data.recommend == 0 ? '否':'是';
 			$('.layui-tab-content textarea[name="description"]').val(res.data.description);
 			$('.layui-tab-content input[name="recommend"]').val(recommend);

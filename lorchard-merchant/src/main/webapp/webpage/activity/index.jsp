@@ -41,6 +41,7 @@
 								<input type="text" name="activityName" value=""
 									placeholder="活动名称" autocomplete="off" class="layui-input">
 							</div>
+							
 							<div class="layui-input-inline " style="width: 5%">
 								<button class="layui-btn btn-serach" lay-submit=""
 									lay-filter="sreach" style="width: 150%; padding: 2%;">
@@ -56,32 +57,25 @@
 									<i class="layui-icon">&#xe666;</i>重置
 								</button>
 							</div>
-
-						</div>
-						<div class="layui-form-item">
-							<label class="layui-form-label " style="width: 10%">活动方式</label>
-							<div class="layui-input-inline" style="width: 202px; text-align: center;">
-									<select name="activityMethod" lay-filter="reportType">
+							
+							<div class="layui-form-item" style="margin-left:1%;">
+							<label class="layui-form-label" style="width: 9%;margin-left:-1%"; id="tableLable">类型</label>
+							<div class="layui-input-inline" style="width: 25%; text-align: center;">
+									<select name="activityType" lay-filter="reportType">
 										<option></option>
-										<option value="0">整点秒杀</option>
-										<option value="1">拼团购买</option>
+										<option value="0">拼团活动</option>
 									</select>
 							</div>
-							<div class="layui-input-inline"
-								style="width: 11%; ">
-								<button class="layui-btn layui-btn-normal btn-timeOut"
-									style="width: 150%; padding: 2%;">
-									<i class="layui-icon">&#xe655;</i>发布新的活动
-								</button>
-							</div>
-						</div>
 							
+							</div>
+						</div>							
 						</div>
 					</div>
 				</div>
 				<!-- 表格 -->
-				<div id="activityTable" lay-filter="activity-order"></div>
-
+				<div class="layui-form-item" style="margin-left:1%;width:95%;">
+				<div id="activityTable" lay-filter="table-activity"></div>
+                </div>
 			</div>
 		</div>
 
@@ -90,21 +84,27 @@
 	<jsp:include page="/context/js-tags.jsp" />
 	<script id="barOption" type="text/html">
     {{#
-    var barOption = "<a class='layui-btn layui-btn-small layui-btn-warm look_btn' title='查看' lay-event='info'><i class='layui-icon'>&#xe615;</i></a>";
-	barOption += "<a class='layui-btn  layui-btn-small' title='修改' lay-event='deliver'><i class='layui-icon'>&#xe60a;</i></a>";
-    barOption += "<a class='layui-btn layui-btn-danger layui-btn-small' title='删除' lay-event='refund'><i class='layui-icon'>&#xe640;</i></a>";
+	var barOption = "<a class='layui-btn layui-btn-small layui-btn-warm look_btn' title='查看' lay-event='info'><i class='layui-icon'>&#xe615;</i></a>";
+    barOption += "<a class='layui-btn layui-btn-danger layui-btn-small' title='删除' lay-event='delete'><i class='layui-icon'>&#xe640;</i></a>";
     return barOption;
 
     }} 
     </script>
 	<script type="text/html" id="date_formate">
     {{#  
-     console.log("dateTime--->"+d.payTime);
-     return new Date(d.payTime).format("yyyy-MM-dd hh:mm:ss");
+     console.log("dateTime--->"+d.startTime);
+     return new Date(d.startTime).format("yyyy-MM-dd hh:mm:ss");
+
+    }} 
+    </script>
+    <script id="activityType" type="text/html">
+    {{#  
+    console.log(d.activityType);
+    return (d.activityType == 0 ? "拼团活动":"整点秒杀"); 
     }} 
     </script>
 	<script type="text/javascript"
-		src="<%=basePath%>/static/js/order/index.js"></script>
+		src="<%=basePath%>/static/js/activity/index.js"></script>
 	<script type="text/javascript"
 		src="<%=basePath%>/static/plugin/jquery/3.2.1/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript"

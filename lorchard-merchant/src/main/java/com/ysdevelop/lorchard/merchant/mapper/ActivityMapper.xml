@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ysdevelop.lorchard.merchant.mapper.ActivityDao">
+	<insert id="add" parameterType="com.ysdevelop.lorchard.merchant.entity.SpellingGroup" useGeneratedKeys="true" keyProperty="id">
+		insert into `t_lorchard_mall_activity`(`merchantId`,`startTime`,`endTime`,`activityName`,`activityType`,`description`,`createTime`,`activityStatus`)
+		values(#{merchantId},#{startTime},#{endTime},#{activityName},#{activityType},#{description},now(),0)
+	</insert>
+	
+	<insert id="addActivityGoods" >
+	   insert into `t_lorchard_mall_activity_goods`(`activityId`,`goodsId`,`createTime`)
+	   values
+	   <foreach collection="activityGoods" index="index" item="activityGoods" separator=",">
+			(#{spellingGroup.id},
+			#{activityGoods},
+			now())
+		</foreach>
+	</insert>
+	
+	<update id="update">
+		<foreach collection="list" item="goodsId" index="index" open="" close="" separator=";">
+  			update `t_lorchard_mall_goods` as `g`,`t_lorchard_mall_goods_specifications` as `s`
+			set `g`.totalNumber =#{totalNumber},`s`.spellingGroupPrice=#{spellingGroupPrice}
+			where `g`.id=#{goodsId} and `s`.goodsId=`g`.id
+      	</foreach> 
+	</update>
+	
+	<!--查看所有活动-->
+	<select id="list" resultType="com.ysdevelop.lorchard.merchant.entity.Activity">
+		select
+		`a`.id as `id`,
+		`a`.activityName as `activityName`,
+		`a`.activityType as `activityType`,
+		`a`.startTime as `startTime`,
+		`a`.endTime as `endTime`,
+		`a`.createTime as `createTime`,
+		`a`.updateTime as `updateTime`,
+		`a`.description as `description`
+		from
+		`t_lorchard_mall_activity` as `a`
+		<where>
+		  1=1
+		  <if test="queryMap.activityName !=null and queryMap.activityName != ''">
+				and a.`activityName` like CONCAT('%',#{queryMap.activityName},'%')
+		  </if>
+		  <if test="queryMap.startTime != null and queryMap.startTime != ''">
+                <![CDATA[ and `a`.startTime>=#{queryMap.startTime} ]]>
+			</if>
+			<if test="queryMap.endTime != null and queryMap.endTime != ''">
+                <![CDATA[ and `a`.endTime<=#{queryMap.endTime} ]]>
+		 	</if>
+		 	<if test="queryMap.activityName !=null and queryMap.activityName != ''">
+				and a.`activityName` =#{queryMap.activityName}
+			</if>
+			and a.`merchantId` =#{queryMap.merchantId}
+			and a.`activityStatus`=0
+		</where>
+	</select>
+	
+	<!-- 结束活动-->
+	<update id="deleteById">
+		update `t_lorchard_mall_activity`
+		set `status`=1
+		where
+		`id`=#{id}
+	</update>
+	
+	<select id="getById" resultType="com.ysdevelop.lorchard.merchant.entity.SpellingGroup">
+		select 
+		`a`.activityName as `activityName`,
+		`a`.description as `description`,
+		`a`.activityType as `activityType`,
+		`a`.startTime as `startTime`,
+		`a`.endTime as `endTime`
+		from 
+		`t_lorchard_mall_activity` as `a`
+		where `a`.id=#{id}
+	</select>
+	
+	<select id="getGoodsById" resultType="com.ysdevelop.lorchard.merchant.entity.Goods">
+		select
+		`a`.goodsId as `id`,
+		`g`.totalNumber as `totalNumber`,
+		`s`.spellingGroupPrice as `spellingGroupPrice`
+		from
+		`t_lorchard_mall_activity_goods` as `a` 
+		left join `t_lorchard_mall_goods` as `g` on `g`.id=`a`.goodsId
+		left join `t_lorchard_mall_goods_specifications` as `s` on `s`.goodsId=`g`.id
+		where `a`.activityId=#{id}
+	</select>
+</mapper>

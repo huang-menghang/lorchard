@@ -86,6 +86,21 @@ public class Goods {
 	@Min(value=0,message="拼团价不能小于0")
 	private Double spellingGroupPrice;
 
+	/**
+	 *拼团总人数 
+	 */
+	private Long totalNumber;
+	
+	
+	
+	public Long getTotalNumber() {
+		return totalNumber;
+	}
+
+	public void setTotalNumber(Long totalNumber) {
+		this.totalNumber = totalNumber;
+	}
+
 	public Long getId() {
 		return id;
 	}

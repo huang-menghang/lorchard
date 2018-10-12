@@ -177,7 +177,17 @@ margin-right: 2%;
 								<div class="layui-input-inline input-custom-width">
 									<input type="text" name="spellingGroupPrice" diyRule="^[0-9]+.?[0-9]*$" diyCheck="输入的不是数字"
 										required="true" value="" autocomplete="off"
-										placeholder="请输入商品折后价" class="layui-input" lay-verType="alert">
+										placeholder="请输入商品拼团价" class="layui-input" lay-verType="alert">
+								</div>
+							</div>
+							
+							<div class="layui-form-item">
+								<label class="layui-form-label">
+								<span class="x-red">*</span>拼团人数：</label>
+								<div class="layui-input-inline input-custom-width">
+									<input type="text" name="totalNumber" diyRule="^[0-9]+.?[0-9]*$" diyCheck="输入的不是数字"
+										required="true" value="" autocomplete="off"
+										placeholder="请输入拼团人数" class="layui-input" lay-verType="alert">
 								</div>
 							</div>
 							<div class="layui-form-item">

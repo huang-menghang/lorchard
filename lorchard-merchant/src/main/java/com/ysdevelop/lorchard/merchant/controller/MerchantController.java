@@ -103,7 +103,7 @@ public class MerchantController {
 	public Result<String> sendMqMessage() {
 		MerchantMessage message = new MerchantMessage();
 		message.setConent("测试消息");
-		message.setMerchantId(1l);
+		message.setMerchantId(1L);
 		message.setMessageType(MessageType.APPLY_SHOP);
 		messageProducer.sendMessage(MessageKey.MERCHANT_KEY, JSON.toJSONString(message));
 		return Result.success("消息发送成功");

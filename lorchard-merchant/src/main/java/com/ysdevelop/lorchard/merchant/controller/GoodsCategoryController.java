@@ -76,7 +76,7 @@ public class GoodsCategoryController {
 
 	}
 
-	// 查询商品商品分类
+	/**查询商品商品分类*/
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Result<GoodsCategory> info(@PathVariable(value = "id") Integer id) {
@@ -84,7 +84,7 @@ public class GoodsCategoryController {
 		return Result.successData(category);
 	}
 
-	// 修改商品分类
+	/**修改商品分类*/
 	@RequestMapping(value = "", method = RequestMethod.PUT, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Result<String> update(@Valid GoodsCategory category) {
@@ -92,13 +92,13 @@ public class GoodsCategoryController {
 		return Result.success("产品分类修改成功");
 	}
 	
-	// 查看商品详情
+	/**查看商品详情*/
 	@RequestMapping(value = "/info", method = RequestMethod.GET, produces = "text/html;charset=utf-8")
 	public String info(){
 		return "category/info";
 	}
 
-	// 修改商品
+	/**修改商品*/
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Result<String> delete(@PathVariable Integer id) {

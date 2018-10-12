@@ -91,6 +91,7 @@
 	   `s`.originalPrice as `originalPrice`,
 	   `s`.spellingGroupPrice as `spellingGroupPrice`,
 	   `s`.specificationsDescription as `specificationsDescription`,
+	   `g`.totalNumber as `totalNumber`,
 	   `g`.recommend as `recommend`,
 	   `g`.stock as `stock`,
 	   `g`.sales as `sales`,

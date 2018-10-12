@@ -109,13 +109,14 @@ var category_set_ops = {
 	  					$("#uploader-list").append('<div id="" class="file-iteme">'+'<div class="handle"><i class="layui-icon">&#xe640;</i></div>'+'<img alt="" border="none" style="width: 100px;height: 100px;" src='+ v.previewImagePath +'>'+'</div>');
 
 	  				});
-	  				that.renderFrom();
 	  				$('.layui-tab-content select[name="type"]').val(res.data.type);
 	  				$('.layui-tab-content input[name="originalPrice"]').val(res.data.originalPrice);
 	  				$('.layui-tab-content input[name="spellingGroupPrice"]').val(res.data.spellingGroupPrice);
+	  				$('.layui-tab-content input[name="totalNumber"]').val(res.data.totalNumber);
 	  				$('.layui-tab-content textarea[name="specificationsDescription"]').val(res.data.specificationsDescription);
 	  				$('.layui-tab-content input[name="stock"]').val(res.data.stock);
 	  				$('.layui-tab-content select[name="recommend"]').val(res.data.recommend);
+	  				that.renderFrom();
 	  				parentId=res.data.parentId;
 	  				recommend=res.data.recommend;
 	  			}else{

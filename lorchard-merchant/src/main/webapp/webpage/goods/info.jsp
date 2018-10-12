@@ -119,7 +119,15 @@ img {
 										class="layui-input">
 								</div>
 							</div>
-
+							
+							<div class="layui-form-item">
+								<label class="layui-form-label">
+								<span class="x-red">*</span>拼团人数：</label>
+								<div class="layui-input-inline input-custom-width">
+									<input type="text" name="totalNumber" readonly="readonly"
+										class="layui-input" >
+								</div>
+							</div>
                              <div class="layui-form-item">
 						        <label class="layui-form-label">分类描述</label>
 						        <div class="layui-input-inline input-custom-width">

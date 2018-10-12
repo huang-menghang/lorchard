@@ -15,12 +15,6 @@ import java.util.List;
  */
 public class SpellingGroup extends Activity{
 	
-	
-	/**
-	 * 拼团id
-	 */
-	private Long spellingGroupId;
-	
 	/**
 	 * 商品
 	 */
@@ -31,12 +25,6 @@ public class SpellingGroup extends Activity{
 	 */
 	private List<Long> goodsId;
 	
-	/**
-	 * 拼团人数
-	 */
-	private Long spellingGroupNumber;
-	
-	
 	
 	public List<Long> getGoodsId() {
 		return goodsId;
@@ -44,14 +32,6 @@ public class SpellingGroup extends Activity{
 
 	public void setGoodsId(List<Long> goodsId) {
 		this.goodsId = goodsId;
-	}
-
-	public Long getSpellingGroupNumber() {
-		return spellingGroupNumber;
-	}
-
-	public void setSpellingGroupNumber(Long spellingGroupNumber) {
-		this.spellingGroupNumber = spellingGroupNumber;
 	}
 
 	public List<Goods> getGoods() {
@@ -62,12 +42,5 @@ public class SpellingGroup extends Activity{
 		this.goods = goods;
 	}
 
-	public Long getSpellingGroupId() {
-		return spellingGroupId;
-	}
-
-	public void setSpellingGroupId(Long spellingGroupId) {
-		this.spellingGroupId = spellingGroupId;
-	}
 	
 }

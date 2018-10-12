@@ -44,21 +44,6 @@ public class SystemLogAspect {
 
 	}
 	
-//	@Around(value = "execution(* com.ysdevelop.lorchard.merchant.controller..*(..)) && @annotation(log)")
-//	public Object around(ProceedingJoinPoint joinPoint, SystemControllerLog log) {
-//		Object result = null;
-//		System.out.println(log.description());
-//		try {
-//			System.out.println("前置通知");
-//			result = joinPoint.proceed();
-//			System.out.println("后置通知");
-//		} catch (Throwable e) {
-//			System.out.println("异常通知");
-//		}
-//		System.out.println("返回通知");
-//		return result;
-//	}
-	
 	
 	private void orderLog(SystemControllerLog log, Order order){
 		OrderLog orderLog = new OrderLog();

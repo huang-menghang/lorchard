@@ -103,7 +103,7 @@ var order_index_ops = {
 				var event = obj.event;
 				switch (event) {
                 case 'info':
-                	window.location.href = WEB_ROOT+'/order/info?id='+id+'&ops=info&title=orderIndex';
+                	window.location.href = WEB_ROOT+'/order/info?id='+id+'&ops=info&title=orderAll';
 					break;
                 case 'deliver':
                 	var callback = {
