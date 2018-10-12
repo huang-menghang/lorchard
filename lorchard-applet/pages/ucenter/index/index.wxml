@@ -59,9 +59,9 @@
       </navigator>
     </view>
     <view class="item no-border-right">
-      <navigator url="/pages/ucenter/location/location" hover-class="none" class="a">
-        <wxc-icon type='location' size='{{iconSize}}' color='{{iconColor}}' style='margin:15rpx 0 10rpx 0;'></wxc-icon>
-        <text class="txt">到店里</text>
+      <navigator url="/pages/purchase/center/center" hover-class="none" class="a">
+        <wxc-icon type='rate' size='{{iconSize}}' color='{{iconColor}}' style='margin:15rpx 0 10rpx 0;'></wxc-icon>
+        <text class="txt">拼团</text>
       </navigator>
     </view>
     <view class="item">
@@ -78,8 +78,8 @@
     </view>
     <view class="item no-border-right">
       <navigator url="" hover-class="none" class="a">
-        <wxc-icon type='footprint' size='{{iconSize}}' color='lightgray' style='margin:15rpx 0 10rpx 0;'></wxc-icon>
-        <text class="txt" style='color:lightgray;text-decoration: line-through;'>足迹</text>
+        <wxc-icon type='rate' size='{{iconSize}}' color='{{iconColor}}' style='margin:15rpx 0 10rpx 0;'></wxc-icon>
+        <text class="txt">秒杀</text>
       </navigator>
     </view>
     <view class="item item-bottom" bindtap='makePhoneCall'>

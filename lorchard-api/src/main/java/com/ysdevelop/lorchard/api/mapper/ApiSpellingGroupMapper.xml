@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.ysdevelop.lorchard.api.mapper.ApiSpellingGroupDao">
+	<select id="goodsIdList" resultType="java.lang.Long">
+		select 
+			`goodsId`
+		from 
+			t_lorchard_mall_activity_goods
+		where
+			`activityId`=#{activityId}
+	</select>
+	
+	<select id="getByMerchantId" resultType="com.ysdevelop.lorchard.api.entity.SpellingGroupVo">
+		select 
+			`id`,`merchantId`,`startTime`,`endTime`,`activityName`,`description`
+		from 
+			t_lorchard_mall_activity
+		where
+			`merchantId`=#{merchantId} 
+			and `activityType` = 0 
+			and `activityStatus` = 0
+	</select>
+	
+</mapper>

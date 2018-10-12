@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
 import com.ysdevelop.lorchard.api.entity.GoodsVo;
+import com.ysdevelop.lorchard.api.entity.SpellingGroupVo;
 import com.ysdevelop.lorchard.api.service.ApiGoodsService;
+import com.ysdevelop.lorchard.api.service.ApiSpellingGroupService;
 import com.ysdevelop.lorchard.common.annotation.SystemControllerLog;
 import com.ysdevelop.lorchard.common.result.Result;
 import com.ysdevelop.lorchard.common.utils.Constant;
@@ -39,6 +41,9 @@ public class ApiGoodsController {
 	@Autowired
 	private ApiGoodsService goodsService;
 	
+	@Autowired
+	private ApiSpellingGroupService spellingGroupService;
+	
 	/**
 	 * 获取商品集合
 	 * @param request
@@ -48,6 +53,8 @@ public class ApiGoodsController {
 	public Result<List<GoodsVo>> pagination(HttpServletRequest request) {
 		Map<String, String> queryMap = HttpUtils.getParameterMap(request);
 		PageInfo<GoodsVo> pageInfo = goodsService.list(queryMap);
+		List<GoodsVo> list = pageInfo.getList();
+		System.out.println(list);
 		return Result.successPaginationData(pageInfo.getList(), pageInfo.getTotal());
 	}
 	
@@ -74,6 +81,6 @@ public class ApiGoodsController {
 		Map<String, String> queryMap = HttpUtils.getParameterMap(request);
 		Long goodId = new Long(queryMap.get("goodsId"));
 		return Result.successData(goodsService.getById(goodId));
-	}   
+	}
 	
 }

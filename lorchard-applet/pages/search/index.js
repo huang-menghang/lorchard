@@ -1,6 +1,7 @@
 // index.js
-var starscore = require("../../templates/starscore/starscore.js");
-var WxSearch = require('../../templates/wxSearch/wxSearch.js');
+var requireList = require("../../require.js");
+var starscore = requireList.starscore;
+var WxSearch = requireList.WxSearch;
 var app = getApp()
 Page({
   data: {

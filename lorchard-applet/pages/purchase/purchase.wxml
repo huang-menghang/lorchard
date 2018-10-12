@@ -1,0 +1,29 @@
+<view class="container">
+  <view class="purchase">
+    <view class="purchase-list">
+      <block wx:for="{{activitylist}}" wx:key="{{item.id}}">
+        <view class="purchase-item">
+          <view class="purchase-item-img">
+            <image class='image' src="{{item.previewImages[0].previewImagePath}}" mode="aspectFill"></image>
+          </view>
+          <view class="purchase-item-text">
+            <view class="purchase-item-title">{{item.name}}</view>
+            <view class="purchase-item-info btn-group">
+              <view class='left'>
+                <text class="icon-price">￥{{item.spellingGroupPrice}}</text>
+                <text class="icon-count">已售{{item.sales}}</text>
+              </view>
+              <view class='right'>
+                <button type='warn' class='btn-purchase' bindtap='createOrder' data-id='{{item.id}}'>
+                  <text style="vertical-align: middle;">查看详情</text>
+                  <text class="icon_left"></text>
+                </button>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view wx:if="{{scrollEnd}}" class="emptyData">^_^没有数据了</view>
+  </view>
+</view>

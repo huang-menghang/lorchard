@@ -57,19 +57,12 @@
             <view class="name ellipsis">{{item.name}}</view>
             <view class='soldInfo'>
               <view class='good-price-box'>
-                <view class='price'>¥ {{item.minPrice}}</view>
+                <view class='price'>¥ {{item.originalPrice}}</view>
               </view>
             </view>
             <view class='soldInfo'>
               <wxc-label class="sold" wx:if="{{item.sales == 0}}" type='fill'>新品上市</wxc-label>
               <wxc-label class="sold" wx:if="{{item.sales != 0}}">已售{{item.sales}}份</wxc-label>
-              <wxc-label class='star' style='position:absolute;left:380rpx;' type='fill' type-color='none' text-color='#666666'>
-                <block wx:for="{{item.starpic}}" wx:key="{{item.id}}" wx:for-item="star">
-                  <image class="img" src="{{star}}" style="width:20rpx;height:20rpx;"></image>
-                </block>
-                <text style='padding-left:10rpx;' wx:if="{{item.starscore}}" data-pingfen="{{item.starscore}}">{{item.starscore}}分</text>
-                <text style='padding-left:10rpx;' wx:else data-pingfen="{{item.starscore}}">0分</text>
-              </wxc-label>
             </view>
           </view>
 

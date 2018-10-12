@@ -48,8 +48,8 @@ public class GoodsVo {
 	@NotBlank(message = "顶级分类不能为空")
 	private String parentCategoryName;
 	
-	/**最低价*/
-	private Double minPrice;
+	/**团购价*/
+	private Double spellingGroupPrice;
 	
 	/**正常价*/
 	private Double originalPrice;
@@ -86,6 +86,19 @@ public class GoodsVo {
 	
 	/**更新时间*/
 	private Date updateTime;
+	
+	/**
+	 *拼团总人数 
+	 */ 
+	private Long totalNumber;
+	
+	public Long getTotalNumber() {
+		return totalNumber;
+	}
+
+	public void setTotalNumber(Long totalNumber) {
+		this.totalNumber = totalNumber;
+	}
 
 	public Long getId() {
 		return id;
@@ -191,12 +204,12 @@ public class GoodsVo {
 		this.parentCategoryName = parentCategoryName;
 	}
 
-	public Double getMinPrice() {
-		return minPrice;
+	public Double getSpellingGroupPrice() {
+		return spellingGroupPrice;
 	}
 
-	public void setMinPrice(Double minPrice) {
-		this.minPrice = minPrice;
+	public void setSpellingGroupPrice(Double spellingGroupPrice) {
+		this.spellingGroupPrice = spellingGroupPrice;
 	}
 
 	public Double getOriginalPrice() {
@@ -265,8 +278,14 @@ public class GoodsVo {
 
 	@Override
 	public String toString() {
-		return "GoodsVo [stock=" + stock + ", sales=" + sales + "]";
+		return "GoodsVo [id=" + id + ", merchantId=" + merchantId + ", parentId=" + parentId + ", name=" + name
+				+ ", description=" + description + ", previewImages=" + previewImages + ", stock=" + stock + ", sales="
+				+ sales + ", parentCategoryName=" + parentCategoryName + ", spellingGroupPrice=" + spellingGroupPrice
+				+ ", originalPrice=" + originalPrice + ", type=" + type + ", specificationsDescription="
+				+ specificationsDescription + ", comment=" + comment + ", brandID=" + brandID + ", approvalNumber="
+				+ approvalNumber + ", videoPath=" + videoPath + ", categoryName=" + categoryName + ", recommend="
+				+ recommend + ", numberGoodReputation=" + numberGoodReputation + ", createTime=" + createTime
+				+ ", updateTime=" + updateTime + "]";
 	}
-	
 	
 }

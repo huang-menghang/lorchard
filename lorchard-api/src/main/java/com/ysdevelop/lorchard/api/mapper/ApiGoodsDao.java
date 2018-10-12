@@ -65,4 +65,6 @@ public interface ApiGoodsDao {
 	 * 
 	 */
 	List<PreviewImagesVo> getPreviewImageById(Long id);
+
+	List<GoodsVo> spellingGroupList(List<Long> goodsIds);
 }

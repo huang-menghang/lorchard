@@ -1,11 +1,11 @@
-// pages/classification/index.js
 var app = getApp();
 //引入js
-var starscore = require("../../templates/starscore/starscore.js");
-var getGoods = require("../../templates/getGoods/getGoods.js");
-var canvasClock = require("../../templates/canvasClock/canvasClock.js");
-var util = require('../../utils/util.js');
-var api = require('../../config/api.js');
+var requireList = require("../../require.js");
+var starscore = requireList.starscore;
+var getGoods = requireList.getGoods;
+var canvasClock = requireList.canvasClock;
+var util = requireList.util;
+var api = requireList.api;
 Page({
   data:{
     onLoadStatus: true,

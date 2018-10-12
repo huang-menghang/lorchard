@@ -1,0 +1,17 @@
+<view class='bottom'>
+  <navigator class='item' url="/pages/purchase/purchase" style="border-bottom: none;">
+    <view class='mid'>
+      <image class='img' mode='aspectFit' src='../../../images/pintuan/my.png'></image>
+      <text>拼团活动</text>
+    </view>
+  </navigator>
+</view>
+
+<view class='bottom'>
+  <navigator class='item' url="" style="border-bottom: none;">
+    <view class='mid'>
+      <image class='img' mode='aspectFit' src='../../../images/pintuan/my.png'></image>
+      <text>我的拼团</text>
+    </view>
+  </navigator>
+</view>

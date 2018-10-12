@@ -15,7 +15,12 @@
     "pages/select-address/index",
     "pages/order-details/index",
     "pages/ucenter/location/location",
-    "pages/ucenter/feedback/feedback"
+    "pages/ucenter/feedback/feedback",
+    "pages/purchase/purchase",
+    "pages/purchase/immediately/immediately",
+    "pages/purchase/group-order/index",
+    "pages/purchase/center/center",
+    "pages/purchase/group-list/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -69,4 +74,3 @@
     ]
   }
 }
-

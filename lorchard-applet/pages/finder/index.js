@@ -1,7 +1,8 @@
 //index.js
 //获取应用实例
-var starscore = require("../../templates/starscore/starscore.js");
-var WxSearch = require('../../templates/wxSearch/wxSearch.js');
+var requireList = require("../../require.js");
+var starscore = requireList.starscore;
+var WxSearch = requireList.wxSearch;
 var app = getApp()
 Page({
   data: {

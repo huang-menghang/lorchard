@@ -1,10 +1,4 @@
-//app.js
-//引入starscore.js
-var starscore = require("./templates/starscore/starscore.js");
-
-//注册一个小程序
 App({
-  //app的globalData属性 包含各全局变量
   globalData: {
     //商家id
     merchantId: 0,
@@ -14,9 +8,7 @@ App({
     memberId:0,
     //商家
     merchant: null,
-    //初始加载商品时的页面号
     page: 1,
-    //初始加载时的商品数，设置为10000保证小商户能加载完全部商品
     pageSize: 10000,
     //商品种类数组 
     categories: [],
@@ -30,16 +22,11 @@ App({
     goodsList: [],
     //加载成功标识
     onLoadStatus: true,
-    //热门商品种类
     activeCategoryId: null,
-    //公告信息
     notices: [],
-    //用户信息
     userInfo: null,
-    //版本号
     version: "2.0.5",
-    //首页转发的时候术语
-    shareProfile: '一流的服务，做超新鲜的水果'
+    shareProfile: '一流的服务，做超新鲜的水果',
   },
 
   //监听小程序初始化 初始化完成后调用

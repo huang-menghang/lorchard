@@ -7,7 +7,7 @@
 		`g`.description as `description`,`g`.createTime as`createTime`,
 	    `g`.sales as `sales`,`g`.parentId as parentId,
 		`g`.recommend as `recommend`,`g`.stock as `stock`,
-		`s`.minPrice as `minPrice`,`s`.originalPrice as `originalPrice`,
+		`s`.spellingGroupPrice as `spellingGroupPrice`,`s`.originalPrice as `originalPrice`,
 		`s`.type as `type`,`s`.specificationsDescription as `specificationsDescription`,
 		`c`.name as`parentCategoryName`
 		from
@@ -40,7 +40,7 @@
 		`g`.description as `description`,`g`.createTime as`createTime`,
 	    `g`.sales as `sales`,`g`.parentId as parentId,
 		`g`.recommend as `recommend`,`g`.stock as `stock`,
-		`s`.minPrice as `minPrice`,`s`.originalPrice as `originalPrice`,
+		`s`.spellingGroupPrice as `spellingGroupPrice`,`s`.originalPrice as `originalPrice`,
 		`s`.type as `type`,`s`.specificationsDescription as `specificationsDescription`,
 		`c`.name as`parentCategoryName`
 		from
@@ -51,6 +51,28 @@
 		    g.status = 0
 		 	and g.id=#{id}
 	</select>
+	
+	<select id="spellingGroupList" resultType="com.ysdevelop.lorchard.api.entity.GoodsVo">
+		select
+			`g`.id as`id`,g.`name` AS `name`,
+			`g`.description as `description`,`g`.createTime as`createTime`,
+	    	`g`.sales as `sales`,`g`.parentId as parentId,
+			`g`.recommend as `recommend`,`g`.stock as `stock`,
+			`s`.spellingGroupPrice as `spellingGroupPrice`,`s`.originalPrice as `originalPrice`,
+			`s`.type as `type`,`s`.specificationsDescription as `specificationsDescription`,
+			`c`.name as`parentCategoryName`,`g`.totalNumber as totalNumber
+		from
+			`t_lorchard_mall_goods` as `g`
+			LEFT JOIN `t_lorchard_mall_goods_category` as `c` on `c`.id =`g`.parentId
+			LEFT JOIN `t_lorchard_mall_goods_specifications` as `s` on `s`.goodsId=`g`.id
+		where
+		    g.status = 0 and (g.id in 
+			<foreach collection ="list" item="goodsId" index= "index" open="(" separator="," close=")">
+            	#{goodsId}
+        	</foreach >
+			)
+	</select>
+	
 	
 	<!-- 查询所有轮播图 -->
 	<select id="listPreviewImageByOrder" resultType="com.ysdevelop.lorchard.api.entity.PreviewImagesVo">

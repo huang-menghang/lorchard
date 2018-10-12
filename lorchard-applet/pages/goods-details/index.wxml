@@ -29,30 +29,11 @@
   <view class="goods-info">
     <!--商品名称-->
     <view class="goods-title">{{goodsDetail.name}}</view>
-    <!--分享奖励类型 可以没有-->
-    <view class="goods-share" wx:if="{{goodsDetail.commissionType == 1}}">分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}} 积分奖励</view>
-    <!--分享奖励类型 可以没有-->
-    <view class="goods-share" wx:if="{{goodsDetail.commissionType == 2}}">分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}}元 现金奖励</view>
     <!--商品价格-->
     <view style="padding-left:25rpx;color: #e64340;font-weight: bold;float: left;width: 20%;height:60rpx;line-height:40rpx;">¥ {{selectSizePrice}}</view>
     <!--<view class="goods-price" style="padding-left:35rpx;">¥ {{selectSizePrice}}</view>-->
     <!--购买次数-->
     <view class="goods-price" style="color:#999;font-size:24rpx;">购买{{goodsDetail.sales}}次</view>
-    <!--好评次数-->
-    <view class="goods-price" style="color:#999;font-size:24rpx;">共收到 {{goodsDetail.numberGoodReputation}} 次好评</view>
-    <!--商品分享-->
-    <view class="goods-info-fx" >
-      <!--分享图标-->
-      <wxc-icon type='share' size='60' color='#e64340'></wxc-icon>
-      <!--分享按钮-->
-      <button open-type="share">分享</button>
-      <!--分享文本-->
-      <text>分享有赏</text>
-    </view>
-  </view>
-  <!--如果可以砍价-->
-  <view wx:if="{{curGoodsKanjia}}" class="row-arrow" bindtap="goKanjia">
-      邀请好友帮忙砍价 ( <text style='color:red'>底价 {{curGoodsKanjia.minPrice}} 元</text> )
   </view>
   <!--选择商品规格-->
   <view wx:if="{{hasMoreSelect}}" class="row-arrow" bindtap="bindGuiGeTap">
@@ -65,24 +46,6 @@
     <view class="goods-text">
       <!--引入wxParse模版-->
       <template is="wxParse" data="{{wxParseData:article.nodes}}" />
-    </view>
-  </view>
-  <!--商品评价-->
-  <view class="goods-des-info" style="margin-top:35rpx;" wx:if="{{reputation}}">
-    <view class="label-title" style="border-bottom:1px solid #f4f4f4;">大家评价
-      <!--评价数量-->
-      <text style="color:red">({{reputation.length}})</text>
-    </view>
-    <!--循环遍历商品评价-->
-    <view class="goods-text" style="margin-top:15rpx;" wx:for="{{reputation}}" wx:key="id">
-      <view style="width:100rpx;float:left;">
-        <image style="width: 100rpx; height: 100rpx;" src="{{item.user.avatarUrl}}"></image>
-      </view>
-      <view style="width:500rpx;float:left;margin-left:35rpx;border-bottom:1px solid #f4f4f4;">
-        <view>{{item.goods.goodReputationRemark}}</view>
-        <view style="color: #B0B0B0;font-size:24rpx;">{{item.goods.dateReputation}} {{item.goods.property}}</view>
-      </view>
-      <wxc-label class='goods-text-label' type='corner' text="{{item.goods.goodReputationStr}}"></wxc-label>
     </view>
   </view>
   <!--底部导航栏-->

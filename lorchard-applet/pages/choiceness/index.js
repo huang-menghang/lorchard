@@ -1,10 +1,8 @@
-//index.js
-//引入starscore.js
-var starscore = require("../../templates/starscore/starscore.js");
-var util = require('../../utils/util.js');
-var api = require('../../config/api.js');
-//获取应用实例
 var app = getApp();
+var requireList = require("../../require.js");
+var starscore = requireList.starscore;
+var util = requireList.util;
+var api = requireList.api;
 //注册当前页面
 Page({
   //页面初始数据

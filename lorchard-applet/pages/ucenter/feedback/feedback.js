@@ -1,5 +1,6 @@
-var util = require('../../../utils/util.js');
-var api = require('../../../config/api.js');
+var requireList = require("../../../require.js");
+var util = requireList.util;
+var api = requireList.api;
 var app = getApp();
 Page({
   data: {

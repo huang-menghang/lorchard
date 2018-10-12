@@ -1,7 +1,8 @@
-var wxpay = require('../../../utils/pay.js')
-var util = require('../../../utils/util.js');
-var api = require('../../../config/api.js');
-var app = getApp()
+var app = getApp();
+var requireList = require("../../../require.js");
+var wxpay = requireList.pay;
+var util = requireList.util;
+var api = requireList.api;
 Page({
   data: {
     tabs: ["待付款", "待发货", "待收货", "退款中","已取消", "已完成"],

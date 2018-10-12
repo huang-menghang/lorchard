@@ -1,5 +1,6 @@
 package com.ysdevelop.lorchard.api.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.github.pagehelper.PageInfo;
@@ -34,4 +35,7 @@ public interface ApiGoodsService {
 	 * @return
 	 */
 	GoodsVo getById(Long id);
+	
+	
+	List<GoodsVo> spellingGroupList(List<Long> goodsIds);
 }

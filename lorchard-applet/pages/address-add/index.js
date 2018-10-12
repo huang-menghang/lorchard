@@ -1,7 +1,9 @@
 // pages/address/detail.js
-var commonCityData = require('../../utils/city.js')
-var api = require('../../config/api.js');
-var util = require('../../utils/util.js');
+var app = getApp();
+var requireList = require("../../require.js");
+var commonCityData = requireList.city;
+var api = requireList.api;
+var util = requireList.util;
 
 Page({
 

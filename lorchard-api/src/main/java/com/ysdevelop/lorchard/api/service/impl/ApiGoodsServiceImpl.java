@@ -78,4 +78,20 @@ public class ApiGoodsServiceImpl implements ApiGoodsService {
 		
 	}
 
+	@Override
+	public List<GoodsVo> spellingGroupList(List<Long> goodsIds) {
+		List<GoodsVo> spellingGroupList = apiGoodsDao.spellingGroupList(goodsIds);
+		List<PreviewImagesVo> listPreviewImage = apiGoodsDao.listPreviewImageByGood(spellingGroupList);
+		for (GoodsVo good : spellingGroupList) {
+			List<PreviewImagesVo> transitionPreviewImage = new ArrayList<>();
+			for (PreviewImagesVo previewImages : listPreviewImage) {
+				if (good.getId() == previewImages.getGoodsId()) {
+					transitionPreviewImage.add(previewImages);
+				}
+			}
+			good.setPreviewImages(transitionPreviewImage);
+		}
+		return spellingGroupList;
+	}
+
 }
