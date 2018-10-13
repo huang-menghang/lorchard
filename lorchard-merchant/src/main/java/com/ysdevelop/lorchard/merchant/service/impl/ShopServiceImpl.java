@@ -33,6 +33,17 @@ import com.ysdevelop.lorchard.mq.service.MessageProducer;
 import com.ysdevelop.lorchard.shiro.service.UserService;
 import com.ysdevelop.lorchard.shiro.token.TokenManager;
 
+/**
+ * @author zesen
+ *
+ * @Package com.ysdevelop.lorchard.merchant.service.impl
+ *
+ * @Description 店铺
+ *
+ * @Date 2018年10月12日
+ *
+ * @Version
+ */
 @Service
 public class ShopServiceImpl implements ShopService {
 

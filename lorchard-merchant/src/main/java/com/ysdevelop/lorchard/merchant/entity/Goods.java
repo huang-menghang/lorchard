@@ -20,6 +20,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * @Version
  */
 public class Goods {
+	
 	/**商品ID*/
 	private Long id;
 	
@@ -51,8 +52,6 @@ public class Goods {
 	/**商品顶级分类*/
 	private String parentCategoryName;
 
-	
-	
 	/**父类id*/
 	private Long parentId;
 	

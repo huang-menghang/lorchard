@@ -15,15 +15,22 @@ import com.ysdevelop.lorchard.merchant.entity.Shop;
  *
  */
 public interface ShopService {
-     /** 申请店铺 */
+     /** 
+      * 
+      * 申请店铺 
+      * 
+      * @param shop 店铺
+      */
 	void applyShop(Shop shop);
 	
 	/** 测试mq*/
 	void testMq();
 	/**
      * 获得运营人姓名
-     * @param userId
-     * @return
+     * 
+     * @param userId 商家id
+     * 
+     * @return Shop 店铺
      */
 	Shop getOperatorName(Long userId);
 

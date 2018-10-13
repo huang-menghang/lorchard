@@ -27,21 +27,26 @@ public interface ShopFlowService {
 	/**
 	 * 一星期流量展示
 	 * 
-	 * @return
+	 * @param merchantId 商家id
+	 * 
+	 * @return List<ShopFlow> 7天店铺流量统计
 	 */
 	List<ShopFlow> recentSevenDayStat(Long merchantId);
     
 	/**
      * 昨天流量统计
-     * @param userId
-     * @return
+     * 
+     * @param userId 商家id
+     * 
+     * @return Map<String, Integer> 返回流量键值对
      */
 	Map<String, Integer> yesterdayStat(Long userId);
 	/**
 	 * 将获取的不同状态订单的条数插入待办事项中
 	 * 
-	 * @param userId
-	 * @return
+	 * @param userId 商家id
+	 * 
+	 * @return ShopFlow 店铺流量
 	 * */
 	ShopFlow getOrderCount(Long userId);
 }

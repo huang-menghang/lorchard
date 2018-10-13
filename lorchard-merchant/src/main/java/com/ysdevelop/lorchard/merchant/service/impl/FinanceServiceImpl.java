@@ -18,6 +18,17 @@ import com.ysdevelop.lorchard.merchant.mapper.FinanceDao;
 import com.ysdevelop.lorchard.merchant.service.FinanceService;
 import com.ysdevelop.lorchard.shiro.token.TokenManager;
 
+/**
+ * @author zesen
+ *
+ * @Package com.ysdevelop.lorchard.merchant.service.impl
+ *
+ * @Description 资金
+ *
+ * @Date 2018年10月12日
+ *
+ * @Version
+ */
 @Service
 public class FinanceServiceImpl implements FinanceService {
 	@Autowired

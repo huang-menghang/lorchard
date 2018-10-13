@@ -40,8 +40,15 @@ public interface FinanceService {
 	 * 
 	 * 将提现记录传到financeimpl进行操作
 	 * 
-	 * @param Double cash,String name,String bankNumber,String openBank,Long merchantId
+	 * @param cash 提现金额
 	 * 
+	 * @param name 提现人名称
+	 * 
+	 * @param bankNumber 银行卡号
+	 * 
+	 * @param openBank 开户行
+	 * 
+	 * @param merchantId 商家id
 	 */
 	void withdraw(Double cash,String name,String bankNumber,String openBank,Long merchantId);
 	
@@ -49,9 +56,9 @@ public interface FinanceService {
 	 * 
 	 * 查询余额
 	 * 
-	 * @param 商家id
+	 * @param merchantId 商家id
 	 * 
-	 * @return balance商家资产余额
+	 * @return Double 商家资产余额
 	 */
 	Double queryBalance(Long merchantId);
 	
@@ -59,9 +66,8 @@ public interface FinanceService {
 	 * 
 	 * 将数据传到financeimpl进行操作
 	 * 
-	 * @param 
+	 * @param  order订单
 	 * 
-	 * @return
 	 */
 	void addFinance(Order order);
 	

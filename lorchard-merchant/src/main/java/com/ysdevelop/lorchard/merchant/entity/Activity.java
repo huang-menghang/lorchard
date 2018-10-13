@@ -2,8 +2,6 @@ package com.ysdevelop.lorchard.merchant.entity;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 /**
  * @author zesen
  *
@@ -30,13 +28,11 @@ public class Activity {
 	/**
 	 * 拼团开始时间
 	 */
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
 	private Date startTime;
 	
 	/**
 	 * 拼团结束时间
 	 */
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
 	private Date endTime;
 	
 	/**
@@ -48,15 +44,18 @@ public class Activity {
 	 * 活动类型
 	 */
 	private Long activityType;
+	
 	/**
 	 * 活动描述
 	 */
 	private String description;
+	
 	/**创建时间*/
 	private Date createTime;
 	
 	/**更新时间*/
 	private Date updateTime;
+	
 	/**
 	 * 活动状态,0代表正在进行，1代表已经结束
 	 */

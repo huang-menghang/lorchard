@@ -50,6 +50,7 @@ public class Finance {
 	 * 订单佣金
 	 * */
 	private Double commission;
+	
 	/**
 	 * 订单佣金比例
 	 * */

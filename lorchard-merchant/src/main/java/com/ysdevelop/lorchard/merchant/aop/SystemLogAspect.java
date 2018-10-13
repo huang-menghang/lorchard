@@ -33,7 +33,13 @@ public class SystemLogAspect {
 	OrderLogService orderLogService;
 	
 
-	
+	/**
+	 * 订单日志,前置通知
+	 * 
+	 * @param joinPoint  切点
+	 * 
+	 * @param log 日志
+	 */
 	@Before(value = "@annotation(log)")
 	public void doBefore(JoinPoint joinPoint, SystemControllerLog log) {
 			if(log.orderType().getIndex()!=Constant.OrderType.NOTORDERTYPE.getIndex()) {

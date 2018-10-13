@@ -20,6 +20,17 @@ import com.ysdevelop.lorchard.merchant.service.ShopFlowService;
 import com.ysdevelop.lorchard.merchant.service.ShopService;
 import com.ysdevelop.lorchard.shiro.token.TokenManager;
 
+/**
+ * @author zesen
+ *
+ * @Package com.ysdevelop.lorchard.merchant.controller
+ *
+ * @Description 店铺
+ *
+ * @Date 2018年10月12日
+ *
+ * @Version
+ */
 @Controller
 @RequestMapping(value = "/shop")
 public class ShopController {

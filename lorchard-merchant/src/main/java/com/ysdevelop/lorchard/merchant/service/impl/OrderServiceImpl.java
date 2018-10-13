@@ -194,7 +194,7 @@ public class OrderServiceImpl implements OrderService, Observer, InitializingBea
 
 	}
 
-	// 添加观察者
+	/**添加观察者*/
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		System.out.println("添加观察者.....");

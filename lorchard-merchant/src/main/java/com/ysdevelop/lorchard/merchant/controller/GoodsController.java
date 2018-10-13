@@ -44,12 +44,18 @@ public class GoodsController {
 
 	@Autowired
 	private GoodsService goodsService;
-
+	
+	/**
+	 * 跳转到商品首页
+	 */
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
 	public String index() {
 		return "goods/index";
 	}
 	
+	/**
+	 * 获取商家id
+	 */
 	@RequestMapping(value = "/merchantId", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Result<Long> merchantId() {

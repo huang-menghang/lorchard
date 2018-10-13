@@ -1,5 +1,13 @@
 package com.ysdevelop.lorchard.merchant.controller;
-
+/**
+ * 
+ * @author oldHuang
+ * 
+ * @Package com.ysdevelop.loarchard.merchant.controller
+ * 
+ * @Description 商家控制器
+ * 
+ */
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -45,7 +53,9 @@ public class MerchantController {
 	public String login() {
 		return "merchant/login";
 	}
-
+	/**
+	 *验证登录 
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
 	public Result<String> doLogin(@Valid LoginVo loginVo, HttpSession session) {
@@ -54,7 +64,7 @@ public class MerchantController {
 		return Result.success("登录成功!");
 	}
 
-	// 生成图像验证码
+	/**生成图像验证码*/
 	@RequestMapping("/captcha")
 	public void captcha(HttpServletResponse response) throws ServletException, IOException {
 		response.setHeader("Cache-Control", "no-store, no-cache");
@@ -72,12 +82,17 @@ public class MerchantController {
 		ServletOutputStream out = response.getOutputStream();
 		ImageIO.write(image, "jpg", out);
 	}
-
+	/**
+	 * 跳转到注册页面 
+	 */
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register() {
 		return "merchant/register";
 	}
-
+	
+	/**
+	 * 注册
+	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@ResponseBody
 	public Result<String> doRegister(@Valid LoginVo loginVo, HttpSession session) {

@@ -1,5 +1,10 @@
 package com.ysdevelop.lorchard.merchant.service.impl;
-
+/**
+ * @author oldHuang
+ * 
+ * @Package com.ysdevelop.loarchard.merchant.controller
+ * 
+ * */
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -117,7 +122,7 @@ public class ShopFlowServiceImpl implements ShopFlowService {
 	}
     
 	
-	//获得不同状态订单的条数
+	/**获得不同状态订单的条数*/
 	@Override
 	public ShopFlow getOrderCount(Long userId) {
 		if (userId == null) {
@@ -125,10 +130,14 @@ public class ShopFlowServiceImpl implements ShopFlowService {
 		}else {
 		System.out.println("异常--->"+flowDao.getOrderCount(ApiConstant.DEFALULT_ONE,userId));
 		shopFlow=new ShopFlow();
-		shopFlow.setOrderUnReceivedCount(flowDao.getOrderCount(ApiConstant.DEFALULT_TWO,userId));//待收货订单
-		shopFlow.setOrderRefundCount(flowDao.getOrderCount(ApiConstant.DEFALULT_THREE,userId));//退款订单
-		shopFlow.setOrderUnpaidCount(flowDao.getOrderCount(ApiConstant.DEFALULT_ZERO,userId));//待付款订单
-		shopFlow.setOrderUnDeliveredCount(flowDao.getOrderCount(ApiConstant.DEFALULT_ONE,userId));//待发货订单
+		//待收货订单
+		shopFlow.setOrderUnReceivedCount(flowDao.getOrderCount(ApiConstant.DEFALULT_TWO,userId));
+		//退款订单
+		shopFlow.setOrderRefundCount(flowDao.getOrderCount(ApiConstant.DEFALULT_THREE,userId));
+		//待付款订单
+		shopFlow.setOrderUnpaidCount(flowDao.getOrderCount(ApiConstant.DEFALULT_ZERO,userId));
+		//待发货订单
+		shopFlow.setOrderUnDeliveredCount(flowDao.getOrderCount(ApiConstant.DEFALULT_ONE,userId));
 		return shopFlow;
 		}
 	}

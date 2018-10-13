@@ -20,7 +20,7 @@ import com.ysdevelop.lorchard.merchant.service.FinanceService;
 import com.ysdevelop.lorchard.shiro.token.TokenManager;
 
 /**
- * @author 
+ * @author 吴磊
  * 
  * @Package com.ysdevelop.loarchard.merchant.controller
  * 
@@ -45,7 +45,9 @@ public class FinanceController {
 		
 		return "finance/index";
 	}
-	
+	/**
+	 *跳转到提现界面 
+	 */
 	@RequestMapping(value="/financeReceived",method=RequestMethod.GET,produces="text/html;charset=UTF-8")
 	public String withdraw() {
 		return "finance/withdraw";

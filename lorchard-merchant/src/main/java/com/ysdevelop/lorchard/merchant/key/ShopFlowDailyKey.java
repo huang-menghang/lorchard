@@ -1,5 +1,10 @@
 package com.ysdevelop.lorchard.merchant.key;
-
+/**
+ * @author oldHuang
+ * 
+ * @Package com.ysdevelop.loarchard.merchant.controller
+ * 
+ * */
 import com.ysdevelop.lorchard.common.redis.BasePrefix;
 
 public class ShopFlowDailyKey extends BasePrefix {

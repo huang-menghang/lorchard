@@ -8,6 +8,17 @@ import com.ysdevelop.lorchard.merchant.entity.OrderLog;
 import com.ysdevelop.lorchard.merchant.mapper.OrderLogDao;
 import com.ysdevelop.lorchard.merchant.service.OrderLogService;
 
+/**
+ * @author zesen
+ *
+ * @Package com.ysdevelop.lorchard.merchant.service.impl
+ *
+ * @Description 订单日志
+ *
+ * @Date 2018年10月12日
+ *
+ * @Version
+ */
 @Service
 public class OrderLogServiceImpl implements OrderLogService {
 

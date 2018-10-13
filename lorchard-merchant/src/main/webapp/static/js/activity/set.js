@@ -77,12 +77,8 @@ var activity_set_ops = {
 					var spellingGroupPrice=$('.layui-form input[name="spellingGroupPrice"]').val();
 					var startTime = $("input[ name='startTime']").val();
 					var endTime = $("input[ name='endTime']").val();
-					console.log("activityName"+activityName);
-					console.log("description"+description);
-					console.log("activityType"+activityType);
-					console.log("totalNumber"+totalNumber);
-					console.log("startTime"+startTime);
-					console.log("endTime"+endTime);
+					startTime=new Date(startTime);
+					endTime=new Date(endTime);
 					var goodsId=[];
 					var checkData=table.checkStatus('dataCheck').data;
 					$.each(checkData,function(i,v){

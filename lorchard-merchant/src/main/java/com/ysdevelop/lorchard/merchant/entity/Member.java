@@ -1,41 +1,77 @@
 package com.ysdevelop.lorchard.merchant.entity;
-
+/**
+ * 
+ * @author oldHuang
+ * 
+ * @Package com.ysdevelop.loarchard.merchant.controller
+ * 
+ * @Description 会员实体类
+ * 
+ */
 import java.util.Date;
 
 public class Member {
-
+	
+	/**
+	 * 会员id 
+	 */
 	private Long id;
-
+	
+	/**
+	 * 商家id
+	 */
 	private Long merchantId;
-
+	
+	/**
+	 * 会员性别 
+	 */
 	private Integer gender;
-
+	
+	/**
+	 * 手机号 
+	 */
 	private String mobile;
 
-	// 会员名称
-	private byte[] nickname;// 昵称,二进制保存emoji表情
-
-	private String nicknameStr;// 昵称显示
-
+	/**会员名称
+	 * 昵称,二进制保存emoji表情
+	 * */
+	private byte[] nickname;
+	/**
+	 * 昵称显示
+	 * */
+	private String nicknameStr;
+	
 	private String openid;
-
+	
+	/**
+	 *注册ip 
+	 */
 	private String registerIp;
 
 	private String avatar;
-
+	
+	/**
+	 *语言 
+	 */
 	private String language;
-
+	
 	private String country;
 
 	private String city;
 
-	// pro
+	/**pro*/
 	private String province;
 
-	// 状态
+	/**状态*/
 	private Integer status;
-
-	private Date createTime;// 创建时间
+	/**
+	 * 创建时间
+	 * */
+	private Date createTime;
+	
+	/**
+	 *修改状态 
+	 */
 	private Date updateTime;
 
 	public Long getId() {

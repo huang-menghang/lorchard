@@ -70,11 +70,13 @@ var activity_info_ops = {
 		  		}).done(function(res){
 		  			if(res.code == 0){
 		  				console.log(res.data);
+		  				var startTime= new Date(res.data.startTime).format("yyyy-MM-dd hh:mm:ss");
+		  				var endTime= new Date(res.data.endTime).format("yyyy-MM-dd hh:mm:ss");
 		  				$('.layui-form input[name="activityName"]').val(res.data.activityName);
 		  				$('.layui-form textarea[name="description"]').val(res.data.description);
 		  				$('.layui-form select[name="activityType"]').val(res.data.activityType);
-		  				$('.layui-form input[name="startTime"]').val(res.data.startTime);
-		  				$('.layui-form input[name="endTime"]').val(res.data.endTime);
+		  				$('.layui-form input[name="startTime"]').val(startTime);
+		  				$('.layui-form input[name="endTime"]').val(endTime);
 		  				that.renderFrom();
 		  			}
 		  		});

@@ -125,6 +125,10 @@ public class CodeMsg {
 	public static CodeMsg CASH_FAILURE = new CodeMsg(500601, "提现失败!");
 	public static CodeMsg BALANCE_INSUFFICIENT = new CodeMsg(500605, "余额不足!");
     
+	
+	//活动
+	public static CodeMsg ACTIVITY_ADD_ERROR = new CodeMsg(500701, "活动添加失败");
+	public static CodeMsg ACTIVITY_GOODS_UPDATE_ERROR = new CodeMsg(500701, "活动商品修改失败");
 	//上传的图片类型有误
 	public static CodeMsg TYPE_WRONG = new CodeMsg(500901, "上传的图片类型有误!");
 	//上传的图片找不到

@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ysdevelop.lorchard.merchant.mapper.MerchantDao">
 
-
+	<!-- 商家注册 -->
 	<insert id="add" parameterType="com.ysdevelop.lorchard.merchant.entity.Merchant">
 		insert into t_lorchard_mall_merchant(mobile,password,salt,createTime)
 		values(#{mobile},#{password},#{salt},now())
 	</insert>
 
-
+	<!-- 获取商家信息 -->
 	<select id="getUserByName" resultType="com.ysdevelop.lorchard.shiro.entity.BaseAuth">
 		select
 		id,mobile as `loginName`,`password`,salt,status,createTime
@@ -16,6 +16,7 @@
 		where mobile = #{name}
 	</select>
 	
+	<!-- 改变注册状态 -->
 	<update id="updateStatusById" >
 	    update 
 	    t_lorchard_mall_merchant

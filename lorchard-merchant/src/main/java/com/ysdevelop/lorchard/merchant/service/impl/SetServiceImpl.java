@@ -11,6 +11,17 @@ import com.ysdevelop.lorchard.merchant.entity.Shop;
 import com.ysdevelop.lorchard.merchant.mapper.SetDao;
 import com.ysdevelop.lorchard.merchant.service.SetService;
 
+/**
+ * @author zesen
+ *
+ * @Package com.ysdevelop.lorchard.merchant.service.impl
+ *
+ * @Description 设置
+ *
+ * @Date 2018年10月12日
+ *
+ * @Version
+ */
 @Service
 public class SetServiceImpl implements SetService {
 
@@ -20,7 +31,7 @@ public class SetServiceImpl implements SetService {
 	/**
 	 * 查询商铺信息
 	 * */
-	@Transactional
+	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public Shop getByMerchantId(Long merchantId) {
 		if (merchantId == null) {

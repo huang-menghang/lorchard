@@ -1,5 +1,13 @@
 package com.ysdevelop.lorchard.merchant.entity;
-
+/**
+ * 
+ * @author oldHuang
+ * 
+ * @Package com.ysdevelop.loarchard.merchant.controller
+ * 
+ * @Description 商品分类实体类
+ * 
+ */
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
@@ -7,33 +15,59 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
 public class GoodsCategory {
-
+	
+	/**
+	 * id
+	 */
 	private Long id;
-
+	
+	/**
+	 * 商家id
+	 */
 	private Long merchantId;
     
+	/**
+	 * 类别名称
+	 */
 	@NotBlank(message = "分类不能为空")
 	private String name;
-
+	
+	/**
+	 * 类别描述
+	 */
 	@NotBlank(message = "描述不能为空")
 	private String description;
 
-	// 上级分类
+	/**上级分类*/
 	@NotNull(message="上级分类不能为空")
 	private Long parentId;
-	// 上级分类名称
+	
+	/**上级分类名称*/
 	private String parentCategoryName;
-
+	
+	/**
+	 * 图片路径
+	 */
 	@NotBlank(message = "分类图片不能为空")
 	private String imagePath;
-	// 分类排序,越往上,越大
+	
+	/**分类排序,越往上,越大*/
 	@NotNull(message="排列索引不能为空")
 	private Integer index;
-
+	
+	/**
+	 * 类别等级 
+	 */
 	private Integer level;
-
+	
+	/**
+	 * 创建时间
+	 */
 	private Date createTime;
-
+	
+	/**
+	 * 修改时间
+	 */
 	private Date updateTime;
 
 	public Long getId() {

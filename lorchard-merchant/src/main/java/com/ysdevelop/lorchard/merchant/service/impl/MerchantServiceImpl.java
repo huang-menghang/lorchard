@@ -1,5 +1,10 @@
 package com.ysdevelop.lorchard.merchant.service.impl;
-
+/**
+ * @author oldHuang
+ * 
+ * @Package com.ysdevelop.loarchard.merchant.controller
+ * 
+ * */
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;

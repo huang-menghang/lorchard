@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ysdevelop.lorchard.merchant.mapper.GoodsCategoryDao">
-
+	<!-- 获取所有商品类别 -->
 	<select id="list"
 		resultType="com.ysdevelop.lorchard.merchant.entity.GoodsCategory">
 		select
@@ -34,6 +34,7 @@
 	   call showCategoryTreeNodes(#{rootId});
 	</select>
 	
+	<!-- 获取商家所有顶层分类 -->
 	<select id="listParent" resultType="com.ysdevelop.lorchard.merchant.entity.GoodsCategory">
 	   select
 	   `c`.id as `id`,`c`.name as name
@@ -41,11 +42,13 @@
 	   where c.parentId = 0 and merchantId=#{merchantId}
 	</select>
 	
+	<!-- 添加商品类别 -->
 	<insert id="add" parameterType="com.ysdevelop.lorchard.merchant.entity.GoodsCategory">
 	   insert into `t_lorchard_mall_goods_category`(`merchantId`,`name`,`imagePath`,`index`,`level`,`parentId`,`description`,`createTime`)
 	   values(#{merchantId},#{name},#{imagePath},#{index},#{level},#{parentId},#{description},now())
 	</insert>
 	
+	<!-- 通过id获取分类 -->
 	<select id="getById" resultType="com.ysdevelop.lorchard.merchant.entity.GoodsCategory">
 	    select
 	   `c`.id as `id`,
@@ -61,6 +64,7 @@
 	    where c.id = #{id}
 	</select>
 	
+	<!-- 修改类别 -->
 	<update id="update" parameterType="com.ysdevelop.lorchard.merchant.entity.GoodsCategory">
 	    update `t_lorchard_mall_goods_category`
 	    <trim prefix="set" suffixOverrides="," suffix="where id = #{id}">
@@ -89,6 +93,7 @@
 		</trim>
 	</update>
 	
+	<!-- 删除商品类别 -->
 	<update id="deleteById" >
 	  UPDATE t_lorchard_mall_goods_category AS `c1`
       SET c1.`status` = 1

@@ -74,7 +74,7 @@ public interface OrderDao {
 	/**
 	 *完成订单，向流水表插入数据
 	 *
-	 * @param id 订单id
+	 * @param order 订单
 	 * 
 	 * @return Order 返回0表示修改失败
 	 * */
@@ -83,7 +83,7 @@ public interface OrderDao {
 	/**
 	 *完成订单，改变订单状态
 	 *
-	 * @param id 订单id
+	 * @param order 订单
 	 * 
 	 * @return Order 返回0表示修改失败
 	 * */
@@ -92,7 +92,7 @@ public interface OrderDao {
 	/**
 	 *完成订单，向资产表插入数据
 	 *
-	 * @param id 订单id
+	 * @param order 订单
 	 * 
 	 * @return Order 返回0表示修改失败
 	 * */
@@ -110,18 +110,18 @@ public interface OrderDao {
 	/**
 	 * 通过商品id获取商品的库存和销量
 	 * 
-	 * @param 订单商品集合
+	 * @param orderItemById 订单商品集合
 	 * 
-	 * @return 商品集合
+	 * @return List<Goods> 商品集合
 	 * */
 	List<Goods> getStockAndSales(@Param("orderItem")List<OrderItem> orderItemById);
 	
 	/**
 	 * 修改goods表的库存和销量
 	 * 
-	 * @param 订单商品集合
+	 * @param orderItemById 订单商品集合
 	 * 
-	 * @return 判断是否修改成功
+	 * @return Integer 判断是否修改成功,0代表失败
 	 * */
 	Integer updateStockAndSales(@Param("OrderItem")List<OrderItem> orderItemById);
 }

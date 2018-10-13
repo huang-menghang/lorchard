@@ -1,5 +1,16 @@
 package com.ysdevelop.lorchard.merchant.controller;
 
+/**
+ * 
+ * @author oldHuang
+ * 
+ * @Package com.ysdevelop.loarchard.merchant.controller
+ * 
+ * @Description 图片
+ * 
+ * @Version
+ * 
+ */
 import java.io.File;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,12 +24,16 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ysdevelop.lorchard.common.exception.WebServiceException;
 import com.ysdevelop.lorchard.common.result.CodeMsg;
 import com.ysdevelop.lorchard.common.result.Result;
+import com.ysdevelop.lorchard.common.utils.Constant;
 import com.ysdevelop.lorchard.common.utils.QiniuUtil;
 
 @RestController
 @RequestMapping(value = "/image")
 public class ImageController {
-
+	
+	/**
+	 * 上传图片到七牛云
+	 */
 	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	public Result<String> upload(@RequestParam("imageFile") MultipartFile files, HttpServletRequest request) {
 
@@ -39,7 +54,7 @@ public class ImageController {
 			files.transferTo(file);
 			// 上传七牛云服务器
 			imagePath = QiniuUtil.qiniuUpload(filePath);
-			if (imagePath.contains("error")) {
+			if (imagePath.contains(Constant.ERROR)) {
 				throw new WebServiceException(CodeMsg.UPLOAD_FAILED);
 			}
 			// 路径为文件且不为空则进行删除

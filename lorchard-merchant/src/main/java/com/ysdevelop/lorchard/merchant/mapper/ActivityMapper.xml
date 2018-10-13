@@ -2,11 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.ysdevelop.lorchard.merchant.mapper.ActivityDao">
+	<!-- 添加活动 -->
 	<insert id="add" parameterType="com.ysdevelop.lorchard.merchant.entity.SpellingGroup" useGeneratedKeys="true" keyProperty="id">
 		insert into `t_lorchard_mall_activity`(`merchantId`,`startTime`,`endTime`,`activityName`,`activityType`,`description`,`createTime`,`activityStatus`)
 		values(#{merchantId},#{startTime},#{endTime},#{activityName},#{activityType},#{description},now(),0)
 	</insert>
 	
+	<!-- 添加活动商品 -->
 	<insert id="addActivityGoods" >
 	   insert into `t_lorchard_mall_activity_goods`(`activityId`,`goodsId`,`createTime`)
 	   values

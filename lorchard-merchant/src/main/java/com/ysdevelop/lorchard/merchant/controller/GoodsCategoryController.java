@@ -40,12 +40,18 @@ public class GoodsCategoryController {
 
 	@Autowired
 	private GoodsCategoryService categoryService;
-
+	
+	/**
+	 * 跳转到商品类别首页
+	 */
 	@RequestMapping(value = "", produces = "text/html;charset=UTF-8")
 	public String index() {
 		return "category/index";
 	}
-
+	
+	/**
+	 *获取类别分页 
+	 */
 	@RequestMapping(value = "/pagination", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Result<List<GoodsCategory>> pagination(HttpServletRequest request) {
@@ -54,12 +60,18 @@ public class GoodsCategoryController {
 		PageInfo<GoodsCategory> pageInfo = categoryService.list(queryMap);
 		return Result.successPaginationData(pageInfo.getList(), pageInfo.getTotal());
 	}
-
+	
+	/**
+	 * 跳转到类别的修改或添加界面 
+	 */
 	@RequestMapping(value = "/set", produces = "text/html;charset=UTF-8")
 	public String set() {
 		return "category/set";
 	}
-
+	
+	/**
+	 *获取类别的顶层分类 
+	 */
 	@RequestMapping(value = "/parent", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Result<List<GoodsCategory>> parent(HttpServletRequest request) {
@@ -67,7 +79,10 @@ public class GoodsCategoryController {
 		return Result.successData(categoryService.listParent(merchantId));
 
 	}
-
+	
+	/**
+	 * 添加商品类别
+	 */
 	@RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Result<String> add(@Valid GoodsCategory category) {

@@ -24,49 +24,49 @@ import com.ysdevelop.lorchard.common.validator.IsQQ;
 public class Shop {
 
 	private Long id;
-	/* 商家id */
+	/**商家id */
 	private Long merchantId;
 
 	@NotEmpty(message = "名字不能为空")
 	private String name;
-	/* 省 */
+	/** 省 */
 	@NotEmpty(message = "省不能为空")
 	private String province;
-	/* 市 */
+	/** 市 */
 	@NotEmpty(message = "市不能为空")
 	private String city;
-	/* 县 */
+	/** 县 */
 	private String town;
-	/* 详细地址 */
+	/** 详细地址 */
 	@NotEmpty(message = "详细地址不能为空")
 	private String detailAddress;
-	/* 描述 */
+	/** 描述 */
 	@NotEmpty(message = "描述不能为空")
 	private String description;
-	/* 运营人姓名 */
+	/** 运营人姓名 */
 	@NotEmpty(message = "运营人姓名不能为空")
 	private String operatorName;
-	/* 手机号码 */
+	/** 手机号码 */
 	@NotEmpty(message = "手机号码不能为空")
 	@IsMobile
 	private String mobile;
-	/* qq */
+	/** qq */
 	@NotEmpty(message = "qq不能为空")
 	@IsQQ
 	private String qq;
-	/* 微信号 */
+	/** 微信号 */
 	@NotEmpty(message = "微信不能为空")
 	private String wechatNo;
-	/* 邮箱 */
+	/** 邮箱 */
 	@NotEmpty(message = "邮箱不能为空")
 	@IsEmail
 	private String email;
-	/* 商家二维码 */
+	/** 商家二维码 */
 	private String merchantQr;
 
-	/* 状态 */
+	/** 状态 */
 	private Integer status;
-	/* 创建时间 */
+	/** 创建时间 */
 	private Date createTime;
 
 	private Date updateTime;

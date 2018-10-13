@@ -12,7 +12,12 @@ public class Constant {
 	 * 超级管理员ID
 	 */
 	public static final int SUPER_ADMIN = 1;
-
+	
+	/**
+	 *error 
+	 */
+	public static final String ERROR="error";
+	
 	/**
 	 * 判断是否为0
 	 */

@@ -22,11 +22,11 @@ import com.ysdevelop.lorchard.merchant.service.ActivityService;
 import com.ysdevelop.lorchard.shiro.token.TokenManager;
 
 /**
- * @author 
+ * @author 吴磊
  * 
  * @Package com.ysdevelop.loarchard.merchant.controller
  * 
- * @Description 当前进行的活动，发布新活动，历史活动；
+ * @Description 当前进行的活动，发布新活动；
  * 
  *  @Date 2018年10月8日
  * 

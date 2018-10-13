@@ -1,5 +1,13 @@
 package com.ysdevelop.lorchard.merchant.controller;
-
+/**
+ * 
+ * @author oldHuang
+ * 
+ * @Package com.ysdevelop.loarchard.merchant.controller
+ * 
+ * @Description 会员控制器
+ * 
+ */
 import java.util.List;
 import java.util.Map;
 
@@ -26,14 +34,14 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
-	// 用户列表
+	/**用户列表*/
 	@SystemControllerLog(description = "用户列表")
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
 	public String index() {
 		return "member/index";
 	}
 
-	// 用户分页
+	/**用户分页*/
 	@RequestMapping(value = "/pagination", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Result<List<Member>> pagination(HttpServletRequest request) {
@@ -44,13 +52,13 @@ public class MemberController {
 
 	
 	
-	// 跳转详情页
+	/**跳转详情页*/
 	@RequestMapping(value = "/info", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
 	public String info() {
 		return "member/info";
 	}
 
-	// 用户详情 resutful-api
+	/**用户详情 resutful-api*/
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Result<Member> info(@PathVariable(value = "id") Integer id) {

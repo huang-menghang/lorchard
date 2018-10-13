@@ -35,9 +35,9 @@ public interface GoodsDao {
 	/**
 	 * 获取所有商品图片
 	 * 
-	 * @param List<Goods> goods订单商品集合
+	 * @param  goods 订单商品集合
 	 *  
-	 * @return 返回轮播图集合
+	 * @return List<PreviewImages> 返回轮播图集合
 	 */
 	List<PreviewImages> listPreviewImage(@Param("goods")List<Goods> goods);
 	
@@ -56,6 +56,8 @@ public interface GoodsDao {
 	/**
 	 * 
 	 * 获取所有顶级分类
+	 * 
+	 * @param merchantId 商家id
 	 * 
 	 * @return List<Goods> 商品分类的id和类别名
 	 */

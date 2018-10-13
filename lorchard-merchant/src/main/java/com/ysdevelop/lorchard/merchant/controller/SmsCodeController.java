@@ -1,5 +1,13 @@
 package com.ysdevelop.lorchard.merchant.controller;
-
+/**
+ * 
+ * @author oldHuang
+ * 
+ * @Package com.ysdevelop.loarchard.merchant.controller
+ * 
+ * @Description 验证码控制器
+ * 
+ */
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.RequestMapping;

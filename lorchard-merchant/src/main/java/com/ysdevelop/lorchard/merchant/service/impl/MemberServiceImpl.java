@@ -1,5 +1,10 @@
 package com.ysdevelop.lorchard.merchant.service.impl;
-
+/**
+ * @author oldHuang
+ * 
+ * @Package com.ysdevelop.loarchard.merchant.controller
+ * 
+ * */
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +24,8 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private MemberDao memberDao;
+	
+	private static final String NICKNAMESTR="nicknameStr";
 
 	@Override
 	public PageInfo<Member> list(Map<String, String> queryMap) {
@@ -32,7 +39,7 @@ public class MemberServiceImpl implements MemberService {
 		Integer integerPageNum = Integer.parseInt(pageNum);
 		String nicknameStr = null;
 		byte[] nickname = new byte[1024];
-        if((nicknameStr=queryMap.get("nicknameStr"))!=null){
+        if((nicknameStr=queryMap.get(NICKNAMESTR))!=null){
 			nickname = nicknameStr.getBytes();
         }
 		PageHelper.startPage(integerPageNum, integerPageSize, Boolean.TRUE);

@@ -25,8 +25,6 @@ public interface FinanceDao {
 	 * 
 	 * 查询资金表最后一条数据
 	 * 
-	 * @param  
-	 * 
 	 * @return Finance finance
 	 */
 	Finance getLast();
@@ -47,7 +45,7 @@ public interface FinanceDao {
 	 * 
 	 * @param  finance 资产
 	 * 
-	 * @return 0代表成功，1代表失败
+	 * @return 0表示失败
 	 */
 	Integer withdraw(Finance finance);
 	
@@ -57,7 +55,7 @@ public interface FinanceDao {
 	 * 
 	 * @param  finance 资产实体类
 	 * 
-	 * @return 0代表成功，1代表失败
+	 * @return 0代表失败
 	 */
 	Integer balance(Finance finance);
 	
@@ -83,9 +81,9 @@ public interface FinanceDao {
 	 * 
 	 * 向资金表添加数据
 	 * 
-	 * @param  Finance finance
+	 * @param   finance 资金
 	 * 
-	 * @return 0代表成功，1代表失败
+	 * @return  Integer 0代表失败
 	 */
 	Integer insertFinance(Finance finance);
 	
@@ -93,9 +91,9 @@ public interface FinanceDao {
 	 * 
 	 * 获取商家id
 	 * 
-	 * @param 商家id
+	 * @param orderMerchantId 商家id
 	 * 
-	 * @return orderMerchantId
+	 * @return Finance 资金
 	 */
 	Finance getFinance(Long orderMerchantId);
 	
@@ -112,8 +110,9 @@ public interface FinanceDao {
 	/**
 	 * 获取提现总金额
 	 * 
-	 *  @return 返回提现总金额
+	 *  @param merchantId 商家id
 	 * 
+	 * @return Double 返回提现总金额
 	 * */
 	Double getAllWithdrawal(Long merchantId);
 }

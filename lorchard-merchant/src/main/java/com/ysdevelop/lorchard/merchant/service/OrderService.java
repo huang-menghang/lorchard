@@ -63,6 +63,8 @@ public interface OrderService {
 	/**
 	 * 通过订单号获取商品
 	 * 
+	 * @param queryMap
+	 * 
 	 * @return List<OrderItem> 商品集合
 	 * */
 	List<OrderItem> getItemsByOrderNo(Map<String, String> queryMap);
@@ -70,7 +72,7 @@ public interface OrderService {
 	/**
 	 * 将获取的值插入流水表中
 	 * 
-	 * @param Order 对象的order
+	 * @param order 对象的order
 	 * */
 	void completeById(Order order);
 }

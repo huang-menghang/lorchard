@@ -19,7 +19,7 @@ public interface OrderLogDao {
 	/**
 	 * 插入订单日志
 	 * 
-	 * @param accessLog
+	 * @param orderLog 订单日志
 	 */
 	void addOrderLog(OrderLog orderLog);
 }
