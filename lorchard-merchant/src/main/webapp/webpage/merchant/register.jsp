@@ -53,7 +53,17 @@
 					placeholder="请再次输入密码">
 				<div class="clear"></div>
 			</div>
+			
+			<div class="classification" style="padding-bottom: 1%;margin-top: 6%;">
+			<div class="label" style="width:44%;"> 
+                                我已阅读并同意<button  type="button" class="agreement" style="margin-left:36%;margin-top:-15%;">《源盛用户协议》</button>
+             </div>
+             <input type="checkbox"  required="true" name="agree" id="agreeProtocol" tabindex="-1" class="agree" checked="" style="height:20px;width:3%;margin:3%;margin-top:2%;" placeholder="请勾选">                  
+            </div>
+			
+			<div>
 			<div class="register">立即注册</div>
+			</div>
 			<div class="login" >已有账号,立即登陆</div>
 		</div>
 		</form>

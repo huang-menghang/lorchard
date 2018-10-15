@@ -24,5 +24,28 @@
 	    where id = #{userId}
 	</update>
 	
+	
+	<!--店铺打烊-->	
+  <update id="updateBusinessStautsToOne" >
+	    update 
+	    t_lorchard_mall_merchant
+	    set businessStauts = 1
+	    where id = #{userId}
+	</update>
+	<!--店铺营业-->	
+	 <update id="updateBusinessStautsToZero" >
+	    update 
+	    t_lorchard_mall_merchant
+	    set businessStauts = 0
+	    where id = #{userId}
+	</update>
+	<!--获取店家营业打烊状态-->	
+	 <select id="getBusinessStauts" resultType="java.lang.Long">
+	    select 
+	    businessStauts
+	    from t_lorchard_mall_merchant
+	    where id = #{userId}
+	</select>
+	
 
 </mapper>

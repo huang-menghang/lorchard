@@ -157,12 +157,12 @@ margin-right: 2%;
 							<div class="layui-col-md4">选择商品</div>
 						</div>
 						<!-- 表格 -->
-						<div class="layui-form-item" style="margin-right:22%;margin-left:7%">
+						<div class="layui-form-item" style="margin-right:30%;margin-left:5%">
 				         <div id="activityTable" lay-filter="table-activity"></div>
 													
 					      <div class="layui-input-block"
 								style="margin-left: 15%; margin-bottom: 5%">
-								<button class="layui-btn" type="button" lay-submit="确认"
+								<button style="margin-left:5%;margin-top:5%;" class="layui-btn" type="button" lay-submit="确认"
 									lay-filter="activity"></button>
 						 </div>
 						 </div>

@@ -96,4 +96,49 @@ public class MerchantServiceImpl implements UserService {
 		}
 	}
 
-}
+	//店铺打烊，0代表营业，1代表打烊
+		@Override
+		@Transactional(rollbackFor=Exception.class)
+		public void updateBusinessStautsToOne(Long userId,Long businessStauts) {
+			
+			if(userId == null){
+				throw new WebServiceException(CodeMsg.SERVER_ERROR);
+			}
+			  if (businessStauts == ApiConstant.DEFALULT_ZERO) {
+			  Integer changeCount = merchantDao.updateBusinessStautsToOne(userId);
+			     if(changeCount != Constant.DEFALULT_ONE){
+				 throw new WebServiceException(CodeMsg.SERVER_ERROR);
+			    }
+		     }else {
+					throw new WebServiceException(CodeMsg.SHOP_CLOSE);
+				}
+		}
+		//获取店铺状态
+		@Override
+		public Long getBusinessStauts(Long userId) {
+			Long businessStauts=merchantDao.getBusinessStauts(userId);
+			
+			return businessStauts;
+		}
+		//店铺营业，0代表营业，1代表打烊
+		@Override
+		@Transactional(rollbackFor=Exception.class)
+		public void updateBusinessStautsToZero(Long userId, Long businessStauts) {
+			if(userId == null){
+				throw new WebServiceException(CodeMsg.SERVER_ERROR);
+			}
+			  if (businessStauts == ApiConstant.DEFALULT_ONE) {
+			  Integer changeCount = merchantDao.updateBusinessStautsToZero(userId);
+			     if(changeCount != Constant.DEFALULT_ONE){
+				 throw new WebServiceException(CodeMsg.SERVER_ERROR);
+			    }
+		     }else {
+					throw new WebServiceException(CodeMsg.SHOP_OPEN);
+				}
+			
+		}
+
+		
+	}
+
+

@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.google.code.kaptcha.Producer;
+import com.ysdevelop.lorchard.common.exception.WebServiceException;
+import com.ysdevelop.lorchard.common.result.CodeMsg;
 import com.ysdevelop.lorchard.common.result.Result;
 import com.ysdevelop.lorchard.common.utils.Constant;
 import com.ysdevelop.lorchard.mq.bo.MerchantMessage;
@@ -123,5 +125,56 @@ public class MerchantController {
 		messageProducer.sendMessage(MessageKey.MERCHANT_KEY, JSON.toJSONString(message));
 		return Result.success("消息发送成功");
 	}
+	
+	//跳转协议界面
+		@RequestMapping(value = "/agreement", method = RequestMethod.GET)
+		public String agreement() {
+			return "merchant/agreement";
+		}
+		/**
+		 * 店铺状态获取，0代表营业，1代表打烊
+		 * 
+		 * @return
+		 */
+		@RequestMapping(value="/businessStauts" ,method=RequestMethod.GET, produces = "application/json;charset=utf-8")
+		@ResponseBody
+		public Result<Long> getBusinessStauts(){
+			if(TokenManager.getToken() == null){
+				throw new WebServiceException(CodeMsg.SERVER_ERROR);
+			}
+			Long businessStauts = userService.getBusinessStauts(TokenManager.getUserId());
+			System.out.println("businessStauts--"+businessStauts);
+			return Result.successData(businessStauts);
+		}
+		/**
+		 * 店铺打烊，0代表营业，1代表打烊
+		 * 
+		 * @return
+		 */
+		@RequestMapping(value="/shopClosed" ,method=RequestMethod.PUT, produces = "application/json;charset=utf-8")
+		@ResponseBody
+		public Result<String> shopClosed(Long businessStauts){
+			System.out.println("进来了 ");
+			if(TokenManager.getToken() == null){
+				throw new WebServiceException(CodeMsg.SERVER_ERROR);
+			}
+			userService.updateBusinessStautsToOne(TokenManager.getUserId(), businessStauts);
+			return Result.successData("打烊成功");
+		}
+		/**
+		 * 店铺开业，0代表营业，1代表打烊
+		 * 
+		 * @return
+		 */
+		@RequestMapping(value="/shopOpened" ,method=RequestMethod.PUT, produces = "application/json;charset=utf-8")
+		@ResponseBody
+		public Result<String> shopOpened(Long businessStauts){
+			System.out.println("进来了 进来了");
+			if(TokenManager.getToken() == null){
+				throw new WebServiceException(CodeMsg.SERVER_ERROR);
+			}
+			userService.updateBusinessStautsToZero(TokenManager.getUserId(), businessStauts);
+			return Result.successData("开铺成功");
+		}
 
 }

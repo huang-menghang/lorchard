@@ -57,6 +57,10 @@ var merchant_register_ops = {
 				$(this).removeClass('disable');
 			});
 		})
+		//源盛协议页面
+		$(".agreement").click(function(){
+			window.open(WEB_ROOT+'/merchant/agreement');
+		})
 		
 		$(".center .register").click(function(){
 			$(this).addClass("disable");

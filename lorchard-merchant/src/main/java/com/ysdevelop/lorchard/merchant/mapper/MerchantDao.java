@@ -28,10 +28,31 @@ public interface MerchantDao {
 
 	/**
 	 * 根据id更改状态
-	 * @param userId 商家id
+	 * @param userId
 	 * 
-	 * @return Integer 返回0则更新失败
+	 * @return
 	 */
 	Integer updateStatusById(Long userId);
+	/**
+	 * 获取商家id
+	 * @param userId
+	 * 
+	 * @return
+	 */
+	Long getBusinessStauts(Long userId);
+	/**
+	 * 店铺打烊，0代表营业，1代表打烊
+	 * @param userId
+	 * 
+	 * @return
+	 */
+	Integer updateBusinessStautsToOne(Long userId);
+	/**
+	 * 店铺营业，0代表营业，1代表打烊
+	 * @param userId
+	 * 
+	 * @return
+	 */
+	Integer updateBusinessStautsToZero(Long userId);
 
 }

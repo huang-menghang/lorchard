@@ -54,4 +54,25 @@ public interface UserService {
 	 * 
 	 */
 	void updateStatusById(Long userId);
+	/**
+	 *更改商家状态为0,0代表营业，1代表打烊
+	 * 
+	 * @param userId，businessStauts
+	 * 
+	 */
+	void updateBusinessStautsToOne(Long userId, Long businessStauts);
+	/**
+	 *获取商家状态
+	 * 
+	 * @param userId
+	 * 
+	 */
+	Long getBusinessStauts(Long userId);
+	/**
+	 *更改商家状态为1,0代表营业，1代表打烊
+	 * 
+	 * @param userId，businessStauts
+	 * 
+	 */
+	void updateBusinessStautsToZero(Long userId, Long businessStauts);
 }

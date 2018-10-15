@@ -84,6 +84,8 @@ public class CodeMsg {
 	public static CodeMsg SCROLL_NO = new CodeMsg(500018,"轮播id或顺序或跳转商品id不能为数字");
 	
 	//店铺
+	public static CodeMsg SHOP_CLOSE=new CodeMsg(500090,"您已打烊，请勿重复点击");
+	public static CodeMsg SHOP_OPEN=new CodeMsg(500091,"您已成功开铺，请勿重复点击");
 	public static CodeMsg SHOP_EXIST = new CodeMsg(500019,"店铺id不能为空");
 	public static CodeMsg SHOP_LEASTPRICE = new CodeMsg(500020,"店铺最低价不能为空");
 	public static CodeMsg SHOP_NO = new CodeMsg(500021,"店铺最低价只能为数字或小数位数过多");

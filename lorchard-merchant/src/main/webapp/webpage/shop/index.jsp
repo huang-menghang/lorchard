@@ -49,6 +49,9 @@
 					</div>
 				</div>
 			</div>
+			
+			
+			
 			<div class="clear"></div>
 			<div class="board">
 				<div class="board-box">
@@ -71,12 +74,15 @@
 					<div class="border-value goodsCount"></div>
 					<div class="border-title">商品</div>
 				</div>
+				<div class="board-box">
+					<div class="border-title" id="shopStutas" style="font-size:26px;"></div>
+				</div>
 			</div>
 			<div id="board-diagram" style="width: 860px; height: 400px;"></div>
 
 			<!--待办事项模块-->
 
-			<div class="layui-row layui-col-space15" style="width:96%;">
+			<div class="layui-row layui-col-space15" style="width:100%;">
 				<div class="layui-col-md6">
 					<div class="layui-card">
 						<div class="layui-card-header">快捷方式</div>
@@ -87,11 +93,13 @@
 								style="width: 100%; height: 208px;">
 								<div carousel-item="">
 									<ul class="layui-row layui-col-space10 layui-this" id="ul">
-										<li class="layui-col-xs3"><a href="<%=basePath%>/set?title=setIndex">
-												<i class="layui-icon layui-icon-console">&#xe770;</i> <cite>我的资料</cite>
+										<li class="layui-col-xs3"><a
+											href="<%=basePath%>/set?title=setIndex"> <i
+												class="layui-icon layui-icon-console">&#xe770;</i> <cite>我的资料</cite>
 										</a></li>
-										<li class="layui-col-xs3"><a href="<%=basePath%>/order?title=orderAll">
-												<i class="layui-icon layui-icon-chart">&#xe655;</i> <cite>查看订单</cite>
+										<li class="layui-col-xs3"><a
+											href="<%=basePath%>/order?title=orderAll"> <i
+												class="layui-icon layui-icon-chart">&#xe655;</i> <cite>查看订单</cite>
 										</a></li>
 										<li class="layui-col-xs3"><a
 											href="<%=basePath%>/goods?title=goodsIndex"> <i
@@ -101,15 +109,17 @@
 											href="<%=basePath%>/finance?title=financeIndex"> <i
 												class="layui-icon layui-icon-survey">&#xe65e;</i> <cite>查看余额</cite>
 										</a></li>
-										<li class="layui-col-xs3"><a href="<%=basePath%>/finance?title=financeReceived">
-												<i class="layui-icon layui-icon-user">&#xe735;</i> <cite>提现</cite>
+										<li class="layui-col-xs3"><a
+											href="<%=basePath%>/finance?title=financeReceived"> <i
+												class="layui-icon layui-icon-user">&#xe735;</i> <cite>提现</cite>
 										</a></li>
 										<li class="layui-col-xs3"><a
 											lay-href="set/system/website"> <i
 												class="layui-icon layui-icon-set">&#xe607;</i> <cite>帮助</cite>
 										</a></li>
-										<li class="layui-col-xs3"><a href="https://www.ysdevelop.com/">
-												<i class="layui-icon layui-icon-chat">&#xe62e;</i> <cite>关于源盛</cite>
+										<li class="layui-col-xs3"><a
+											href="https://www.ysdevelop.com/"> <i
+												class="layui-icon layui-icon-chat">&#xe62e;</i> <cite>关于源盛</cite>
 										</a></li>
 										<li class="layui-col-xs3"><a
 											href="https://www.ysdevelop.com//contactPortal"> <i
@@ -136,13 +146,15 @@
 								<div carousel-item="">
 									<ul class="layui-row layui-col-space10 layui-this" id="ul">
 										<li class="layui-col-xs6"><a
-											href="<%=basePath%>/order?title=orderUnDelivered" class="layadmin-backlog-body">
+											href="<%=basePath%>/order?title=orderUnDelivered"
+											class="layadmin-backlog-body">
 												<h3 id="h">待发货订单</h3>
 												<p>
 													<cite id="orderUnDelivered"></cite>
 												</p>
 										</a></li>
-										<li class="layui-col-xs6"><a href="<%=basePath%>/order?title=orderUnReceived"
+										<li class="layui-col-xs6"><a
+											href="<%=basePath%>/order?title=orderUnReceived"
 											class="layadmin-backlog-body">
 												<h3 id="h">待收货订单</h3>
 												<p>
@@ -150,15 +162,17 @@
 												</p>
 										</a></li>
 										<li class="layui-col-xs6"><a
-											href="<%=basePath%>/order?title=orderRefund" class="layadmin-backlog-body">
+											href="<%=basePath%>/order?title=orderRefund"
+											class="layadmin-backlog-body">
 												<h3 id="h">已退款订单</h3>
 												<p>
 													<cite id="orderRefund"></cite>
 												</p>
 										</a></li>
-										<li class="layui-col-xs6"><a href="<%=basePath%>/order?title=orderUnpaid"
+										<li class="layui-col-xs6"><a
+											href="<%=basePath%>/order?title=orderUnpaid"
 											class="layadmin-backlog-body">
-												<h3 id="h" >待支付订单</h3>
+												<h3 id="h">待支付订单</h3>
 												<p>
 													<cite id="orderUnpaid"></cite>
 												</p>
@@ -171,6 +185,36 @@
 							</div>
 						</div>
 					</div>
+				</div>
+				<!--营业管理-->
+				<div class="layui-form xbs" align="center" style="width: 102%;">
+					<div class="layui-form-pane">
+						<div class="layui-form-item" style="padding-top:3%;">
+							<label class="layui-form-label " style="width: 160px">营业时间范围</label>
+							<div class="layui-input-inline ">
+								<input type="text" readonly="readonly" class="layui-input"
+									value="" placeholder="开店时间" name="startTime">
+							</div>
+							<div class="layui-input-inline ">
+								<input type="text" readonly="readonly" class="layui-input"
+									value="" placeholder="打烊时间" name="endTime">
+							</div>
+							<div class="layui-input-inline " style="width: 8%">
+								<button class="layui-btn btn-serach" lay-submit=""
+									lay-filter="sreach">设置</button>
+							</div>
+							<div class="layui-input-inline "
+								style="width: 30%; margin-right: -10%">
+								<button class="layui-btn layui-btn-normal btn-close"
+									style="width: 110px;margin-left:-25%;">打烊</button>
+							</div>
+							<div class="layui-input-inline " style="width: 10%">
+								<button class="layui-btn layui-btn-normal btn-open"
+									style="width: 110px">营业</button>
+							</div>
+						</div>
+					</div>
+
 				</div>
 
 			</div>

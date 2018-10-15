@@ -86,11 +86,10 @@
 	<ul class="left-sidebar-second">
 		<li class="sidebar-second-title">店铺管理</li>
 		<li class="sidebar-second-item">
-			<!-- 二级菜单--> <a name="shopIndex"
-			href="<%=basePath%>/shop?title=shopIndex" class="">店铺概述</a> <a
-			name="shopDecoration"
-			href="<%=basePath%>/shopDecoration?title=shopDecoration" class="">
-				店铺装修</a>
+			<!-- 二级菜单-->
+			<a name="shopIndex" href="<%=basePath%>/shop?title=shopIndex" class="">店铺概述</a> 
+			<a name="shopDecoration" href="<%=basePath%>/shopDecoration?title=shopDecoration" class="">店铺装修</a>
+		    <a name="shopPoster" href="<%=basePath%>/shopPoster?title=shopPoster" class="">店铺海报</a>
 		</li>
 	</ul>
 
