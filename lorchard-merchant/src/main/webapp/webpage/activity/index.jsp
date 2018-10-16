@@ -59,7 +59,7 @@
 							</div>
 							
 							<div class="layui-form-item" style="margin-left:1%;">
-							<label class="layui-form-label" style="width: 9%;margin-left:-1%"; id="tableLable">类型</label>
+							<label class="layui-form-label" style="width: 9%;margin-left:-1%;" id="tableLable">类型</label>
 							<div class="layui-input-inline" style="width: 25%; text-align: center;">
 									<select name="activityType" lay-filter="reportType">
 										<option></option>
@@ -73,7 +73,7 @@
 					</div>
 				</div>
 				<!-- 表格 -->
-				<div class="layui-form-item" style="margin-left:1%;width:95%;">
+				<div class="layui-form-item" style="margin-left:1%;width:95%;margin-top:-3%;">
 				<div id="activityTable" lay-filter="table-activity"></div>
                 </div>
 			</div>

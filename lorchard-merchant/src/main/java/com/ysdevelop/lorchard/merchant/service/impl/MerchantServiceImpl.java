@@ -72,7 +72,7 @@ public class MerchantServiceImpl implements UserService {
 
 	@Override
 	public void login(LoginVo loginVo) {
-		// 校验二维码
+		// 校验验证码
 		if (!loginVo.getVerifyCode().equals(TokenManager.getSession().getAttribute(Constant.KAPTCHA_SESSION_KEY))) {
 			throw new WebServiceException(CodeMsg.MERCHANT_VERIFYCODE_WRONG);
 		}

@@ -21,7 +21,7 @@ var member_index_ops ={
 							{field: 'mobile',title: '手机号',align: 'center',width:'15%'},
 							{field: 'province',title: '省',templet: '#province_ch',align: 'center',width:'13%'},
 						    {field: 'city',title: '市',templet: '#city_ch',align: 'center',width:'13%'},
-						    {field: 'createTime',title: '创建时间',templet: '#date_formate',align: 'center',width:'16%'},
+						    {field: 'createTime',title: '创建时间',templet: '#date_formate',align: 'center',width:'20%'},
 							{fixed: 'right', title: '操作', width: '10%',height: 40, align: 'center', templet: '#barOption'}
 						   ]],
 					  url: WEB_ROOT + "/member/pagination",
