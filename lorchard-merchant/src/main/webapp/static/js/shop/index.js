@@ -6,48 +6,48 @@ var shop_index_ops = {
 	},
 	// 初始化组件
 	inintComponent : function() {
-		//营业打烊管理
-		layui.use([ 'table', 'layer', 'laydate', 'laypage' ],function() {
-			laydate = layui.laydate;// 日期插件
-			laypage = layui.laypage;// 分页
-			layer = layui.layer;// 弹出层
-			 // 日期组件
-			 var start = {
-						elem : ".layui-form-item input[name='startTime']",
-						min : '2017-01-01 23:59:59',
-						max : '2099-06-16 23:59:59',
-						format : 'yyyy-MM-dd HH:mm:ss',
-						type : 'datetime',
-						trigger : 'click',
-						zIndex : 99999999,
-						ready : function(data) {
-							start.min = data; // 开始日选好后，重置结束日的最小日期
-						},
-						change : function(value, date, endDate) {
-							start.value = value;
-						}
-					};
-
-			var end = {
-						elem : ".layui-form-item input[name='endTime']",
-						min : '2017-01-01 23:59:59',
-						max : '2099-06-16 23:59:59',
-						format : 'yyyy-MM-dd HH:mm:ss',
-						type : 'datetime',
-						trigger : 'click',
-						zIndex : 99999999,
-						ready : function(data) {
-							end.max = data; // 结束日选好后，重置开始日的最大日期
-						},
-						change : function(value, date, endDate) {
-							end.value = value;
-						}
-				};
-
-			laydate.render(start);
-			laydate.render(end);	
+//		//营业打烊管理
+//		layui.use([ 'table', 'layer', 'laydate', 'laypage' ],function() {
+//			laydate = layui.laydate;// 日期插件
+//			laypage = layui.laypage;// 分页
+//			layer = layui.layer;// 弹出层
+//			 // 日期组件
+//			 var start = {
+//						elem : ".layui-form-item input[name='startTime']",
+//						min : '2017-01-01 23:59:59',
+//						max : '2099-06-16 23:59:59',
+//						format : 'yyyy-MM-dd HH:mm:ss',
+//						type : 'datetime',
+//						trigger : 'click',
+//						zIndex : 99999999,
+//						ready : function(data) {
+//							start.min = data; // 开始日选好后，重置结束日的最小日期
+//						},
+//						change : function(value, date, endDate) {
+//							start.value = value;
+//						}
+//					};
+//
+//			var end = {
+//						elem : ".layui-form-item input[name='endTime']",
+//						min : '2017-01-01 23:59:59',
+//						max : '2099-06-16 23:59:59',
+//						format : 'yyyy-MM-dd HH:mm:ss',
+//						type : 'datetime',
+//						trigger : 'click',
+//						zIndex : 99999999,
+//						ready : function(data) {
+//							end.max = data; // 结束日选好后，重置开始日的最大日期
+//						},
+//						change : function(value, date, endDate) {
+//							end.value = value;
+//						}
+//				};
+//
+//			laydate.render(start);
+//			laydate.render(end);	
 			
-		});
+//		});
 		 var businessStauts;
 			$.ajax({
 	  			url:WEB_ROOT+'/merchant/businessStauts',
@@ -64,7 +64,7 @@ var shop_index_ops = {
 					$("#shopStutas").css("color","#FF5722");
 	  				}
 	  		});
-		 $(".btn-open").click(function(){
+		 $("#open").click(function(){
 			 //var startTime = $("input[ name='startTime']").val();
 		    // var endTime = $("input[ name='endTime']").val();
 			 var businessStauts;
@@ -100,7 +100,7 @@ var shop_index_ops = {
 		  	  });
 		 });
 		 
-		 $(".btn-close").click(function(){
+		 $("#close").click(function(){
 			 //console.log("进来了");
 			 //var startTime = $("input[ name='startTime']").val();
 		   // var endTime = $("input[ name='endTime']").val();

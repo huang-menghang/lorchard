@@ -65,10 +65,9 @@ width:5%;
 			<form class="formarea">
 				<div class="layui-tab-content">
 					<div class="layui-tab layui-tab-card">
-						<ul class="layui-tab-title">
-							<li class="layui-this ops-title"></li>
-							<div class="main-tab-item layui-bg-blue">订单详情</div>
-						</ul>
+						<ul class="layui-tab-title main-tab-title">
+						<div class="main-tab-item layui-bg-blue">订单信息</div>
+					</ul>
 						<div class="layui-form" style="margin-top: 10px;">
 							<!--订单信息  -->
 							<div class="layui-col-md9">

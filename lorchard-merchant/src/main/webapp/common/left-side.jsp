@@ -119,7 +119,10 @@
 	</ul>
 	
 	<ul class="left-sidebar-second">
-		<li><a name="member"></a></li>
+	<li class="sidebar-second-title">会员管理</li>
+		<li class="sidebar-second-item">
+		<a name="member" href="<%=basePath%>/member?title=member" class="">全部会员</a>
+		</li>
 	</ul>
 	
 	<ul class="left-sidebar-second">

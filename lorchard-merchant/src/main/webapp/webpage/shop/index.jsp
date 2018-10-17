@@ -32,8 +32,9 @@
 					</div>
 				</div>
 				<div class="header-action">
+				    <div class="primary" id="open">店铺营业</div>
+				    <div class="primary" id="close">店铺打烊</div>
 					<div class="primary realse-goods">发布商品</div>
-					<div class="primary ">新建微商城</div>
 					<div class="access-shop" style="float: left;">
 						<div class="primary access-shop">访问店铺</div>
 						<div class="shop-qrcode">
@@ -187,7 +188,7 @@
 					</div>
 				</div>
 				<!--营业管理-->
-				<div class="layui-form xbs" align="center" style="width: 102%;">
+				<!--<div class="layui-form xbs" align="center" style="width: 102%;">
 					<div class="layui-form-pane">
 						<div class="layui-form-item" style="padding-top:3%;">
 							<label class="layui-form-label " style="width: 160px">营业时间范围</label>
@@ -214,8 +215,8 @@
 							</div>
 						</div>
 					</div>
+				</div>-->
 
-				</div>
 
 			</div>
 		</div>

@@ -16,6 +16,7 @@ td .layui-table-cell{
 .laytable-cell-1-8 {
 	height: auto;
 }
+
 </style>
 </head>
 <body>
@@ -33,24 +34,24 @@ td .layui-table-cell{
 				<div class="layui-form-pane">
 					<div class="layui-form-item" style="display: inline-block;">
 						<label class="layui-form-label ">时间范围</label>
-						<div class="layui-input-inline ">
+						<div class="layui-input-inline " style="width:16%;">
 							<input type="text" readonly="readonly" class="layui-input"
 								value="" placeholder="开始日"
 								name="startTime">
 						</div>
-						<div class="layui-input-inline ">
+						<div class="layui-input-inline " style="width:16%;">
 							<input type="text" readonly="readonly" class="layui-input"
 								value="" placeholder="截止日" name="endTime">
 						</div>
-						<div class="layui-input-inline ">
+						<div class="layui-input-inline " style="width:16%;">
 								<input type="text" name="nicknameStr"
 									value="" placeholder="会员昵称" autocomplete="off" class="layui-input">
 						</div>
-						<div class="layui-input-inline ">
+						<div class="layui-input-inline " style="width:16%;">
 								<input type="text" name="mobile"
 									value="" placeholder="手机号码" autocomplete="off" class="layui-input">
 						</div>
-						<div class="layui-input-inline " style="width: 8%">
+						<div class="layui-input-inline " style="width: 7%;margin-left:2%;">
 							<button class="layui-btn btn-serach" lay-submit=""
 								lay-filter="sreach">
 								<i class="layui-icon">&#xe615;</i>搜索

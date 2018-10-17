@@ -4,7 +4,6 @@ var info_ops = {
 	},
 	inintComponent:function(){
 		var id = common_ops.g_getQueryString('id');
-		$(".layui-tab-title .ops-title").html("订单详情");
 		$.ajax({
 			url:WEB_ROOT+'/order/'+id,
 			type:'get',

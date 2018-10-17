@@ -32,9 +32,9 @@ margin-right: 2%;
         <form class="formarea">
 		<div class="layui-tab-content">
 			<div class="layui-tab layui-tab-card">
-				<ul class="layui-tab-title">
-					<li class="layui-this ops-title"></li>
-				</ul>
+				<ul class="layui-tab-title main-tab-title">
+						<div class="main-tab-item layui-bg-blue">分类信息</div>
+					</ul>
 				<div class="layui-form" style="margin-top: 10px;">
 					<div class="layui-form-item">
 						<label class="layui-form-label"><span class="x-red">*</span>分类名称</label>

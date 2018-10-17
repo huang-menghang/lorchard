@@ -80,9 +80,9 @@ margin-right: 2%;
 			<form class="formarea">
 				<div class="layui-tab-content">
 					<div class="layui-tab layui-tab-card">
-						<ul class="layui-tab-title">
-							<li class="layui-this ops-title"></li>
-						</ul>
+						<ul class="layui-tab-title main-tab-title">
+						<div class="main-tab-item layui-bg-blue">商品信息</div>
+					    </ul>
 						<!--基本信息  -->
 						<div class="layui-col-md9">
 							<div class="layui-col-md4">基本信息</div>

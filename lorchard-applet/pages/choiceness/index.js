@@ -142,6 +142,7 @@ Page({
       title: wx.getStorageSync('mallName') + '——' + app.globalData.shareProfile,
       //转发路径
       path: '/pages/finder/index',
+      imageUrl: '../../images/poster.png',
       success: function(res) {
         // 转发成功
       },

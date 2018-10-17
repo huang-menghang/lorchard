@@ -39,10 +39,11 @@ padding-left: 10px;
 	width:90px;
 }
 .header-action{
-	width:330px;
 	float:right;
 	margin-top: 30px;
 	height:33px;
+	width:45%;
+	
 }
 .header-action .primary{
 	float:left;
@@ -55,6 +56,7 @@ padding-left: 10px;
     padding: 0 13px;
     line-height: 30px;
     border-radius: 4px;
+    cursor:pointer;
 }
 .shop-qrcode{
     display:none;
