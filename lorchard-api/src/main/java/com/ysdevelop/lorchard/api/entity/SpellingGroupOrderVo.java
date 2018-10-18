@@ -27,6 +27,27 @@ public class SpellingGroupOrderVo {
 	
 	private List<OrderVo> orders;
 
+	private List<String> orderNos;
+	
+	private String orderNoLast;
+	
+
+	public String getOrderNoLast() {
+		return orderNoLast;
+	}
+
+	public void setOrderNoLast(String orderNoLast) {
+		this.orderNoLast = orderNoLast;
+	}
+
+	public List<String> getOrderNos() {
+		return orderNos;
+	}
+
+	public void setOrderNos(List<String> orderNos) {
+		this.orderNos = orderNos;
+	}
+
 	public Long getId() {
 		return id;
 	}

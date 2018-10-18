@@ -74,6 +74,8 @@ public class CodeMsg {
 	public static CodeMsg DELIVER_ERROR=new CodeMsg(500034,"商品发货失败");
 	public static CodeMsg CANCAL_ORDER_ERROR=new CodeMsg(500035,"取消订单失败");
 	public static CodeMsg ORDER_UNPAID=new CodeMsg(500035,"订单未付款,无法退款");
+	public static CodeMsg SPELLINGGROUPORDER_ERROR=new CodeMsg(500036,"拼团订单生成失败");
+
 	//统计
 	public static CodeMsg NEWMEMBER_EXIST = new CodeMsg(500012,"新增会员数量为空");
 	

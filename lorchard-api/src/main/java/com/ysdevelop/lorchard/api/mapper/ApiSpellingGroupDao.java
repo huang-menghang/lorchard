@@ -2,6 +2,7 @@ package com.ysdevelop.lorchard.api.mapper;
 
 import java.util.List;
 
+import com.ysdevelop.lorchard.api.entity.SpellingGroupOrderVo;
 import com.ysdevelop.lorchard.api.entity.SpellingGroupVo;
 
 /** 
@@ -22,5 +23,10 @@ public interface ApiSpellingGroupDao {
 	List<Long> goodsIdList(Long activityId);
 
 	SpellingGroupVo getByMerchantId(Long merchantId);
+	
+	Integer addSpellingGroupOrder(SpellingGroupOrderVo spellingGroupOrderVo);
+	
+	Integer updateSpellingGroupOrderId(SpellingGroupOrderVo spellingGroupOrderVo);
 
+	Integer updateSpellingGroupOrder(SpellingGroupOrderVo spellingGroupOrderVo);
 }

@@ -57,11 +57,9 @@ public class ApiSpellingGroupContorller {
 	 * @return
 	 */
 	@RequestMapping(value = "/groupCreate", method = RequestMethod.GET)
-	public Result<List<GoodsVo>> groupCreate(Long merchantId, Long memberId) {
-		SpellingGroupVo spellingGroupVo = spellingGroupService.getByMerchantId(merchantId);
-		List<Long> goodsIds = spellingGroupService.goodsIdList(spellingGroupVo.getId());
-		List<GoodsVo> list = goodsService.spellingGroupList(goodsIds);
-		return Result.successData(list);
+	public Result<String> groupCreate(Long merchantId, Long memberId,String orderNo) {
+		spellingGroupService.addSpellingGroupOrder(merchantId, memberId, orderNo);
+		return Result.success("生成团购订单成功");
 	}
 
 	/**
@@ -71,10 +69,8 @@ public class ApiSpellingGroupContorller {
 	 * @return
 	 */
 	@RequestMapping(value = "/groupUpdate", method = RequestMethod.GET)
-	public Result<List<GoodsVo>> groupUpdate(Long inviteId, Long merchantId, Long memberId) {
-		SpellingGroupVo spellingGroupVo = spellingGroupService.getByMerchantId(merchantId);
-		List<Long> goodsIds = spellingGroupService.goodsIdList(spellingGroupVo.getId());
-		List<GoodsVo> list = goodsService.spellingGroupList(goodsIds);
-		return Result.successData(list);
+	public Result<String> groupUpdate(Long inviteId, Long merchantId, Long memberId,String orderNo) {
+		spellingGroupService.increaseSpellingGroupOrder(inviteId,merchantId, memberId, orderNo);
+		return Result.success("加入团购订单成功");
 	}
 }

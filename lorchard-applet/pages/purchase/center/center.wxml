@@ -8,7 +8,7 @@
 </view>
 
 <view class='bottom'>
-  <navigator class='item' url="" style="border-bottom: none;">
+  <navigator class='item' url="/pages/purchase/group-list/index" style="border-bottom: none;">
     <view class='mid'>
       <image class='img' mode='aspectFit' src='../../../images/pintuan/my.png'></image>
       <text>我的拼团</text>

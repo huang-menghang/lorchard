@@ -22,4 +22,20 @@
 			and `activityStatus` = 0
 	</select>
 	
+	<insert id="addSpellingGroupOrder" parameterType="com.ysdevelop.lorchard.api.entity.SpellingGroupVo" useGeneratedKeys="true" keyProperty="id">
+		insert into `t_lorchard_mall_spellingGroup_order`(`merchantId`,`inviteId`,`createTime`)
+		values(#{merchantId},#{inviteId},now())
+	</insert>
+	
+	<update id="updateSpellingGroupOrderId">
+		update `t_lorchard_mall_goods_order`
+		set `spellingGroupOrderId`=#{id}
+		where `orderNo`=#{orderNoLast}
+	</update>
+	
+	<update id="updateSpellingGroupOrder">
+		update `t_lorchard_mall_spellingGroup_order` 
+		set  `memberId`=#{memberId}
+		where `order`=#{orderNoLast}
+	</update>
 </mapper>

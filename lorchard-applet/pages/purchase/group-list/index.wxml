@@ -1,2 +1,82 @@
 <!--pages/purchase/group-list/index.wxml-->
 <text>pages/purchase/group-list/index.wxml</text>
+<view class="stv-container">
+  <!--上部标题-->
+  <view class="tab-bar">
+    <!--遍历上部标题-->
+    <view wx:for="{{tabs}}" wx:key="unique" data-index="{{index}}" bindtap="handlerTabTap" class="tab {{activeTab==index?'active':''}}" style="width: {{stv.windowWidth/tabs.length}}px">
+      {{item}}
+      <!--如果存在商品集合-->
+      <wxc-badge wx:if='{{(index == 0 || index == 1 || index == 2) && orderList[index].orderList.length>0}}' class="message__badge ">{{orderList[index].orderList.length}}</wxc-badge>
+      <!--显示粉色圆点-->
+      <view class="{{tabClass[index]}}"></view>
+    </view>
+    <!--下划线-->
+    <view style="width: {{stv.lineWidth}}px; left: {{stv.offset/tabs.length}}px" class="under-line {{!stv.tStart? 'withAnimate': ''}}"></view>
+  </view>
+
+
+  <view class="scroll-view">
+
+    <wxc-loading is-show="{{loadingStatus}}" type="mgj"></wxc-loading>
+
+    <swiper class="orderListSwiper" style="width: 100%; height: 100%; overflow: visible;" current='{{activeTab}}' bindchange="swiperchange">
+
+      <view wx:if="{{orderList.length == 0}}">
+        <view wx:for="{{tabs}}" wx:key="unique">
+          <swiper-item class="one-scene">
+            <scroll-view style="height:100%" scroll-y>
+              <view class="no-order">
+                <wxc-abnor type="ORDER" title='您还没有相关订单~' button="去逛逛" bind:abnortap="toIndexPage"></wxc-abnor>
+              </view>
+            </scroll-view>
+          </swiper-item>
+        </view>
+      </view>
+
+      <view wx:else>
+        <view wx:for-items="{{orderList}}" wx:key="id">
+          <swiper-item style="overflow: visible;border-radius: 50%;" class="one-scene">
+            <scroll-view style="height:100%" scroll-y>
+              <view wx:if="{{item.isnull}}" class="no-order">
+                <wxc-abnor type="ORDER" title='您还没有相关订单~' button="去逛逛" bind:abnortap="toIndexPage"></wxc-abnor>
+              </view>
+              <view wx:else class="order-list">
+                <view class="a-order" wx:for-items="{{item.orderList}}" wx:key="{{index}}">
+                  <view class="order-date">
+                    <view class="date-box">下单时间：{{item.addDate}}</view>
+                    
+                  </view>
+                  <view class="goods-info">
+                    <view class="goods-des">
+                      <view class='order-info'>
+                        <view>订单号:{{item.orderNo}} </view>
+                        <view class='order-advance' bindtap="orderDetail" data-orderNo="{{item.orderNo}}" wx:if="{{item.orderStatus == 0 }}">订单详情</view>
+                       
+                      </view>
+                      <view style='padding-top:15rpx;' wx:if="{{item.remark && item.remark != ''}}">备注： {{item.remark}}</view>
+                    </view>
+                  </view>
+                  <view>
+                    <scroll-view class="goods-img-container" scroll-x="true">
+                      <view class="img-box" wx:for-items="{{item.orderItems}}" wx:key="{{index}}">
+                        <image src="{{item.previewImages[0].previewImagePath}}" class="goods-img"></image>
+                      </view>
+                    </scroll-view>
+                  </view>
+                  <view class="price-box">
+                    <view class="total-price">合计：¥ {{item.orderPendingBalance}}</view>
+                    <view style='width:250rpx;display: flex; flex-direction:row; justify-content: space-between;'>
+                      <button class="zan-btn zan-btn--warn zan-btn--mini zan-btn--plain" hidden="{{item.orderStatus==0? fslse : true}}" bindtap="cancelOrderTap" data-orderNo="{{item.orderNo}}">取消订单</button>
+                      
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </scroll-view>
+          </swiper-item>
+        </view>
+      </view>
+    </swiper>
+  </view>
+</view>

@@ -22,5 +22,8 @@ public interface ApiSpellingGroupService {
 	List<Long> goodsIdList(Long activityId);
 
 	SpellingGroupVo getByMerchantId(Long merchantId);
+	
+	void addSpellingGroupOrder(Long merchantId, Long memberId,String orderNo);
 
+	void increaseSpellingGroupOrder(Long inviteId,Long merchantId, Long memberId,String orderNo);
 }

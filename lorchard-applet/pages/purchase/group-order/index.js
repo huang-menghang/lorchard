@@ -161,9 +161,11 @@ Page({
             showCancel: false
           })
           return;
+        } else if (res.code == 0){
+            that.data.orderNo=res.data;
         }
         that.successCreate(res);
-        //that.groupOrder(that);
+        that.groupOrder(that);
       }
     })
   },
@@ -184,16 +186,22 @@ Page({
     var inviteId = that.data.inviteId;
     var merchantId = app.globalData.merchantId;
     var memberId = app.globalData.merchantId;
-
-    if (inviteId != undefined) {
+    var orderNo=that.data.orderNo;
+    console.log("orderNo"+orderNo)
+    console.log("inviteId" + inviteId)
+    if (inviteId == "null") {
       util.requestGet({
         url: api.groupCreateUrl,
         data: {
           merchantId: merchantId,
-          memberId: memberId
+          memberId: memberId,
+          orderNo: orderNo
         },
         success: function() {
-          console.log("创建团购订单成功")
+          console.log("创建团购订单成功");
+          wx.navigateTo({
+            url: "/pages/purchase/group-list/index"
+          })
         }
       })
     } else {
@@ -202,10 +210,11 @@ Page({
         data: {
           inviteId: inviteId,
           merchantId: merchantId,
-          memberId: memberId
+          memberId: memberId,
+          orderNo: orderNo
         },
         success: function() {
-          console.log("更新团购订单成功")
+          console.log("更新团购订单成功");
         }
       })
     }
