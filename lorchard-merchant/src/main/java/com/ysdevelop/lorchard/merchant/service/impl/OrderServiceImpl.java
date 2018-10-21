@@ -20,6 +20,7 @@ import com.ysdevelop.lorchard.common.utils.ApiConstant;
 import com.ysdevelop.lorchard.merchant.entity.Goods;
 import com.ysdevelop.lorchard.merchant.entity.Order;
 import com.ysdevelop.lorchard.merchant.entity.OrderItem;
+import com.ysdevelop.lorchard.merchant.entity.SpellingGroupOrder;
 import com.ysdevelop.lorchard.merchant.mapper.OrderDao;
 import com.ysdevelop.lorchard.merchant.service.FinanceService;
 import com.ysdevelop.lorchard.merchant.service.OrderService;
@@ -200,4 +201,77 @@ public class OrderServiceImpl implements OrderService, Observer, InitializingBea
 		System.out.println("添加观察者.....");
 		messageConsumer.addObserver(this);
 	}
+
+	@Override
+	public PageInfo<SpellingGroupOrder> groupOrderList(Map<String, String> queryMap) {
+		if (queryMap == null) {
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
+		System.out.println(queryMap.get("orderMerchantId"));
+		// 获取分页条件的
+		String pageSize = queryMap.get("limit");
+		String pageNum = queryMap.get("page");
+		if (pageSize == null || pageNum == null) {
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
+		Integer integerPageSize = Integer.parseInt(pageSize);
+		Integer integerPageNum = Integer.parseInt(pageNum);
+
+		PageHelper.startPage(integerPageNum, integerPageSize, Boolean.TRUE);
+		List<SpellingGroupOrder> groupOrderList = orderDao.groupOrderList(queryMap);
+		
+
+		PageInfo<SpellingGroupOrder> pageInfo = new PageInfo<>(groupOrderList);
+		return pageInfo;
+	}
+	
+	
+	/**
+	 * 通过id获取订单的详细信息
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public SpellingGroupOrder groupInfoById(Integer id) {
+		if (id == null) {
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
+		SpellingGroupOrder groupInfoById = orderDao.groupInfoById(id);
+		return groupInfoById;
+	}
+
+	@Override
+	public PageInfo<Order> getOrderById(Map<String, String> queryMap) {
+		if (queryMap == null) {
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
+		System.out.println(queryMap.get("orderMerchantId"));
+		// 获取分页条件的
+		String pageSize = queryMap.get("limit");
+		String pageNum = queryMap.get("page");
+		if (pageSize == null || pageNum == null) {
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
+		Integer integerPageSize = Integer.parseInt(pageSize);
+		Integer integerPageNum = Integer.parseInt(pageNum);
+
+		PageHelper.startPage(integerPageNum, integerPageSize, Boolean.TRUE);
+		List<Order> order = orderDao.orderById(queryMap);
+
+		PageInfo<Order> pageInfo = new PageInfo<>(order);
+		return pageInfo;
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public void deleteGroupOrder(Long id) {
+		if (id == null) {
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
+		Integer deleteGroupOrder = orderDao.deleteGroupOrder(id);
+		
+		if(deleteGroupOrder== ApiConstant.DEFALULT_ZERO) {
+			throw new WebServiceException(CodeMsg.CANCAL_ORDER_ERROR);
+		}
+	}
+	
 }

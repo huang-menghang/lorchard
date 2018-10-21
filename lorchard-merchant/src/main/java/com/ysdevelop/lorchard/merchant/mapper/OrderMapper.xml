@@ -19,6 +19,7 @@
 		`o`.payTime as `payTime`
 		from
 		`t_lorchard_mall_goods_order` as `o`
+		LEFT JOIN `t_lorchard_mall_spellingGroup_order` as `s` on `s`.id=`o`.spellingGroupOrderId
 		<where>
 			1 = 1
 			<if test="queryMap.orderStatus !=null">
@@ -51,6 +52,8 @@
 		</where>
 		and o.`orderMerchantId` =#{queryMap.orderMerchantId}
 		and o.`orderStatus`!=4
+		and `s`.memberId is not null
+		or `o`.spellingGroupOrderId is null
 </select>
 
 <!--查询单个订单-->
@@ -171,4 +174,78 @@
             #{orderItem.goodsId}
         </foreach >
   	</select>
+  	
+  	
+  	<select id="groupOrderList" resultType="com.ysdevelop.lorchard.merchant.entity.SpellingGroupOrder">
+  		select 
+  		`s`.id as `id`,
+  		`s`.inviteId as `inviteId`,
+  		`s`.memberId as `memberId`,
+  		`s`.createTime as `createTime`,
+  		`i`.goodsName as goodsName
+  		from `t_lorchard_mall_spellingGroup_order` as `s`
+  		left join `t_lorchard_mall_goods_order` as `o` on `s`.id=`o`.spellingGroupOrderId
+  		left join `t_lorchard_mall_goods_order_item` as `i` on `i`.orderNo=`o`.orderNo
+  		<where>
+			1 = 1
+			<if test="queryMap.inviteId !=null and queryMap.inviteId != ''">
+				and s.`inviteId` =#{queryMap.inviteId}
+			</if>
+			<if test="queryMap.startTime != null and queryMap.startTime != ''">
+                <![CDATA[ and `s`.createTime > #{queryMap.startTime} ]]>
+			</if>
+			<if test="queryMap.endTime != null and queryMap.endTime != ''">
+                <![CDATA[ and `s`.createTime < #{queryMap.endTime} ]]>
+		 	</if>
+		</where>
+  		and `s`.merchantId=#{queryMap.orderMerchantId}
+  		and `s`.status=0
+  	</select>
+  	
+  	<select id="groupInfoById" resultType="com.ysdevelop.lorchard.merchant.entity.SpellingGroupOrder">
+  		select 
+  		`s`.id as `id`,
+  		`s`.inviteId as `inviteId`,
+  		`s`.memberId as `memberId`,
+  		`s`.createTime as `createTime`
+  		from `t_lorchard_mall_spellingGroup_order` as `s`
+  		where `s`.id=#{id}
+  	</select>
+  	
+  	<select id="orderById" resultType="com.ysdevelop.lorchard.merchant.entity.Order">
+  	 	select
+        `o`.orderNo as `orderNo`,
+        `o`.orderMerchantId as `orderMerchantId`,
+        `o`.orderMemberId as `orderMemberId`,
+        `o`.orderMemberName as `orderMemberName`,
+        `o`.sendMethod as `sendMethod`,
+        `o`.province as `province`,
+        `o`.city as `city`,
+        `o`.diatrict as `diatrict`,
+        `o`.address as `address`,
+        `o`.mobile as `mobile`,
+        `o`.expressNo as `expressNo`,
+        `o`.orderTotalPrice as `orderTotalPrice`,
+        `o`.orderDiscount as `orderDiscount`,
+        `o`.orderPayPrice as `orderPayPrice`,
+        `o`.payTime as `payTime`,
+        `o`.confirmTime as `confirmTime`,
+        `o`.orderStatus as `orderStatus`,     
+        `o`.remark as `remark`,
+        `o`.freightPrice as `freightPrice`,
+        `o`.orderPendingBalance as `orderPendingBalance`,
+		Count(goodsName) as `count`
+		from
+		`t_lorchard_mall_goods_order` as `o`
+		left join `t_lorchard_mall_goods_order_item` as `i` on `i`.orderNo = `o`.orderNo
+		where `o`.spellingGroupOrderId = #{id} 
+  	</select>
+  	
+  	<update id="deleteGroupOrder">
+	    update `t_lorchard_mall_goods_order` as `o`,`t_lorchard_mall_spellingGroup_order` as `s`
+	    <trim prefix="set" suffixOverrides="," suffix="where `s`.id = #{id} and `s`.id=`o`.spellingGroupOrderId">
+			`o`.orderStatus=4,
+			`s`.status=1,
+		</trim>
+	</update>
 </mapper>

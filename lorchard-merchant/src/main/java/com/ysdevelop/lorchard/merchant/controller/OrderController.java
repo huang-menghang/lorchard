@@ -20,6 +20,7 @@ import com.ysdevelop.lorchard.common.utils.Constant;
 import com.ysdevelop.lorchard.common.utils.HttpUtils;
 import com.ysdevelop.lorchard.merchant.entity.Order;
 import com.ysdevelop.lorchard.merchant.entity.OrderItem;
+import com.ysdevelop.lorchard.merchant.entity.SpellingGroupOrder;
 import com.ysdevelop.lorchard.merchant.service.OrderService;
 import com.ysdevelop.lorchard.shiro.token.TokenManager;
 
@@ -50,6 +51,14 @@ public class OrderController {
 	}
 	
 	/**
+	 * 全部拼团订单
+	 * */
+	@RequestMapping(value = "/groupOrderAll", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+	public String groupOrderAll() {
+		return "order/groupOrder";
+	}
+	
+	/**
 	 * 获取商家id
 	 * */
 	@RequestMapping(value = "/orderMerchantId", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
@@ -72,6 +81,17 @@ public class OrderController {
 	}
 	
 	/**
+	 * 获取group下所有订单
+	 * */
+	@RequestMapping(value = "/groupPagination", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Result<List<Order>> groupPagination(HttpServletRequest request) {
+		Map<String, String> queryMap = HttpUtils.getParameterMap(request);
+		PageInfo<Order> pageInfo = orderService.getOrderById(queryMap);
+		return Result.successPaginationData(pageInfo.getList(), pageInfo.getTotal());
+	}
+	
+	/**
 	 * 通过id查找订单
 	 * */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
@@ -80,10 +100,27 @@ public class OrderController {
 		Order order = orderService.getById(id);
 		return Result.successData(order);
 	}
+	
+	/**
+	 * 通过id查找拼团订单
+	 * */
+	@RequestMapping(value = "/groupInfoById", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Result<SpellingGroupOrder> groupInfoById(Integer id) {
+		SpellingGroupOrder groupInfoById = orderService.groupInfoById(id);
+		return Result.successData(groupInfoById);
+	}
+	
 	/**查看订单详情*/
 	@RequestMapping(value = "/info", method = RequestMethod.GET, produces = "text/html;charset=utf-8")
 	public String info() {
 		return "order/info";
+	}
+	
+	/**查看订单详情*/
+	@RequestMapping(value = "/groupInfo", method = RequestMethod.GET, produces = "text/html;charset=utf-8")
+	public String groupInfo() {
+		return "order/groupInfo";
 	}
 	
 	/**查看超时订单*/
@@ -104,12 +141,21 @@ public class OrderController {
 	@SystemControllerLog(description="订单退款成功",orderType=Constant.OrderType.CLOSED)
 	@RequestMapping(value = "/refund", method = RequestMethod.PUT, produces = "application/json;charset=utf-8")
 	@ResponseBody 
-	public Result<String> delete(@Valid Order order) {
+	public Result<String> refund(@Valid Order order) {
 		orderService.updateById(order);
 		return Result.success("订单退款成功");
 	}
 	
-	
+	/**
+	 * 获取所有拼团订单
+	 */
+	@RequestMapping(value = "/groupOrder", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Result<List<SpellingGroupOrder>> groupOrder(HttpServletRequest request) {
+		Map<String, String> queryMap = HttpUtils.getParameterMap(request);
+		PageInfo<SpellingGroupOrder> pageInfo = orderService.groupOrderList(queryMap);
+		return Result.successPaginationData(pageInfo.getList(), pageInfo.getTotal());
+	}
 	
 	/**
 	 * 确认发货
@@ -131,5 +177,15 @@ public class OrderController {
 		Map<String, String> queryMap = HttpUtils.getParameterMap(request);
 		List<OrderItem> itemsByOrderNo = orderService.getItemsByOrderNo(queryMap);
 		return Result.successData(itemsByOrderNo);
+	}
+	
+	/**
+	 *取消拼团订单 
+	 */
+	@RequestMapping(value = "/deleteGroupOrder", method = RequestMethod.PUT, produces = "application/json;charset=utf-8")
+	@ResponseBody 
+	public Result<String> delete(Long id) {
+		orderService.deleteGroupOrder(id);
+		return Result.success("拼团订单取消成功");
 	}
 }

@@ -38,6 +38,8 @@ margin-top:3%;
 			<ul class="layui-tab-title main-tab-title">
 				<li class="layui-this"><a
 					href="<%=basePath%>/order?title=orderAll">订单列表</a></li>
+				<li class=""><a
+					href="<%=basePath%>/order/groupOrderAll?title=groupOrderAll">拼团订单列表</a></li>
 				<div class="main-tab-item layui-bg-blue">订单管理</div>
 			</ul>
 			<div class="layui-tab-content">

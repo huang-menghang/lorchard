@@ -6,6 +6,7 @@ import java.util.Map;
 import com.github.pagehelper.PageInfo;
 import com.ysdevelop.lorchard.merchant.entity.Order;
 import com.ysdevelop.lorchard.merchant.entity.OrderItem;
+import com.ysdevelop.lorchard.merchant.entity.SpellingGroupOrder;
 
 
 /**
@@ -30,7 +31,17 @@ public interface OrderService {
 	 * @return PageInfo<Order> 分页的Order
 	 */
 	PageInfo<Order> list(Map<String, String> queryMap);
-
+	
+	/**
+	 * 
+	 * 分页查询所有订单还有对应每个商品
+	 * 
+	 * @param queryMap 分页
+	 * 
+	 * @return PageInfo<SpellingGroupOrder> 拼团订单分页
+	 */
+	PageInfo<SpellingGroupOrder> groupOrderList(Map<String, String> queryMap);
+	
 	/**
 	 * 通过id获取订单的详细信息
 	 * 
@@ -39,6 +50,25 @@ public interface OrderService {
 	 * @return Order 订单
 	 */
 	Order getById(Integer id);
+	
+	/**
+	 * 通过id获取拼团订单的详细信息
+	 * 
+	 * @param id 拼团订单的id
+	 * 
+	 * @return SpellingGroupOrder 拼团订单
+	 */
+	SpellingGroupOrder groupInfoById(Integer id);
+	
+	
+	/**
+	 * 通过id获取订单的详细信息
+	 * 
+	 * @param id 订单的id
+	 * 
+	 * @return Order 订单
+	 */
+	PageInfo<Order> getOrderById(Map<String, String> queryMap);
 	
 	/**
 	 * 通过id删除订单
@@ -75,4 +105,6 @@ public interface OrderService {
 	 * @param order 对象的order
 	 * */
 	void completeById(Order order);
+	
+	void deleteGroupOrder(Long id);
 }

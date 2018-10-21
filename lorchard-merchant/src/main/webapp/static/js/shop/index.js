@@ -7,10 +7,11 @@ var shop_index_ops = {
 	// 初始化组件
 	inintComponent : function() {
 //		//营业打烊管理
-//		layui.use([ 'table', 'layer', 'laydate', 'laypage' ],function() {
+		layui.use([ 'table', 'layer', 'laydate', 'laypage' ],function() {
 //			laydate = layui.laydate;// 日期插件
 //			laypage = layui.laypage;// 分页
 //			layer = layui.layer;// 弹出层
+	        layer.msg('欢迎您使用小果园后台系统！');
 //			 // 日期组件
 //			 var start = {
 //						elem : ".layui-form-item input[name='startTime']",
@@ -47,7 +48,7 @@ var shop_index_ops = {
 //			laydate.render(start);
 //			laydate.render(end);	
 			
-//		});
+		});
 		 var businessStauts;
 			$.ajax({
 	  			url:WEB_ROOT+'/merchant/businessStauts',

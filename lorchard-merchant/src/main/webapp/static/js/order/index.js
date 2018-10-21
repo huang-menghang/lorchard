@@ -37,6 +37,8 @@ var order_index_ops = {
         case 'orderCompleted':
         	orderStatus=5;
 			break;
+        default:
+			break;
 		}
 		$.ajax({
   			url:WEB_ROOT+'/order/orderMerchantId',

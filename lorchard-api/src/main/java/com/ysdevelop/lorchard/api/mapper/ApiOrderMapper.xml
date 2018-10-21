@@ -23,12 +23,12 @@
 	    (`orderNo`,`orderMerchantId`,`orderMemberId`,`orderStatus`,
 	    `orderTotalPrice`,`address`,`orderMemberName`,`province`,`city`,
 	    `diatrict`,`freightPrice`,`mobile`,`orderPendingBalance`,`sendMethod`,
-	    `remark`,`createTime`)
+	    `remark`,`createTime`,`spellingGroupOrderId`)
 	    values
 	     (#{orderNo},#{orderMerchantId},#{orderMemberId},#{orderStatus},
 	     #{orderTotalPrice},#{address},#{orderMemberName},#{province},#{city},
 	     #{diatrict},#{freightPrice},#{mobile},#{orderPendingBalance},#{sendMethod},
-	     #{remark},now())
+	     #{remark},now(),0)
 	</insert>
 	
 	<update id="updateOrderByNo" parameterType="com.ysdevelop.lorchard.api.entity.OrderVo">

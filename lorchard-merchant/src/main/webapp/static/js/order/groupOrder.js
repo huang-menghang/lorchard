@@ -1,39 +1,38 @@
-var category_index_ops = {
+var groupOrder_index_ops = {
 	init:function(){
 		this.inintComponent();
 	},
 	inintComponent:function(){
-		var merchantId;
+		var orderMerchantId;
 		$.ajax({
-  			url:WEB_ROOT+'/activity/merchantId',
+  			url:WEB_ROOT+'/order/orderMerchantId',
   			type:'GET',
   			dataType:'json'
   		}).done(function(res){
   			console.log("res.data"+res.data)
-  			merchantId=res.data;
-  			
+  			orderMerchantId=res.data;
 		layui.use([ 'table', 'layer', 'laydate', 'laypage' ],function() {
 			laydate = layui.laydate;// 日期插件
 			laypage = layui.laypage;// 分页
 			layer = layui.layer;// 弹出层
 			table = layui.table;
+			console.log("orderMerchantId"+orderMerchantId);
 			
 			var tableIns = table.render({
 				 // 设置table组件控制的元素
-				 elem: '#activityTable',
-				 size:'lg',
+				 elem: '#orderTable',
 				 cols: [[                  //标题栏
-					    {field: 'id', title: 'ID',align: 'center', width:"8%"},
-					    {field: 'activityName', title: '名称', align: 'center',width:"11%"},
-					    {field: 'activityType', title: '类型',templet: '#activityType',align: 'center', width:"11%"},
-						{field: 'startTime',title: '开始时间',templet: '#date_formate',align: 'center',width:"18%"},
-						{field: 'endTime',title: '结束时间',templet: '#date_formate',align: 'center',width:"18%"},
-					    {field: 'createTime',title: '创建时间',templet: '#date_formate',align: 'center',width:"18%"},
-						{fixed: 'right', title: '操作', width:"17%",height:40, align: 'center', templet: '#barOption'}, 
-					    ]],
-				  url: WEB_ROOT + "/activity/pagination",
+					 	{field: 'id',title: '订单id',align: 'center',width:'8%'},
+					 	{field: 'inviteId', title: '创建者id',align: 'center',width:'10%'},
+					    {field: 'memberId', title: '会员id',align: 'center', width:'12%'},
+					    {field: 'goodsName', title: '商品名称',align: 'center', width:'14%'},
+					    {field: 'createTime',title: '拼团创建时间',templet: '#date_formate',align: 'center',width:'18%'},
+					    {field: 'updateTime',title: '会员加入时间',templet: '#date_formate',align: 'center',width:'18%'},
+					    {fixed: 'right', title: '操作', width: '20%',height: 40, align: 'center', templet: '#barOption'} 
+					   ]],
+				  url: WEB_ROOT + "/order/groupOrder",
 				  method: 'get',
-				  where:{merchantId:merchantId},
+				  where:{orderMerchantId:orderMerchantId},
 				  page: true,
 				  limit: 10,
 				  limits :[10],
@@ -44,78 +43,67 @@ var category_index_ops = {
 			           console.log(curr);
 			           //得到数据总量
 			           console.log(count);
+			           $("[data-field='memberId']").children().each(function(){  
+			               if($(this).text()==''){  
+			                  $(this).text("会员未加入")  
+			               }
+			           }); 
 				  }
 			 
 			 });
+		
 			
-			table.on('tool(table-activity)', function(obj) {
+			table.on('tool(table-order)', function(obj) {
 				var data = obj.data;
 				var id = data.id;
 				var event = obj.event;
 				switch (event) {
-				case 'info':
-					//一级分类查看事件
-					window.location.href = WEB_ROOT+'/activity/info?id='+id+'&ops=info&title=activityIndex';
-					break;	
+                case 'info':
+                	window.location.href = WEB_ROOT+'/order/groupInfo?id='+id+'&ops=info&title=groupOrderAll';
+					break;
                 case 'delete':
                 	var callback = {
-                	   ok:function(){
-                			
-       					$.ajax({
-       						type:'POST',
-       						url:WEB_ROOT+'/activity/'+id,
-       						data:{
-       							_method:'delete'
-       						}
-       					}).done(function(res){
-       						var msg = res.msg;
-       						var callback = null;
-       						if(res.code == 0){
-       							callback = window.location.href = WEB_ROOT+'/activity';
-       						}
-       						common_ops.alert(msg,callback);
-       						
-       					});
-                	   },
-                	   cancel:function(){
-                		  
-                	   }
-                    
-                
-                    };
-                	
-                	common_ops.confirm("是否确认删除", callback)
-                
-                	
-                	
-    			break;
-
+                 	   ok:function(){
+                 			
+        					$.ajax({
+        						type:'PUT',
+        						url:WEB_ROOT+'/order/deleteGroupOrder',
+        						data:{
+        							id:id
+        						}
+        					}).done(function(res){
+        						var msg = res.msg;
+        						var callback = null;
+        						if(res.code == 0){
+        							callback = window.location.href = WEB_ROOT+'/order/groupOrderAll?title=groupOrderAll';
+        						}
+        						common_ops.alert(msg,callback);
+        						
+        					});
+                 	   },
+                     };
+                 	common_ops.confirm("是否确认取消拼团", callback);
+                	break;
 				default:
 					break;
 				}
-				
-				
-				
-				
 			});
-			
-			
-			
+			//跳转到用户超时订单
+			$(".btn-timeOut").click(function(){
+            	window.location.href = WEB_ROOT+'/order/timeOut?orderMerchantId='+orderMerchantId+'&title=orderUnReceived';
+			})
 			// 搜索按钮
-			$(".btn-serach").click(function(){
-				 
+			$(".btn-search").click(function(){
 				 var startTime = $("input[ name='startTime']").val();
 			     var endTime = $("input[ name='endTime']").val();
-				 
-			     var activityName = $("input[ name='activityName']").val();
-			     var activityType = $("select[ name='activityType']").val();
-			     
+			     var inviteId = $("input[ name='inviteId']").val();
+			     console.log(orderMerchantId);
 			     tableIns.reload({
 						where: { //设定异步数据接口的额外参数，任意设
-							activityType: activityType,
-							activityName: activityName,
-							startTime : startTime,
-							endTime : endTime
+							startTime:startTime,
+							endTime:endTime,
+							inviteId:inviteId,
+							orderMerchantId:orderMerchantId
 						}
 						,page: {
 						  curr: 1 //重新从第 1 页开始
@@ -124,14 +112,12 @@ var category_index_ops = {
 			     
 			 });
 			
-
 			
 			// 重置表单按钮.使用时class为layui-btn layui-btn-warm btn-reset到的重置按钮
 			 $(".btn-reset").click(function() {
 					$('input').val('');
 					$(".layui-form select option[value='']").attr("selected", true);
 			  });
-			
 			 // 日期组件
 			 var start = {
 						elem : ".layui-form-item input[name='startTime']",
@@ -172,8 +158,12 @@ var category_index_ops = {
 		});
 	},
 	
+	
 }
 $(function(){
-	category_index_ops.init();
+	groupOrder_index_ops.init();
 })
+
+
+
 

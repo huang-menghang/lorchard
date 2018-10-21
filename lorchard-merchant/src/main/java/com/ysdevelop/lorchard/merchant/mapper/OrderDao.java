@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import com.ysdevelop.lorchard.merchant.entity.Goods;
 import com.ysdevelop.lorchard.merchant.entity.Order;
 import com.ysdevelop.lorchard.merchant.entity.OrderItem;
+import com.ysdevelop.lorchard.merchant.entity.SpellingGroupOrder;
 
 /**
  * @author zesen
@@ -33,6 +34,16 @@ public interface OrderDao {
 	
 	/**
 	 * 
+	 * 获取所有拼团订单
+	 * 
+	 * @param queryMap
+	 * 
+	 * @return List<Order>返订单列表
+	 */
+	List<SpellingGroupOrder> groupOrderList(@Param(value = "queryMap")Map<String, String> queryMap);
+	
+	/**
+	 * 
 	 * 通过订单id获取订单详细信息
 	 * 
 	 * @param id 订单id
@@ -40,6 +51,18 @@ public interface OrderDao {
 	 * @return Order 订单
 	 */
 	Order getById(Integer id);
+	
+	/**
+	 * 
+	 * 通过拼团订单id获取详细信息
+	 * 
+	 * @param id 拼团订单id
+	 * 
+	 * @return SpellingGroupOrder 拼团订单
+	 */
+	SpellingGroupOrder groupInfoById(Integer id);
+	
+	List<Order> orderById(Map<String, String> queryMap);
 	
 	/**
 	 * 
@@ -124,4 +147,6 @@ public interface OrderDao {
 	 * @return Integer 判断是否修改成功,0代表失败
 	 * */
 	Integer updateStockAndSales(@Param("OrderItem")List<OrderItem> orderItemById);
+
+	Integer deleteGroupOrder(Long id);
 }
