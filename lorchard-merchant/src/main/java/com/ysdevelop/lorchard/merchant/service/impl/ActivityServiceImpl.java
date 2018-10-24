@@ -50,6 +50,11 @@ public class ActivityServiceImpl implements ActivityService {
 		}
 		Long merchantId = TokenManager.getUserId();
 		spellingGroup.setMerchantId(merchantId);
+		SpellingGroup groupIsExist = activityDao.groupIsExist(spellingGroup);
+		if(groupIsExist.getId()!=null&&!groupIsExist.getId().toString().isEmpty()) {
+			throw new WebServiceException(CodeMsg.ACTIVITY_IS_EXIST);
+		}
+		
 		Integer add = activityDao.add(spellingGroup);
 		goodsId = spellingGroup.getGoodsId();
 		Long id = spellingGroup.getId();
@@ -125,9 +130,31 @@ public class ActivityServiceImpl implements ActivityService {
 			throw new WebServiceException(CodeMsg.SERVER_ERROR);
 		}
 		SpellingGroup spellingGroup = activityDao.getById(id);
-		List<Goods> goodsById = activityDao.getGoodsById(id);
-		spellingGroup.setGoods(goodsById);
 		return spellingGroup;
 	}
+
+	@Override
+	public PageInfo<Goods> getGoodsById(Map<String, String> queryMap) {
+		if (queryMap == null) {
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
+		// 获取分页条件的
+		String pageSize = queryMap.get("limit");
+		String pageNum = queryMap.get("page");
+		if (pageSize == null || pageNum == null) {
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
+		Integer integerPageSize = Integer.parseInt(pageSize);
+		Integer integerPageNum = Integer.parseInt(pageNum);
+		// 调用存储过程实现树形分类
+		
+		PageHelper.startPage(integerPageNum, integerPageSize, Boolean.TRUE);
+		List<Goods> goods= activityDao.getGoodsById(queryMap);
+		
+		PageInfo<Goods> pageInfo = new PageInfo<>(goods);
+		return pageInfo;
+	}
+
+	
 	
 }

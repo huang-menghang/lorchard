@@ -224,14 +224,18 @@ margin-right: 2%;
 								</div>
 							</div>
 
-
+							<div class="layui-form-item">
 							<div class="layui-input-block"
-								style="margin-left: 15%; margin-bottom: 5%">
-								<button class="layui-btn" type="button" lay-submit="确认添加"
+								style="margin-left: 10%; margin-bottom: 5%">
+								<button class="layui-btn layui-btn-lg" type="button" lay-submit="确认添加"
 									lay-filter="goods_edit"></button>
 							</div>
-
-
+							<div class="layui-input-block" style="margin-left:25%;margin-top: -9.8%">
+									<input onclick="history.go(-1)" type="button" value="返回"
+										class="layui-btn layui-btn-lg">
+									
+							</div>
+							</div>
 						</div>
 					</div>
 				</div>

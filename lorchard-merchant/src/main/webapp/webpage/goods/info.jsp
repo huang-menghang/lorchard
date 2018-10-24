@@ -162,12 +162,11 @@ img {
 							</div>
 							
 							<div class="layui-form-item">
-								<div class="layui-input-block" style="margin-left: 8%">
-									<INPUT onclick="history.go(-1)" type="button" value="返回"
-										class="layui-btn layui-btn-lg"
-										style="margin-left: 6%; margin-top: 2%">
-									</button>
-								</div>
+								<div class="layui-input-block" style="margin-left:20%">
+									<input onclick="history.go(-1)" type="button" value="返回"
+										class="layui-btn layui-btn-lg">
+									
+							</div>
 							</div>
 						</div>
 					</div>

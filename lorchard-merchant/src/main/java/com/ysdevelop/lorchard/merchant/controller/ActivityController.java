@@ -17,6 +17,7 @@ import com.github.pagehelper.PageInfo;
 import com.ysdevelop.lorchard.common.result.Result;
 import com.ysdevelop.lorchard.common.utils.HttpUtils;
 import com.ysdevelop.lorchard.merchant.entity.Activity;
+import com.ysdevelop.lorchard.merchant.entity.Goods;
 import com.ysdevelop.lorchard.merchant.entity.SpellingGroup;
 import com.ysdevelop.lorchard.merchant.service.ActivityService;
 import com.ysdevelop.lorchard.shiro.token.TokenManager;
@@ -70,7 +71,6 @@ public class ActivityController {
 	@ResponseBody
 	public Result<String> add(@Valid SpellingGroup spellingGroup) {
 		activityService.add(spellingGroup);
-		System.out.println("添加活动");
 		return Result.success("拼团活动发布成功");
 	}
 	
@@ -105,12 +105,23 @@ public class ActivityController {
 		PageInfo<Activity> pageInfo = activityService.list(queryMap);
 		return Result.successPaginationData(pageInfo.getList(), pageInfo.getTotal());
 	}
+	/**
+	 * 获取活动商品的明细
+	 * */
+	@RequestMapping(value = "/goodsPagination", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Result<List<Goods>> goodsPagination(HttpServletRequest request) {
+		Map<String, String> queryMap = HttpUtils.getParameterMap(request);
+		PageInfo<Goods> pageInfo = activityService.getGoodsById(queryMap);
+		return Result.successPaginationData(pageInfo.getList(), pageInfo.getTotal());
+	}
+	
 	/**下架商品*/
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Result<String> delete(@PathVariable Integer id) {
 		activityService.deleteById(id);
-		return Result.success("产品下架成功");
+		return Result.success("活动取消成功");
 	}
 	
 	/**

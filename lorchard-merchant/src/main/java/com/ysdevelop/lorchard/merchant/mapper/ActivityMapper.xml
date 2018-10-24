@@ -41,11 +41,11 @@
 		from
 		`t_lorchard_mall_activity` as `a`
 		<where>
-		  1=1
-		  <if test="queryMap.activityName !=null and queryMap.activityName != ''">
+		  	1=1
+		  	<if test="queryMap.activityName !=null and queryMap.activityName != ''">
 				and a.`activityName` like CONCAT('%',#{queryMap.activityName},'%')
-		  </if>
-		  <if test="queryMap.startTime != null and queryMap.startTime != ''">
+		  	</if>
+		  	<if test="queryMap.startTime != null and queryMap.startTime != ''">
                 <![CDATA[ and `a`.startTime>=#{queryMap.startTime} ]]>
 			</if>
 			<if test="queryMap.endTime != null and queryMap.endTime != ''">
@@ -53,6 +53,9 @@
 		 	</if>
 		 	<if test="queryMap.activityName !=null and queryMap.activityName != ''">
 				and a.`activityName` =#{queryMap.activityName}
+			</if>
+			<if test="queryMap.id !=null and queryMap.id != ''">
+				and a.`id` =#{queryMap.id}
 			</if>
 			and a.`merchantId` =#{queryMap.merchantId}
 			and a.`activityStatus`=0
@@ -62,7 +65,7 @@
 	<!-- 结束活动-->
 	<update id="deleteById">
 		update `t_lorchard_mall_activity`
-		set `status`=1
+		set `activityStatus`=1
 		where
 		`id`=#{id}
 	</update>
@@ -82,12 +85,24 @@
 	<select id="getGoodsById" resultType="com.ysdevelop.lorchard.merchant.entity.Goods">
 		select
 		`a`.goodsId as `id`,
-		`g`.totalNumber as `totalNumber`,
-		`s`.spellingGroupPrice as `spellingGroupPrice`
+		`g`.name as `name`,
+		`c`.name as `parentCategoryName`,
+		`g`.description as `description`,
+		`g`.sales as `sales`
 		from
 		`t_lorchard_mall_activity_goods` as `a` 
 		left join `t_lorchard_mall_goods` as `g` on `g`.id=`a`.goodsId
-		left join `t_lorchard_mall_goods_specifications` as `s` on `s`.goodsId=`g`.id
-		where `a`.activityId=#{id}
+	  	left join `t_lorchard_mall_goods_category` as `c` on `c`.id = `g`.parentId
+		where `a`.activityId=#{queryMap.id}
+	</select>
+	
+	<select id="groupIsExist" resultType="com.ysdevelop.lorchard.merchant.entity.SpellingGroup">
+		select 
+		`a`.id as `id`
+		from 
+		`t_lorchard_mall_activity` as `a`
+		where `a`.merchantId=#{merchantId}
+		and `a`.activityStatus =0
+		and `a`.activityType =0
 	</select>
 </mapper>

@@ -106,16 +106,18 @@ var category_index_ops = {
 				 
 				 var startTime = $("input[ name='startTime']").val();
 			     var endTime = $("input[ name='endTime']").val();
-				 
+				 var id=$("input[ name='id']").val();
 			     var activityName = $("input[ name='activityName']").val();
 			     var activityType = $("select[ name='activityType']").val();
 			     
 			     tableIns.reload({
 						where: { //设定异步数据接口的额外参数，任意设
+							id:id,
 							activityType: activityType,
 							activityName: activityName,
 							startTime : startTime,
-							endTime : endTime
+							endTime : endTime,
+							merchantId:merchantId
 						}
 						,page: {
 						  curr: 1 //重新从第 1 页开始

@@ -96,5 +96,7 @@ public interface ActivityDao {
 	 * 
 	 * @return List<Goods> 商品集合
 	 * */
-	List<Goods> getGoodsById(Integer id);
+	List<Goods> getGoodsById(@Param(value = "queryMap")Map<String, String> queryMap);
+
+	SpellingGroup groupIsExist(SpellingGroup spellingGroup);
 }

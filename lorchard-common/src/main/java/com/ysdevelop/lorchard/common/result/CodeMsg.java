@@ -133,6 +133,9 @@ public class CodeMsg {
 	//活动
 	public static CodeMsg ACTIVITY_ADD_ERROR = new CodeMsg(500701, "活动添加失败");
 	public static CodeMsg ACTIVITY_GOODS_UPDATE_ERROR = new CodeMsg(500701, "活动商品修改失败");
+	public static CodeMsg ACTIVITY_IS_EXIST = new CodeMsg(500701, "拼团活动已存在,请勿重新添加");
+
+	
 	//上传的图片类型有误
 	public static CodeMsg TYPE_WRONG = new CodeMsg(500901, "上传的图片类型有误!");
 	//上传的图片找不到

@@ -18,13 +18,6 @@ var activity_set_ops = {
 		var that = this;
 		var ops = common_ops.g_getQueryString("ops");
 		console.log("ops--->" + ops);
-		var merchantId;
-		$.ajax({
-  			url:WEB_ROOT+'/goods/merchantId',
-  			type:'GET',
-  			dataType:'json'
-  		}).done(function(res){
-  			merchantId=res.data;
 		
 		layui.use([ 'table', 'layer', 'laydate', 'laypage' ],function() {
 			laydate = layui.laydate;// 日期插件
@@ -37,16 +30,14 @@ var activity_set_ops = {
 				 cols: [[                  //标题栏
 					 {type: 'checkbox', fixed: 'left'},
 					 {field: 'id',title: '商品id',align: 'center',width:'12%'},
-					 {field: 'name', title: '名称',align: 'center',width:'20%'},
-					 {field: 'parentCategoryName', title: '类别',align: 'center', width:'20%'},
-					 {field: 'description', title: '描述',align: 'center', width:'20%'},
+					 {field: 'name', title: '名称',align: 'center',width:'17%'},
+					 {field: 'parentCategoryName', title: '类别',align: 'center', width:'17%'},
 					 {field: 'sales',title: '销量',align: 'center',width:'12%',sort:true},
-					 {field: 'createTime',title: '创建时间',templet: '#date_formate',align: 'center',width:'15%'},
+					 {fixed: 'right', title: '操作', width:"34%",height:40, align: 'center', templet: '#barOption'}, 
 					 ]],
 					 id:"dataCheck",
 				  url: WEB_ROOT + "/goods/pagination",
 				  method: 'get',
-				  where:{merchantId:merchantId},
 				  page: true,
 				  limit: 10,
 				  limits :[10],
@@ -62,8 +53,32 @@ var activity_set_ops = {
 				  
 			 });
 			
-				$(".layui-input-block button[lay-filter='activity']").html("立即添加");
-				$(".layui-tab-title .ops-title").html("新建活动");			
+			
+			table.on('tool(table-activity)', function(obj) {
+				var data = obj.data;
+				var id = data.id;
+				var event = obj.event;
+				switch (event) {
+				case 'edit':
+					//一级分类编辑事件
+					window.location.href = WEB_ROOT+'/goods/set?id='+id+'&ops=edit&title=goodsIndex';
+					break;
+                case 'info':
+                	window.location.href = WEB_ROOT+'/goods/info?id='+id+'&ops=info&title=goodsIndex';
+					break;
+
+				default:
+					break;
+				}
+				
+				
+				
+				
+			});
+			
+			
+			$(".layui-input-block button[lay-filter='activity']").html("立即添加");
+			$(".layui-tab-title .ops-title").html("新建活动");			
 			$(".layui-input-block .layui-btn").click(function(event) {
 				$that = $(this);
 				// 在点击事件之间需要讲按钮置灰
@@ -173,7 +188,6 @@ var activity_set_ops = {
 			laydate.render(start);
 			laydate.render(end);
 		});
-  		});
 		
 		
 	}

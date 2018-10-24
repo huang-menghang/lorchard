@@ -70,6 +70,7 @@ public class GoodsController {
 	@ResponseBody
 	public Result<List<Goods>> pagination(HttpServletRequest request) {
 		Map<String, String> queryMap = HttpUtils.getParameterMap(request);
+		queryMap.put("merchantId", TokenManager.getUserId().toString());
 		PageInfo<Goods> pageInfo = goodsService.list(queryMap);
 		return Result.successPaginationData(pageInfo.getList(), pageInfo.getTotal());
 	}

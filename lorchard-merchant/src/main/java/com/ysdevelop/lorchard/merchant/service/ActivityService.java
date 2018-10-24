@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.github.pagehelper.PageInfo;
 import com.ysdevelop.lorchard.merchant.entity.Activity;
+import com.ysdevelop.lorchard.merchant.entity.Goods;
 import com.ysdevelop.lorchard.merchant.entity.SpellingGroup;
 
 /**
@@ -60,4 +61,6 @@ public interface ActivityService {
 	 * @return 拼团活动
 	 */
 	SpellingGroup getById(Integer id);
+	
+	PageInfo<Goods> getGoodsById(Map<String, String> queryMap);
 }

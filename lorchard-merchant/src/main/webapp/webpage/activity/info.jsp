@@ -143,6 +143,14 @@ margin-right: 2%;
 				         <div id="activityTable" lay-filter="table-activity"></div>
 													
 						 </div>
+						 
+						 <div class="layui-form-item">
+								<div class="layui-input-block" style="margin-left: 30%">
+									<input onclick="history.go(-1)" type="button" value="返回"
+										class="layui-btn layui-btn-lg"
+										style="margin-left: 6%; margin-top: 2%">
+								</div>
+							</div>
 						 </div>
 						 
 				</div>

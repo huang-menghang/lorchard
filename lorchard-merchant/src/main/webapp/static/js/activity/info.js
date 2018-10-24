@@ -16,21 +16,12 @@ var activity_info_ops = {
 	
 	inintComponent : function() {
 		var that = this;
-		var ops = common_ops.g_getQueryString("ops");
-		console.log("ops--->" + ops);
-		var merchantId;
-		$.ajax({
-  			url:WEB_ROOT+'/goods/merchantId',
-  			type:'GET',
-  			dataType:'json'
-  		}).done(function(res){
-  			merchantId=res.data;
-		
 		layui.use([ 'table', 'layer', 'laydate', 'laypage' ],function() {
 			laydate = layui.laydate;// 日期插件
 			laypage = layui.laypage;// 分页
 			layer = layui.layer;// 弹出层
 			table = layui.table;
+			var id = common_ops.g_getQueryString("id");
 			var tableIns = table.render({
 				 // 设置table组件控制的元素
 				 elem: '#activityTable',
@@ -40,12 +31,11 @@ var activity_info_ops = {
 					 {field: 'parentCategoryName', title: '类别',align: 'center', width:'20%'},
 					 {field: 'description', title: '描述',align: 'center', width:'20%'},
 					 {field: 'sales',title: '销量',align: 'center',width:'12%',sort:true},
-					 {field: 'createTime',title: '创建时间',templet: '#date_formate',align: 'center',width:'15%'},
 					 {fixed: 'right', title: '操作', width:"17%",height:40, align: 'center', templet: '#barOption'}, 
 					 ]],
-				  url: WEB_ROOT + "/goods/pagination",
+				  url: WEB_ROOT + "/activity/goodsPagination",
 				  method: 'get',
-				  where:{merchantId:merchantId},
+				  where:{id:id},
 				  page: true,
 				  limit: 10,
 				  limits :[10],
@@ -131,7 +121,6 @@ var activity_info_ops = {
 			laydate.render(start);
 			laydate.render(end);
 		});
-  		});
 		
 		
 	}

@@ -153,7 +153,7 @@
 		<li class="sidebar-second-item">
 			<!-- 二级菜单--> 
 			<a name="activityIndex" href="<%=basePath%>/activity?title=activityIndex" class=""> 活动管理 </a>
-			<a name="activityNew" href="<%=basePath%>/activity/activityNew?title=activityNew&ops=add" class=""> 发布新活动 </a>  
+			<a name="activityNew" href="<%=basePath%>/activity/activityNew?title=activityNew&ops=add" class=""> 发布拼团 </a>  
 		</li>
 	</ul>
 

@@ -90,7 +90,7 @@ margin-right: 2%;
 						<div class="layui-form" style="margin-top: 10px;">
 							<div class="layui-form-item">
 								<label class="layui-form-label"><span
-									class="x-red">*</span>活动名称：</label>
+									class="x-red">*</span>活动名称:</label>
 								<div class="layui-input-inline input-custom-width">
 									<input type="text" name="activityName" required="true" value="" diyRule="^[\u4E00-\u9FA5A-Za-z0-9_]+$" diyCheck="不能有特殊字符"
 										autocomplete="off" placeholder="请输入活动名称" class="layui-input"
@@ -99,7 +99,7 @@ margin-right: 2%;
 							</div>
 
 							<div class="layui-form-item">
-								<label class="layui-form-label"><span class="x-red">*</span>活动描述：</label>
+								<label class="layui-form-label"><span class="x-red">*</span>活动描述:</label>
 								<div class="layui-input-inline input-custom-width">
 									<textarea name="description" lay-verify="" required="true"
 										diyCheck="活动描述不能为空" autocomplete="off" placeholder="请输入活动描述"
@@ -109,7 +109,7 @@ margin-right: 2%;
 
 							<div class="layui-form-item">
 								<label class="layui-form-label"><span
-									class="x-red">*</span>活动类型：</label>
+									class="x-red">*</span>活动类型:</label>
 								<div class="layui-input-block"
 									style="width: 190px; text-align: center; margin-left: 14%">
 									<select name="activityType" lay-filter="reportType">
@@ -120,25 +120,15 @@ margin-right: 2%;
 							</div>
 
                              <div class="layui-form-item">
-								<label class="layui-form-label"><span
-									class="x-red">*</span>拼团人数：</label>
+								<label class="layui-form-label">拼团人数:</label>
 								<div class="layui-input-inline input-custom-width">
-									<input type="text" name="totalNumber" required="true" value="" diyRule="^[\u4E00-\u9FA5A-Za-z0-9_]+$" diyCheck="不能有特殊字符"
+									<input type="text" name="totalNumber" readonly="readonly" required="true" value="2" diyRule="^[\u4E00-\u9FA5A-Za-z0-9_]+$" diyCheck="不能有特殊字符"
 										autocomplete="off" placeholder="请输入拼团人数" class="layui-input"
 										lay-verType="alert">
 								</div>
 							</div>
-							<div class="layui-form-item">
-								<label class="layui-form-label"><span
-									class="x-red">*</span>拼团价格：</label>
-								<div class="layui-input-inline input-custom-width">
-									<input type="text" name="spellingGroupPrice" required="true" value="" diyRule="^[\u4E00-\u9FA5A-Za-z0-9_]+$" diyCheck="不能有特殊字符"
-										autocomplete="off" placeholder="请输入拼团价格" class="layui-input"
-										lay-verType="alert">
-								</div>
-							</div>
-							<div class="layui-form-item">
-							<label class="layui-form-label " style="width: 10%">活动时间</label>
+							<div class="layui-form-item" ">
+							<label class="layui-form-label " style="width: 10%;margin-left: 2%">活动时间:</label>
 							<div class="layui-input-inline " style="width: 15%">
 								<input type="text" readonly="readonly" class="layui-input"
 									value="" placeholder="活动开始日" name="startTime">
@@ -176,8 +166,9 @@ margin-right: 2%;
 	<jsp:include page="/context/js-tags.jsp" />
 	<script id="barOption" type="text/html">
     {{#
-    var barOption = "<a class='layui-btn layui-btn-small layui-btn-warm look_btn' title='查看' lay-event='info'><i class='layui-icon'>&#xe615;</i></a>";
-    return barOption;
+    var barOption = "<a class='layui-btn layui-btn-xs layui-btn-warm look_btn' title='查看' lay-event='info'><i class='layui-icon'>&#xe615;查看详情</i></a>";
+    barOption += "<a class='layui-btn layui-btn-xs' title='编辑' lay-event='edit'><i class='layui-icon'>&#xe60a;修改活动</i></a>";
+	return barOption;
 
     }} 
     </script>
