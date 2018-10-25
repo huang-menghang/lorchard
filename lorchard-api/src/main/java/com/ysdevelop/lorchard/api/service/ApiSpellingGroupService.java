@@ -26,4 +26,6 @@ public interface ApiSpellingGroupService {
 	void addSpellingGroupOrder(Long merchantId, Long memberId,String orderNo);
 
 	void increaseSpellingGroupOrder(Long inviteId,Long merchantId, Long memberId,String orderNo);
+    //获取拼团订单团员人数
+	Long getMemberCount(String orderNo);
 }

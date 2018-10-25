@@ -46,13 +46,17 @@ Page({
     })
   },
 
+  //
+
   //立即购买函数
-  tobuy: function() {
+  toBuy: function() {
     this.setData({
-      shopType: "tobuy"
+      shopType: "toBuy"
     });
     this.bindGuiGeTap();
   },
+
+
 
   //规格选择弹出框
   bindGuiGeTap: function() {

@@ -64,6 +64,19 @@
                       </view>
                     </scroll-view>
                   </view>
+                 
+                  <view class="group-member" 
+                  wx:if="{{item.orderItems[0].updateTime==null||item.orderItems[0].updateTime==''}}">
+                    <view class="total-member">拼团人数：1/2</view>
+                    <button class='memeber-share'  open-type='share' data-goodsid="{{item.orderItems[0].goodsId}}">邀请</button>
+                  </view>
+                  <view class="group-member" wx:else>
+                    <view class="total-member">拼团人数：2/2</view>
+                  </view>
+
+
+
+
                   <view class="price-box">
                     <view class="total-price">合计：¥ {{item.orderPendingBalance}}</view>
                     <view style='width:250rpx;display: flex; flex-direction:row; justify-content: space-between;'>

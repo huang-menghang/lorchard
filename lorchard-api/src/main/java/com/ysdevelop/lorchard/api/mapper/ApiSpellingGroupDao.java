@@ -29,4 +29,6 @@ public interface ApiSpellingGroupDao {
 	Integer updateSpellingGroupOrderId(SpellingGroupOrderVo spellingGroupOrderVo);
 
 	Integer updateSpellingGroupOrder(SpellingGroupOrderVo spellingGroupOrderVo);
+    //拼团订单团员数量
+	Long getMemberCount();
 }

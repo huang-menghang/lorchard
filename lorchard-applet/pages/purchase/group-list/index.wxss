@@ -210,7 +210,33 @@
   justify-content: space-between;
   font-size: 26rpx;
 }
+.order-list .a-order .group-member {
+  position: relative;
+  width: 720rpx;
+  height: 100rpx;
+  margin-left: 30rpx;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  padding: 20rpx 30rpx 20rpx 0;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 26rpx;
+}
+.order-list .a-order .group-member  .memeber-share {
+  width: 129rpx;
+  height: 60rpx;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 60rpx;
+  border-radius: 6rpx;
+  border: 1px solid green;
+  font-size: 24rpx;
+  color: green;
+  right: -202rpx;
+  background-color:white;
 
+}
 .order-list .a-order .price-box .total-price {
   font-size: 26rpx;
   color: #e64340;
@@ -237,3 +263,4 @@
   border: 1px solid #e64340;
   color: #e64340;
 }
+

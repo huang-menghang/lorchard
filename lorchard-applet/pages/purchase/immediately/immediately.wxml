@@ -65,11 +65,11 @@
   <!--底部导航栏-->
   <view class="footer-box">
     <view class='footer' wx:if="{{!inviteId || !iInList}}">
-      <view class="now-buy" bindtap="tobuy">立即开团</view>
+      <view class="now-buy" bindtap="toBuy">立即开团</view>
     </view>
     <!-- 已下单 -->
     <view class='footer' wx:if="{{inviteId && iInList}}">
-      <button class='right sharebtn' open-type="share" type="default">加入团队</button>
+      <view class="now-buy" bindtap="memeberBuy">加入团队</view>
     </view>
   </view>
   <!--加入购物车与立即购买的展示界面-->
@@ -118,8 +118,11 @@
         </view>
       </view>
       <!--按钮显示为立即购买-->
-      <view class="popup-join-btn" wx:if="{{shopType =='tobuy'}}" bindtap="buyNow">
+      <view class="popup-join-btn" wx:if="{{shopType =='toBuy'}}" bindtap="buyNow">
         立即开团
+      </view>
+        <view class="popup-join-btn" wx:if="{{shopType =='joinTeam'}}" bindtap="buyNow">
+      加入团队
       </view>
     </view>
   </view>

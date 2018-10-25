@@ -5,17 +5,36 @@
 	
 	<select id="list" resultType="com.ysdevelop.lorchard.api.entity.OrderVo">
 		select
-		  `id` as id,`orderNo` as orderNo,`orderMerchantId` as orderMerchantId,
-		  `orderMemberId` as orderMemberId,`orderMemberName` as orderMemberName,
-		  `sendMethod` as sendMethod,`province` as province,`city` as city,
-		  `diatrict` as diatrict,`address` as address,`mobile` as mobile,
-		  `expressNo` as expressNo,`remark` as remark,`freightPrice` as freightPrice,
-		  `orderTotalPrice` as orderTotalPrice,`orderDiscount` as orderDiscount,`orderPendingBalance` as orderPendingBalance,
-		  `orderPayPrice` as orderPayPrice,`orderStatus` as orderStatus,`createTime` as createTime
+		  o.`id` as id,o.`orderNo` as orderNo,o.`orderMerchantId` as orderMerchantId,
+		  o.`orderMemberId` as orderMemberId,o.`orderMemberName` as orderMemberName,
+		  o.`sendMethod` as sendMethod,o.`province` as province,o.`city` as city,
+		  o.`diatrict` as diatrict,o.`address` as address,o.`mobile` as mobile,
+		  o.`expressNo` as expressNo,o.`remark` as remark,o.`freightPrice` as freightPrice,
+		  o.`orderTotalPrice` as orderTotalPrice,o.`orderDiscount` as orderDiscount,o.`orderPendingBalance` as orderPendingBalance,
+		  o.`orderPayPrice` as orderPayPrice,o.`orderStatus` as orderStatus,o.`createTime` as createTime,
+		  o.`spellingGroupOrderId` as spellingGroupOrderId 
 		 from
-		   `t_lorchard_mall_goods_order`
-		 where 
-		  `orderMerchantId` = #{queryMap.merchantId} AND `orderMemberId` = #{queryMap.memberId}
+		 `t_lorchard_mall_goods_order` as `o` 
+		 where o.`orderMerchantId` = #{queryMap.merchantId} 
+		 AND o.`orderMemberId` = #{queryMap.memberId}
+	</select>
+	
+	<select id="groupList" resultType="com.ysdevelop.lorchard.api.entity.OrderVo">
+		select
+		  o.`id` as id,o.`orderNo` as orderNo,o.`orderMerchantId` as orderMerchantId,
+		  o.`orderMemberId` as orderMemberId,o.`orderMemberName` as orderMemberName,
+		  o.`sendMethod` as sendMethod,o.`province` as province,o.`city` as city,
+		  o.`diatrict` as diatrict,o.`address` as address,o.`mobile` as mobile,
+		  o.`expressNo` as expressNo,o.`remark` as remark,o.`freightPrice` as freightPrice,
+		  o.`orderTotalPrice` as orderTotalPrice,o.`orderDiscount` as orderDiscount,o.`orderPendingBalance` as orderPendingBalance,
+		  o.`orderPayPrice` as orderPayPrice,o.`orderStatus` as orderStatus,o.`createTime` as createTime,
+		  o.`spellingGroupOrderId` as spellingGroupOrderId ,o.`updateTime` as updateTime
+		 from
+		 `t_lorchard_mall_goods_order` as `o` 
+		 left join `t_lorchard_mall_spellingGroup_order` as `s` on s.`id`=o.`spellingGroupOrderId`
+			where o.`spellingGroupOrderId`!=0
+		 and o.`orderMerchantId` = #{queryMap.merchantId} 
+		 AND o.`orderMemberId` = #{queryMap.memberId}
 	</select>
 	
 	<insert id="add" parameterType="com.ysdevelop.lorchard.api.entity.OrderVo">

@@ -79,5 +79,14 @@ public class ApiSpellingGroupServiceImpl implements ApiSpellingGroupService {
 			throw new WebServiceException(CodeMsg.SPELLINGGROUPORDER_ERROR);
 		}
 	}
+    
+	@Override
+	public Long getMemberCount(String orderNo) {
+		Long memberCount=spellingGroupDao.getMemberCount();
+		if(memberCount==null) {
+			memberCount=(long) 1;
+		}memberCount=(long) 2;
+		return memberCount;
+	}
 
 }

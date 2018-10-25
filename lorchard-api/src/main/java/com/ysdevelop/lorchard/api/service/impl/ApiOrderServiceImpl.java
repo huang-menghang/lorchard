@@ -171,7 +171,14 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 		Integer integerPageNum = Integer.parseInt(pageNum);
 		// 调用存储过程实现树形分类
 		PageHelper.startPage(integerPageNum, integerPageSize, Boolean.TRUE);
-		List<OrderVo> orders = orderDao.list(queryMap);
+		List<OrderVo> orders;
+		if(queryMap.get("type").equals("1")) {
+			orders = orderDao.groupList(queryMap);
+		}else if(queryMap.get("type").equals("0")){
+			orders = orderDao.list(queryMap);
+		}else {
+			throw new WebServiceException(CodeMsg.SERVER_ERROR);
+		}
 		List<OrderItemVo> orderItems = orderItemDao.list(queryMap);
 		if(orderItems == null || orderItems.isEmpty()){
 			setOrders(orders, orderItems,null);
@@ -183,7 +190,7 @@ public class ApiOrderServiceImpl implements ApiOrderService, InitializingBean {
 		return pageInfo;
 	}
 
-	private void setOrders(List<OrderVo> orders, List<OrderItemVo> orderItems,List<PreviewImagesVo> listPreviewImage) {
+	public void setOrders(List<OrderVo> orders, List<OrderItemVo> orderItems,List<PreviewImagesVo> listPreviewImage) {
 		if(listPreviewImage != null){
 			for (OrderItemVo orderItem : orderItems) {
 				List<PreviewImagesVo> transitionPreviewImage=new ArrayList<>();

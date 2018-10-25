@@ -44,6 +44,7 @@ public class ApiSpellingGroupContorller {
 	 */
 	@RequestMapping(value = "/spellingGroup", method = RequestMethod.GET)
 	public Result<List<GoodsVo>> spellingGroup(Long merchantId) {
+		System.out.println("merchantId------>"+merchantId);
 		SpellingGroupVo spellingGroupVo = spellingGroupService.getByMerchantId(merchantId);
 		List<Long> goodsIds = spellingGroupService.goodsIdList(spellingGroupVo.getId());
 		List<GoodsVo> list = goodsService.spellingGroupList(goodsIds);
@@ -72,5 +73,17 @@ public class ApiSpellingGroupContorller {
 	public Result<String> groupUpdate(Long inviteId, Long merchantId, Long memberId,String orderNo) {
 		spellingGroupService.increaseSpellingGroupOrder(inviteId,merchantId, memberId, orderNo);
 		return Result.success("加入团购订单成功");
+	}
+	/**
+	 *获取团购订单人数
+	 * @param orderNo
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/getGroupMember")
+	public Result<Long> getGroupMember(String orderNo) {
+		System.out.println("orderNo----->"+orderNo);
+		Long count = spellingGroupService.getMemberCount(orderNo);
+		System.out.println("count------->"+count);
+		return Result.successData(count);
 	}
 }

@@ -38,4 +38,14 @@
 		set  `memberId`=#{memberId}
 		where `order`=#{orderNoLast}
 	</update>
+	<!--获取拼团订单的人数-->
+	<select id="getMemberCount" resultType="java.lang.Long">
+	select
+	s.`memberId`
+	from
+	`t_lorchard_mall_spellingGroup_order` as `s` left join
+	`t_lorchard_mall_goods_order` as `o` on s.`id` = o.`spellingGroupOrderId`
+	where
+	o.`orderNo`=#{orderNo}
+	</select>
 </mapper>

@@ -50,7 +50,8 @@ Page({
         merchantId: app.globalData.merchantId,
         memberId: app.globalData.memberId,
         limit: app.globalData.pageSize,
-        page: app.globalData.page
+        page: app.globalData.page,
+        type: 0
       },
       success: function(res) {
         console.log("订单列表:", res.data)

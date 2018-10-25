@@ -53,6 +53,13 @@ public interface ApiOrderDao {
 	List<OrderVo> list(@Param(value = "queryMap")Map<String, String> queryMap);
 	
 	/**
+	 * 获取拼团订单集合
+	 * @param queryMap
+	 * @return
+	 */
+	List<OrderVo> groupList(@Param(value = "queryMap")Map<String, String> queryMap);
+	
+	/**
 	 * 获取订单
 	 * @param orderNo
 	 * @return

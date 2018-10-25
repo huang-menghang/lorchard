@@ -31,6 +31,7 @@ Page({
       })
       this.tabsCount = tabs.length;
     } catch (e) { }
+  
   },
 
   onShow: function () {
@@ -38,7 +39,7 @@ Page({
     this.setData({
       loadingStatus: true
     })
-    this.getOrderList()
+    this.getOrderList();
   },
 
   getOrderList: function () {
@@ -50,7 +51,8 @@ Page({
         merchantId: app.globalData.merchantId,
         memberId: app.globalData.memberId,
         limit: app.globalData.pageSize,
-        page: app.globalData.page
+        page: app.globalData.page,
+        type:1
       },
       success: function (res) {
         console.log("订单列表:", res.data)
@@ -60,6 +62,7 @@ Page({
             var isnull = true;
             for (var j = 0; j < res.data.length; j++) {
               var order = res.data[j];
+              
               if (order.orderStatus == i) {
                 orderListByStatus.push(order)
                 isnull = false
@@ -86,6 +89,33 @@ Page({
     wx.navigateTo({
       url: "/pages/order-details/index?orderNo=" + orderNo
     })
+  },
+
+  //转发
+  onShareAppMessage: function (options ) {
+    if (options.from == 'button') {
+      var goodsId = options.target.dataset.goodsid;
+    console.log("goodsId------>" + goodsId);
+    }
+    return {
+      //转发标题
+      title: wx.getStorageSync('mallName') + '——' + app.globalData.shareProfile,
+      //转发路径
+      path: 'pages/purchase/immediately/immediately?id=' + goodsId,
+      imageUrl: '/images/activity.png',
+      success: function (res) {
+        // 转发成功
+
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
+  },
+  toIndexPage: function () {
+    wx.switchTab({
+      url: "/pages/classification/index"
+    });
   },
 
   cancelOrderTap: function (e) {
@@ -240,9 +270,6 @@ Page({
       stv: this.data.stv
     })
   },
-  toIndexPage: function () {
-    wx.switchTab({
-      url: "/pages/classification/index"
-    });
-  },
+
+ 
 })

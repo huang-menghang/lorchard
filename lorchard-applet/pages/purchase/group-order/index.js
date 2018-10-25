@@ -163,6 +163,7 @@ Page({
           return;
         } else if (res.code == 0){
             that.data.orderNo=res.data;
+          app.globalData.orderNo = res.data;
         }
         that.successCreate(res);
         that.groupOrder(that);
@@ -185,7 +186,7 @@ Page({
   groupOrder: function(that) {
     var inviteId = that.data.inviteId;
     var merchantId = app.globalData.merchantId;
-    var memberId = app.globalData.merchantId;
+    var memberId = app.globalData.memberId;
     var orderNo=that.data.orderNo;
     console.log("orderNo"+orderNo)
     console.log("inviteId" + inviteId)
