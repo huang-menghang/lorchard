@@ -19,13 +19,6 @@
 		</foreach>
 	</insert>
 	
-	<update id="update">
-		<foreach collection="list" item="goodsId" index="index" open="" close="" separator=";">
-  			update `t_lorchard_mall_goods` as `g`,`t_lorchard_mall_goods_specifications` as `s`
-			set `g`.totalNumber =#{totalNumber},`s`.spellingGroupPrice=#{spellingGroupPrice}
-			where `g`.id=#{goodsId} and `s`.goodsId=`g`.id
-      	</foreach> 
-	</update>
 	
 	<!--查看所有活动-->
 	<select id="list" resultType="com.ysdevelop.lorchard.merchant.entity.Activity">

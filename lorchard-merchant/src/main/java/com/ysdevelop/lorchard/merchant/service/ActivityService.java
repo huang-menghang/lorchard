@@ -28,14 +28,6 @@ public interface ActivityService {
 	 * */
 	void add(SpellingGroup spellingGroup);
 	
-	/**
-	 * 修改活动商品的拼团人数和拼团价格
-	 * 
-	 * @param totalNumber 拼团人数
-	 * 
-	 * @param spellingGroupPrice 拼团价格
-	 */
-	void update(Integer totalNumber,Double spellingGroupPrice);
 	
 	/**
 	 * 获取活动

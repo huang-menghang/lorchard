@@ -51,8 +51,11 @@ public class ActivityServiceImpl implements ActivityService {
 		Long merchantId = TokenManager.getUserId();
 		spellingGroup.setMerchantId(merchantId);
 		SpellingGroup groupIsExist = activityDao.groupIsExist(spellingGroup);
-		if(groupIsExist.getId()!=null&&!groupIsExist.getId().toString().isEmpty()) {
-			throw new WebServiceException(CodeMsg.ACTIVITY_IS_EXIST);
+		if(groupIsExist!=null){
+			
+			if(groupIsExist.getId()!=null&&!groupIsExist.getId().toString().isEmpty()) {
+				throw new WebServiceException(CodeMsg.ACTIVITY_IS_EXIST);
+			}
 		}
 		
 		Integer add = activityDao.add(spellingGroup);
@@ -65,21 +68,6 @@ public class ActivityServiceImpl implements ActivityService {
 		}
 	}
 	
-	/**
-	 * 修改活动商品的拼团人数和拼团价
-	 */
-	@Transactional(rollbackFor = Exception.class)
-	@Override
-	public void update(Integer totalNumber, Double spellingGroupPrice) {
-		if(totalNumber==null||spellingGroupPrice==null) {
-			throw new WebServiceException(CodeMsg.SERVER_ERROR);
-		}
-		
-		Integer update = activityDao.update(totalNumber, spellingGroupPrice,goodsId);
-		if(update==ApiConstant.DEFALULT_ZERO) {
-			throw new WebServiceException(CodeMsg.ACTIVITY_GOODS_UPDATE_ERROR);
-		}
-	}
 	
 	/**
 	 * 分页查询所有活动

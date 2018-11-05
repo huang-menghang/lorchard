@@ -89,7 +89,6 @@ var activity_set_ops = {
 					var description=$('.layui-form textarea[name="description"]').val();
 					var activityType=$('.layui-form select[name="activityType"]').val();
 					var totalNumber=$('.layui-form input[name="totalNumber"]').val();
-					var spellingGroupPrice=$('.layui-form input[name="spellingGroupPrice"]').val();
 					var startTime = $("input[ name='startTime']").val();
 					var endTime = $("input[ name='endTime']").val();
 					startTime=new Date(startTime);
@@ -127,21 +126,10 @@ var activity_set_ops = {
 								   };
 								   var msg = res.msg;
 								   if(res.code == 0){
-									   $.ajax({
-										   url:WEB_ROOT+'/activity/update',
-										   type:'PUT',
-										   data:{
-											   totalNumber:totalNumber,
-											   spellingGroupPrice:spellingGroupPrice,
-											   goodsId:goodsId
-										   },
-										   dataType:'json'
-							  			}).done(function(res){
-							  				if(res.code==0){
-							  					
-							  					window.location.href = WEB_ROOT+'/activity?title=activityIndex';
-							  				}
-							  			})
+									   
+							  			window.location.href = WEB_ROOT+'/activity?title=activityIndex';
+							  		
+							  			
 								   }else{
 									   common_ops.alert(msg, callback);
 								   }

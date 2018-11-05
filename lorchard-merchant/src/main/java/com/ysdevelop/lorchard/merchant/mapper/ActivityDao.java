@@ -45,19 +45,6 @@ public interface ActivityDao {
 	 * */
 	Integer addActivityGoods(@Param("activityGoods")List<Long> goodsId,@Param("spellingGroup")SpellingGroup spellingGroup);
 	
-	/**
-	 * 
-	 * 修改拼团活动商品人数和拼团价
-	 * 
-	 * @param totalNumber 拼团人数 
-	 * 
-	 * @param spellingGroupPrice 拼团价
-	 * 
-	 * @param goodsId 活动商品id 
-	 * 
-	 * @return Integer 返回一个值如果等于0,则添加活动商品失败
-	 * */
-	Integer update(@Param("totalNumber")Integer totalNumber, @Param("spellingGroupPrice")Double spellingGroupPrice,@Param("list")List<Long> goodsId);
 	
 	/**
 	 * 

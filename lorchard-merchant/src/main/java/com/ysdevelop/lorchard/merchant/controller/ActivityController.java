@@ -74,16 +74,6 @@ public class ActivityController {
 		return Result.success("拼团活动发布成功");
 	}
 	
-	/**
-	 *修改活动商品的拼团总人数和拼团价格
-	 */
-	@RequestMapping(value = "/update", method = RequestMethod.PUT, produces = "application/json;charset=utf-8")
-	@ResponseBody
-	public Result<String> update(Integer totalNumber,Double spellingGroupPrice) {
-		System.out.println("update");
-		activityService.update(totalNumber, spellingGroupPrice);
-		return Result.success("拼团活动发布成功");
-	}
 	
 	
 	/**
